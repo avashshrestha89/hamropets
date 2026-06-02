@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
     // 2. Email notification to admin
     await resend.emails.send({
-      from: 'HamroPets <notifications@hamropets.com>',
+      from: 'HamroPets <onboarding@resend.dev>',
       to: process.env.ADMIN_EMAIL,
       subject: `🐾 New Pet Listing: ${petName} (${species}) — Needs Review`,
       html: `
