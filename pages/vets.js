@@ -127,7 +127,7 @@ export default function Vets() {
               <div style={{ fontWeight: 900, fontSize: 20, color: '#1A3320' }}>Own a pet business?</div>
               <div style={{ color: '#6B7C99', fontSize: 14, marginTop: 4 }}>List free · Upgrade to Featured for NPR 4,000/month</div>
             </div>
-            <button style={{ background: '#FF6B35', color: '#fff', padding: '12px 28px', borderRadius: 999, border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(255,107,53,0.3)' }}>+ List Your Business</button>
+           <Link href="/list-business" style={{ background: '#FF6B35', color: '#fff', padding: '12px 28px', borderRadius: 999, border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(255,107,53,0.3)', textDecoration: 'none', display: 'inline-block' }}>+ List Your Business</Link>
           </div>
 
         </div>
