@@ -44,8 +44,8 @@ export default async function handler(req, res) {
         submitter_phone: phone,
         submitter_email: email || null,
         status: 'pending',
-        images: [],
-        video_url: null,
+        images: req.body.images || [],
+video_url: req.body.videoUrl || null,
       }])
       .select()
 
