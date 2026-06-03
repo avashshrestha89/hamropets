@@ -22,36 +22,31 @@ export default function SubmitPet() {
   const handleImageSelect = (e) => {
     const files = Array.from(e.target.files).slice(0, 5)
     setImageFiles(files)
-    const previews = files.map(f => URL.createObjectURL(f))
-    setImagePreviews(previews)
+    setImagePreviews(files.map(f => URL.createObjectURL(f)))
   }
 
   const handleVideoSelect = (e) => {
     const file = e.target.files[0]
-    if (file && file.size > 20 * 1024 * 1024) {
-      alert('Video must be under 20MB')
+    if (file && file.size > 50 * 1024 * 1024) {
+      alert('Video must be under 50MB')
       return
     }
     setVideoFile(file || null)
   }
 
-  const fileToBase64 = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
+  const uploadToCloudinary = async (file, resourceType = 'image') => {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+    formData.append('folder', 'hamropets/pets')
 
-  const uploadFile = async (file, folder, resourceType = 'image') => {
-    const base64 = await fileToBase64(file)
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ file: base64, folder, resourceType }),
-    })
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+      { method: 'POST', body: formData }
+    )
     const data = await res.json()
-    if (!res.ok) throw new Error(data.error || 'Upload failed')
-    return data.url
+    if (!res.ok) throw new Error(data.error?.message || 'Upload failed')
+    return data.secure_url
   }
 
   const handleSubmit = async () => {
@@ -63,30 +58,23 @@ export default function SubmitPet() {
     setUploading(true)
 
     try {
-      // Upload images
       const imageUrls = []
       for (const file of imageFiles) {
-        const url = await uploadFile(file, 'hamropets/pets', 'image')
+        const url = await uploadToCloudinary(file, 'image')
         imageUrls.push(url)
       }
 
-      // Upload video
       let videoUrl = null
       if (videoFile) {
-        videoUrl = await uploadFile(videoFile, 'hamropets/pets', 'video')
+        videoUrl = await uploadToCloudinary(videoFile, 'video')
       }
 
       setUploading(false)
 
-      // Submit to Supabase
       const res = await fetch('/api/submit-pet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          images: imageUrls,
-          videoUrl,
-        }),
+        body: JSON.stringify({ ...form, images: imageUrls, videoUrl }),
       })
 
       if (res.ok) setSubmitted(true)
@@ -94,7 +82,7 @@ export default function SubmitPet() {
 
     } catch (err) {
       console.error(err)
-      alert('Upload failed. Please check your files and try again.')
+      alert('Upload failed: ' + err.message)
     }
 
     setSubmitting(false)
@@ -155,15 +143,13 @@ export default function SubmitPet() {
 
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 28px 80px' }}>
 
-          {/* HEADER */}
           <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>🐾 Free Forever</span>
           <h1 style={{ fontSize: 38, fontWeight: 900, color: '#000', margin: '0 0 8px', letterSpacing: -1 }}>List a Pet for Adoption</h1>
           <p style={{ color: '#666', fontSize: 15, fontWeight: 500 }}>Reviewed within 24 hours · Nothing goes live without your approval</p>
 
-          {/* STEP INDICATOR */}
           <div style={{ display: 'flex', gap: 0, marginBottom: 36, border: '2px solid #000', borderRadius: 14, overflow: 'hidden', boxShadow: '3px 3px 0px #000', marginTop: 24 }}>
             {['1. Pet Info', '2. Photos & Video', '3. Your Contact'].map((s, i) => (
-              <div key={s} onClick={() => i + 1 < step && setStep(i + 1)} style={{ flex: 1, padding: '13px 8px', textAlign: 'center', background: step === i + 1 ? '#58CC02' : step > i + 1 ? '#E8F9ED' : '#fff', color: step === i + 1 ? '#fff' : step > i + 1 ? '#58CC02' : '#888', fontSize: 13, fontWeight: 800, cursor: i + 1 < step ? 'pointer' : 'default', borderRight: i < 2 ? '2px solid #000' : 'none', transition: 'all 0.2s' }}>
+              <div key={s} onClick={() => i + 1 < step && setStep(i + 1)} style={{ flex: 1, padding: '13px 8px', textAlign: 'center', background: step === i + 1 ? '#58CC02' : step > i + 1 ? '#E8F9ED' : '#fff', color: step === i + 1 ? '#fff' : step > i + 1 ? '#58CC02' : '#888', fontSize: 13, fontWeight: 800, cursor: i + 1 < step ? 'pointer' : 'default', borderRight: i < 2 ? '2px solid #000' : 'none' }}>
                 {step > i + 1 ? '✓ ' : ''}{s}
               </div>
             ))}
@@ -223,7 +209,7 @@ export default function SubmitPet() {
                 </div>
                 <div>
                   <label style={labelStyle}>Description</label>
-                  <textarea rows={5} value={form.description} onChange={e => update('description', e.target.value)} placeholder="Tell us about this pet — personality, story, why they need a new home, any special needs..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                  <textarea rows={5} value={form.description} onChange={e => update('description', e.target.value)} placeholder="Tell us about this pet — personality, story, why they need a new home..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
                 </div>
                 <button onClick={() => { if (!form.petName || !form.description) { alert('Please fill in Pet Name and Description.'); return } setStep(2) }} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
                   Next: Add Photos & Video →
@@ -242,7 +228,7 @@ export default function SubmitPet() {
                     <input type="file" accept="image/jpeg,image/png,image/webp" multiple style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleImageSelect} />
                     <div style={{ fontSize: 44, marginBottom: 10 }}>📸</div>
                     <div style={{ fontSize: 15, fontWeight: 900, color: '#58CC02' }}>Click to upload photos</div>
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>JPG, PNG, WEBP · Up to 5 photos · Max 10MB each</div>
+                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>JPG, PNG, WEBP · Up to 5 photos · No size limit</div>
                   </div>
                   {imagePreviews.length > 0 && (
                     <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
@@ -258,7 +244,7 @@ export default function SubmitPet() {
                     <input type="file" accept="video/mp4" style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleVideoSelect} />
                     <div style={{ fontSize: 44, marginBottom: 10 }}>🎥</div>
                     <div style={{ fontSize: 15, fontWeight: 900, color: '#7B5EA7' }}>Click to upload a video</div>
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>MP4 only · Max 20MB</div>
+                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>MP4 only · Max 50MB</div>
                     {videoFile && <div style={{ marginTop: 10, fontSize: 13, fontWeight: 800, color: '#7B5EA7' }}>✓ {videoFile.name}</div>}
                   </div>
                 </div>
@@ -297,7 +283,7 @@ export default function SubmitPet() {
                 </div>
                 {uploading && (
                   <div style={{ background: '#E8F9ED', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #58CC02', fontSize: 14, color: '#166534', fontWeight: 700, textAlign: 'center' }}>
-                    ⬆️ Uploading your photos and video... please wait
+                    ⬆️ Uploading your photos and video directly to Cloudinary... please wait
                   </div>
                 )}
                 <div style={{ display: 'flex', gap: 12 }}>
@@ -312,7 +298,6 @@ export default function SubmitPet() {
 
         </div>
 
-        {/* FOOTER */}
         <footer style={{ background: '#fff', borderTop: '3px solid #000', padding: '28px' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ color: '#888', fontSize: 13, fontWeight: 600 }}>© 2025 HamroPets · Nepal's First Pet Platform</span>
