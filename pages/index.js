@@ -65,11 +65,11 @@ export default function Home({ featuredPets }) {
         </nav>
 
         {/* ── HERO ── */}
-        <div style={{ background: '#FFD23F', padding: '72px 28px 80px', borderBottom: '3px solid #000', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.07) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px' }} />
+        <div style={{ background: '#FFFFFF', padding: '72px 28px 80px', borderBottom: '3px solid #000', position: 'relative', overflow: 'hidden' }}>
+        
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 48, alignItems: 'center', position: 'relative' }}>
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#fff', border: '2.5px solid #000', borderRadius: 999, padding: '7px 18px', marginBottom: 24, boxShadow: '3px 3px 0px #000' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#FFD23F', border: '2.5px solid #000', borderRadius: 999, padding: '7px 18px', marginBottom: 24, boxShadow: '3px 3px 0px #000' }}>
                 <span>🇳🇵</span>
                 <span style={{ fontSize: 13, fontWeight: 800, color: '#000' }}>Nepal's First Dedicated Pet Platform</span>
               </div>
