@@ -67,7 +67,7 @@ export default function Home({ featuredPets }) {
         {/* ── HERO ── */}
         <div style={{ background: '#FFD23F', padding: '72px 28px 80px', borderBottom: '3px solid #000', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.07) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px' }} />
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center', position: 'relative' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 48, alignItems: 'center', position: 'relative' }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#fff', border: '2.5px solid #000', borderRadius: 999, padding: '7px 18px', marginBottom: 24, boxShadow: '3px 3px 0px #000' }}>
                 <span>🇳🇵</span>
@@ -93,14 +93,14 @@ export default function Home({ featuredPets }) {
               </div>
             </div>
 
-            {/* HERO BANNER IMAGE */}
-            <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', border: '3px solid #000', boxShadow: '6px 6px 0px #000' }}>
-              <img
-                src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780558319/Dogs_running_hero_banner_202606041313_rde8h3.jpg"
-                alt="HamroPets — Presented by Adopt a Dog Nepal"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </div>
+         {/* HERO BANNER IMAGE */}
+<div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden' }}>
+  <img
+    src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780558319/Dogs_running_hero_banner_202606041313_rde8h3.jpg"
+    alt="HamroPets — Presented by Adopt a Dog Nepal"
+    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }}
+  />
+</div>
           </div>
         </div>
 
