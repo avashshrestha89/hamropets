@@ -16,9 +16,7 @@ export async function getServerSideProps() {
     .limit(4)
 
   return {
-    props: {
-      featuredPets: featuredPets || [],
-    }
+    props: { featuredPets: featuredPets || [] }
   }
 }
 
@@ -53,6 +51,7 @@ export default function Home({ featuredPets }) {
               <div>
                 <div style={{ fontWeight: 900, fontSize: 22, color: '#000', letterSpacing: -0.5, lineHeight: 1 }}>HamroPets</div>
                 <div style={{ fontSize: 10, color: '#58CC02', fontWeight: 800, letterSpacing: 1 }}>NEPAL'S PET HOME</div>
+                <div style={{ fontSize: 9, color: '#888', fontWeight: 600, letterSpacing: 0.3 }}>Brought to you by Adopt a Dog Nepal · Since 2018</div>
               </div>
             </Link>
             <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
@@ -61,14 +60,14 @@ export default function Home({ featuredPets }) {
               ))}
               <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFF0EB', color: '#FF6B35', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #FF6B35', marginLeft: 6 }}>🎙️ Swor AI</a>
             </div>
-            <Link href="/submit-pet" style={{ background: '#58CC02', color: '#fff', padding: '11px 22px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000' }}>+ List a Pet</Link>
+            <Link href="/submit-pet" style={{ background: '#58CC02', color: '#fff', padding: '11px 22px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000' }}>+ Submit a Pet</Link>
           </div>
         </nav>
 
         {/* ── HERO ── */}
         <div style={{ background: '#FFD23F', padding: '72px 28px 80px', borderBottom: '3px solid #000', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.07) 1.5px, transparent 1.5px)', backgroundSize: '26px 26px' }} />
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 48, alignItems: 'center', position: 'relative' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center', position: 'relative' }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#fff', border: '2.5px solid #000', borderRadius: 999, padding: '7px 18px', marginBottom: 24, boxShadow: '3px 3px 0px #000' }}>
                 <span>🇳🇵</span>
@@ -82,7 +81,7 @@ export default function Home({ featuredPets }) {
               <p style={{ color: '#000', fontSize: 18, lineHeight: 1.65, marginBottom: 32, maxWidth: 460, fontWeight: 600 }}>700+ dogs rehomed since 2018. Find your perfect companion across Nepal.</p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <Link href="/adopt" style={{ background: '#58CC02', color: '#fff', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}>🐾 Find a Pet</Link>
-                <Link href="/ai-vet" style={{ background: '#fff', color: '#000', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}>🤖 Ask AI Vet</Link>
+                <Link href="/submit-pet" style={{ background: '#fff', color: '#000', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}>+ Submit a Pet</Link>
               </div>
               <div style={{ display: 'flex', gap: 14, marginTop: 36 }}>
                 {[['700+', 'Pets Rehomed', '#58CC02'], ['Free', 'Always & Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
@@ -93,19 +92,14 @@ export default function Home({ featuredPets }) {
                 ))}
               </div>
             </div>
-            <div style={{ position: 'relative', height: 400 }}>
-              {[
-                { emoji: '🐕', name: 'Bruno', label: 'Lalitpur', color: '#FF6B35', top: 0, left: 30, rotate: -6 },
-                { emoji: '🐈', name: 'Luna', label: 'Kathmandu', color: '#7B5EA7', top: 50, right: 10, rotate: 5 },
-                { emoji: '🐦', name: 'Tweety', label: 'Thamel', color: '#38BDF8', bottom: 60, left: 0, rotate: -4 },
-                { emoji: '🐕', name: 'Kalu', label: 'Bhaktapur', color: '#58CC02', bottom: 0, right: 30, rotate: 7 },
-              ].map((c, i) => (
-                <div key={i} style={{ position: 'absolute', top: c.top, bottom: c.bottom, left: c.left, right: c.right, background: '#fff', borderRadius: 22, padding: '18px', border: '2.5px solid #000', boxShadow: '5px 5px 0px #000', transform: `rotate(${c.rotate}deg)`, width: 140 }}>
-                  <div style={{ fontSize: 52, textAlign: 'center' }}>{c.emoji}</div>
-                  <div style={{ fontWeight: 900, fontSize: 17, color: '#000', textAlign: 'center', marginTop: 6 }}>{c.name}</div>
-                  <div style={{ background: c.color, color: '#fff', borderRadius: 999, fontSize: 11, fontWeight: 800, textAlign: 'center', padding: '4px 10px', marginTop: 8, border: '1.5px solid #000' }}>📍 {c.label}</div>
-                </div>
-              ))}
+
+            {/* HERO BANNER IMAGE */}
+            <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', border: '3px solid #000', boxShadow: '6px 6px 0px #000' }}>
+              <img
+                src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780558319/Dogs_running_hero_banner_202606041313_rde8h3.jpg"
+                alt="HamroPets — Presented by Adopt a Dog Nepal"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
             </div>
           </div>
         </div>
@@ -125,7 +119,7 @@ export default function Home({ featuredPets }) {
           </div>
         </div>
 
-        {/* ── FEATURED PETS — REAL DATA ── */}
+        {/* ── FEATURED PETS ── */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 28px 0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 28 }}>
             <div>
@@ -174,16 +168,16 @@ export default function Home({ featuredPets }) {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
             {[
-              { icon: '🏥', label: 'Vets & Clinics', desc: 'Find verified vets near you', color: '#FF6B35', href: '/vets' },
-              { icon: '✂️', label: 'Grooming', desc: 'Professional pet groomers', color: '#7B5EA7', href: '/vets' },
-              { icon: '🏠', label: 'Pet Boarding', desc: 'Safe stays while you travel', color: '#38BDF8', href: '/vets' },
-              { icon: '🦮', label: 'Dog Walking', desc: 'Trusted walkers near you', color: '#58CC02', href: '/walk-sit' },
-              { icon: '🛋️', label: 'Pet Sitting', desc: 'Home care for your pet', color: '#FF6B9D', href: '/walk-sit' },
-              { icon: '🎓', label: 'Training', desc: 'Certified trainers in Nepal', color: '#FFD23F', href: '/vets' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>, label: 'Vets & Clinics', desc: 'Find verified vets near you', color: '#FF6B35', href: '/vets' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7B5EA7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v18M18 3v18M3 6h18M3 18h18"/></svg>, label: 'Grooming', desc: 'Professional pet groomers', color: '#7B5EA7', href: '/vets' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>, label: 'Pet Boarding', desc: 'Safe stays while you travel', color: '#38BDF8', href: '/vets' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#58CC02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>, label: 'Dog Walking', desc: 'Trusted walkers near you', color: '#58CC02', href: '/walk-sit' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>, label: 'Pet Sitting', desc: 'Home care for your pet', color: '#FF6B9D', href: '/walk-sit' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>, label: 'Training', desc: 'Certified trainers in Nepal', color: '#FFD23F', href: '/vets' },
             ].map(s => (
               <Link key={s.label} href={s.href} style={{ textDecoration: 'none' }}>
                 <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', boxShadow: '4px 4px 0px #000', padding: '24px 28px', display: 'flex', alignItems: 'center', gap: 20 }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 16, background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, flexShrink: 0, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>{s.icon}</div>
+                  <div style={{ width: 64, height: 64, borderRadius: 16, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `2px solid ${s.color}40` }}>{s.icon}</div>
                   <div>
                     <div style={{ fontWeight: 800, fontSize: 17, color: '#000' }}>{s.label}</div>
                     <div style={{ color: '#666', fontSize: 13, marginTop: 3, fontWeight: 500 }}>{s.desc}</div>
@@ -256,18 +250,25 @@ export default function Home({ featuredPets }) {
           </div>
         </div>
 
-        {/* ── SWOR AI BANNER ── */}
+        {/* ── SWOR AI BANNER — EDGE TO EDGE IMAGE ── */}
         <div style={{ maxWidth: 1200, margin: '32px auto 0', padding: '0 28px' }}>
-          <div style={{ background: '#FF6B35', borderRadius: 24, padding: '40px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32, flexWrap: 'wrap', border: '3px solid #000', boxShadow: '5px 5px 0px #000' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-              <div style={{ width: 68, height: 68, borderRadius: 18, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, border: '2.5px solid #000', boxShadow: '3px 3px 0px #000', flexShrink: 0 }}>🎙️</div>
-              <div>
-                <span style={{ background: '#fff', color: '#FF6B35', padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 900, display: 'inline-block', marginBottom: 8, border: '1.5px solid #000' }}>A MeroAD.ai Product</span>
-                <h3 style={{ color: '#fff', fontSize: 22, fontWeight: 900, margin: '0 0 4px' }}>Swor AI — Nepal's First Nepali Voice Generator</h3>
-                <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: 13, fontWeight: 600 }}>Generate authentic Nepali AI voices for your business · meroadai.com</p>
+          <div style={{ borderRadius: 24, overflow: 'hidden', border: '3px solid #000', boxShadow: '5px 5px 0px #000', position: 'relative', minHeight: 200, background: '#1A1A1A' }}>
+            {/* PLACEHOLDER — replace src with Swor AI image URL once generated */}
+            <div style={{ background: 'linear-gradient(135deg, #1A1A1A, #FF6B35)', minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '40px 48px', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+                <div style={{ width: 68, height: 68, borderRadius: 18, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, border: '2.5px solid #000', boxShadow: '3px 3px 0px #000', flexShrink: 0 }}>🎙️</div>
+                <div>
+                  <span style={{ background: '#fff', color: '#FF6B35', padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 900, display: 'inline-block', marginBottom: 8, border: '1.5px solid #000' }}>A MeroAD.ai Product</span>
+                  <h3 style={{ color: '#fff', fontSize: 22, fontWeight: 900, margin: '0 0 4px' }}>Swor AI — Nepal's First Nepali Voice Generator</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: 13, fontWeight: 600 }}>Generate authentic Nepali AI voices · meroadai.com</p>
+                  {/* TIKTOK LINK PLACEHOLDER */}
+                  <a href="https://tiktok.com/@meroadai" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, background: '#000', color: '#fff', padding: '6px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #fff' }}>
+                    <span>📱</span> Watch on TikTok
+                  </a>
+                </div>
               </div>
+              <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFD23F', color: '#000', padding: '14px 28px', borderRadius: 14, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block' }}>Try Swor AI →</a>
             </div>
-            <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFD23F', color: '#000', padding: '14px 28px', borderRadius: 14, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block' }}>Try Swor AI →</a>
           </div>
         </div>
 
@@ -278,7 +279,10 @@ export default function Home({ featuredPets }) {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                   <div style={{ width: 38, height: 38, borderRadius: 10, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>🐾</div>
-                  <span style={{ fontWeight: 900, fontSize: 20, color: '#000' }}>HamroPets</span>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: 20, color: '#000' }}>HamroPets</div>
+                    <div style={{ fontSize: 11, color: '#888', fontWeight: 600 }}>Brought to you by Adopt a Dog Nepal · Since 2018</div>
+                  </div>
                 </div>
                 <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7, maxWidth: 280, fontWeight: 500 }}>Nepal's first dedicated pet platform. Built on 8 years of trust from Adopt a Dog Nepal.</p>
                 <div style={{ marginTop: 16, display: 'inline-block', background: '#FFF0EB', padding: '6px 14px', borderRadius: 8, border: '1.5px solid #000', fontSize: 12, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
