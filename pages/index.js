@@ -10,19 +10,8 @@ const supabase = createClient(
 
 export async function getServerSideProps() {
   const [{ data: featuredPets }, { data: featuredVets }] = await Promise.all([
-    supabase
-      .from('pet_listings')
-      .select('*')
-      .eq('status', 'approved')
-      .order('created_at', { ascending: false })
-      .limit(4),
-    supabase
-      .from('vet_listings')
-      .select('*')
-      .eq('status', 'approved')
-      .in('tier', ['featured', 'verified'])
-      .order('created_at', { ascending: false })
-      .limit(4),
+    supabase.from('pet_listings').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(4),
+    supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
   ])
   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [] } }
 }
@@ -39,6 +28,9 @@ export default function Home({ featuredPets, featuredVets }) {
 
   const speciesEmoji = { dog: '🐕', cat: '🐈', bird: '🐦', rabbit: '🐰', other: '🐾' }
   const speciesColor = { dog: '#FF6B35', cat: '#7B5EA7', bird: '#38BDF8', rabbit: '#FF6B9D', other: '#58CC02' }
+  const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
+  const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
+  const categoryLabel = { vet_clinic: 'Vet Clinic', grooming: 'Grooming', pet_boarding: 'Boarding', dog_trainer: 'Training', pet_shop: 'Pet Shop', other: 'Service' }
 
   const fallbackPets = [
     { id: 'demo-1', pet_name: 'Bruno', breed: 'Labrador Mix', age_years: 2, age_months: 0, location: 'Lalitpur', species: 'dog', vaccinated: true, images: [] },
@@ -47,7 +39,14 @@ export default function Home({ featuredPets, featuredVets }) {
     { id: 'demo-4', pet_name: 'Tweety', breed: 'Budgerigar', age_years: 0, age_months: 8, location: 'Patan', species: 'bird', images: [] },
   ]
 
+  const fallbackVets = [
+    { id: 'fv1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
+    { id: 'fv2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
+    { id: 'fv3', business_name: 'Chobhar Animal Hospital', category: 'vet_clinic', district: 'Kirtipur', logo_url: null, rating: '4.9' },
+  ]
+
   const petsToShow = featuredPets.length > 0 ? featuredPets : fallbackPets
+  const vetsToShow = featuredVets.length > 0 ? featuredVets : fallbackVets
 
   return (
     <>
@@ -86,7 +85,7 @@ export default function Home({ featuredPets, featuredVets }) {
           </div>
         </nav>
 
-        {/* MOBILE NAV LINKS */}
+        {/* MOBILE NAV */}
         {isMobile && (
           <div style={{ background: '#FFFFFF', borderBottom: '2px solid #1A1A1A', padding: '10px 16px', display: 'flex', gap: 8, overflowX: 'auto' }}>
             {[['Adopt', '/adopt'], ['Vets', '/vets'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['AI Vet', '/ai-vet']].map(([label, href]) => (
@@ -103,7 +102,7 @@ export default function Home({ featuredPets, featuredVets }) {
                 <span>🇳🇵</span>
                 <span style={{ fontSize: isMobile ? 11 : 13, fontWeight: 800, color: '#1A1A1A' }}>Nepal's First Dedicated Pet Platform</span>
               </div>
-              <h1 style={{ fontSize: isMobile ? 38 : 58, fontWeight: 900, margin: '0 0 16px', lineHeight: 1.05, letterSpacing: -2, color: '#1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <h1 style={{ fontSize: isMobile ? 38 : 58, fontWeight: 900, margin: '0 0 16px', lineHeight: 1.05, letterSpacing: -2, color: '#1A1A1A' }}>
                 Every Pet<br />
                 <span style={{ background: '#fff', padding: '2px 14px', borderRadius: 14, border: '2.5px solid #1A1A1A', display: 'inline-block', transform: 'rotate(-1.5deg)', boxShadow: '3px 3px 0px #1A1A1A', color: '#FF6B35' }}>Deserves</span><br />
                 a Loving Home 🐾
@@ -122,14 +121,8 @@ export default function Home({ featuredPets, featuredVets }) {
                 ))}
               </div>
             </div>
-
-            {/* HERO IMAGE */}
             <div style={{ borderRadius: 20, overflow: 'hidden' }}>
-              <img
-                src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png"
-                alt="HamroPets — Presented by Adopt a Dog Nepal"
-                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }}
-              />
+              <img src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" alt="HamroPets" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }} />
             </div>
           </div>
         </div>
@@ -138,14 +131,14 @@ export default function Home({ featuredPets, featuredVets }) {
         <div style={{ background: '#FFFFFF', padding: isMobile ? '20px 16px' : '24px 28px', borderBottom: '2px solid #E5E7EB' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 12 : 14, flexWrap: 'wrap', alignItems: isMobile ? 'flex-start' : 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, fontFamily: "'DM Sans', sans-serif" }}>Species:</span>
+              <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>Species:</span>
               {[['Dogs', '#FF6B35'], ['Cats', '#7B5EA7'], ['Birds', '#38BDF8'], ['All Pets', '#58CC02']].map(([label, color]) => (
                 <Link key={label} href="/adopt" style={{ padding: isMobile ? '7px 14px' : '8px 18px', borderRadius: 10, border: '2px solid #1A1A1A', background: color, color: '#fff', fontSize: isMobile ? 12 : 13, fontWeight: 700, textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A', display: 'inline-block' }}>{label}</Link>
               ))}
             </div>
             {!isMobile && <div style={{ width: 2, height: 28, background: '#1A1A1A', margin: '0 10px' }} />}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, fontFamily: "'DM Sans', sans-serif" }}>📍 Area:</span>
+              <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>📍 Area:</span>
               {['All Nepal', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara'].map(loc => (
                 <Link key={loc} href={`/adopt?location=${loc}`} style={{ padding: isMobile ? '7px 12px' : '8px 16px', borderRadius: 10, border: '2px solid #1A1A1A', background: '#fff', color: '#1A1A1A', fontSize: isMobile ? 12 : 13, fontWeight: 600, textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A', display: 'inline-block' }}>{loc}</Link>
               ))}
@@ -158,7 +151,7 @@ export default function Home({ featuredPets, featuredVets }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
             <div>
               <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #166534' }}>🐾 Available Now</span>
-              <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Pets Waiting for You</h2>
+              <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Pets Waiting for You</h2>
               <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>All reviewed & approved · Adoption is always free</p>
             </div>
             <Link href="/adopt" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
@@ -172,15 +165,13 @@ export default function Home({ featuredPets, featuredVets }) {
                 <Link key={pet.id} href={pet.id.startsWith('demo') ? '/adopt' : `/pet/${pet.id}`} style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 120 : 170, background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
-                      {pet.images && pet.images.length > 0 ? (
-                        <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      ) : emoji}
+                      {pet.images && pet.images.length > 0 ? <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
                       <div style={{ position: 'absolute', top: 8, left: 8, background: '#fff', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 800, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
                         {pet.vaccinated ? '💉 Vaccinated' : `🐾 ${pet.species}`}
                       </div>
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
-                      <div style={{ fontWeight: 800, fontSize: isMobile ? 15 : 18, color: '#1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{pet.pet_name}</div>
+                      <div style={{ fontWeight: 800, fontSize: isMobile ? 15 : 18, color: '#1A1A1A' }}>{pet.pet_name}</div>
                       <div style={{ color: '#6B7280', fontSize: isMobile ? 11 : 13, marginTop: 2, fontWeight: 500, textTransform: 'capitalize', fontFamily: "'DM Sans', sans-serif" }}>{pet.breed || pet.species} · {age}</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
                         <span style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 600 }}>📍 {pet.location}</span>
@@ -198,7 +189,7 @@ export default function Home({ featuredPets, featuredVets }) {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
           <div style={{ marginBottom: 24 }}>
             <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #166534' }}>🏥 Services</span>
-            <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Everything Your Pet Needs</h2>
+            <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Everything Your Pet Needs</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
             {[
@@ -213,7 +204,7 @@ export default function Home({ featuredPets, featuredVets }) {
                 <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', padding: isMobile ? '16px' : '22px 26px', display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 18 }}>
                   <div style={{ width: isMobile ? 44 : 58, height: isMobile ? 44 : 58, borderRadius: 12, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `1.5px solid ${s.color}50` }}>{s.icon}</div>
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{s.label}</div>
+                    <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A' }}>{s.label}</div>
                     <div style={{ color: '#6B7280', fontSize: isMobile ? 11 : 13, marginTop: 2, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>{s.desc}</div>
                   </div>
                   {!isMobile && <div style={{ marginLeft: 'auto', color: '#6B7280', fontSize: 16, fontWeight: 700 }}>→</div>}
@@ -228,60 +219,51 @@ export default function Home({ featuredPets, featuredVets }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
             <div>
               <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>⭐ Top Rated</span>
-              <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Trusted Vets & Services</h2>
+              <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Trusted Vets & Services</h2>
             </div>
             <Link href="/vets" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>Full Directory →</Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 12 : 20 }}>
-  {(featuredVets.length > 0 ? featuredVets.slice(0, 3) : [
-    { id: 'f1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
-    { id: 'f2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
-    { id: 'f3', business_name: 'Chobhar Animal Hospital', category: 'vet_clinic', district: 'Kirtipur', logo_url: null, rating: '4.9' },
-  ]).map(v => {
-    const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
-    const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
-    const categoryLabel = { vet_clinic: 'Vet Clinic', grooming: 'Grooming', pet_boarding: 'Boarding', dog_trainer: 'Training', pet_shop: 'Pet Shop', other: 'Service' }
-    const emoji = categoryEmoji[v.category] || '🐾'
-    const bg = categoryBg[v.category] || '#F9FAFB'
-    const label = categoryLabel[v.category] || 'Service'
-    return (
-      <Link key={v.id} href="/vets" style={{ textDecoration: 'none' }}>
-        <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
-          <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
-            {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
-            <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
-          </div>
-          <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
-            <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{label}</div>
-            <div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{v.business_name}</div>
-            <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.district}</div>
-            <div style={{ fontSize: isMobile ? 11 : 12, color: '#F59E0B', fontWeight: 800, marginTop: 8, paddingTop: 6, borderTop: '1.5px dashed #E5E7EB' }}>⭐ {v.rating || '5.0'}</div>
+            {vetsToShow.map(v => {
+              const emoji = categoryEmoji[v.category] || '🐾'
+              const bg = categoryBg[v.category] || '#F9FAFB'
+              const label = categoryLabel[v.category] || 'Service'
+              return (
+                <Link key={v.id} href="/vets" style={{ textDecoration: 'none' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                    <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
+                      {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
+                      <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
+                    </div>
+                    <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+                      <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{label}</div>
+                      <div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3 }}>{v.business_name}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.district}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 12, color: '#F59E0B', fontWeight: 800, marginTop: 8, paddingTop: 6, borderTop: '1.5px dashed #E5E7EB' }}>⭐ {v.rating || '5.0'}</div>
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
+
+            {/* 4TH SLOT — LIST YOUR BUSINESS */}
+            <Link href="/list-business" style={{ textDecoration: 'none' }}>
+              <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2.5px dashed #1A1A1A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', textAlign: 'center', minHeight: isMobile ? 180 : 220 }}>
+                <div style={{ width: 52, height: 52, borderRadius: 999, background: '#F9FAFB', border: '2.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, marginBottom: 12, boxShadow: '3px 3px 0px #1A1A1A' }}>+</div>
+                <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 6 }}>List Your Business Here</div>
+                <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, marginBottom: 14, fontFamily: "'DM Sans', sans-serif" }}>Get discovered by pet owners across Nepal</div>
+                <div style={{ background: '#FFD23F', color: '#1A1A1A', padding: '7px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 12, fontWeight: 800, boxShadow: '2px 2px 0px #B45309' }}>+ List for Free</div>
+              </div>
+            </Link>
           </div>
         </div>
-      </Link>
-    )
-  })}
-
-  {/* 4TH SLOT — LIST YOUR BUSINESS CTA */}
-  <Link href="/list-business" style={{ textDecoration: 'none' }}>
-    <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2.5px dashed #1A1A1A', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', textAlign: 'center', minHeight: isMobile ? 180 : 220, transition: 'background 0.2s' }}>
-      <div style={{ width: 56, height: 56, borderRadius: 999, background: '#F9FAFB', border: '2.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 12, boxShadow: '3px 3px 0px #1A1A1A' }}>+</div>
-      <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 6, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>List Your Business Here</div>
-      <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, marginBottom: 16, fontFamily: "'DM Sans', sans-serif" }}>Get discovered by pet owners across Nepal</div>
-      <div style={{ background: '#FFD23F', color: '#1A1A1A', padding: '8px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 12, fontWeight: 800, boxShadow: '2px 2px 0px #B45309' }}>+ List for Free</div>
-    </div>
-  </Link>
-
-</div>
-
-
 
         {/* AI VET BANNER */}
         <div style={{ maxWidth: 1200, margin: isMobile ? '32px auto 0' : '56px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
           <div style={{ background: '#7B5EA7', borderRadius: 20, padding: isMobile ? '28px 20px' : '44px 48px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: isMobile ? 20 : 32, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
             <div>
               <span style={{ background: '#fff', color: '#7B5EA7', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 12, border: '1.5px solid #1A1A1A' }}>🤖 Powered by Gemini Pro</span>
-              <h3 style={{ color: '#fff', fontSize: isMobile ? 22 : 28, fontWeight: 900, margin: '0 0 10px', letterSpacing: -0.5, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>AI Vet — Ask Anything</h3>
+              <h3 style={{ color: '#fff', fontSize: isMobile ? 22 : 28, fontWeight: 900, margin: '0 0 10px', letterSpacing: -0.5 }}>AI Vet — Ask Anything</h3>
               <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: isMobile ? 13 : 15, fontWeight: 500, maxWidth: 480, fontFamily: "'DM Sans', sans-serif" }}>Instant answers about your pet's health, nutrition and behaviour. Available 24/7.</p>
             </div>
             <Link href="/ai-vet" style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 14 : 15, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #B45309', display: 'inline-block', whiteSpace: 'nowrap' }}>Launch AI Vet →</Link>
@@ -293,7 +275,7 @@ export default function Home({ featuredPets, featuredVets }) {
           <div style={{ background: '#FFF0F6', borderRadius: 20, padding: isMobile ? '28px 20px' : '40px 48px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: isMobile ? 20 : 32, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', flexWrap: 'wrap' }}>
             <div>
               <div style={{ fontSize: 32, marginBottom: 8 }}>🔍</div>
-              <h3 style={{ fontSize: isMobile ? 20 : 24, fontWeight: 900, margin: '0 0 6px', color: '#1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Lost or Found a Pet?</h3>
+              <h3 style={{ fontSize: isMobile ? 20 : 24, fontWeight: 900, margin: '0 0 6px', color: '#1A1A1A' }}>Lost or Found a Pet?</h3>
               <p style={{ color: '#6B7280', margin: 0, fontSize: isMobile ? 13 : 14, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Our community reunites pets with their families across Nepal.</p>
             </div>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -310,7 +292,7 @@ export default function Home({ featuredPets, featuredVets }) {
               <div style={{ width: isMobile ? 52 : 68, height: isMobile ? 52 : 68, borderRadius: 16, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 24 : 32, border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', flexShrink: 0 }}>🎙️</div>
               <div>
                 <span style={{ background: '#fff', color: '#FF6B35', padding: '3px 10px', borderRadius: 999, fontSize: 10, fontWeight: 800, display: 'inline-block', marginBottom: 6, border: '1.5px solid #1A1A1A' }}>A MeroAD.ai Product</span>
-                <h3 style={{ color: '#fff', fontSize: isMobile ? 16 : 20, fontWeight: 900, margin: '0 0 4px', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Swor AI — Nepal's First Nepali Voice Generator</h3>
+                <h3 style={{ color: '#fff', fontSize: isMobile ? 16 : 20, fontWeight: 900, margin: '0 0 4px' }}>Swor AI — Nepal's First Nepali Voice Generator</h3>
                 <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: isMobile ? 12 : 13, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Generate authentic Nepali AI voices · meroadai.com</p>
                 <a href="https://tiktok.com/@meroadai" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 8, background: '#1A1A1A', color: '#fff', padding: '5px 12px', borderRadius: 999, fontSize: 11, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #fff' }}>📱 Watch on TikTok</a>
               </div>
@@ -323,12 +305,11 @@ export default function Home({ featuredPets, featuredVets }) {
         <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
           <div style={{ marginBottom: 24, textAlign: 'center' }}>
             <span style={{ background: '#1A1A1A', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #555' }}>📱 Follow Us</span>
-            <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Follow Adopt a Dog Nepal</h2>
+            <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
             <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>Stay updated with our latest rescues, adoptions and stories</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 20 }}>
 
-            {/* TIKTOK */}
             <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <div style={{ background: '#1A1A1A', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #555', overflow: 'hidden' }}>
                 <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #010101, #69C9D0)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -339,7 +320,7 @@ export default function Home({ featuredPets, featuredVets }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                     <div style={{ width: 40, height: 40, borderRadius: 999, background: '#69C9D0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #fff' }}>🐕</div>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>@adoptadognepal</div>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
                       <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Adopt a Dog Nepal</div>
                     </div>
                   </div>
@@ -347,12 +328,11 @@ export default function Home({ featuredPets, featuredVets }) {
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div></div>
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Since</div></div>
                   </div>
-                  <div style={{ background: '#69C9D0', color: '#1A1A1A', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 800, textAlign: 'center', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Follow on TikTok →</div>
+                  <div style={{ background: '#69C9D0', color: '#1A1A1A', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on TikTok →</div>
                 </div>
               </div>
             </a>
 
-            {/* FACEBOOK */}
             <a href="https://www.facebook.com/AdoptaDogNepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <div style={{ background: '#1877F2', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
                 <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #1877F2, #0a5bc4)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -364,7 +344,7 @@ export default function Home({ featuredPets, featuredVets }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                     <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐾</div>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Adopt a Dog Nepal</div>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>Adopt a Dog Nepal</div>
                       <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Animal Rescue · Kathmandu</div>
                     </div>
                   </div>
@@ -372,12 +352,11 @@ export default function Home({ featuredPets, featuredVets }) {
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1.4M+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Views</div></div>
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>Active</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Daily posts</div></div>
                   </div>
-                  <div style={{ background: '#fff', color: '#1877F2', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Follow on Facebook →</div>
+                  <div style={{ background: '#fff', color: '#1877F2', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Facebook →</div>
                 </div>
               </div>
             </a>
 
-            {/* INSTAGRAM */}
             <a href="https://www.instagram.com/adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <div style={{ background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
                 <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -389,7 +368,7 @@ export default function Home({ featuredPets, featuredVets }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                     <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐕</div>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>@adoptadognepal</div>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
                       <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Coming back soon</div>
                     </div>
                   </div>
@@ -397,7 +376,7 @@ export default function Home({ featuredPets, featuredVets }) {
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Since</div></div>
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div></div>
                   </div>
-                  <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Follow on Instagram →</div>
+                  <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Instagram →</div>
                 </div>
               </div>
             </a>
@@ -411,41 +390,4 @@ export default function Home({ featuredPets, featuredVets }) {
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '1.6fr 1fr 1fr 1fr', gap: isMobile ? 24 : 48, marginBottom: 36 }}>
               <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 10, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🐾</div>
-                  <div>
-                    <div style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>HamroPets</div>
-                    <div style={{ fontSize: 10, color: '#888', fontWeight: 500 }}>Brought to you by Adopt a Dog Nepal · Since 2018</div>
-                  </div>
-                </div>
-                <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.7, maxWidth: 280, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Nepal's first dedicated pet platform. Built on 8 years of trust from Adopt a Dog Nepal.</p>
-                <div style={{ marginTop: 12, display: 'inline-block', background: '#FFF0EB', padding: '5px 12px', borderRadius: 8, border: '1.5px solid #1A1A1A', fontSize: 11, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
-              </div>
-              {[
-                ['Platform', [['Adopt a Pet', '/adopt'], ['Vet Directory', '/vets'], ['Dog Walking', '/walk-sit'], ['Lost & Found', '/lost-found'], ['AI Vet', '/ai-vet']]],
-                ['For Businesses', [['Advertise', '/advertise'], ['List Your Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
-                ['Company', [['About HamroPets', '/'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
-              ].map(([heading, items]) => (
-                <div key={heading}>
-                  <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{heading}</div>
-                  {items.map(([label, href]) => {
-                    const isExternal = href.startsWith('http')
-                    return isExternal ? (
-                      <a key={label} href={href} target="_blank" rel="noreferrer" style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</a>
-                    ) : (
-                      <Link key={label} href={href} style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</Link>
-                    )
-                  })}
-                </div>
-              ))}
-            </div>
-            <div style={{ borderTop: '2px solid #1A1A1A', paddingTop: 20, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
-              <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2025 HamroPets · All rights reserved</span>
-              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Built with ❤️ in Kathmandu 🇳🇵</span>
-            </div>
-          </div>
-        </footer>
-
-      </div>
-    </>
-  )
-}
+                  <div style={{ width: 36, height: 36, borderRadius: 10, backg
