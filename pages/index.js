@@ -274,32 +274,7 @@ export default function Home({ featuredPets, featuredVets }) {
 
 </div>
 
-]).map(v => {
-  const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
-  const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
-  const categoryLabel = { vet_clinic: 'Vet Clinic', grooming: 'Grooming', pet_boarding: 'Boarding', dog_trainer: 'Training', pet_shop: 'Pet Shop', other: 'Service' }
-  const emoji = categoryEmoji[v.category] || '🐾'
-  const bg = categoryBg[v.category] || '#F9FAFB'
-  const label = categoryLabel[v.category] || 'Service'
-  return (
-              <Link key={v.name} href="/vets" style={{ textDecoration: 'none' }}>
-                <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
-                 <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
-  {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
-                    <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
-                  </div>
-                  <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
-                    <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{label}</div>
-<div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{v.business_name}</div>
-<div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.district}</div>
-                    <div style={{ fontSize: isMobile ? 11 : 12, color: '#F59E0B', fontWeight: 800, marginTop: 8, paddingTop: 6, borderTop: '1.5px dashed #E5E7EB' }}>⭐ {v.rating}</div>
-                  </div>
-            </div>
-        </Link>
-      )
-})}
-          </div>
-        </div>
+
 
         {/* AI VET BANNER */}
         <div style={{ maxWidth: 1200, margin: isMobile ? '32px auto 0' : '56px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
