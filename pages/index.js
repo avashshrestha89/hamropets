@@ -310,9 +310,30 @@ export default function Home({ featuredPets }) {
               ].map(([heading, items]) => (
                 <div key={heading}>
                   <div style={{ fontWeight: 900, fontSize: 11, color: '#000', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
-                  {items.map(item => (
-                    <div key={item} style={{ color: '#666', fontSize: isMobile ? 12 : 14, marginBottom: 8, cursor: 'pointer', fontWeight: 600 }}>{item}</div>
-                  ))}
+                 {items.map((item, idx) => {
+  const links = {
+    'Adopt a Pet': '/adopt',
+    'Vet Directory': '/vets',
+    'Dog Walking': '/walk-sit',
+    'Lost & Found': '/lost-found',
+    'AI Vet': '/ai-vet',
+    'Advertise': '/advertise',
+    'List Your Clinic': '/list-business',
+    'Partner with Us': '/advertise',
+    'About HamroPets': '/',
+    'Adopt a Dog Nepal': 'https://www.facebook.com/AdoptaDogNepal',
+    'Swor AI': 'https://meroadai.com',
+    'Contact Us': '/advertise',
+    'Media Kit': '/advertise',
+  }
+  const href = links[item] || '/'
+  const isExternal = href.startsWith('http')
+  return isExternal ? (
+    <a key={item} href={href} target="_blank" rel="noreferrer" style={{ display: 'block', color: '#666', fontSize: isMobile ? 12 : 14, marginBottom: 8, fontWeight: 600, textDecoration: 'none' }}>{item}</a>
+  ) : (
+    <Link key={item} href={href} style={{ display: 'block', color: '#666', fontSize: isMobile ? 12 : 14, marginBottom: 8, fontWeight: 600, textDecoration: 'none' }}>{item}</Link>
+  )
+})}
                 </div>
               ))}
             </div>
