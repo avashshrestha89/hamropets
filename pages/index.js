@@ -80,11 +80,11 @@ export default function Home({ featuredPets }) {
               </h1>
               <p style={{ color: '#000', fontSize: 18, lineHeight: 1.65, marginBottom: 32, maxWidth: 460, fontWeight: 600 }}>700+ dogs rehomed since 2018. Find your perfect companion across Nepal.</p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <Link href="/adopt" style={{ background: '#58CC02', color: '#fff', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}>🐾 Find a Pet</Link>
+                <Link href="/adopt" style={{ background: '#58CC02', color: '#fff', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}> Adopt a Pet</Link>
                 <Link href="/submit-pet" style={{ background: '#fff', color: '#000', padding: '16px 32px', borderRadius: 14, fontSize: 17, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '4px 4px 0px #000', display: 'inline-block' }}>+ Submit a Pet</Link>
               </div>
               <div style={{ display: 'flex', gap: 14, marginTop: 36 }}>
-                {[['700+', 'Pets Rehomed', '#58CC02'], ['Free', 'Always & Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
+                {[['700+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
                   <div key={l} style={{ background: '#fff', borderRadius: 14, padding: '12px 18px', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000' }}>
                     <div style={{ color: c, fontWeight: 900, fontSize: 22, lineHeight: 1 }}>{v}</div>
                     <div style={{ color: '#444', fontSize: 12, marginTop: 3, fontWeight: 700 }}>{l}</div>
