@@ -9,16 +9,25 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
-  const { data: featuredPets } = await supabase
-    .from('pet_listings')
-    .select('*')
-    .eq('status', 'approved')
-    .order('created_at', { ascending: false })
-    .limit(4)
-  return { props: { featuredPets: featuredPets || [] } }
+  const [{ data: featuredPets }, { data: featuredVets }] = await Promise.all([
+    supabase
+      .from('pet_listings')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(4),
+    supabase
+      .from('vet_listings')
+      .select('*')
+      .eq('status', 'approved')
+      .in('tier', ['featured', 'verified'])
+      .order('created_at', { ascending: false })
+      .limit(4),
+  ])
+  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [] } }
 }
 
-export default function Home({ featuredPets }) {
+export default function Home({ featuredPets, featuredVets }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -224,27 +233,35 @@ export default function Home({ featuredPets }) {
             <Link href="/vets" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>Full Directory →</Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 12 : 20 }}>
-            {[
-              { name: 'Kathmandu Vet Hospital', cat: 'Vet Clinic', area: 'Maharajgunj', emoji: '🏥', bg: '#FFEAE6', rating: '4.9' },
-              { name: 'Paws & Claws Care', cat: 'Grooming', area: 'Thamel', emoji: '✂️', bg: '#EBF5FF', rating: '4.8' },
-              { name: 'Happy Paws Boarding', cat: 'Boarding', area: 'Budhanilkantha', emoji: '🏠', bg: '#EAFCE0', rating: '4.7' },
-              { name: 'K9 Training Academy', cat: 'Training', area: 'Baneshwor', emoji: '🎓', bg: '#FFF9E6', rating: '4.9' },
-            ].map(v => (
+         {(featuredVets.length > 0 ? featuredVets : [
+  { id: 'f1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
+  { id: 'f2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
+  { id: 'f3', business_name: 'Happy Paws Boarding', category: 'pet_boarding', district: 'Budhanilkantha', logo_url: null, rating: '4.7' },
+  { id: 'f4', business_name: 'K9 Training Academy', category: 'dog_trainer', district: 'Baneshwor', logo_url: null, rating: '4.9' },
+]).map(v => {
+  const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
+  const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
+  const categoryLabel = { vet_clinic: 'Vet Clinic', grooming: 'Grooming', pet_boarding: 'Boarding', dog_trainer: 'Training', pet_shop: 'Pet Shop', other: 'Service' }
+  const emoji = categoryEmoji[v.category] || '🐾'
+  const bg = categoryBg[v.category] || '#F9FAFB'
+  const label = categoryLabel[v.category] || 'Service'
+  return (
               <Link key={v.name} href="/vets" style={{ textDecoration: 'none' }}>
                 <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
-                  <div style={{ height: isMobile ? 90 : 120, background: v.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
-                    {v.emoji}
+                 <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
+  {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
                     <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
                   </div>
                   <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
-                    <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{v.cat}</div>
-                    <div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{v.name}</div>
-                    <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.area}</div>
+                    <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{label}</div>
+<div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{v.business_name}</div>
+<div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.district}</div>
                     <div style={{ fontSize: isMobile ? 11 : 12, color: '#F59E0B', fontWeight: 800, marginTop: 8, paddingTop: 6, borderTop: '1.5px dashed #E5E7EB' }}>⭐ {v.rating}</div>
                   </div>
-                </div>
-              </Link>
-            ))}
+            </div>
+        </Link>
+      )
+})}
           </div>
         </div>
 
