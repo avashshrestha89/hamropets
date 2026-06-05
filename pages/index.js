@@ -287,7 +287,115 @@ export default function Home({ featuredPets }) {
             <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFD23F', color: '#000', padding: isMobile ? '12px 20px' : '14px 28px', borderRadius: 14, fontSize: isMobile ? 13 : 15, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block', whiteSpace: 'nowrap' }}>Try Swor AI →</a>
           </div>
         </div>
+{/* SOCIAL MEDIA */}
+<div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
+  <div style={{ marginBottom: 20, textAlign: 'center' }}>
+    <span style={{ background: '#000', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 10, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>📱 Follow Us</span>
+    <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#000', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
+    <p style={{ color: '#666', fontSize: 14, fontWeight: 500, marginTop: 6 }}>Stay updated with our latest rescues, adoptions and stories</p>
+  </div>
+  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 20 }}>
 
+    {/* TIKTOK */}
+    <a href="https://www.tiktok.com/@adoptadognepal5" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#000', borderRadius: 20, border: '3px solid #000', boxShadow: '5px 5px 0px #000', overflow: 'hidden', transition: 'transform 0.2s' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #010101, #69C9D0)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>🎵</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 900, color: '#000' }}>TikTok</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#69C9D0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #fff' }}>🐕</div>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>Adopt a Dog Nepal</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Since</div>
+            </div>
+          </div>
+          <div style={{ background: '#69C9D0', color: '#000', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 900, textAlign: 'center' }}>
+            Follow on TikTok →
+          </div>
+        </div>
+      </div>
+    </a>
+
+    {/* FACEBOOK */}
+    <a href="https://www.facebook.com/AdoptaDogNepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#1877F2', borderRadius: 20, border: '3px solid #000', boxShadow: '5px 5px 0px #000', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #1877F2, #0a5bc4)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>📘</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 900, color: '#1877F2' }}>Facebook</div>
+          <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#fff' }}>1.4M+ Views</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #000' }}>🐾</div>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 15, color: '#fff' }}>Adopt a Dog Nepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>Animal Rescue · Kathmandu</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1.4M+</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Views</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>Active</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Daily posts</div>
+            </div>
+          </div>
+          <div style={{ background: '#fff', color: '#1877F2', padding: '10px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 900, textAlign: 'center' }}>
+            Follow on Facebook →
+          </div>
+        </div>
+      </div>
+    </a>
+
+    {/* INSTAGRAM */}
+    <a href="https://www.instagram.com/adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', borderRadius: 20, border: '3px solid #000', boxShadow: '5px 5px 0px #000', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>📸</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 900, color: '#833AB4' }}>Instagram</div>
+          <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#fff' }}>Appeal Filed</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #000' }}>🐕</div>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>Coming back soon</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Since</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div>
+            </div>
+          </div>
+          <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 900, textAlign: 'center' }}>
+            Follow on Instagram →
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 72, padding: isMobile ? '40px 16px 28px' : '56px 28px 36px', borderTop: '3px solid #000' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto' }}>
