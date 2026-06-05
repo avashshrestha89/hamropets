@@ -96,7 +96,7 @@ export default function Home({ featuredPets }) {
          {/* HERO BANNER IMAGE */}
 <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden' }}>
   <img
-    src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649483/hamro_1_hac1on.png"
+    src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png"
     alt="HamroPets — Presented by Adopt a Dog Nepal"
     style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }}
   />
