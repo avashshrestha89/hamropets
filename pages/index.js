@@ -418,3 +418,14 @@ export default function Home({ featuredPets, featuredVets }) {
               ))}
             </div>
             <div style={{ borderTop: '2px solid #1A1A1A', paddingTop: 20, display: 'flex', flexDirection: i
+<div style={{ borderTop: '2px solid #1A1A1A', paddingTop: 20, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
+              <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2025 HamroPets · All rights reserved</span>
+              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </>
+  )
+}
