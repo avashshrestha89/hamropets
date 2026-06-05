@@ -233,7 +233,46 @@ export default function Home({ featuredPets, featuredVets }) {
             <Link href="/vets" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>Full Directory →</Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 12 : 20 }}>
-         {(featuredVets.length > 0 ? featuredVets : [
+  {(featuredVets.length > 0 ? featuredVets.slice(0, 3) : [
+    { id: 'f1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
+    { id: 'f2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
+    { id: 'f3', business_name: 'Chobhar Animal Hospital', category: 'vet_clinic', district: 'Kirtipur', logo_url: null, rating: '4.9' },
+  ]).map(v => {
+    const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
+    const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
+    const categoryLabel = { vet_clinic: 'Vet Clinic', grooming: 'Grooming', pet_boarding: 'Boarding', dog_trainer: 'Training', pet_shop: 'Pet Shop', other: 'Service' }
+    const emoji = categoryEmoji[v.category] || '🐾'
+    const bg = categoryBg[v.category] || '#F9FAFB'
+    const label = categoryLabel[v.category] || 'Service'
+    return (
+      <Link key={v.id} href="/vets" style={{ textDecoration: 'none' }}>
+        <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+          <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
+            {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
+            <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
+          </div>
+          <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+            <div style={{ background: '#FF6B35', color: '#fff', display: 'inline-block', fontSize: 9, fontWeight: 800, padding: '2px 6px', borderRadius: 4, marginBottom: 6 }}>{label}</div>
+            <div style={{ fontWeight: 800, fontSize: isMobile ? 12 : 14, color: '#1A1A1A', marginBottom: 3, lineHeight: 1.3, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{v.business_name}</div>
+            <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500 }}>📍 {v.district}</div>
+            <div style={{ fontSize: isMobile ? 11 : 12, color: '#F59E0B', fontWeight: 800, marginTop: 8, paddingTop: 6, borderTop: '1.5px dashed #E5E7EB' }}>⭐ {v.rating || '5.0'}</div>
+          </div>
+        </div>
+      </Link>
+    )
+  })}
+
+  {/* 4TH SLOT — LIST YOUR BUSINESS CTA */}
+  <Link href="/list-business" style={{ textDecoration: 'none' }}>
+    <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2.5px dashed #1A1A1A', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 16px', textAlign: 'center', minHeight: isMobile ? 180 : 220, transition: 'background 0.2s' }}>
+      <div style={{ width: 56, height: 56, borderRadius: 999, background: '#F9FAFB', border: '2.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 12, boxShadow: '3px 3px 0px #1A1A1A' }}>+</div>
+      <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 6, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>List Your Business Here</div>
+      <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, marginBottom: 16, fontFamily: "'DM Sans', sans-serif" }}>Get discovered by pet owners across Nepal</div>
+      <div style={{ background: '#FFD23F', color: '#1A1A1A', padding: '8px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 12, fontWeight: 800, boxShadow: '2px 2px 0px #B45309' }}>+ List for Free</div>
+    </div>
+  </Link>
+
+</div>
   { id: 'f1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
   { id: 'f2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
   { id: 'f3', business_name: 'Happy Paws Boarding', category: 'pet_boarding', district: 'Budhanilkantha', logo_url: null, rating: '4.7' },
