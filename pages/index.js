@@ -124,7 +124,7 @@ export default function Home({ featuredPets }) {
 
         {/* SPECIES + LOCATION FILTER */}
         <div style={{ background: '#FAFAFA', padding: isMobile ? '20px 16px' : '28px', borderBottom: '3px solid #000' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 12 : 14, flexWrap: 'wrap', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               <span style={{ fontWeight: 900, fontSize: 12, color: '#000', textTransform: 'uppercase', letterSpacing: 0.5 }}>Species:</span>
               {[['Dogs', '#FF6B35'], ['Cats', '#7B5EA7'], ['Birds', '#38BDF8'], ['All Pets', '#58CC02']].map(([label, color]) => (
