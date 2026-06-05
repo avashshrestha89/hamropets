@@ -132,7 +132,8 @@ export default function Home({ featuredPets }) {
               ))}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ fontWeight: 900, fontSize: 12, color: '#000', textTransform: 'uppercase', letterSpacing: 0.5 }}>📍 Area:</span>
+              {!isMobile && <div style={{ width: 2, height: 28, background: '#000', margin: '0 10px' }} />}
+                <span style={{ fontWeight: 900, fontSize: 12, color: '#000', textTransform: 'uppercase', letterSpacing: 0.5 }}>📍 Area:</span>
               {['All Nepal', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara'].map(loc => (
                 <Link key={loc} href={`/adopt?location=${loc}`} style={{ padding: isMobile ? '7px 12px' : '9px 18px', borderRadius: 10, border: '2px solid #000', background: '#fff', color: '#000', fontSize: isMobile ? 12 : 13, fontWeight: 700, textDecoration: 'none', boxShadow: '2px 2px 0px #000', display: 'inline-block' }}>{loc}</Link>
               ))}
