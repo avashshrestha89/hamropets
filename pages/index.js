@@ -390,4 +390,31 @@ export default function Home({ featuredPets, featuredVets }) {
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '1.6fr 1fr 1fr 1fr', gap: isMobile ? 24 : 48, marginBottom: 36 }}>
               <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 10, backg
+                  <div style={{ width: 36, height: 36, borderRadius: 10, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🐾</div>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A' }}>HamroPets</div>
+                    <div style={{ fontSize: 10, color: '#888', fontWeight: 500 }}>Brought to you by Adopt a Dog Nepal · Since 2018</div>
+                  </div>
+                </div>
+                <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.7, maxWidth: 280, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Nepal's first dedicated pet platform. Built on 8 years of trust from Adopt a Dog Nepal.</p>
+                <div style={{ marginTop: 12, display: 'inline-block', background: '#FFF0EB', padding: '5px 12px', borderRadius: 8, border: '1.5px solid #1A1A1A', fontSize: 11, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
+              </div>
+              {[
+                ['Platform', [['Adopt a Pet', '/adopt'], ['Vet Directory', '/vets'], ['Dog Walking', '/walk-sit'], ['Lost & Found', '/lost-found'], ['AI Vet', '/ai-vet']]],
+                ['For Businesses', [['Advertise', '/advertise'], ['List Your Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
+                ['Company', [['About HamroPets', '/'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
+              ].map(([heading, items]) => (
+                <div key={heading}>
+                  <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
+                  {items.map(([label, href]) => {
+                    const isExternal = href.startsWith('http')
+                    return isExternal ? (
+                      <a key={label} href={href} target="_blank" rel="noreferrer" style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</a>
+                    ) : (
+                      <Link key={label} href={href} style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</Link>
+                    )
+                  })}
+                </div>
+              ))}
+            </div>
+            <div style={{ borderTop: '2px solid #1A1A1A', paddingTop: 20, display: 'flex', flexDirection: i
