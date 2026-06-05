@@ -168,15 +168,66 @@ export default function Admin() {
                           <div><span style={{ color: '#888', fontWeight: 700 }}>📞 </span><span style={{ fontWeight: 700 }}>{item.submitter_phone}</span></div>
                           {item.submitter_email && <div><span style={{ color: '#888', fontWeight: 700 }}>✉️ </span><span style={{ fontWeight: 700 }}>{item.submitter_email}</span></div>}
                         </div>
-                        {item.status === 'pending' && (
-                          <div style={{ display: 'flex', gap: 10 }}>
-                            <button onClick={() => updateStatus(item.id, 'approved', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>✅ Approve</button>
-                            <button onClick={() => updateStatus(item.id, 'rejected', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>❌ Reject</button>
-                          </div>
-                        )}
-                        {item.status !== 'pending' && (
-                          <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#000', padding: '9px 20px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>↩ Move to Pending</button>
-                        )}
+                  {/* COPY FOR GEMINI */}
+<div style={{ marginBottom: 12 }}>
+  <button
+    onClick={() => {
+      const text = `ADOPTION LISTING FOR GEMINI — PLEASE GENERATE FULL SOCIAL MEDIA PACKAGE:
+
+OWNER DETAILS:
+Name: ${item.submitter_name}
+Phone: ${item.submitter_phone}
+WhatsApp: ${item.submitter_whatsapp || 'Same as phone'}
+Email: ${item.submitter_email || 'Not provided'}
+Address: ${item.submitter_address || item.location}
+
+PET DETAILS:
+Pet Name: ${item.pet_name}
+Species: ${item.species}
+Breed: ${item.breed || 'Unknown'}
+Age: ${item.pet_age || `${item.age_years}y ${item.age_months}m`}
+Gender: ${item.gender}
+Vaccinated: ${item.vaccinated ? 'Yes ✅' : 'No ❌'}
+Neutered/Spayed: ${item.neutered ? 'Yes ✅' : 'No ❌'}
+Friendly with Children: ${item.friendly_children || 'Not specified'}
+Friendly with Other Dogs: ${item.friendly_dogs || 'Not specified'}
+
+DESCRIPTION / TEMPERAMENT:
+${item.description}
+
+REASON FOR ADOPTION:
+${item.reason_for_adoption || 'Not provided'}
+
+OTHER INFO:
+${item.other_info || 'None'}
+
+SUBMITTED: ${new Date(item.created_at).toLocaleDateString('en-NP')}
+
+---
+PLEASE GENERATE:
+1. Instagram & Facebook adoption post (bilingual English/Nepali)
+2. TikTok caption in Nepali
+3. ElevenLabs voiceover script in Nepali (warm, friendly tone)
+4. Message to owner (bilingual English/Nepali)
+5. Safety & verification guide for owner (bilingual)`
+      navigator.clipboard.writeText(text)
+      alert('✅ Copied! Paste directly into Gemini Pro.')
+    }}
+    style={{ background: '#7B5EA7', color: '#fff', padding: '10px 20px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}
+  >
+    ✨ Copy for Gemini Pro
+  </button>
+</div>
+
+{item.status === 'pending' && (
+  <div style={{ display: 'flex', gap: 10 }}>
+    <button onClick={() => updateStatus(item.id, 'approved', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>✅ Approve</button>
+    <button onClick={() => updateStatus(item.id, 'rejected', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>❌ Reject</button>
+  </div>
+)}
+{item.status !== 'pending' && (
+  <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#000', padding: '9px 20px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>↩ Move to Pending</button>
+)}
                       </div>
                     </div>
                   )}
