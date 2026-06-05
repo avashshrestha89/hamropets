@@ -11,10 +11,29 @@ export default function SubmitPet() {
   const [videoFile, setVideoFile] = useState(null)
   const [imagePreviews, setImagePreviews] = useState([])
   const [form, setForm] = useState({
-    petName: '', breed: '', species: 'Dog', gender: 'Male',
-    ageYears: '', ageMonths: '', location: 'Kathmandu',
-    vaccinated: false, neutered: false, description: '',
-    submitterName: '', phone: '', email: '',
+    // Owner details
+    ownerName: '',
+    ownerPhone: '',
+    ownerWhatsapp: '',
+    ownerEmail: '',
+    ownerAddress: '',
+    // Pet details
+    petName: '',
+    petAge: '',
+    breed: '',
+    species: 'Dog',
+    gender: 'Female',
+    vaccinated: '',
+    neutered: '',
+    friendlyChildren: '',
+    friendlyDogs: '',
+    // Additional
+    description: '',
+    reasonForAdoption: '',
+    otherInfo: '',
+    // Agreements
+    agreeTerms: false,
+    agreeContact: false,
   })
 
   const update = (field, value) => setForm(f => ({ ...f, [field]: value }))
@@ -39,7 +58,6 @@ export default function SubmitPet() {
     formData.append('file', file)
     formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
     formData.append('folder', 'hamropets/pets')
-
     const res = await fetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
       { method: 'POST', body: formData }
@@ -50,68 +68,111 @@ export default function SubmitPet() {
   }
 
   const handleSubmit = async () => {
-    if (!form.submitterName || !form.phone) {
-      alert('Please fill in your name and phone number.')
+    if (!form.agreeTerms || !form.agreeContact) {
+      alert('Please agree to both terms before submitting. / सबमिट गर्नु अघि कृपया दुवै सर्तहरूमा सहमत हुनुहोला।')
+      return
+    }
+    if (!form.ownerName || !form.ownerPhone) {
+      alert('Please fill in your name and phone number. / कृपया आफ्नो नाम र फोन नम्बर भर्नुहोला।')
       return
     }
     setSubmitting(true)
     setUploading(true)
-
     try {
       const imageUrls = []
       for (const file of imageFiles) {
         const url = await uploadToCloudinary(file, 'image')
         imageUrls.push(url)
       }
-
       let videoUrl = null
       if (videoFile) {
         videoUrl = await uploadToCloudinary(videoFile, 'video')
       }
-
       setUploading(false)
-
       const res = await fetch('/api/submit-pet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, images: imageUrls, videoUrl }),
+        body: JSON.stringify({
+          petName: form.petName,
+          breed: form.breed,
+          species: form.species,
+          gender: form.gender,
+          ageYears: '',
+          ageMonths: '',
+          petAge: form.petAge,
+          location: form.ownerAddress,
+          vaccinated: form.vaccinated === 'yes',
+          neutered: form.neutered === 'yes',
+          friendlyChildren: form.friendlyChildren,
+          friendlyDogs: form.friendlyDogs,
+          description: form.description,
+          reasonForAdoption: form.reasonForAdoption,
+          otherInfo: form.otherInfo,
+          submitterName: form.ownerName,
+          phone: form.ownerPhone,
+          whatsapp: form.ownerWhatsapp,
+          email: form.ownerEmail,
+          address: form.ownerAddress,
+          images: imageUrls,
+          videoUrl,
+        }),
       })
-
       if (res.ok) setSubmitted(true)
-      else alert('Something went wrong. Please try again.')
-
+      else alert('Something went wrong. Please try again. / केही गडबड भयो। कृपया पुनः प्रयास गर्नुहोला।')
     } catch (err) {
       console.error(err)
       alert('Upload failed: ' + err.message)
     }
-
     setSubmitting(false)
     setUploading(false)
   }
 
   const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', background: '#fff', fontWeight: 500 }
-  const labelStyle = { fontSize: 13, fontWeight: 800, color: '#000', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: 0.3 }
+  const labelStyle = { fontSize: 13, fontWeight: 800, color: '#000', display: 'block', marginBottom: 7 }
+  const sectionTitle = (en, np) => (
+    <div style={{ marginBottom: 20, paddingBottom: 10, borderBottom: '2px solid #000' }}>
+      <div style={{ fontWeight: 900, fontSize: 18, color: '#000' }}>{en}</div>
+      <div style={{ fontWeight: 600, fontSize: 14, color: '#666', marginTop: 2 }}>{np}</div>
+    </div>
+  )
+  const radioGroup = (field, options) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {options.map(([value, en, np]) => (
+        <label key={value} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', padding: '10px 14px', borderRadius: 10, border: `2px solid ${form[field] === value ? '#000' : '#E5E7EB'}`, background: form[field] === value ? '#F0FDF4' : '#fff' }}>
+          <input type="radio" name={field} value={value} checked={form[field] === value} onChange={() => update(field, value)} style={{ marginTop: 2, accentColor: '#58CC02', flexShrink: 0 }} />
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 14, color: '#000' }}>{en}</div>
+            <div style={{ fontWeight: 500, fontSize: 12, color: '#666' }}>{np}</div>
+          </div>
+        </label>
+      ))}
+    </div>
+  )
 
   if (submitted) {
     return (
       <>
         <Head><title>Submitted — HamroPets</title></Head>
         <div style={{ minHeight: '100vh', background: '#FFFFFF', fontFamily: 'system-ui, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center', maxWidth: 480, padding: '40px' }}>
+          <div style={{ textAlign: 'center', maxWidth: 520, padding: '40px' }}>
             <div style={{ fontSize: 80, marginBottom: 20 }}>🎉</div>
             <h1 style={{ fontSize: 32, fontWeight: 900, color: '#000', marginBottom: 12 }}>Submission Received!</h1>
-            <p style={{ color: '#666', fontSize: 16, lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>
+            <p style={{ fontSize: 16, fontWeight: 700, color: '#000', marginBottom: 4 }}>सबमिसन प्राप्त भयो!</p>
+            <p style={{ color: '#666', fontSize: 15, lineHeight: 1.7, marginBottom: 8, fontWeight: 500 }}>
               Thank you! Your pet listing is now under review. We'll approve it within 24 hours.
             </p>
+            <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>
+              धन्यवाद! तपाईंको पाल्तु जनावरको सूची अहिले समीक्षाधीन छ। हामी २४ घण्टाभित्र स्वीकृत गर्नेछौं।
+            </p>
             <div style={{ background: '#E8F9ED', borderRadius: 16, padding: '20px', border: '2px solid #000', marginBottom: 28 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#000' }}>✅ What happens next?</div>
-              <div style={{ fontSize: 13, color: '#555', marginTop: 8, lineHeight: 1.7 }}>
-                Our team reviews your photos, video and details.<br />
-                Once approved, your listing goes live on HamroPets.<br />
-                Interested adopters will contact you directly.
+              <div style={{ fontSize: 14, fontWeight: 800, color: '#000', marginBottom: 8 }}>✅ What happens next? / अब के हुन्छ?</div>
+              <div style={{ fontSize: 13, color: '#555', lineHeight: 1.8, fontWeight: 500 }}>
+                Our team reviews your submission · हाम्रो टोलीले तपाईंको सबमिसन समीक्षा गर्छ।<br />
+                Once approved, your listing goes live · स्वीकृत भएपछि, तपाईंको सूची सार्वजनिक हुन्छ।<br />
+                Interested adopters will contact you · इच्छुक दत्तकग्राहीहरूले तपाईंलाई सम्पर्क गर्नेछन्।
               </div>
             </div>
-            <Link href="/" style={{ background: '#58CC02', color: '#fff', padding: '14px 32px', borderRadius: 12, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block' }}>← Back to Home</Link>
+            <Link href="/" style={{ background: '#58CC02', color: '#fff', padding: '14px 32px', borderRadius: 12, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block' }}>← Back to Home / गृहपृष्ठमा फर्कनुहोस्</Link>
           </div>
         </div>
       </>
@@ -121,8 +182,8 @@ export default function SubmitPet() {
   return (
     <>
       <Head>
-        <title>List a Pet for Adoption — HamroPets</title>
-        <meta name="description" content="List your pet for adoption on HamroPets. Free forever." />
+        <title>Submit a Pet for Adoption — HamroPets</title>
+        <meta name="description" content="Submit your pet for adoption on HamroPets Nepal. Free forever." />
       </Head>
 
       <div style={{ minHeight: '100vh', background: '#FFFFFF', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
@@ -137,98 +198,188 @@ export default function SubmitPet() {
                 <div style={{ fontSize: 10, color: '#58CC02', fontWeight: 800, letterSpacing: 1 }}>NEPAL'S PET HOME</div>
               </div>
             </Link>
-            <Link href="/" style={{ color: '#666', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>← Back to Home</Link>
+            <Link href="/" style={{ color: '#666', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>← Back to Home / गृहपृष्ठमा फर्कनुहोस्</Link>
           </div>
         </nav>
 
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 28px 80px' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 28px 80px' }}>
 
-          <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>🐾 Free Forever</span>
-          <h1 style={{ fontSize: 38, fontWeight: 900, color: '#000', margin: '0 0 8px', letterSpacing: -1 }}>List a Pet for Adoption</h1>
-          <p style={{ color: '#666', fontSize: 15, fontWeight: 500 }}>Reviewed within 24 hours · Nothing goes live without your approval</p>
+          {/* HEADER */}
+          <div style={{ marginBottom: 36 }}>
+            <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>🐾 Free Forever / सधैं निःशुल्क</span>
+            <h1 style={{ fontSize: 36, fontWeight: 900, color: '#000', margin: '0 0 4px', letterSpacing: -1 }}>Submit a Pet for Adoption</h1>
+            <p style={{ fontSize: 18, fontWeight: 700, color: '#000', margin: '0 0 8px' }}>गोद दिनको लागि पाल्तु जनावर सबमिट गर्नुहोस्</p>
+            <p style={{ color: '#666', fontSize: 14, fontWeight: 500 }}>Reviewed within 24 hours · Nothing goes live without approval · २४ घण्टाभित्र समीक्षा · स्वीकृति बिना केही सार्वजनिक हुँदैन</p>
+          </div>
 
-          <div style={{ display: 'flex', gap: 0, marginBottom: 36, border: '2px solid #000', borderRadius: 14, overflow: 'hidden', boxShadow: '3px 3px 0px #000', marginTop: 24 }}>
-            {['1. Pet Info', '2. Photos & Video', '3. Your Contact'].map((s, i) => (
-              <div key={s} onClick={() => i + 1 < step && setStep(i + 1)} style={{ flex: 1, padding: '13px 8px', textAlign: 'center', background: step === i + 1 ? '#58CC02' : step > i + 1 ? '#E8F9ED' : '#fff', color: step === i + 1 ? '#fff' : step > i + 1 ? '#58CC02' : '#888', fontSize: 13, fontWeight: 800, cursor: i + 1 < step ? 'pointer' : 'default', borderRight: i < 2 ? '2px solid #000' : 'none' }}>
+          {/* STEP INDICATOR */}
+          <div style={{ display: 'flex', gap: 0, marginBottom: 36, border: '2px solid #000', borderRadius: 14, overflow: 'hidden', boxShadow: '3px 3px 0px #000' }}>
+            {['1. Owner Info', '2. Pet Details', '3. Photos & Video', '4. Submit'].map((s, i) => (
+              <div key={s} onClick={() => i + 1 < step && setStep(i + 1)} style={{ flex: 1, padding: '11px 6px', textAlign: 'center', background: step === i + 1 ? '#58CC02' : step > i + 1 ? '#E8F9ED' : '#fff', color: step === i + 1 ? '#fff' : step > i + 1 ? '#58CC02' : '#888', fontSize: 12, fontWeight: 800, cursor: i + 1 < step ? 'pointer' : 'default', borderRight: i < 3 ? '2px solid #000' : 'none' }}>
                 {step > i + 1 ? '✓ ' : ''}{s}
               </div>
             ))}
           </div>
 
-          {/* STEP 1 */}
+          {/* STEP 1 — OWNER INFO */}
           {step === 1 && (
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <div>
-                    <label style={labelStyle}>Pet Name</label>
-                    <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder="e.g. Bruno" style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Breed (if known)</label>
-                    <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder="e.g. Labrador Mix" style={inputStyle} />
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <div>
-                    <label style={labelStyle}>Species</label>
-                    <select value={form.species} onChange={e => update('species', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {['Dog', 'Cat', 'Bird', 'Rabbit', 'Other'].map(o => <option key={o}>{o}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Gender</label>
-                    <select value={form.gender} onChange={e => update('gender', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {['Male', 'Female', 'Unknown'].map(o => <option key={o}>{o}</option>)}
-                    </select>
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
-                  <div>
-                    <label style={labelStyle}>Age (Years)</label>
-                    <input type="number" min="0" max="30" value={form.ageYears} onChange={e => update('ageYears', e.target.value)} placeholder="0" style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Age (Months)</label>
-                    <input type="number" min="0" max="11" value={form.ageMonths} onChange={e => update('ageMonths', e.target.value)} placeholder="6" style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Location</label>
-                    <select value={form.location} onChange={e => update('location', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {['Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan', 'Biratnagar', 'Other'].map(o => <option key={o}>{o}</option>)}
-                    </select>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: 24 }}>
-                  {[['💉 Vaccinated', 'vaccinated'], ['✂️ Neutered / Spayed', 'neutered']].map(([label, field]) => (
-                    <label key={field} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', fontSize: 14, color: '#000', fontWeight: 700 }}>
-                      <input type="checkbox" checked={form[field]} onChange={e => update(field, e.target.checked)} style={{ width: 20, height: 20, accentColor: '#58CC02', cursor: 'pointer' }} />
-                      {label}
-                    </label>
-                  ))}
+              {sectionTitle('Owner / Care-taker Details', 'मालिक / हेरचाहकर्ताको विवरण')}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <div>
+                  <label style={labelStyle}>Full Name / पूरा नाम *</label>
+                  <input value={form.ownerName} onChange={e => update('ownerName', e.target.value)} placeholder="Your full name / तपाईंको पूरा नाम" style={inputStyle} />
                 </div>
                 <div>
-                  <label style={labelStyle}>Description</label>
-                  <textarea rows={5} value={form.description} onChange={e => update('description', e.target.value)} placeholder="Tell us about this pet — personality, story, why they need a new home..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                  <label style={labelStyle}>Phone Number / फोन नम्बर *</label>
+                  <input type="tel" value={form.ownerPhone} onChange={e => update('ownerPhone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
                 </div>
-                <button onClick={() => { if (!form.petName || !form.description) { alert('Please fill in Pet Name and Description.'); return } setStep(2) }} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
-                  Next: Add Photos & Video →
+                <div>
+                  <label style={labelStyle}>WhatsApp / Viber Number / WhatsApp/Viber नम्बर</label>
+                  <input type="tel" value={form.ownerWhatsapp} onChange={e => update('ownerWhatsapp', e.target.value)} placeholder="98XXXXXXXX (if different / फरक भएमा)" style={inputStyle} />
+                </div>
+                <div>
+                  <label style={labelStyle}>Email Address / इमेल ठेगाना *</label>
+                  <input type="email" value={form.ownerEmail} onChange={e => update('ownerEmail', e.target.value)} placeholder="your@email.com" style={inputStyle} />
+                </div>
+                <div>
+                  <label style={labelStyle}>Current Address / हालको ठेगाना *</label>
+                  <input value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} placeholder="e.g. Lalitpur, Kathmandu / जस्तै: ललितपुर, काठमाडौं" style={inputStyle} />
+                </div>
+                <button onClick={() => { if (!form.ownerName || !form.ownerPhone || !form.ownerEmail || !form.ownerAddress) { alert('Please fill all required fields. / कृपया सबै आवश्यक फिल्डहरू भर्नुहोला।'); return } setStep(2) }} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
+                  Next: Pet Details / अर्को: पाल्तु जनावरको विवरण →
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 2 */}
+          {/* STEP 2 — PET DETAILS */}
           {step === 2 && (
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
+              {sectionTitle('Pet / Dog Details', 'पाल्तु जनावर / कुकुरको विवरण')}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                  <div>
+                    <label style={labelStyle}>Pet Name / पाल्तु जनावरको नाम *</label>
+                    <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder="e.g. Bruno / जस्तै: ब्रुनो" style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Age / उमेर *</label>
+                    <input value={form.petAge} onChange={e => update('petAge', e.target.value)} placeholder="e.g. 6 months / जस्तै: ६ महिना" style={inputStyle} />
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                  <div>
+                    <label style={labelStyle}>Breed / जात</label>
+                    <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder="e.g. Labrador Mix / जस्तै: ल्याब्राडोर मिक्स" style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Species / प्रजाति</label>
+                    <select value={form.species} onChange={e => update('species', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                      {[['Dog', 'कुकुर'], ['Cat', 'बिरालो'], ['Bird', 'चरा'], ['Rabbit', 'खरायो'], ['Other', 'अन्य']].map(([en, np]) => (
+                        <option key={en} value={en}>{en} / {np}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label style={labelStyle}>Gender / लिङ्ग *</label>
+                  <div style={{ display: 'flex', gap: 12 }}>
+                    {[['Male', 'भाले / नर'], ['Female', 'पोथी / मादा']].map(([val, np]) => (
+                      <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#000' : '#E5E7EB'}`, background: form.gender === val ? '#58CC02' : '#fff', color: form.gender === val ? '#fff' : '#666', cursor: 'pointer', fontSize: 14, fontWeight: 800, fontFamily: 'inherit' }}>
+                        {val} / {np}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* VACCINATION */}
+                <div>
+                  <label style={labelStyle}>Vaccination Status / खोपको अवस्था *</label>
+                  {radioGroup('vaccinated', [
+                    ['yes', 'Up to Date — All vaccines completed ✅', 'पूर्ण रूपमा लगाइएको — सबै खोपहरू पूरा भएको ✅'],
+                    ['partial', 'Partially Vaccinated', 'आंशिक रूपमा खोप लगाइएको'],
+                    ['no', 'Not Vaccinated ❌', 'खोप लगाइएको छैन ❌'],
+                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
+                  ])}
+                </div>
+
+                {/* NEUTERED */}
+                <div>
+                  <label style={labelStyle}>Spayed / Neutered? / बाँझोपन गरिएको छ? *</label>
+                  {radioGroup('neutered', [
+                    ['yes', 'Yes / गरिएको छ ✅', 'गरिएको छ ✅'],
+                    ['no', 'No / गरिएको छैन ❌', 'गरिएको छैन ❌'],
+                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
+                  ])}
+                </div>
+
+                {/* FRIENDLY WITH CHILDREN */}
+                <div>
+                  <label style={labelStyle}>Friendly with Children? / बच्चाहरूसँग मिल्छ? *</label>
+                  {radioGroup('friendlyChildren', [
+                    ['yes', 'Yes, very friendly with children / छ, बच्चाहरूसँग धेरै मिल्छ', 'छ, बच्चाहरूसँग धेरै मिल्छ'],
+                    ['no', 'No, not recommended with children / छैन, बच्चाहरूसँग उपयुक्त छैन', 'छैन'],
+                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
+                  ])}
+                </div>
+
+                {/* FRIENDLY WITH DOGS */}
+                <div>
+                  <label style={labelStyle}>Friendly with Other Dogs? / अन्य कुकुरहरूसँग मिल्छ? *</label>
+                  {radioGroup('friendlyDogs', [
+                    ['yes', 'Yes, gets along well with other dogs / छ, अन्य कुकुरहरूसँग राम्रोसँग मिल्छ', 'छ'],
+                    ['no', 'No, prefers to be the only pet / छैन, एक्लै बस्न मन पराउँछ', 'छैन'],
+                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
+                  ])}
+                </div>
+
+                {/* DESCRIPTION */}
+                <div>
+                  <label style={labelStyle}>
+                    Short Description & Temperament / छोटो विवरण र स्वभाव *
+                  </label>
+                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>
+                    Describe personality, habits, known commands, special needs / व्यक्तित्व, बानीव्यहोरा, थाहा भएका आदेशहरू, विशेष आवश्यकताहरू वर्णन गर्नुहोस्
+                  </p>
+                  <textarea rows={5} value={form.description} onChange={e => update('description', e.target.value)} placeholder="e.g. Bruno is playful, loves fetch, good with kids... / जस्तै: ब्रुनो खेल्न मन पराउँछ, बच्चाहरूसँग राम्रो छ..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                </div>
+
+                {/* REASON */}
+                <div>
+                  <label style={labelStyle}>Why do you want to put your pet for adoption? / किन गोद दिन चाहनुहुन्छ? *</label>
+                  <textarea rows={4} value={form.reasonForAdoption} onChange={e => update('reasonForAdoption', e.target.value)} placeholder="Please be honest — it helps find the right family / कृपया इमानदार हुनुहोस् — यसले सही परिवार खोज्न मद्दत गर्छ" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                </div>
+
+                {/* OTHER INFO */}
+                <div>
+                  <label style={labelStyle}>Any other information? / अन्य कुनै जानकारी?</label>
+                  <textarea rows={3} value={form.otherInfo} onChange={e => update('otherInfo', e.target.value)} placeholder="Anything else we should know... / अरू केही जान्नु पर्ने छ भने..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                </div>
+
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <button onClick={() => setStep(1)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
+                  <button onClick={() => { if (!form.petName || !form.petAge || !form.vaccinated || !form.neutered || !form.friendlyChildren || !form.friendlyDogs || !form.description || !form.reasonForAdoption) { alert('Please fill all required fields. / कृपया सबै आवश्यक फिल्डहरू भर्नुहोला।'); return } setStep(3) }} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
+                    Next: Photos & Video / अर्को: फोटो र भिडियो →
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3 — PHOTOS & VIDEO */}
+          {step === 3 && (
+            <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
+              {sectionTitle('Photos & Video', 'फोटो र भिडियो')}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div>
-                  <label style={labelStyle}>Photos (up to 5)</label>
+                  <label style={labelStyle}>Photos / फोटोहरू (up to 5 / ५ सम्म) *</label>
+                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>Please upload on social media quality photos / कृपया सामाजिक सञ्जालको गुणस्तरका फोटोहरू अपलोड गर्नुहोस्</p>
                   <div style={{ border: '3px dashed #58CC02', borderRadius: 16, padding: '32px', textAlign: 'center', background: '#F0FDF4', cursor: 'pointer', position: 'relative' }}>
                     <input type="file" accept="image/jpeg,image/png,image/webp" multiple style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleImageSelect} />
                     <div style={{ fontSize: 44, marginBottom: 10 }}>📸</div>
-                    <div style={{ fontSize: 15, fontWeight: 900, color: '#58CC02' }}>Click to upload photos</div>
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>JPG, PNG, WEBP · Up to 5 photos · No size limit</div>
+                    <div style={{ fontSize: 15, fontWeight: 900, color: '#58CC02' }}>Click to upload / क्लिक गरेर अपलोड गर्नुहोस्</div>
+                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>JPG, PNG, WEBP · Max 5 photos / ५ फोटोसम्म</div>
                   </div>
                   {imagePreviews.length > 0 && (
                     <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
@@ -239,57 +390,81 @@ export default function SubmitPet() {
                   )}
                 </div>
                 <div>
-                  <label style={labelStyle}>Video (optional)</label>
+                  <label style={labelStyle}>Video / भिडियो (optional / ऐच्छिक)</label>
                   <div style={{ border: '3px dashed #7B5EA7', borderRadius: 16, padding: '28px', textAlign: 'center', background: '#F5F0FF', cursor: 'pointer', position: 'relative' }}>
                     <input type="file" accept="video/mp4" style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleVideoSelect} />
                     <div style={{ fontSize: 44, marginBottom: 10 }}>🎥</div>
-                    <div style={{ fontSize: 15, fontWeight: 900, color: '#7B5EA7' }}>Click to upload a video</div>
+                    <div style={{ fontSize: 15, fontWeight: 900, color: '#7B5EA7' }}>Click to upload video / भिडियो अपलोड गर्नुहोस्</div>
                     <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>MP4 only · Max 50MB</div>
                     {videoFile && <div style={{ marginTop: 10, fontSize: 13, fontWeight: 800, color: '#7B5EA7' }}>✓ {videoFile.name}</div>}
                   </div>
                 </div>
-                <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #FFD23F', fontSize: 13, color: '#92400E', fontWeight: 600 }}>
-                  📋 All photos and videos reviewed by admin before listing goes live.
-                </div>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button onClick={() => setStep(1)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
-                  <button onClick={() => setStep(3)} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>Next: Contact Info →</button>
+                  <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
+                  <button onClick={() => setStep(4)} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
+                    Next: Review & Submit / अर्को: समीक्षा र सबमिट →
+                  </button>
                 </div>
               </div>
             </div>
           )}
 
-          {/* STEP 3 */}
-          {step === 3 && (
+          {/* STEP 4 — AGREEMENTS & SUBMIT */}
+          {step === 4 && (
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
+              {sectionTitle('Agreement & Submission', 'सहमति र सबमिसन')}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div>
-                  <label style={labelStyle}>Your Full Name *</label>
-                  <input value={form.submitterName} onChange={e => update('submitterName', e.target.value)} placeholder="Full name" style={inputStyle} />
+
+                {/* TERMS */}
+                <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>Terms & Success Story Archive / सर्तहरू र सफलता कथा अभिलेख</div>
+                  <div style={{ fontSize: 13, color: '#555', lineHeight: 1.8, fontWeight: 500 }}>
+                    • The adoption process is 100% free. No money should be exchanged. / दत्तक प्रक्रिया १००% निःशुल्क छ।<br />
+                    • HamroPets will keep your pet's photos on our page as a "Success Story" after adoption. / HamroPets ले तपाईंको पाल्तु जनावरको फोटो "सफलता कथा" को रूपमा राख्नेछ।<br />
+                    • Your personal contact details will be deleted from the post once your pet finds a home. / घर पाएपछि तपाईंको सम्पर्क विवरण हटाइनेछ।<br />
+                    • HamroPets does not take responsibility for any misinformation provided. / गलत जानकारीको लागि HamroPets जिम्मेवार हुँदैन।
+                  </div>
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginTop: 14 }}>
+                    <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#000' }}>
+                      I agree to these terms / म यी सर्तहरूमा सहमत छु ✅
+                    </span>
+                  </label>
                 </div>
-                <div>
-                  <label style={labelStyle}>Phone Number *</label>
-                  <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
+
+                {/* CONSENT */}
+                <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                    <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#000', lineHeight: 1.6 }}>
+                      I agree to be contacted by Adopt a Dog Nepal or its affiliated parties and receive updates.<br />
+                      <span style={{ fontWeight: 500, color: '#666' }}>म Adopt a Dog Nepal वा यसका सम्बद्ध पक्षहरूद्वारा सम्पर्क गर्न र अपडेटहरू प्राप्त गर्न सहमत छु।</span>
+                    </span>
+                  </label>
                 </div>
-                <div>
-                  <label style={labelStyle}>Email (optional)</label>
-                  <input type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="your@email.com" style={inputStyle} />
+
+                {/* SAFETY GUIDE */}
+                <div style={{ background: '#FFF9E6', borderRadius: 14, padding: '20px', border: '1.5px solid #FFD23F' }}>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>⚠️ Safety & Verification Guide / सुरक्षा र प्रमाणीकरण मार्गदर्शन</div>
+                  <div style={{ fontSize: 13, color: '#555', lineHeight: 1.9, fontWeight: 500 }}>
+                    1. <strong>Request Government ID</strong> — Always ask for adopter's Citizenship Card (Nagarita). / नागरिकताको फोटो अनिवार्य माग्नुहोला।<br />
+                    2. <strong>Social Media Check</strong> — Verify their Facebook or Instagram profile. / उनीहरूको सामाजिक सञ्जाल प्रोफाइल जाँच गर्नुहोला।<br />
+                    3. <strong>No Financial Transactions</strong> — Adoption is 100% free. / एडोप्सन पूर्ण रूपमा निःशुल्क हुनुपर्छ।<br />
+                    4. <strong>Home Visit / Video</strong> — Ask for a video of where the pet will stay. / पाल्तु जनावर बस्ने ठाउँको भिडियो माग्नुहोला।<br />
+                    5. <strong>Follow-up</strong> — Check in after a few weeks. / केही हप्ता पछि अवस्थाबारे सोधपुछ गर्नुहोला।
+                  </div>
                 </div>
-                <div style={{ background: '#E8F9ED', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #58CC02', fontSize: 13, color: '#166534', fontWeight: 600 }}>
-                  ✅ Contact info only shared with adopters after admin approval.
-                </div>
-                <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #FFD23F', fontSize: 13, color: '#92400E', fontWeight: 600 }}>
-                  ⚠️ HamroPets never charges adoption fees. Report suspicious requests.
-                </div>
+
                 {uploading && (
                   <div style={{ background: '#E8F9ED', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #58CC02', fontSize: 14, color: '#166534', fontWeight: 700, textAlign: 'center' }}>
-                    ⬆️ Uploading your photos and video directly to Cloudinary... please wait
+                    ⬆️ Uploading photos and video... / फोटो र भिडियो अपलोड हुँदैछ... कृपया प्रतीक्षा गर्नुहोस्
                   </div>
                 )}
+
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button onClick={() => setStep(2)} disabled={submitting} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
+                  <button onClick={() => setStep(3)} disabled={submitting} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
                   <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: '#FF6B35', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000', opacity: submitting ? 0.7 : 1 }}>
-                    {submitting ? (uploading ? '⬆️ Uploading...' : '🐾 Saving...') : '🐾 Submit for Review'}
+                    {submitting ? (uploading ? '⬆️ Uploading... / अपलोड हुँदैछ...' : '🐾 Saving... / सेभ हुँदैछ...') : '🐾 Submit for Review / समीक षाको लागि सबमिट गर्नुहोस्'}
                   </button>
                 </div>
               </div>
@@ -298,6 +473,7 @@ export default function SubmitPet() {
 
         </div>
 
+        {/* FOOTER */}
         <footer style={{ background: '#fff', borderTop: '3px solid #000', padding: '28px' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ color: '#888', fontSize: 13, fontWeight: 600 }}>© 2025 HamroPets · Nepal's First Pet Platform</span>
