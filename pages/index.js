@@ -273,10 +273,7 @@ export default function Home({ featuredPets, featuredVets }) {
   </Link>
 
 </div>
-  { id: 'f1', business_name: 'Kathmandu Vet Hospital', category: 'vet_clinic', district: 'Maharajgunj', logo_url: null, rating: '4.9' },
-  { id: 'f2', business_name: 'Paws & Claws Care', category: 'grooming', district: 'Thamel', logo_url: null, rating: '4.8' },
-  { id: 'f3', business_name: 'Happy Paws Boarding', category: 'pet_boarding', district: 'Budhanilkantha', logo_url: null, rating: '4.7' },
-  { id: 'f4', business_name: 'K9 Training Academy', category: 'dog_trainer', district: 'Baneshwor', logo_url: null, rating: '4.9' },
+
 ]).map(v => {
   const categoryEmoji = { vet_clinic: '🏥', grooming: '✂️', pet_boarding: '🏠', dog_trainer: '🎓', pet_shop: '🛒', other: '🐾' }
   const categoryBg = { vet_clinic: '#FFEAE6', grooming: '#EBF5FF', pet_boarding: '#EAFCE0', dog_trainer: '#FFF9E6', pet_shop: '#F0FDF4', other: '#F9FAFB' }
