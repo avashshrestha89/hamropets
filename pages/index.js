@@ -96,7 +96,7 @@ export default function Home({ featuredPets }) {
          {/* HERO BANNER IMAGE */}
 <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden' }}>
   <img
-    src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780563259/hamro_xc5517.png"
+    src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649483/hamro_1_hac1on.png"
     alt="HamroPets — Presented by Adopt a Dog Nepal"
     style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }}
   />
@@ -108,7 +108,7 @@ export default function Home({ featuredPets }) {
         <div style={{ background: '#FAFAFA', padding: '28px', borderBottom: '3px solid #000' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
             <span style={{ fontWeight: 900, fontSize: 13, color: '#000', textTransform: 'uppercase', letterSpacing: 0.5 }}>Species:</span>
-            {[['🐕 Dogs', '#FF6B35'], ['🐈 Cats', '#7B5EA7'], ['🐦 Birds', '#38BDF8'], ['🐾 All', '#58CC02']].map(([label, color]) => (
+            {[['Dogs', '#FF6B35'], ['Cats', '#7B5EA7'], ['Birds', '#38BDF8'], ['All Pets', '#58CC02']].map(([label, color]) => (
               <Link key={label} href="/adopt" style={{ padding: '9px 20px', borderRadius: 10, border: '2px solid #000', background: color, color: '#fff', fontSize: 14, fontWeight: 800, textDecoration: 'none', boxShadow: '2px 2px 0px #000', display: 'inline-block' }}>{label}</Link>
             ))}
             <div style={{ width: 2, height: 28, background: '#000', margin: '0 4px' }} />
