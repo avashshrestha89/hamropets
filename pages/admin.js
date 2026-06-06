@@ -358,7 +358,12 @@ PLEASE GENERATE:
   </div>
 )}
 {item.status !== 'pending' && (
-  <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#000', padding: '9px 20px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>↩ Move to Pending</button>
+  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+    <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
+    {item.status === 'approved' && (
+      <button onClick={() => updateStatus(item.id, 'adopted', 'pet')} style={{ background: '#FF6B9D', color: '#fff', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Adopted</button>
+    )}
+  </div>
 )}
                       </div>
                     </div>
