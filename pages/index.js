@@ -29,18 +29,18 @@ function Slideshow({ slides }) {
   const next = () => setCurrent(c => (c + 1) % slides.length)
 
   return (
-    <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', cursor: 'pointer' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '75%', cursor: 'pointer' }}>
       {slides.map((slide, i) => (
         <Link key={i} href={slide.href} style={{ textDecoration: 'none' }}>
           <img
             src={slide.url}
             alt={slide.alt}
             style={{
-              position: i === 0 ? 'relative' : 'absolute',
-              top: 0, left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+  position: 'absolute',
+  top: 0, left: 0,
+  width: '100%',
+  height: '100%',
+  objectFit: 'contain',
               display: 'block',
               opacity: i === current ? 1 : 0,
               transition: 'opacity 0.6s ease-in-out',
