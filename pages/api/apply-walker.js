@@ -23,12 +23,13 @@ export default async function handler(req, res) {
     const { error } = await supabase
       .from('walker_applications')
       .insert([{
-        full_name: fullName,
+full_name: fullName,
         phone,
         area,
         email: email || null,
         services,
         experience: experience || null,
+        nagarik_screenshot: req.body.nagarikScreenshot || null,
         status: 'pending',
       }])
 
@@ -53,6 +54,7 @@ export default async function handler(req, res) {
             <p><strong>Area:</strong> ${area}</p>
             <p><strong>Services:</strong> ${services}</p>
             <p><strong>Experience:</strong> ${experience || 'Not provided'}</p>
+            <p><strong>Nagarik Screenshot:</strong> ${req.body.nagarikScreenshot ? `<a href="${req.body.nagarikScreenshot}" target="_blank">View Screenshot</a>` : 'Not uploaded'}</p>
             <div style="margin-top: 24px; text-align: center;">
               <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin" style="background: #58CC02; color: #fff; padding: 12px 28px; border-radius: 10px; text-decoration: none; font-weight: 900;">View in Admin →</a>
             </div>
