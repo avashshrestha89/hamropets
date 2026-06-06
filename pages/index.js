@@ -17,13 +17,15 @@ export async function getServerSideProps() {
 }
 function Slideshow({ slides }) {
   const [current, setCurrent] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
+    if (paused) return
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % slides.length)
     }, 4000)
     return () => clearInterval(timer)
-  }, [slides.length])
+  }, [slides.length, paused])
 
   const prev = () => setCurrent(c => (c - 1 + slides.length) % slides.length)
   const next = () => setCurrent(c => (c + 1) % slides.length)
@@ -50,27 +52,36 @@ function Slideshow({ slides }) {
         </Link>
       ))}
 
-      {/* PREV BUTTON */}
-      <button
-        onClick={e => { e.preventDefault(); prev() }}
-        style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 16, fontWeight: 900, zIndex: 10, boxShadow: '2px 2px 0px #1A1A1A' }}
-      >←</button>
+  {/* BOTTOM CONTROLS */}
+      <div style={{ position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, zIndex: 10 }}>
+        {/* PREV */}
+        <button
+          onClick={e => { e.preventDefault(); prev() }}
+          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+        >←</button>
 
-      {/* NEXT BUTTON */}
-      <button
-        onClick={e => { e.preventDefault(); next() }}
-        style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 16, fontWeight: 900, zIndex: 10, boxShadow: '2px 2px 0px #1A1A1A' }}
-      >→</button>
+        {/* DOTS */}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={e => { e.preventDefault(); setCurrent(i) }}
+              style={{ width: i === current ? 20 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : 'rgba(255,255,255,0.7)', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
+            />
+          ))}
+        </div>
 
-      {/* DOTS */}
-      <div style={{ position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 6, zIndex: 10 }}>
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={e => { e.preventDefault(); setCurrent(i) }}
-            style={{ width: i === current ? 20 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : 'rgba(255,255,255,0.7)', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
-          />
-        ))}
+        {/* PAUSE / PLAY */}
+        <button
+          onClick={e => { e.preventDefault(); setPaused(p => !p) }}
+          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 13, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+        >{paused ? '▶' : '⏸'}</button>
+
+        {/* NEXT */}
+        <button
+          onClick={e => { e.preventDefault(); next() }}
+          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+        >→</button>
       </div>
     </div>
   )
