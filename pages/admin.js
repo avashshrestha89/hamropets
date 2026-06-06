@@ -22,7 +22,7 @@ const [editUploading, setEditUploading] = useState(false)
 
   const tabConfig = {
     pets_pending: { label: '⏳ Pets', api: '/api/admin/listings?status=pending', type: 'pet' },
-    pets_approved: { label: '✅ Pets', api: '/api/admin/listings?status=approved', type: 'pet' },
+    pets_approved: { label: '✅ Pets', api: '/api/admin/listings?status=approved,adopted', type: 'pet' },
     vets_pending: { label: '⏳ Vets', api: '/api/admin/vet-listings?status=pending', type: 'vet' },
     vets_approved: { label: '✅ Vets', api: '/api/admin/vet-listings?status=approved', type: 'vet' },
     walkers_pending: { label: '⏳ Walkers', api: '/api/admin/walker-applications?status=pending', type: 'walker' },
