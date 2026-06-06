@@ -130,9 +130,9 @@ export default function Adopt({ pets }) {
                         {pet.images && pet.images.length > 0 ? (
                           <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : emoji}
-                        <div style={{ position: 'absolute', top: 8, left: 8, background: '#fff', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
-                          {pet.vaccinated ? '💉 Vaccinated' : pet.neutered ? '✂️ Neutered' : `🐾 ${pet.species}`}
-                        </div>
+                      <div style={{ position: 'absolute', top: 8, left: 8, background: pet.status === 'adopted' ? '#FF6B9D' : '#fff', color: pet.status === 'adopted' ? '#fff' : '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
+  {pet.status === 'adopted' ? '🎉 ADOPTED' : pet.vaccinated ? '💉 Vaccinated' : pet.neutered ? '✂️ Neutered' : `🐾 ${pet.species}`}
+</div>
                       </div>
                       <div style={{ padding: isMobile ? '10px 12px' : '16px 18px' }}>
                         <div style={{ fontWeight: 900, fontSize: isMobile ? 15 : 20, color: '#1A1A1A' }}>{pet.pet_name}</div>
