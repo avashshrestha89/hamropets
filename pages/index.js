@@ -31,33 +31,36 @@ function Slideshow({ slides }) {
   const next = () => setCurrent(c => (c + 1) % slides.length)
 
   return (
-    <div style={{ position: 'relative', width: '100%', paddingBottom: '75%', cursor: 'pointer' }}>
-      {slides.map((slide, i) => (
-        <Link key={i} href={slide.href} style={{ textDecoration: 'none' }}>
-          <img
-            src={slide.url}
-            alt={slide.alt}
-            style={{
-  position: 'absolute',
-  top: 0, left: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'contain',
-              display: 'block',
-              opacity: i === current ? 1 : 0,
-              transition: 'opacity 0.6s ease-in-out',
-              borderRadius: 17,
-            }}
-          />
-        </Link>
-      ))}
+    <div style={{ width: '100%' }}>
+      {/* IMAGE */}
+      <div style={{ position: 'relative', width: '100%', paddingBottom: '75%' }}>
+        {slides.map((slide, i) => (
+          <Link key={i} href={slide.href} style={{ textDecoration: 'none' }}>
+            <img
+              src={slide.url}
+              alt={slide.alt}
+              style={{
+                position: 'absolute',
+                top: 0, left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block',
+                opacity: i === current ? 1 : 0,
+                transition: 'opacity 0.6s ease-in-out',
+                borderRadius: 17,
+              }}
+            />
+          </Link>
+        ))}
+      </div>
 
-  {/* BOTTOM CONTROLS */}
-      <div style={{ position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, zIndex: 10 }}>
+      {/* CONTROLS BELOW IMAGE */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 }}>
         {/* PREV */}
         <button
-          onClick={e => { e.preventDefault(); prev() }}
-          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+          onClick={prev}
+          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
         >←</button>
 
         {/* DOTS */}
@@ -65,22 +68,22 @@ function Slideshow({ slides }) {
           {slides.map((_, i) => (
             <button
               key={i}
-              onClick={e => { e.preventDefault(); setCurrent(i) }}
-              style={{ width: i === current ? 20 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : 'rgba(255,255,255,0.7)', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
+              onClick={() => setCurrent(i)}
+              style={{ width: i === current ? 24 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : '#D1D5DB', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
             />
           ))}
         </div>
 
         {/* PAUSE / PLAY */}
         <button
-          onClick={e => { e.preventDefault(); setPaused(p => !p) }}
-          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 13, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+          onClick={() => setPaused(p => !p)}
+          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 13, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
         >{paused ? '▶' : '⏸'}</button>
 
         {/* NEXT */}
         <button
-          onClick={e => { e.preventDefault(); next() }}
-          style={{ background: 'rgba(255,255,255,0.95)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
+          onClick={next}
+          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
         >→</button>
       </div>
     </div>
@@ -191,8 +194,8 @@ export default function Home({ featuredPets, featuredVets }) {
                 ))}
               </div>
             </div>
-           {/* HERO SLIDESHOW */}
-<div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '6px 6px 0px #1A1A1A' }}>
+          {/* HERO SLIDESHOW */}
+<div style={{ width: '100%' }}>
   {(() => {
     const slides = [
       { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png', alt: 'HamroPets — Nepal First Pet Platform', href: '/adopt' },
