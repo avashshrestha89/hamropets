@@ -15,7 +15,66 @@ export async function getServerSideProps() {
   ])
   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [] } }
 }
+function Slideshow({ slides }) {
+  const [current, setCurrent] = useState(0)
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent(prev => (prev + 1) % slides.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [slides.length])
+
+  const prev = () => setCurrent(c => (c - 1 + slides.length) % slides.length)
+  const next = () => setCurrent(c => (c + 1) % slides.length)
+
+  return (
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', cursor: 'pointer' }}>
+      {slides.map((slide, i) => (
+        <Link key={i} href={slide.href} style={{ textDecoration: 'none' }}>
+          <img
+            src={slide.url}
+            alt={slide.alt}
+            style={{
+              position: i === 0 ? 'relative' : 'absolute',
+              top: 0, left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              opacity: i === current ? 1 : 0,
+              transition: 'opacity 0.6s ease-in-out',
+              borderRadius: 17,
+            }}
+          />
+        </Link>
+      ))}
+
+      {/* PREV BUTTON */}
+      <button
+        onClick={e => { e.preventDefault(); prev() }}
+        style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 16, fontWeight: 900, zIndex: 10, boxShadow: '2px 2px 0px #1A1A1A' }}
+      >←</button>
+
+      {/* NEXT BUTTON */}
+      <button
+        onClick={e => { e.preventDefault(); next() }}
+        style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 16, fontWeight: 900, zIndex: 10, boxShadow: '2px 2px 0px #1A1A1A' }}
+      >→</button>
+
+      {/* DOTS */}
+      <div style={{ position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 6, zIndex: 10 }}>
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={e => { e.preventDefault(); setCurrent(i) }}
+            style={{ width: i === current ? 20 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : 'rgba(255,255,255,0.7)', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 export default function Home({ featuredPets, featuredVets }) {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -121,9 +180,19 @@ export default function Home({ featuredPets, featuredVets }) {
                 ))}
               </div>
             </div>
-            <div style={{ borderRadius: 20, overflow: 'hidden' }}>
-              <img src="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" alt="HamroPets" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 20 }} />
-            </div>
+           {/* HERO SLIDESHOW */}
+<div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '6px 6px 0px #1A1A1A' }}>
+  {(() => {
+    const slides = [
+      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png', alt: 'HamroPets — Nepal First Pet Platform', href: '/adopt' },
+      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780734064/Woman_with_dogs_in_living_202606061405_pybvmm.jpg', alt: 'Pet Sitting in Kathmandu', href: '/walk-sit' },
+      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780734061/List_your_business_Kathmandu_202606061405_jnb2r2.jpg', alt: 'List Your Business on HamroPets', href: '/list-business' },
+    ]
+    return (
+      <Slideshow slides={slides} />
+    )
+  })()}
+</div>
           </div>
         </div>
 
