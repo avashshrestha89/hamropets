@@ -7,6 +7,8 @@ export default function WalkSit() {
   const [tab, setTab] = useState('find')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [nagarikUrl, setNagarikUrl] = useState(null)
   const [form, setForm] = useState({
     fullName: '', phone: '', area: '', email: '', services: '🦮 Dog Walking', experience: ''
   })
@@ -20,9 +22,35 @@ export default function WalkSit() {
 
   const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
 
+  const handleNagarikUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+      formData.append('folder', 'hamropets/nagarik')
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        { method: 'POST', body: formData }
+      )
+      const data = await res.json()
+      if (data.secure_url) setNagarikUrl(data.secure_url)
+      else alert('Upload failed. Please try again.')
+    } catch (err) {
+      alert('Upload failed: ' + err.message)
+    }
+    setUploading(false)
+  }
+
   const handleSubmit = async () => {
     if (!form.fullName || !form.phone || !form.area) {
       alert('Please fill in your name, phone and area.')
+      return
+    }
+    if (!nagarikUrl) {
+      alert('Please upload your Nagarik App screenshot. / कृपया आफ्नो नागरिक एप स्क्रिनसट अपलोड गर्नुहोला।')
       return
     }
     setSubmitting(true)
@@ -30,7 +58,7 @@ export default function WalkSit() {
       const res = await fetch('/api/apply-walker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, nagarikScreenshot: nagarikUrl }),
       })
       if (res.ok) setSubmitted(true)
       else alert('Something went wrong. Please try again.')
@@ -41,10 +69,10 @@ export default function WalkSit() {
   }
 
   const walkers = [
-    { name: 'Priya Shrestha', area: 'Lalitpur', service: 'Walking + Sitting', rate: 'NPR 300/hr', emoji: '👩', color: '#FF6B9D', rating: '4.9', jobs: 48 },
-    { name: 'Rajan Tamang', area: 'Kathmandu', service: 'Dog Walking', rate: 'NPR 250/hr', emoji: '👨', color: '#38BDF8', rating: '4.8', jobs: 32 },
-    { name: 'Sunita KC', area: 'Bhaktapur', service: 'Pet Sitting', rate: 'NPR 500/day', emoji: '👩', color: '#7B5EA7', rating: '5.0', jobs: 21 },
-    { name: 'Bikash Rai', area: 'Boudha', service: 'Walking + Sitting', rate: 'NPR 280/hr', emoji: '👨', color: '#58CC02', rating: '4.7', jobs: 15 },
+    { name: 'Priya Shrestha', area: 'Lalitpur', service: 'Walking + Sitting', rate: 'NPR 300/hr', emoji: '👩', color: '#FF6B9D', rating: '4.9', jobs: 48, verified: true },
+    { name: 'Rajan Tamang', area: 'Kathmandu', service: 'Dog Walking', rate: 'NPR 250/hr', emoji: '👨', color: '#38BDF8', rating: '4.8', jobs: 32, verified: true },
+    { name: 'Sunita KC', area: 'Bhaktapur', service: 'Pet Sitting', rate: 'NPR 500/day', emoji: '👩', color: '#7B5EA7', rating: '5.0', jobs: 21, verified: true },
+    { name: 'Bikash Rai', area: 'Boudha', service: 'Walking + Sitting', rate: 'NPR 280/hr', emoji: '👨', color: '#58CC02', rating: '4.7', jobs: 15, verified: true },
   ]
 
   const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }
@@ -93,9 +121,9 @@ export default function WalkSit() {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '28px 16px' : '48px 28px' }}>
 
           {/* HEADER */}
-          <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🦮 New Service</span>
+          <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🦮 New in Nepal</span>
           <h1 style={{ fontSize: isMobile ? 28 : 40, fontWeight: 900, color: '#1A1A1A', margin: '0 0 6px', letterSpacing: -1 }}>Dog Walking & Pet Sitting</h1>
-          <p style={{ color: '#6B7280', marginBottom: 28, fontSize: isMobile ? 14 : 15, fontWeight: 500 }}>Find trusted walkers & sitters near you — or register as one</p>
+          <p style={{ color: '#6B7280', marginBottom: 28, fontSize: isMobile ? 14 : 15, fontWeight: 500 }}>Find trusted & Nagarik-verified walkers and sitters — or register as one</p>
 
           {/* TABS */}
           <div style={{ display: 'flex', gap: 0, background: '#F3F4F6', borderRadius: 999, padding: 4, width: '100%', maxWidth: isMobile ? '100%' : 'fit-content', marginBottom: 28, border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', boxSizing: 'border-box' }}>
@@ -107,6 +135,15 @@ export default function WalkSit() {
           {/* FIND TAB */}
           {tab === 'find' && (
             <div>
+              {/* NAGARIK VERIFIED NOTICE */}
+              <div style={{ background: '#E8F9ED', borderRadius: 14, padding: '14px 20px', marginBottom: 24, border: '2px solid #1A1A1A', display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: 24, flexShrink: 0 }}>🇳🇵</span>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: 14, color: '#1A1A1A' }}>Nagarik App Verified Walkers & Sitters</div>
+                  <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>All listed walkers and sitters have been verified using Nepal Government's Nagarik App. Your pet is safe. / सबै सूचीबद्ध व्यक्तिहरू नागरिक एपद्वारा प्रमाणित छन्।</div>
+                </div>
+              </div>
+
               <div style={{ display: 'flex', gap: 10, marginBottom: 24, flexWrap: 'wrap' }}>
                 <input placeholder="📍  Your area..." style={{ flex: 1, minWidth: 140, padding: '10px 16px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', outline: 'none', boxShadow: '2px 2px 0px #1A1A1A' }} />
                 {['All', 'Dog Walking', 'Pet Sitting', 'Both'].map(f => (
@@ -116,10 +153,16 @@ export default function WalkSit() {
 
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
 
-                {/* WALKER CARDS */}
                 {walkers.map(w => (
                   <div key={w.name} style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
-                    <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A' }}>{w.emoji}</div>
+                    <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
+                      {w.emoji}
+                      {w.verified && (
+                        <div style={{ position: 'absolute', top: 8, left: 8, background: '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A', display: 'flex', alignItems: 'center', gap: 3 }}>
+                          🇳🇵 Nagarik Verified
+                        </div>
+                      )}
+                    </div>
                     <div style={{ padding: isMobile ? '12px' : '18px 20px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4, gap: 4 }}>
                         <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', lineHeight: 1.2 }}>{w.name}</div>
@@ -148,7 +191,7 @@ export default function WalkSit() {
                   <div style={{ width: 48, height: 48, borderRadius: 999, background: '#E8F9ED', border: '2.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 10, boxShadow: '3px 3px 0px #1A1A1A' }}>🦮</div>
                   <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 15, color: '#1A1A1A', marginBottom: 6 }}>Become a Dog Walker</div>
                   <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 500, marginBottom: 14, lineHeight: 1.4 }}>Earn NPR 200-400/hr walking dogs near you</div>
-                  <div style={{ background: '#58CC02', color: '#fff', padding: '7px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 12, fontWeight: 800, boxShadow: '2px 2px 0px #166534' }}>Apply Now →</div>
+                  <div style={{ background: '#58CC02', color: '#fff', padding: '7px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 12, fontWeight: 800, boxShadow: '2px 2px 0px #166634' }}>Apply Now →</div>
                 </button>
 
               </div>
@@ -162,32 +205,34 @@ export default function WalkSit() {
                 <div style={{ background: '#E8F9ED', borderRadius: 24, padding: isMobile ? '32px 20px' : '48px', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', textAlign: 'center' }}>
                   <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
                   <h3 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 900, color: '#1A1A1A', marginBottom: 8 }}>Application Submitted!</h3>
-                  <p style={{ color: '#6B7280', fontSize: 15, fontWeight: 500, marginBottom: 24 }}>We'll review your application and contact you within 3–5 business days.</p>
-                  <button onClick={() => { setSubmitted(false); setForm({ fullName: '', phone: '', area: '', email: '', services: '🦮 Dog Walking', experience: '' }) }} style={{ background: '#58CC02', color: '#fff', padding: '12px 28px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>Submit Another</button>
+                  <p style={{ color: '#6B7280', fontSize: 15, fontWeight: 500, marginBottom: 8 }}>We'll verify your Nagarik App details and contact you within 3–5 business days.</p>
+                  <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginBottom: 24 }}>तपाईंको नागरिक एप विवरण प्रमाणित गरेर ३-५ कार्य दिनभित्र सम्पर्क गर्नेछौं।</p>
+                  <button onClick={() => { setSubmitted(false); setNagarikUrl(null); setForm({ fullName: '', phone: '', area: '', email: '', services: '🦮 Dog Walking', experience: '' }) }} style={{ background: '#58CC02', color: '#fff', padding: '12px 28px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>Submit Another</button>
                 </div>
               ) : (
                 <div style={{ background: '#fff', borderRadius: 24, border: '3px solid #1A1A1A', padding: isMobile ? '24px 20px' : '36px 40px', boxShadow: '5px 5px 0px #1A1A1A' }}>
                   <h3 style={{ fontSize: isMobile ? 20 : 22, fontWeight: 900, color: '#1A1A1A', margin: '0 0 6px' }}>Register as a Walker / Sitter</h3>
-                  <p style={{ color: '#6B7280', fontSize: 14, marginBottom: 24, fontWeight: 500 }}>Join Nepal's first pet walker network. Applications reviewed by our team.</p>
+                  <p style={{ color: '#6B7280', fontSize: 14, marginBottom: 24, fontWeight: 500 }}>Join Nepal's first verified pet walker network. All applicants are Nagarik-verified before listing.</p>
+
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div>
-                      <label style={labelStyle}>Full Name *</label>
-                      <input value={form.fullName} onChange={e => update('fullName', e.target.value)} placeholder="Your full name" style={inputStyle} />
+                      <label style={labelStyle}>Full Name / पूरा नाम *</label>
+                      <input value={form.fullName} onChange={e => update('fullName', e.target.value)} placeholder="Your full name / तपाईंको पूरा नाम" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Phone Number *</label>
+                      <label style={labelStyle}>Phone Number / फोन नम्बर *</label>
                       <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Your Area / Locality *</label>
-                      <input value={form.area} onChange={e => update('area', e.target.value)} placeholder="e.g. Lalitpur, Jhamsikhel" style={inputStyle} />
+                      <label style={labelStyle}>Your Area / तपाईंको क्षेत्र *</label>
+                      <input value={form.area} onChange={e => update('area', e.target.value)} placeholder="e.g. Lalitpur, Jhamsikhel / जस्तै: ललितपुर, झम्सिखेल" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Email Address</label>
+                      <label style={labelStyle}>Email Address / इमेल ठेगाना</label>
                       <input type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="your@email.com" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Services you offer *</label>
+                      <label style={labelStyle}>Services you offer / सेवाहरू *</label>
                       <div style={{ display: 'flex', gap: 10 }}>
                         {['🦮 Dog Walking', '🛋️ Pet Sitting', 'Both'].map(s => (
                           <button key={s} onClick={() => update('services', s)} style={{ flex: 1, padding: '11px 8px', borderRadius: 12, border: `2px solid ${form.services === s ? '#1A1A1A' : '#E5E7EB'}`, background: form.services === s ? '#58CC02' : '#fff', color: form.services === s ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 11 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: form.services === s ? '2px 2px 0px #166634' : 'none' }}>{s}</button>
@@ -195,14 +240,65 @@ export default function WalkSit() {
                       </div>
                     </div>
                     <div>
-                      <label style={labelStyle}>Why are you a good fit?</label>
-                      <textarea rows={3} value={form.experience} onChange={e => update('experience', e.target.value)} placeholder="Tell us about your experience with pets..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+                      <label style={labelStyle}>Why are you a good fit? / तपाईं किन उपयुक्त हुनुहुन्छ?</label>
+                      <textarea rows={3} value={form.experience} onChange={e => update('experience', e.target.value)} placeholder="Tell us about your experience with pets... / आफ्नो पाल्तु जनावरसँगको अनुभव बताउनुहोस्..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
                     </div>
-                    <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#92400E', fontWeight: 600, border: '1.5px solid #FFD23F' }}>
-                      📋 All candidates reviewed before listing. We will contact you within 3–5 business days.
+
+                    {/* NAGARIK APP UPLOAD */}
+                    <div>
+                      <label style={labelStyle}>Nagarik App Screenshot / नागरिक एप स्क्रिनसट *</label>
+
+                      {/* INSTRUCTIONS */}
+                      <div style={{ background: '#F0F8FF', borderRadius: 12, padding: '14px 16px', marginBottom: 12, border: '1.5px solid #38BDF8' }}>
+                        <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 8 }}>📱 How to get your Nagarik App screenshot:</div>
+                        <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
+                          1. Open <strong>Nagarik App</strong> on your phone<br />
+                          2. Go to <strong>My Profile / Citizenship Details</strong><br />
+                          3. Take a screenshot showing your <strong>full name, citizenship number & date of birth</strong><br />
+                          4. Upload that screenshot below<br />
+                        </div>
+                        <div style={{ fontSize: 12, color: '#6B7280', marginTop: 8, paddingTop: 8, borderTop: '1px solid #E5E7EB', lineHeight: 1.8 }}>
+                          <strong>नेपालीमा:</strong><br />
+                          १. आफ्नो फोनमा <strong>नागरिक एप</strong> खोल्नुहोस्<br />
+                          २. <strong>मेरो प्रोफाइल / नागरिकता विवरण</strong> मा जानुहोस्<br />
+                          ३. तपाईंको <strong>पूरा नाम, नागरिकता नम्बर र जन्म मिति</strong> देखिने स्क्रिनसट लिनुहोस्<br />
+                          ४. तल अपलोड गर्नुहोस्
+                        </div>
+                      </div>
+
+                      {/* UPLOAD AREA */}
+                      <div style={{ position: 'relative', border: `3px dashed ${nagarikUrl ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '28px 20px', textAlign: 'center', background: nagarikUrl ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
+                        <input type="file" accept="image/*" onChange={handleNagarikUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                        {uploading ? (
+                          <div style={{ fontSize: 14, fontWeight: 700, color: '#6B7280' }}>⬆️ Uploading... / अपलोड हुँदैछ...</div>
+                        ) : nagarikUrl ? (
+                          <div>
+                            <div style={{ fontSize: 32, marginBottom: 8 }}>✅</div>
+                            <div style={{ fontSize: 14, fontWeight: 800, color: '#58CC02', marginBottom: 6 }}>Screenshot uploaded successfully!</div>
+                            <img src={nagarikUrl} alt="Nagarik screenshot" style={{ width: '100%', maxWidth: 200, borderRadius: 10, border: '2px solid #1A1A1A', marginTop: 8 }} />
+                            <div style={{ fontSize: 12, color: '#6B7280', marginTop: 8 }}>Click to replace / फेर्न क्लिक गर्नुहोस्</div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div style={{ fontSize: 40, marginBottom: 8 }}>📱</div>
+                            <div style={{ fontSize: 14, fontWeight: 800, color: '#1A1A1A', marginBottom: 4 }}>Upload Nagarik App Screenshot</div>
+                            <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>नागरिक एप स्क्रिनसट अपलोड गर्नुहोस् · JPG or PNG</div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <button onClick={handleSubmit} disabled={submitting} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? 'Submitting...' : 'Submit Application'}
+
+                    {/* TRUST NOTE */}
+                    <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#92400E', fontWeight: 600, border: '1.5px solid #FFD23F', lineHeight: 1.7 }}>
+                      🔒 Your Nagarik App details are only used for identity verification and will not be shared publicly. / तपाईंको नागरिक एप विवरण केवल पहिचान प्रमाणीकरणका लागि प्रयोग गरिन्छ र सार्वजनिक गरिने छैन।
+                    </div>
+
+                    <div style={{ background: '#FAFAFA', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#374151', fontWeight: 600, border: '1.5px solid #E5E7EB' }}>
+                      📋 All applicants reviewed before listing. We will contact you within 3–5 business days. / सबै आवेदकहरू सूचीबद्ध गर्नु अघि समीक्षा गरिन्छ। हामी ३-५ कार्य दिनभित्र सम्पर्क गर्नेछौं।
+                    </div>
+
+                    <button onClick={handleSubmit} disabled={submitting || uploading} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534', opacity: submitting ? 0.7 : 1 }}>
+                      {submitting ? 'Submitting... / सबमिट हुँदैछ...' : '🐾 Submit Application / आवेदन पेश गर्नुहोस्'}
                     </button>
                   </div>
                 </div>
