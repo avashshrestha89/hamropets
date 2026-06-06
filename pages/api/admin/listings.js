@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const { data, error } = await supabase
     .from('pet_listings')
     .select('*')
-    .eq('status', status)
+    .in('status', status.split(','))
     .order('created_at', { ascending: false })
 
   if (error) {
