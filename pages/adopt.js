@@ -13,7 +13,7 @@ export async function getServerSideProps({ query }) {
   let supabaseQuery = supabase
     .from('pet_listings')
     .select('*')
-    .eq('status', 'approved')
+   .in('status', ['approved', 'adopted'])
     .order('created_at', { ascending: false })
   if (species && species !== 'All') {
     supabaseQuery = supabaseQuery.ilike('species', species.slice(0, -1))
