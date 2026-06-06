@@ -249,9 +249,9 @@ export default function Home({ featuredPets, featuredVets }) {
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 120 : 170, background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
                       {pet.images && pet.images.length > 0 ? <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
-                      <div style={{ position: 'absolute', top: 8, left: 8, background: '#fff', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 800, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
-                        {pet.vaccinated ? '💉 Vaccinated' : `🐾 ${pet.species}`}
-                      </div>
+                      <div style={{ position: 'absolute', top: 8, left: 8, background: pet.status === 'adopted' ? '#FF6B9D' : '#fff', color: pet.status === 'adopted' ? '#fff' : '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 800, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
+  {pet.status === 'adopted' ? '🎉 ADOPTED' : pet.vaccinated ? '💉 Vaccinated' : `🐾 ${pet.species}`}
+</div>
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
                       <div style={{ fontWeight: 800, fontSize: isMobile ? 15 : 18, color: '#1A1A1A' }}>{pet.pet_name}</div>
