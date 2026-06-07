@@ -1,8 +1,22 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { createClient } from '@supabase/supabase-js'
 
-export default function WalkSit() {
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
+
+export async function getServerSideProps() {
+  const { data } = await supabase
+    .from('walker_applications')
+    .select('*')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
+  return { props: { walkers: data || [] } }
+}
+export default function WalkSit({ walkers: dbWalkers }) {
   const [isMobile, setIsMobile] = useState(false)
   const [tab, setTab] = useState('find')
   const [submitting, setSubmitting] = useState(false)
@@ -68,12 +82,25 @@ export default function WalkSit() {
     setSubmitting(false)
   }
 
-  const walkers = [
-    { name: 'Priya Shrestha', area: 'Lalitpur', service: 'Walking + Sitting', rate: 'NPR 300/hr', emoji: '👩', color: '#FF6B9D', rating: '4.9', jobs: 48, verified: true },
-    { name: 'Rajan Tamang', area: 'Kathmandu', service: 'Dog Walking', rate: 'NPR 250/hr', emoji: '👨', color: '#38BDF8', rating: '4.8', jobs: 32, verified: true },
-    { name: 'Sunita KC', area: 'Bhaktapur', service: 'Pet Sitting', rate: 'NPR 500/day', emoji: '👩', color: '#7B5EA7', rating: '5.0', jobs: 21, verified: true },
-    { name: 'Bikash Rai', area: 'Boudha', service: 'Walking + Sitting', rate: 'NPR 280/hr', emoji: '👨', color: '#58CC02', rating: '4.7', jobs: 15, verified: true },
+const fallbackWalkers = [
+    { id: 'f1', full_name: 'Priya Shrestha', area: 'Lalitpur', services: 'Walking + Sitting', emoji: '👩', color: '#FF6B9D', rating: '4.9', jobs: 48 },
+    { id: 'f2', full_name: 'Rajan Tamang', area: 'Kathmandu', services: 'Dog Walking', emoji: '👨', color: '#38BDF8', rating: '4.8', jobs: 32 },
+    { id: 'f3', full_name: 'Sunita KC', area: 'Bhaktapur', services: 'Pet Sitting', emoji: '👩', color: '#7B5EA7', rating: '5.0', jobs: 21 },
+    { id: 'f4', full_name: 'Bikash Rai', area: 'Boudha', services: 'Walking + Sitting', emoji: '👨', color: '#58CC02', rating: '4.7', jobs: 15 },
   ]
+
+const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
+    id: w.id,
+    full_name: w.full_name,
+    area: w.area,
+    services: w.services,
+    emoji: w.services?.includes('Sitting') ? '👩' : '👨',
+    color: w.services?.includes('Sitting') ? '#FF6B9D' : '#38BDF8',
+    rating: '5.0',
+    jobs: 0,
+    verified: true,
+    nagarik_screenshot: w.nagarik_screenshot,
+  })) : fallbackWalkers
 
   const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }
   const labelStyle = { fontSize: 13, fontWeight: 800, color: '#1A1A1A', display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.3 }
@@ -163,15 +190,15 @@ export default function WalkSit() {
                         </div>
                       )}
                     </div>
-                    <div style={{ padding: isMobile ? '12px' : '18px 20px' }}>
+              <div style={{ padding: isMobile ? '12px' : '18px 20px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4, gap: 4 }}>
-                        <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', lineHeight: 1.2 }}>{w.name}</div>
+                        <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', lineHeight: 1.2 }}>{w.full_name}</div>
                         <span style={{ fontWeight: 800, color: '#F59E0B', fontSize: isMobile ? 11 : 13, flexShrink: 0 }}>⭐ {w.rating}</span>
                       </div>
-                      <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.service}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services}</div>
                       <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500 }}>📍 {w.area} · {w.jobs} jobs</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1.5px dashed #E5E7EB' }}>
-                        <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 13 : 15 }}>{w.rate}</span>
+                        <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 13 : 15 }}>{w.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk'}</span>
                         <button style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '6px 12px' : '8px 20px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #166534', whiteSpace: 'nowrap' }}>Book</button>
                       </div>
                     </div>
