@@ -583,7 +583,30 @@ PLEASE GENERATE:
                       )}
                     </div>
                   )}
-
+{/* BOOKING INQUIRY */}
+                  {currentType === 'booking' && (
+                    <div>
+                      <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>{item.client_name}</h3>
+                        <span style={{ background: item.status === 'pending' ? '#FFF9E6' : '#E8F9ED', color: item.status === 'pending' ? '#92400E' : '#166534', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{item.status}</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 10 }}>
+                        {[['Walker', item.walker_name], ['Service', item.service], ['Date', item.preferred_date || 'Not specified'], ['Phone', item.client_phone]].map(([k, v]) => (
+                          <div key={k}>
+                            <div style={{ fontSize: 11, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{v}</div>
+                          </div>
+                        ))}
+                      </div>
+                      {item.pet_details && <div style={{ background: '#F0F8FF', borderRadius: 10, padding: '10px 14px', marginBottom: 8, fontSize: 13, color: '#444', lineHeight: 1.6 }}><strong>Pet:</strong> {item.pet_details}</div>}
+                      {item.message && <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}><strong>Message:</strong> {item.message}</div>}
+                      <div style={{ display: 'flex', gap: 10 }}>
+                        <a href={`tel:${item.client_phone}`} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '2px 2px 0px #166534' }}>📞 Call Client</a>
+                        <a href={`https://wa.me/977${item.client_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" style={{ flex: 1, background: '#25D366', color: '#fff', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A' }}>💬 WhatsApp</a>
+                        {item.status === 'pending' && <button onClick={() => updateStatus(item.id, 'confirmed', 'booking')} style={{ flex: 1, background: '#38BDF8', color: '#fff', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>✅ Confirm</button>}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
