@@ -182,7 +182,7 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
 
 {walkers.map(w => (
                   <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                  <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                  <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
                       {w.emoji}
                       {w.verified && (
@@ -191,7 +191,7 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                         </div>
                       )}
                     </div>
-              <div style={{ padding: isMobile ? '12px' : '18px 20px' }}>
+              <div style={{ padding: isMobile ? '12px' : '18px 20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4, gap: 4 }}>
                         <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', lineHeight: 1.2 }}>{w.full_name}</div>
                         <span style={{ fontWeight: 800, color: '#F59E0B', fontSize: isMobile ? 11 : 13, flexShrink: 0 }}>⭐ {w.rating}</span>
