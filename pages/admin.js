@@ -458,31 +458,97 @@ PLEASE GENERATE:
                     </div>
                   )}
 
-                  {/* WALKER APPLICATION */}
+        {/* WALKER APPLICATION */}
                   {currentType === 'walker' && (
                     <div>
                       <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
-                        <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000', margin: 0 }}>{item.full_name}</h3>
-                        <span style={{ background: item.status === 'pending' ? '#FFF9E6' : '#E8F9ED', color: item.status === 'pending' ? '#92400E' : '#166534', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #000' }}>{item.status}</span>
-                        <span style={{ background: '#E8F9ED', color: '#166534', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 700, border: '1.5px solid #000' }}>{item.services}</span>
+                        <h3 style={{ fontSize: 20, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>{item.full_name}</h3>
+                        <span style={{ background: item.status === 'pending' ? '#FFF9E6' : '#E8F9ED', color: item.status === 'pending' ? '#92400E' : '#166534', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{item.status}</span>
+                        <span style={{ background: '#E8F9ED', color: '#166534', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 700, border: '1.5px solid #1A1A1A' }}>{item.services}</span>
                       </div>
                       <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 10 }}>
-                        {[['Phone', item.phone], ['Area', item.area], ['Email', item.email || 'N/A']].map(([k, v]) => (
+                        {[['Phone', item.phone], ['City', item.city || 'Not set'], ['Locality', item.locality || 'Not set'], ['Email', item.email || 'N/A']].map(([k, v]) => (
                           <div key={k}>
                             <div style={{ fontSize: 11, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
-                            <div style={{ fontSize: 13, fontWeight: 700, color: '#000' }}>{v}</div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{v}</div>
                           </div>
                         ))}
                       </div>
-                      {item.experience && <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.experience}</div>}
+                      {item.experience && <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.experience}</div>}
+
+                      {/* EDIT BUTTON */}
+                      <div style={{ marginBottom: 12 }}>
+                        <button
+                          onClick={() => {
+                            if (editingId === item.id) {
+                              setEditingId(null)
+                            } else {
+                              setEditingId(item.id)
+                              setEditForm({ full_name: item.full_name || '', phone: item.phone || '', city: item.city || '', locality: item.locality || '', area: item.area || '', services: item.services || '', experience: item.experience || '', email: item.email || '' })
+                            }
+                          }}
+                          style={{ background: editingId === item.id ? '#F3F4F6' : '#38BDF8', color: editingId === item.id ? '#666' : '#fff', padding: '9px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}
+                        >{editingId === item.id ? '✕ Cancel' : '✏️ Edit Walker'}</button>
+                      </div>
+
+                      {/* INLINE EDIT FORM */}
+                      {editingId === item.id && (
+                        <div style={{ background: '#F0F8FF', borderRadius: 16, border: '2px solid #38BDF8', padding: '20px', marginBottom: 16 }}>
+                          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 16 }}>✏️ Edit Walker</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+                            {[['Full Name', 'full_name'], ['Phone', 'phone'], ['Email', 'email'], ['Services', 'services']].map(([label, key]) => (
+                              <div key={key}>
+                                <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+                                <input value={editForm[key] || ''} onChange={e => setEditForm(f => ({ ...f, [key]: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+                              </div>
+                            ))}
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+                            <div>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>City</div>
+                              <select value={editForm.city || ''} onChange={e => setEditForm(f => ({ ...f, city: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}>
+                                <option value="">Select city</option>
+                                {['Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan', 'Biratnagar', 'Other'].map(c => <option key={c}>{c}</option>)}
+                              </select>
+                            </div>
+                            <div>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Locality</div>
+                              <input value={editForm.locality || ''} onChange={e => setEditForm(f => ({ ...f, locality: e.target.value }))} placeholder="e.g. Thamel, Imadol" style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+                            </div>
+                          </div>
+                          <div style={{ marginBottom: 12 }}>
+                            <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Experience / About</div>
+                            <textarea rows={3} value={editForm.experience || ''} onChange={e => setEditForm(f => ({ ...f, experience: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
+                          </div>
+                          <div style={{ display: 'flex', gap: 10 }}>
+                            <button onClick={async () => {
+                              setActionLoading(item.id)
+                              try {
+                                await fetch('/api/admin/update-walker', {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ id: item.id, ...editForm }),
+                                })
+                                setEditingId(null)
+                                fetchListings()
+                              } catch (err) { alert('Failed to save') }
+                              setActionLoading(null)
+                            }} style={{ flex: 2, background: '#38BDF8', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                              💾 Save Changes
+                            </button>
+                            <button onClick={() => setEditingId(null)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+                          </div>
+                        </div>
+                      )}
+
                       {item.status === 'pending' && (
                         <div style={{ display: 'flex', gap: 10 }}>
-                          <button onClick={() => updateStatus(item.id, 'approved', 'walker')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>✅ Approve</button>
-                          <button onClick={() => updateStatus(item.id, 'rejected', 'walker')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>❌ Reject</button>
+                          <button onClick={() => updateStatus(item.id, 'approved', 'walker')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>✅ Approve</button>
+                          <button onClick={() => updateStatus(item.id, 'rejected', 'walker')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>❌ Reject</button>
                         </div>
                       )}
                       {item.status !== 'pending' && (
-                        <button onClick={() => updateStatus(item.id, 'pending', 'walker')} style={{ background: '#fff', color: '#000', padding: '9px 20px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>↩ Move to Pending</button>
+                        <button onClick={() => updateStatus(item.id, 'pending', 'walker')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
                       )}
                     </div>
                   )}
