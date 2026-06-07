@@ -197,7 +197,7 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                         <span style={{ fontWeight: 800, color: '#F59E0B', fontSize: isMobile ? 11 : 13, flexShrink: 0 }}>⭐ {w.rating}</span>
                       </div>
                       <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services === 'Both' || w.services?.includes('Both') ? '🦮 Dog Walking & 🛋️ Pet Sitting' : w.services}</div>
-                      <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>📍 {w.area} · {w.jobs} jobs</div>
+                      <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {w.area} · {w.jobs} jobs</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1.5px dashed #E5E7EB' }}>
                         <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 13 : 15 }}>{w.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk'}</span>
                         <button style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '6px 12px' : '8px 20px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #166534', whiteSpace: 'nowrap' }}>Book</button>
