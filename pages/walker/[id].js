@@ -235,8 +235,8 @@ export default function WalkerProfile({ walker }) {
               <div style={{ background: '#FFF9E6', borderRadius: 14, padding: isMobile ? '14px' : '18px 20px', border: '1.5px solid #FFD23F', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={{ fontSize: 28, flexShrink: 0 }}>🇳🇵</span>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 14, color: '#1A1A1A', marginBottom: 3 }}>Identity Verified via Nagarik App</div>
-                  <div style={{ fontSize: isMobile ? 12 : 13, color: '#6B7280', fontWeight: 500 }}>This walker's identity has been verified using Nepal Government's official Nagarik App before being listed on HamroPets.</div>
+<div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 14, color: '#1A1A1A', marginBottom: 3 }}>Identity Verified via Citizenship Card</div>
+<div style={{ fontSize: isMobile ? 12 : 13, color: '#6B7280', fontWeight: 500 }}>This walker's identity has been verified using their Nepal Government issued Citizenship Card before being listed on HamroPets.</div>
                 </div>
               </div>
 
