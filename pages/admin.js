@@ -20,7 +20,7 @@ const [editUploading, setEditUploading] = useState(false)
     else alert('Wrong password')
   }
 
-  const tabConfig = {
+const tabConfig = {
     pets_pending: { label: '⏳ Pets', api: '/api/admin/listings?status=pending', type: 'pet' },
     pets_approved: { label: '✅ Pets', api: '/api/admin/listings?status=approved,adopted', type: 'pet' },
     vets_pending: { label: '⏳ Vets', api: '/api/admin/vet-listings?status=pending', type: 'vet' },
@@ -28,6 +28,7 @@ const [editUploading, setEditUploading] = useState(false)
     walkers_pending: { label: '⏳ Walkers', api: '/api/admin/walker-applications?status=pending', type: 'walker' },
     walkers_approved: { label: '✅ Walkers', api: '/api/admin/walker-applications?status=approved', type: 'walker' },
     lost_found: { label: '🔍 Lost & Found', api: '/api/admin/lost-found-listings', type: 'lostfound' },
+    bookings: { label: '📅 Bookings', api: '/api/admin/booking-inquiries', type: 'booking' },
   }
 
   const fetchListings = async () => {
@@ -44,7 +45,13 @@ const [editUploading, setEditUploading] = useState(false)
 
   useEffect(() => { if (authed) fetchListings() }, [authed, tab])
 
-  const updateStatus = async (id, status, type) => {
+  const endpoints = {
+      pet: '/api/admin/update-listing',
+      vet: '/api/admin/update-vet-listing',
+      walker: '/api/admin/update-walker',
+      lostfound: '/api/admin/update-lost-found',
+      booking: '/api/admin/update-booking',
+    }
     setActionLoading(id)
     const endpoints = {
       pet: '/api/admin/update-listing',
@@ -180,6 +187,7 @@ const removeEditPhoto = (index) => {
             { group: '🏥 Vet Listings', items: [['vets_pending', '⏳ Pending Vets'], ['vets_approved', '✅ Approved Vets']] },
             { group: '🦮 Walkers', items: [['walkers_pending', '⏳ Pending Walkers'], ['walkers_approved', '✅ Approved Walkers']] },
             { group: '🔍 Lost & Found', items: [['lost_found', '🔍 All Reports']] },
+{ group: '📅 Bookings', items: [['bookings', '📅 All Inquiries']] },
           ].map(({ group, items }) => (
             <div key={group} style={{ marginBottom: 24 }}>
               <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1, padding: '0 8px', marginBottom: 6 }}>{group}</div>
