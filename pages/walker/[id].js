@@ -7,6 +7,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
+
 function BookingForm({ walker, isMobile }) {
   const [showForm, setShowForm] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -110,6 +111,7 @@ function BookingForm({ walker, isMobile }) {
     </div>
   )
 }
+
 export async function getServerSideProps({ params }) {
   const { id } = params
   const { data, error } = await supabase
@@ -133,7 +135,6 @@ export default function WalkerProfile({ walker }) {
   }, [])
 
   const isSitter = walker.services?.includes('Sitting')
-  const isBoth = walker.services?.includes('Both') || (walker.services?.includes('Walking') && walker.services?.includes('Sitting'))
   const color = isSitter ? '#FF6B9D' : '#38BDF8'
   const emoji = isSitter ? '🛋️' : '🦮'
 
@@ -141,7 +142,7 @@ export default function WalkerProfile({ walker }) {
     <>
       <Head>
         <title>{walker.full_name} — HamroPets Walker/Sitter</title>
-        <meta name="description" content={`${walker.full_name} is a verified pet walker/sitter in ${walker.area}, Nepal.`} />
+        <meta name="description" content={`${walker.full_name} is a verified pet walker/sitter in ${walker.city || walker.area}, Nepal.`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -169,7 +170,7 @@ export default function WalkerProfile({ walker }) {
             {/* HEADER */}
             <div style={{ height: isMobile ? 120 : 160, background: `linear-gradient(135deg, ${color}25, ${color}60)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 60 : 80, position: 'relative', borderBottom: '3px solid #1A1A1A' }}>
               {emoji}
-              <div style={{ position: 'absolute', top: 16, left: 16, background: '#58CC02', color: '#fff', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ position: 'absolute', top: 16, left: 16, background: '#58CC02', color: '#fff', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
                 🇳🇵 Nagarik Verified
               </div>
               <div style={{ position: 'absolute', top: 16, right: 16, background: '#FFD23F', color: '#1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
@@ -183,18 +184,17 @@ export default function WalkerProfile({ walker }) {
               <div style={{ marginBottom: 20 }}>
                 <h1 style={{ fontSize: isMobile ? 28 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>{walker.full_name}</h1>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <span style={{ background: color, color: '#fff', padding: '4px 14px', borderRadius: 999, fontSize: 13, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{walker.services}</span>
-                  <span style={{ background: '#F0F8FF', color: '#1A1A1A', padding: '4px 14px', borderRadius: 999, fontSize: 13, fontWeight: 700, border: '1.5px solid #1A1A1A' }}>📍 {walker.area}</span>
+                  <span style={{ background: color, color: '#fff', padding: '4px 14px', borderRadius: 999, fontSize: 13, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{walker.services === 'Both' ? '🦮 Dog Walking & 🛋️ Pet Sitting' : walker.services}</span>
+                  <span style={{ background: '#F0F8FF', color: '#1A1A1A', padding: '4px 14px', borderRadius: 999, fontSize: 13, fontWeight: 700, border: '1.5px solid #1A1A1A' }}>📍 {walker.city || walker.area}{walker.locality ? ` · ${walker.locality}` : ''}</span>
                 </div>
               </div>
 
               {/* INFO GRID */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 14, marginBottom: 24 }}>
                 {[
-                 ['📍 City', walker.city || walker.area, '#FFF9E6'],
-['🏘️ Locality', walker.locality || 'Not specified', '#F0F8FF'],
-                  ['🦮 Services', walker.services, '#E8F9ED'],
-                  ['💰 Rate', walker.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk', '#F0F8FF'],
+                  ['📍 City', walker.city || walker.area, '#FFF9E6'],
+                  ['🏘️ Locality', walker.locality || 'Not specified', '#F0F8FF'],
+                  ['💰 Rate', walker.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk', '#E8F9ED'],
                   ['🇳🇵 ID Verified', 'Nagarik App', '#E8F9ED'],
                   ['⏰ Availability', 'Flexible Hours', '#FFF0F6'],
                   ['📞 Response', 'Within 2 hours', '#FFFBDE'],
@@ -219,16 +219,14 @@ export default function WalkerProfile({ walker }) {
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>What I Offer</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {[
-                    walker.services?.includes('Walking') || walker.services?.includes('Both') ? '🦮 Daily dog walks in your neighbourhood' : null,
-                    walker.services?.includes('Sitting') || walker.services?.includes('Both') ? '🛋️ In-home pet sitting while you travel' : null,
+                    walker.services?.includes('Walking') || walker.services === 'Both' ? '🦮 Daily dog walks in your neighbourhood' : null,
+                    walker.services?.includes('Sitting') || walker.services === 'Both' ? '🛋️ In-home pet sitting while you travel' : null,
                     '📸 Photo updates of your pet during sessions',
                     '🇳🇵 Government ID verified via Nagarik App',
                     '⏰ Flexible scheduling around your needs',
                     '❤️ Genuine love and care for animals',
                   ].filter(Boolean).map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ fontSize: isMobile ? 14 : 15 }}>{item}</span>
-                    </div>
+                    <div key={i} style={{ fontSize: isMobile ? 14 : 15, color: '#374151', fontWeight: 500 }}>{item}</div>
                   ))}
                 </div>
               </div>
@@ -241,13 +239,9 @@ export default function WalkerProfile({ walker }) {
                   <div style={{ fontSize: isMobile ? 12 : 13, color: '#6B7280', fontWeight: 500 }}>This walker's identity has been verified using Nepal Government's official Nagarik App before being listed on HamroPets.</div>
                 </div>
               </div>
-{/* BOOKING FORM */}
-              <BookingForm walker={walker} isMobile={isMobile} />
 
-              {/* DISCLAIMER */}
-              <div style={{ marginTop: 16, background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
-                ⚠️ HamroPets connects you with verified walkers. Always meet in a public place first and agree on terms before booking.
-              </div>
+              {/* BOOKING FORM */}
+              <BookingForm walker={walker} isMobile={isMobile} />
 
             </div>
           </div>
