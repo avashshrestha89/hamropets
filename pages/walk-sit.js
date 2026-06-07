@@ -171,8 +171,8 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
               <div style={{ background: '#E8F9ED', borderRadius: 14, padding: '14px 20px', marginBottom: 24, border: '2px solid #1A1A1A', display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={{ fontSize: 24, flexShrink: 0 }}>🇳🇵</span>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#1A1A1A' }}>Nagarik App Verified Walkers & Sitters</div>
-                  <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>All listed walkers and sitters have been verified using Nepal Government's Nagarik App. Your pet is safe. / सबै सूचीबद्ध व्यक्तिहरू नागरिक एपद्वारा प्रमाणित छन्।</div>
+<div style={{ fontWeight: 800, fontSize: 14, color: '#1A1A1A' }}>🪪 ID Verified Walkers & Sitters</div>
+                  <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>All listed walkers and sitters have been verified using their Nepal Government Citizenship Card. Your pet is safe. / सबै सूचीबद्ध व्यक्तिहरू नागरिकता कार्डद्वारा प्रमाणित छन्।</div>
                 </div>
               </div>
 
@@ -247,8 +247,8 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
                 <div style={{ background: '#E8F9ED', borderRadius: 24, padding: isMobile ? '32px 20px' : '48px', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', textAlign: 'center' }}>
                   <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
                   <h3 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 900, color: '#1A1A1A', marginBottom: 8 }}>Application Submitted!</h3>
-                  <p style={{ color: '#6B7280', fontSize: 15, fontWeight: 500, marginBottom: 8 }}>We'll verify your Nagarik App details and contact you within 3–5 business days.</p>
-                  <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginBottom: 24 }}>तपाईंको नागरिक एप विवरण प्रमाणित गरेर ३-५ कार्य दिनभित्र सम्पर्क गर्नेछौं।</p>
+<p style={{ color: '#6B7280', fontSize: 15, fontWeight: 500, marginBottom: 8 }}>We'll verify your citizenship card and contact you within 3–5 business days.</p>
+                  <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginBottom: 24 }}>तपाईंको नागरिकता कार्ड प्रमाणित गरेर ३-५ कार्य दिनभित्र सम्पर्क गर्नेछौं।</p>
                   <button onClick={() => { setSubmitted(false); setNagarikUrl(null); setForm({ fullName: '', phone: '', area: '', email: '', services: '🦮 Dog Walking', experience: '' }) }} style={{ background: '#58CC02', color: '#fff', padding: '12px 28px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>Submit Another</button>
                 </div>
               ) : (
@@ -298,23 +298,21 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
 
                     {/* NAGARIK APP UPLOAD */}
                     <div>
-                      <label style={labelStyle}>Nagarik App Screenshot / नागरिक एप स्क्रिनसट *</label>
+                      <label style={labelStyle}>Citizenship Card Photo / नागरिकता कार्डको फोटो *</label>
 
                       {/* INSTRUCTIONS */}
                       <div style={{ background: '#F0F8FF', borderRadius: 12, padding: '14px 16px', marginBottom: 12, border: '1.5px solid #38BDF8' }}>
-                        <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 8 }}>📱 How to get your Nagarik App screenshot:</div>
+                   <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 8 }}>🪪 How to submit your Citizenship Card:</div>
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
-                          1. Open <strong>Nagarik App</strong> on your phone<br />
-                          2. Go to <strong>My Profile / Citizenship Details</strong><br />
-                          3. Take a screenshot showing your <strong>full name, citizenship number & date of birth</strong><br />
-                          4. Upload that screenshot below<br />
+                          1. Take a <strong>clear photo</strong> of your citizenship card (front side)<br />
+                          2. Make sure your <strong>full name, citizenship number & date of birth</strong> are visible<br />
+                          3. Upload the photo below<br />
                         </div>
                         <div style={{ fontSize: 12, color: '#6B7280', marginTop: 8, paddingTop: 8, borderTop: '1px solid #E5E7EB', lineHeight: 1.8 }}>
                           <strong>नेपालीमा:</strong><br />
-                          १. आफ्नो फोनमा <strong>नागरिक एप</strong> खोल्नुहोस्<br />
-                          २. <strong>मेरो प्रोफाइल / नागरिकता विवरण</strong> मा जानुहोस्<br />
-                          ३. तपाईंको <strong>पूरा नाम, नागरिकता नम्बर र जन्म मिति</strong> देखिने स्क्रिनसट लिनुहोस्<br />
-                          ४. तल अपलोड गर्नुहोस्
+                          १. नागरिकता कार्डको अगाडिको भागको <strong>स्पष्ट फोटो</strong> खिच्नुहोस्<br />
+                          २. तपाईंको <strong>पूरा नाम, नागरिकता नम्बर र जन्म मिति</strong> देखिने गरी फोटो खिच्नुहोस्<br />
+                          ३. तल अपलोड गर्नुहोस्
                         </div>
                       </div>
 
@@ -332,9 +330,9 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
                           </div>
                         ) : (
                           <div>
-                            <div style={{ fontSize: 40, marginBottom: 8 }}>📱</div>
-                            <div style={{ fontSize: 14, fontWeight: 800, color: '#1A1A1A', marginBottom: 4 }}>Upload Nagarik App Screenshot</div>
-                            <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>नागरिक एप स्क्रिनसट अपलोड गर्नुहोस् · JPG or PNG</div>
+                           <div style={{ fontSize: 40, marginBottom: 8 }}>🪪</div>
+                            <div style={{ fontSize: 14, fontWeight: 800, color: '#1A1A1A', marginBottom: 4 }}>Upload Citizenship Card Photo</div>
+                            <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>नागरिकता कार्डको फोटो अपलोड गर्नुहोस् · JPG or PNG</div>
                           </div>
                         )}
                       </div>
@@ -342,7 +340,7 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
 
                     {/* TRUST NOTE */}
                     <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#92400E', fontWeight: 600, border: '1.5px solid #FFD23F', lineHeight: 1.7 }}>
-                      🔒 Your Nagarik App details are only used for identity verification and will not be shared publicly. / तपाईंको नागरिक एप विवरण केवल पहिचान प्रमाणीकरणका लागि प्रयोग गरिन्छ र सार्वजनिक गरिने छैन।
+                      🔒 Your citizenship card photo is only used for identity verification and will not be shared publicly. / तपाईंको नागरिकता कार्डको फोटो केवल पहिचान प्रमाणीकरणका लागि प्रयोग गरिन्छ र सार्वजनिक गरिने छैन।
                     </div>
 
                     <div style={{ background: '#FAFAFA', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#374151', fontWeight: 600, border: '1.5px solid #E5E7EB' }}>
