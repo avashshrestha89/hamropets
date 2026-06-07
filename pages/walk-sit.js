@@ -180,8 +180,9 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
 
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
 
-                {walkers.map(w => (
-                  <div key={w.name} style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+{walkers.map(w => (
+                  <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                  <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
                       {w.emoji}
                       {w.verified && (
@@ -202,7 +203,8 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                         <button style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '6px 12px' : '8px 20px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #166534', whiteSpace: 'nowrap' }}>Book</button>
                       </div>
                     </div>
-                  </div>
+          </div>
+                  </a>
                 ))}
 
                 {/* CTA 1 — BECOME A PET SITTER */}
