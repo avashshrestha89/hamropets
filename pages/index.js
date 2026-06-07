@@ -254,13 +254,10 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers }) {
   {pet.status === 'adopted' ? '🎉 ADOPTED' : pet.vaccinated ? '💉 Vaccinated' : `🐾 ${pet.species}`}
 </div>
                     </div>
-                    <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
-                      <div style={{ fontWeight: 800, fontSize: isMobile ? 15 : 18, color: '#1A1A1A' }}>{pet.pet_name}</div>
-                      <div style={{ color: '#6B7280', fontSize: isMobile ? 11 : 13, marginTop: 2, fontWeight: 500, textTransform: 'capitalize', fontFamily: "'DM Sans', sans-serif" }}>{pet.breed || pet.species} · {age}</div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
-                        <span style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 600 }}>📍 {pet.location}</span>
-                        <span style={{ background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>FREE</span>
-                      </div>
+                <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+                      <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 17, color: '#1A1A1A', marginBottom: 4 }}>{pet.pet_name}</div>
+                      <div style={{ color: '#6B7280', fontSize: isMobile ? 11 : 12, fontWeight: 500, textTransform: 'capitalize', fontFamily: "'DM Sans', sans-serif" }}>{pet.breed || pet.species} · {age}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 12, color: '#6B7280', fontWeight: 600, marginTop: 4 }}>📍 {pet.location}</div>
                     </div>
                   </div>
                 </Link>
