@@ -9,11 +9,12 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
-  const [{ data: featuredPets }, { data: featuredVets }] = await Promise.all([
+ const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(4),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
+    supabase.from('walker_applications').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
   ])
-  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [] } }
+  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [] } }
 }
 function Slideshow({ slides }) {
   const [current, setCurrent] = useState(0)
@@ -89,7 +90,7 @@ function Slideshow({ slides }) {
     </div>
   )
 }
-export default function Home({ featuredPets, featuredVets }) {
+export default function Home({ featuredPets, featuredVets, featuredWalkers }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -267,7 +268,40 @@ export default function Home({ featuredPets, featuredVets }) {
             })}
           </div>
         </div>
-
+{/* FEATURED WALKERS & SITTERS */}
+        {featuredWalkers.length > 0 && (
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+              <div>
+                <span style={{ background: '#38BDF8', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🦮 Verified</span>
+                <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Dog Walkers & Pet Sitters</h2>
+                <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500 }}>Nagarik App verified · Available across Kathmandu Valley</p>
+              </div>
+              <Link href="/walk-sit" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+              {featuredWalkers.map(w => (
+                <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                    <div style={{ height: isMobile ? 90 : 120, background: w.services?.includes('Sitting') ? 'linear-gradient(135deg, #FF6B9D25, #FF6B9D50)' : 'linear-gradient(135deg, #38BDF825, #38BDF850)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
+                      {w.services?.includes('Sitting') ? '🛋️' : '🦮'}
+                      <div style={{ position: 'absolute', top: 8, left: 8, background: '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🇳🇵 Verified</div>
+                    </div>
+                    <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+                      <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', marginBottom: 2 }}>{w.full_name}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services}</div>
+                      <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500 }}>📍 {w.area}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
+                        <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 12 : 14 }}>{w.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk'}</span>
+                        <span style={{ background: '#38BDF8', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View Profile</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
         {/* SERVICES GRID */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
           <div style={{ marginBottom: 24 }}>
