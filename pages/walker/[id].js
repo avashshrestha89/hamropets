@@ -7,7 +7,109 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
+function BookingForm({ walker, isMobile }) {
+  const [showForm, setShowForm] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [form, setForm] = useState({
+    clientName: '', clientPhone: '', service: walker.services || '', preferredDate: '', petDetails: '', message: ''
+  })
+  const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
+  const inputStyle = { width: '100%', padding: '11px 14px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }
 
+  const handleSubmit = async () => {
+    if (!form.clientName || !form.clientPhone) {
+      alert('Please fill in your name and phone number.')
+      return
+    }
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/book-walker', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          walkerId: walker.id,
+          walkerName: walker.full_name,
+          ...form,
+        }),
+      })
+      if (res.ok) setSubmitted(true)
+      else alert('Something went wrong. Please try again.')
+    } catch (err) {
+      alert('Something went wrong.')
+    }
+    setSubmitting(false)
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ background: '#E8F9ED', borderRadius: 16, padding: '24px', border: '2px solid #1A1A1A', textAlign: 'center' }}>
+        <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
+        <div style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A', marginBottom: 6 }}>Inquiry Sent!</div>
+        <div style={{ fontSize: 14, color: '#6B7280', fontWeight: 500 }}>HamroPets will contact you within a few hours to confirm your booking with {walker.full_name}.</div>
+      </div>
+    )
+  }
+
+  if (!showForm) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <button onClick={() => setShowForm(true)} style={{ background: '#38BDF8', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block', width: '100%' }}>
+          📅 Book {walker.full_name}
+        </button>
+        <div style={{ background: '#F0F8FF', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #38BDF8', fontSize: 13, color: '#1A1A1A', fontWeight: 600, textAlign: 'center' }}>
+          HamroPets will connect you after confirming availability 🐾
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ background: '#F0F8FF', borderRadius: 16, border: '2px solid #38BDF8', padding: isMobile ? '20px 16px' : '24px' }}>
+      <div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 16 }}>📅 Book {walker.full_name}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Your Name *</div>
+          <input value={form.clientName} onChange={e => update('clientName', e.target.value)} placeholder="Your full name" style={inputStyle} />
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Your Phone *</div>
+          <input type="tel" value={form.clientPhone} onChange={e => update('clientPhone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Service Needed *</div>
+          <select value={form.service} onChange={e => update('service', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+            <option value="">Select service</option>
+            <option value="Dog Walking">🦮 Dog Walking</option>
+            <option value="Pet Sitting">🛋️ Pet Sitting</option>
+            <option value="Both">🦮🛋️ Both</option>
+          </select>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Preferred Date</div>
+          <input type="date" value={form.preferredDate} onChange={e => update('preferredDate', e.target.value)} style={inputStyle} />
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Pet Details</div>
+          <input value={form.petDetails} onChange={e => update('petDetails', e.target.value)} placeholder="e.g. Golden Retriever, 2 years old, friendly" style={inputStyle} />
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Message</div>
+          <textarea rows={3} value={form.message} onChange={e => update('message', e.target.value)} placeholder="Any special requirements or questions..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: '#38BDF8', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
+            {submitting ? 'Sending...' : '📅 Send Booking Request'}
+          </button>
+          <button onClick={() => setShowForm(false)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+        </div>
+        <div style={{ background: '#FFFBDE', borderRadius: 10, padding: '10px 14px', border: '1.5px solid #FFD23F', fontSize: 12, color: '#92400E', fontWeight: 600 }}>
+          ⚠️ HamroPets will contact you to confirm availability and arrange payment before connecting you with {walker.full_name}.
+        </div>
+      </div>
+    </div>
+  )
+}
 export async function getServerSideProps({ params }) {
   const { id } = params
   const { data, error } = await supabase
@@ -139,16 +241,8 @@ export default function WalkerProfile({ walker }) {
                   <div style={{ fontSize: isMobile ? 12 : 13, color: '#6B7280', fontWeight: 500 }}>This walker's identity has been verified using Nepal Government's official Nagarik App before being listed on HamroPets.</div>
                 </div>
               </div>
-
-              {/* CONTACT BUTTONS */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <a href={`https://wa.me/977${walker.phone?.replace(/^0/, '').replace(/^\+977/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
-                  💬 WhatsApp {walker.full_name}
-                </a>
-                <a href={`tel:${walker.phone}`} style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px' : '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
-                  📞 Call {walker.phone}
-                </a>
-              </div>
+{/* BOOKING FORM */}
+              <BookingForm walker={walker} isMobile={isMobile} />
 
               {/* DISCLAIMER */}
               <div style={{ marginTop: 16, background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
