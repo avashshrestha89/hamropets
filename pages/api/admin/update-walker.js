@@ -7,12 +7,22 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
-  const { id, status } = req.body
-  if (!id || !status) return res.status(400).json({ error: 'Missing id or status' })
-  const { error } = await supabase
-    .from('walker_applications')
-    .update({ status, updated_at: new Date().toISOString() })
-    .eq('id', id)
+const { id, status, ...rest } = req.body
+if (!id) return res.status(400).json({ error: 'Missing id' })
+const updateData = { updated_at: new Date().toISOString() }
+if (status) updateData.status = status
+if (rest.full_name) updateData.full_name = rest.full_name
+if (rest.phone !== undefined) updateData.phone = rest.phone
+if (rest.email !== undefined) updateData.email = rest.email
+if (rest.services !== undefined) updateData.services = rest.services
+if (rest.city !== undefined) updateData.city = rest.city
+if (rest.locality !== undefined) updateData.locality = rest.locality
+if (rest.area !== undefined) updateData.area = rest.area
+if (rest.experience !== undefined) updateData.experience = rest.experience
+const { error } = await supabase
+  .from('walker_applications')
+  .update(updateData)
+  .eq('id', id)
   if (error) return res.status(500).json({ error: error.message })
   return res.status(200).json({ success: true })
 }
