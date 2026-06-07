@@ -89,7 +89,8 @@ export default function WalkerProfile({ walker }) {
               {/* INFO GRID */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 14, marginBottom: 24 }}>
                 {[
-                  ['📍 Service Area', walker.area, '#FFF9E6'],
+                 ['📍 City', walker.city || walker.area, '#FFF9E6'],
+['🏘️ Locality', walker.locality || 'Not specified', '#F0F8FF'],
                   ['🦮 Services', walker.services, '#E8F9ED'],
                   ['💰 Rate', walker.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk', '#F0F8FF'],
                   ['🇳🇵 ID Verified', 'Nagarik App', '#E8F9ED'],
