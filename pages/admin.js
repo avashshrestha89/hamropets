@@ -350,7 +350,62 @@ PLEASE GENERATE:
     ✨ Copy for Gemini Pro
   </button>
 </div>
+{/* WALKER EDIT */}
+<div style={{ marginBottom: 12 }}>
+  <button
+    onClick={() => editingId === item.id ? setEditingId(null) : setEditingId(item.id) & setEditForm({ full_name: item.full_name || '', phone: item.phone || '', city: item.city || '', locality: item.locality || '', area: item.area || '', services: item.services || '', experience: item.experience || '', email: item.email || '' })}
+    style={{ background: editingId === item.id ? '#F3F4F6' : '#38BDF8', color: editingId === item.id ? '#666' : '#fff', padding: '9px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}
+  >{editingId === item.id ? '✕ Cancel' : '✏️ Edit'}</button>
+</div>
 
+{editingId === item.id && (
+  <div style={{ background: '#F0F8FF', borderRadius: 16, border: '2px solid #38BDF8', padding: '20px', marginBottom: 16 }}>
+    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 16 }}>✏️ Edit Walker</div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+      {[['Full Name', 'full_name'], ['Phone', 'phone'], ['Email', 'email'], ['Services', 'services']].map(([label, key]) => (
+        <div key={key}>
+          <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+          <input value={editForm[key] || ''} onChange={e => setEditForm(f => ({ ...f, [key]: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+        </div>
+      ))}
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>City</div>
+        <select value={editForm.city || ''} onChange={e => setEditForm(f => ({ ...f, city: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}>
+          <option value="">Select city</option>
+          {['Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan', 'Biratnagar', 'Other'].map(c => <option key={c}>{c}</option>)}
+        </select>
+      </div>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Locality</div>
+        <input value={editForm.locality || ''} onChange={e => setEditForm(f => ({ ...f, locality: e.target.value }))} placeholder="e.g. Thamel, Imadol" style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+      </div>
+    </div>
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Experience / About</div>
+      <textarea rows={3} value={editForm.experience || ''} onChange={e => setEditForm(f => ({ ...f, experience: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
+    </div>
+    <div style={{ display: 'flex', gap: 10 }}>
+      <button onClick={async () => {
+        setActionLoading(item.id)
+        try {
+          await fetch('/api/admin/update-walker', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: item.id, ...editForm }),
+          })
+          setEditingId(null)
+          fetchListings()
+        } catch (err) { alert('Failed to save') }
+        setActionLoading(null)
+      }} style={{ flex: 2, background: '#38BDF8', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        💾 Save Changes
+      </button>
+      <button onClick={() => setEditingId(null)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+    </div>
+  </div>
+)}
 {item.status === 'pending' && (
   <div style={{ display: 'flex', gap: 10 }}>
     <button onClick={() => updateStatus(item.id, 'approved', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>✅ Approve</button>
