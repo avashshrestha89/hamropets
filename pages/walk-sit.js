@@ -19,12 +19,13 @@ export async function getServerSideProps() {
 export default function WalkSit({ walkers: dbWalkers }) {
   const [isMobile, setIsMobile] = useState(false)
   const [tab, setTab] = useState('find')
+  const [cityFilter, setCityFilter] = useState('All')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [nagarikUrl, setNagarikUrl] = useState(null)
-  const [form, setForm] = useState({
-    fullName: '', phone: '', area: '', email: '', services: '🦮 Dog Walking', experience: ''
+ const [form, setForm] = useState({
+    fullName: '', phone: '', city: '', locality: '', email: '', services: '🦮 Dog Walking', experience: ''
   })
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function WalkSit({ walkers: dbWalkers }) {
   }
 
   const handleSubmit = async () => {
-    if (!form.fullName || !form.phone || !form.area) {
+    if (!form.fullName || !form.phone || !form.city || !form.locality) {
       alert('Please fill in your name, phone and area.')
       return
     }
@@ -72,7 +73,7 @@ export default function WalkSit({ walkers: dbWalkers }) {
       const res = await fetch('/api/apply-walker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, nagarikScreenshot: nagarikUrl }),
+       body: JSON.stringify({ ...form, area: `${form.city}, ${form.locality}`, nagarikScreenshot: nagarikUrl }),
       })
       if (res.ok) setSubmitted(true)
       else alert('Something went wrong. Please try again.')
@@ -101,7 +102,11 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
     verified: true,
     nagarik_screenshot: w.nagarik_screenshot,
   })) : fallbackWalkers
+const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan']
 
+  const filteredWalkers = cityFilter === 'All'
+    ? walkers
+    : walkers.filter(w => w.city === cityFilter || w.area?.toLowerCase().includes(cityFilter.toLowerCase()))
   const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }
   const labelStyle = { fontSize: 13, fontWeight: 800, color: '#1A1A1A', display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.3 }
 
@@ -171,16 +176,24 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: 10, marginBottom: 24, flexWrap: 'wrap' }}>
-                <input placeholder="📍  Your area..." style={{ flex: 1, minWidth: 140, padding: '10px 16px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', outline: 'none', boxShadow: '2px 2px 0px #1A1A1A' }} />
-                {['All', 'Dog Walking', 'Pet Sitting', 'Both'].map(f => (
-                  <button key={f} style={{ padding: isMobile ? '8px 12px' : '10px 18px', borderRadius: 999, border: '2px solid #1A1A1A', background: f === 'All' ? '#58CC02' : '#fff', color: f === 'All' ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 12 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A', whiteSpace: 'nowrap' }}>{f}</button>
-                ))}
+         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>Service:</span>
+                  {['All', 'Dog Walking', 'Pet Sitting', 'Both'].map(f => (
+                    <button key={f} style={{ padding: isMobile ? '8px 12px' : '9px 18px', borderRadius: 999, border: '2px solid #1A1A1A', background: f === 'All' ? '#58CC02' : '#fff', color: f === 'All' ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 12 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A', whiteSpace: 'nowrap' }}>{f}</button>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>📍 City:</span>
+                  {cities.map(c => (
+                    <button key={c} onClick={() => setCityFilter(c)} style={{ padding: isMobile ? '8px 12px' : '9px 18px', borderRadius: 999, border: '2px solid #1A1A1A', background: cityFilter === c ? '#1A1A1A' : '#fff', color: cityFilter === c ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 12 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A', whiteSpace: 'nowrap' }}>{c}</button>
+                  ))}
+                </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
 
-{walkers.map(w => (
+{filteredWalkers.map(w => (
                   <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
@@ -197,7 +210,7 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                         <span style={{ fontWeight: 800, color: '#F59E0B', fontSize: isMobile ? 11 : 13, flexShrink: 0 }}>⭐ {w.rating}</span>
                       </div>
                       <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services === 'Both' || w.services?.includes('Both') ? '🦮 Dog Walking & 🛋️ Pet Sitting' : w.services}</div>
-                      <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {w.area} · {w.jobs} jobs</div>
+                    <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {w.city || w.area}{w.locality ? ` · ${w.locality}` : ''}</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1.5px dashed #E5E7EB' }}>
                         <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 13 : 15 }}>{w.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk'}</span>
                         <button style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '6px 12px' : '8px 20px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #166534', whiteSpace: 'nowrap' }}>Book</button>
@@ -252,9 +265,19 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
                       <label style={labelStyle}>Phone Number / फोन नम्बर *</label>
                       <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
                     </div>
+<div>
+                      <label style={labelStyle}>City / District — सहर / जिल्ला *</label>
+                      <select value={form.city} onChange={e => update('city', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <option value="">Select your city / सहर छान्नुहोस्</option>
+                        {['Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan', 'Biratnagar', 'Other'].map(c => (
+                          <option key={c} value={c}>{c}</option>
+                        ))}
+                      </select>
+                    </div>
                     <div>
-                      <label style={labelStyle}>Your Area / तपाईंको क्षेत्र *</label>
-                      <input value={form.area} onChange={e => update('area', e.target.value)} placeholder="e.g. Lalitpur, Jhamsikhel / जस्तै: ललितपुर, झम्सिखेल" style={inputStyle} />
+                      <label style={labelStyle}>Locality / Neighbourhood — टोल / क्षेत्र *</label>
+                      <input value={form.locality} onChange={e => update('locality', e.target.value)} placeholder="e.g. Jhamsikhel, Imadol, Thamel / जस्तै: झम्सिखेल, इमाडोल, थमेल" style={inputStyle} />
+                      <div style={{ fontSize: 12, color: '#888', marginTop: 4, fontWeight: 500 }}>Your neighbourhood only — short name please / केवल तपाईंको टोलको नाम — छोटो लेख्नुहोस्</div>
                     </div>
                     <div>
                       <label style={labelStyle}>Email Address / इमेल ठेगाना</label>
