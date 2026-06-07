@@ -289,7 +289,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers }) {
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
                       <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', marginBottom: 2 }}>{w.full_name}</div>
-                      <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services}</div>
+                      <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services === 'Both' || w.services?.includes('Both') ? '🦮 Dog Walking & 🛋️ Pet Sitting' : w.services}</div>
                       <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>📍 {w.area}</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
                         <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 12 : 14 }}>{w.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk'}</span>
