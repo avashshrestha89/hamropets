@@ -25,7 +25,9 @@ export default async function handler(req, res) {
       .insert([{
 full_name: fullName,
         phone,
-        area,
+        area: req.body.area || area,
+        city: req.body.city || null,
+        locality: req.body.locality || null,
         email: email || null,
         services,
         experience: experience || null,
