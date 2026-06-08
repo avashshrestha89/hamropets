@@ -194,7 +194,9 @@ export default function WalkerProfile({ walker }) {
                 {[
                   ['📍 City', walker.city || walker.area, '#FFF9E6'],
                   ['🏘️ Locality', walker.locality || 'Not specified', '#F0F8FF'],
-                  ['💰 Rate', walker.services?.includes('Sitting') ? 'NPR 400/session' : 'NPR 300/walk', '#E8F9ED'],
+                  ['💰 Dog Walking', 'NPR 300-400/walk · NPR 5,000-6,500/month', '#E8F9ED'],
+['🏡 Day Care (9-5)', 'NPR 700/day · NPR 12,000-15,000/month', '#FFF9E6'],
+['🌙 Overnight Sitting', 'NPR 1,500-2,000/night', '#F0F8FF'],
                   ['🇳🇵 ID Verified', 'Nagarik App', '#E8F9ED'],
                   ['⏰ Availability', 'Flexible Hours', '#FFF0F6'],
                   ['📞 Response', 'Within 2 hours', '#FFFBDE'],
