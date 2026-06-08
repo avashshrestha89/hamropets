@@ -212,7 +212,7 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
                       <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{w.services === 'Both' || w.services?.includes('Both') ? '🦮 Dog Walking & 🛋️ Pet Sitting' : w.services}</div>
                     <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {w.city || w.area}{w.locality ? ` · ${w.locality}` : ''}</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1.5px dashed #E5E7EB' }}>
-                        <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 12 : 14 }}>{w.services?.includes('Sitting') || w.services === 'Both' ? 'From NPR 700/day' : 'From NPR 300/walk'}</span>
+                        <span style={{ fontWeight: 900, color: '#58CC02', fontSize: isMobile ? 12 : 14 }}>From NPR 300/walk · NPR 700/day</span>
                         <a href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ background: '#38BDF8', color: '#fff', padding: isMobile ? '6px 12px' : '8px 20px', borderRadius: 999, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, cursor: 'pointer', textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A', whiteSpace: 'nowrap' }}>Book</a>
                       </div>
                     </div>
