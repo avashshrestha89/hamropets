@@ -81,9 +81,11 @@ function BookingForm({ walker, isMobile }) {
           <div style={{ fontSize: 12, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', marginBottom: 5 }}>Service Needed *</div>
           <select value={form.service} onChange={e => update('service', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
             <option value="">Select service</option>
-            <option value="Dog Walking">🦮 Dog Walking</option>
-            <option value="Pet Sitting">🛋️ Pet Sitting</option>
-            <option value="Both">🦮🛋️ Both</option>
+            <<option value="Dog Walking — NPR 300-400/walk">🦮 Dog Walking (NPR 300-400/walk)</option>
+<option value="Dog Walking Monthly — NPR 5,000-6,500/month">📅 Dog Walking Monthly Package (NPR 5,000-6,500/mo)</option>
+<option value="Day Care 9-5 — NPR 700/day">🏡 Day Care 9-5 (NPR 700/day)</option>
+<option value="Day Care Monthly — NPR 12,000-15,000/month">📅 Day Care Monthly Package (NPR 12,000-15,000/mo)</option>
+<option value="Overnight Sitting — NPR 1,500-2,000/night">🌙 Overnight Sitting (NPR 1,500-2,000/night)</option>
           </select>
         </div>
         <div>
