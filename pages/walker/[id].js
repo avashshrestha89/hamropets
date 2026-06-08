@@ -173,7 +173,7 @@ export default function WalkerProfile({ walker }) {
             <div style={{ height: isMobile ? 120 : 160, background: `linear-gradient(135deg, ${color}25, ${color}60)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 60 : 80, position: 'relative', borderBottom: '3px solid #1A1A1A' }}>
               {emoji}
               <div style={{ position: 'absolute', top: 16, left: 16, background: '#58CC02', color: '#fff', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
-                🇳🇵 Nagarik Verified
+                🇳🇵 ID Verified
               </div>
               <div style={{ position: 'absolute', top: 16, right: 16, background: '#FFD23F', color: '#1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
                 ✅ Available
@@ -226,7 +226,7 @@ export default function WalkerProfile({ walker }) {
                     walker.services?.includes('Walking') || walker.services === 'Both' ? '🦮 Daily dog walks in your neighbourhood' : null,
                     walker.services?.includes('Sitting') || walker.services === 'Both' ? '🛋️ In-home pet sitting while you travel' : null,
                     '📸 Photo updates of your pet during sessions',
-                    '🇳🇵 Government ID verified via Nagarik App',
+                    '🪪 Government ID verified via Citizenship Card',
                     '⏰ Flexible scheduling around your needs',
                     '❤️ Genuine love and care for animals',
                   ].filter(Boolean).map((item, i) => (
