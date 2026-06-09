@@ -32,6 +32,7 @@ full_name: fullName,
         services,
         experience: experience || null,
         nagarik_screenshot: req.body.nagarikScreenshot || null,
+        profile_photo: req.body.profilePhoto || null,
         status: 'pending',
       }])
 
