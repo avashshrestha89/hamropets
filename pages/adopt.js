@@ -18,8 +18,8 @@ export async function getServerSideProps({ query }) {
   if (species && species !== 'All') {
     supabaseQuery = supabaseQuery.ilike('species', species.slice(0, -1))
   }
-  if (location && location !== 'All Nepal') {
-    supabaseQuery = supabaseQuery.eq('location', location)
+ if (location && location !== 'All Nepal') {
+    supabaseQuery = supabaseQuery.ilike('location', `%${location}%`)
   }
   const { data } = await supabaseQuery
   return { props: { pets: data || [] } }
@@ -42,7 +42,7 @@ export default function Adopt({ pets }) {
 
   const filtered = pets.filter(p => {
     const speciesMatch = species === 'All' || p.species.toLowerCase() === species.toLowerCase().replace('s', '')
-    const locationMatch = location === 'All' || p.location === location
+    const locationMatch = location === 'All' || p.location?.toLowerCase().includes(location.toLowerCase())
     return speciesMatch && locationMatch
   })
 
