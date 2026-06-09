@@ -113,8 +113,9 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
   return (
     <>
       <Head>
-        <title>Dog Walking & Pet Sitting — HamroPets</title>
-        <meta name="description" content="Find trusted dog walkers and pet sitters across Nepal, or register as one." />
+        <title>Dog Walking & Pet Sitting Kathmandu — HamroPets Nepal</title>
+<meta name="description" content="Find verified cage-free dog walkers and pet sitters across Kathmandu Valley. ID verified sitters. From NPR 300/walk and NPR 700/day. Nepal's first pet sitting service." />
+<meta name="keywords" content="dog walking Kathmandu, pet sitting Nepal, dog walker Kathmandu, pet sitter Kathmandu, cage free pet sitting Nepal" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
