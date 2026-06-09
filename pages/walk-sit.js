@@ -23,7 +23,9 @@ export default function WalkSit({ walkers: dbWalkers }) {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [nagarikUrl, setNagarikUrl] = useState(null)
+ const [nagarikUrl, setNagarikUrl] = useState(null)
+const [profilePhotoUrl, setProfilePhotoUrl] = useState(null)
+const [uploadingPhoto, setUploadingPhoto] = useState(false)
  const [form, setForm] = useState({
     fullName: '', phone: '', city: '', locality: '', email: '', services: '🦮 Dog Walking', experience: ''
   })
@@ -36,7 +38,27 @@ export default function WalkSit({ walkers: dbWalkers }) {
   }, [])
 
   const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
-
+const handleProfilePhotoUpload = async (e) => {
+  const file = e.target.files[0]
+  if (!file) return
+  setUploadingPhoto(true)
+  try {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+    formData.append('folder', 'hamropets/walkers')
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      { method: 'POST', body: formData }
+    )
+    const data = await res.json()
+    if (data.secure_url) setProfilePhotoUrl(data.secure_url)
+    else alert('Upload failed. Please try again.')
+  } catch (err) {
+    alert('Upload failed: ' + err.message)
+  }
+  setUploadingPhoto(false)
+}
   const handleNagarikUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
@@ -73,7 +95,7 @@ export default function WalkSit({ walkers: dbWalkers }) {
       const res = await fetch('/api/apply-walker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ ...form, area: `${form.city}, ${form.locality}`, nagarikScreenshot: nagarikUrl }),
+     body: JSON.stringify({ ...form, area: `${form.city}, ${form.locality}`, nagarikScreenshot: nagarikUrl, profilePhoto: profilePhotoUrl }),
       })
       if (res.ok) setSubmitted(true)
       else alert('Something went wrong. Please try again.')
@@ -296,7 +318,29 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
                       <label style={labelStyle}>Why are you a good fit? / तपाईं किन उपयुक्त हुनुहुन्छ?</label>
                       <textarea rows={3} value={form.experience} onChange={e => update('experience', e.target.value)} placeholder="Tell us about your experience with pets... / आफ्नो पाल्तु जनावरसँगको अनुभव बताउनुहोस्..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
                     </div>
-
+{/* PROFILE PHOTO UPLOAD */}
+<div>
+  <label style={labelStyle}>Profile Photo / प्रोफाइल फोटो *</label>
+  <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>Upload a clear photo of your face — this will appear on your public profile · तपाईंको अनुहार स्पष्ट देखिने फोटो अपलोड गर्नुहोस्</div>
+  <div style={{ position: 'relative', border: `3px dashed ${profilePhotoUrl ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '24px 20px', textAlign: 'center', background: profilePhotoUrl ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
+    <input type="file" accept="image/*" onChange={handleProfilePhotoUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+    {uploadingPhoto ? (
+      <div style={{ fontSize: 14, fontWeight: 700, color: '#6B7280' }}>⬆️ Uploading...</div>
+    ) : profilePhotoUrl ? (
+      <div>
+        <img src={profilePhotoUrl} alt="Profile" style={{ width: 80, height: 80, borderRadius: 999, objectFit: 'cover', border: '3px solid #1A1A1A', marginBottom: 8 }} />
+        <div style={{ fontSize: 13, fontWeight: 800, color: '#58CC02' }}>Photo uploaded! ✅</div>
+        <div style={{ fontSize: 11, color: '#6B7280', marginTop: 4 }}>Click to replace</div>
+      </div>
+    ) : (
+      <div>
+        <div style={{ fontSize: 40, marginBottom: 8 }}>🤳</div>
+        <div style={{ fontSize: 14, fontWeight: 800, color: '#1A1A1A', marginBottom: 4 }}>Upload Profile Photo</div>
+        <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>JPG or PNG · Clear face photo only</div>
+      </div>
+    )}
+  </div>
+</div>
                     {/* NAGARIK APP UPLOAD */}
                     <div>
                       <label style={labelStyle}>Citizenship Card Photo / नागरिकता कार्डको फोटो *</label>
