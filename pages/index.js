@@ -124,10 +124,79 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers }) {
 
   return (
     <>
-      <Head>
-        <title>HamroPets — Nepal's First Dedicated Pet Platform</title>
-        <meta name="description" content="Adopt pets, find vets, dog walking and pet sitting across Nepal." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Head>
+  <title>HamroPets — Nepal's First Dedicated Pet Platform</title>
+  <meta name="description" content="Adopt pets, find vets, dog walking and pet sitting across Nepal. Nepal's first dedicated pet platform presented by Adopt a Dog Nepal since 2018." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, pet sitting Nepal, dog walking Kathmandu, vet directory Nepal, lost found pets Nepal, HamroPets, Adopt a Dog Nepal" />
+  <meta property="og:title" content="HamroPets — Nepal's First Dedicated Pet Platform" />
+  <meta property="og:description" content="Adopt pets, find vets, dog walking and pet sitting across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
+  <meta property="og:url" content="https://www.hamropets.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "HamroPets",
+        "url": "https://www.hamropets.com",
+        "logo": "https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png",
+        "description": "Nepal's first dedicated pet platform offering free pet adoption, verified vet directory, dog walking and pet sitting services across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018.",
+        "foundingDate": "2024",
+        "areaServed": "Nepal",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Adopt a Dog Nepal",
+          "foundingDate": "2018",
+          "url": "https://www.facebook.com/AdoptaDogNepal"
+        },
+        "sameAs": [
+          "https://www.facebook.com/AdoptaDogNepal",
+          "https://www.tiktok.com/@adoptadognepal"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Pet Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pet Adoption",
+                "description": "Free pet adoption across Nepal"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Dog Walking",
+                "description": "Verified dog walking service in Kathmandu Valley from NPR 300 per walk"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pet Sitting",
+                "description": "Cage-free verified pet sitting in Kathmandu Valley from NPR 700 per day"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Vet Directory",
+                "description": "Verified vet clinics and pet services directory across Nepal"
+              }
+            }
+          ]
+        }
+      })
+    }}
+  />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
