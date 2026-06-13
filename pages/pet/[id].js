@@ -158,11 +158,54 @@ export default function PetDetail({ pet }) {
                 ))}
               </div>
 
-              {/* Description */}
-              <div style={{ background: '#FAFAFA', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 20 }}>
+             {/* Description */}
+              <div style={{ background: '#FAFAFA', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>About {pet.pet_name}</div>
                 <p style={{ margin: 0, fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>{pet.description}</p>
               </div>
+
+              {/* Reason for Adoption */}
+              {pet.reason_for_adoption && (
+                <div style={{ background: '#FFF9E6', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #FFD23F', marginBottom: 16 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>💛 Reason for Adoption</div>
+                  <p style={{ margin: 0, fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>{pet.reason_for_adoption}</p>
+                </div>
+              )}
+
+              {/* Other Info */}
+              {pet.other_info && (
+                <div style={{ background: '#F0F8FF', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #38BDF8', marginBottom: 16 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>ℹ️ Additional Info</div>
+                  <p style={{ margin: 0, fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>{pet.other_info}</p>
+                </div>
+              )}
+
+              {/* Owner Info */}
+              {!isAdopted && (
+                <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 20 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>👤 Owner Details</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {pet.submitter_name && (
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <span style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, minWidth: 80 }}>Name:</span>
+                        <span style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700 }}>{pet.submitter_name}</span>
+                      </div>
+                    )}
+                    {pet.submitter_phone && (
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <span style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, minWidth: 80 }}>Phone:</span>
+                        <span style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700 }}>{pet.submitter_phone}</span>
+                      </div>
+                    )}
+                    {pet.submitter_address && (
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <span style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, minWidth: 80 }}>Address:</span>
+                        <span style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700 }}>{pet.submitter_address}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Contact buttons or Adopted message */}
               {isAdopted ? (
