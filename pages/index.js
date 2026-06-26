@@ -9,12 +9,13 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
- const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }] = await Promise.all([
+ const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(8),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
+    supabase.from('lost_found').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
   ])
-  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [] } }
+  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [] } }
 }
 function Slideshow({ slides }) {
   const [current, setCurrent] = useState(0)
@@ -90,7 +91,7 @@ function Slideshow({ slides }) {
     </div>
   )
 }
-export default function Home({ featuredPets, featuredVets, featuredWalkers }) {
+export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
