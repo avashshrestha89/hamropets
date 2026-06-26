@@ -27,7 +27,8 @@ const tabConfig = {
     vets_approved: { label: '✅ Vets', api: '/api/admin/vet-listings?status=approved', type: 'vet' },
     walkers_pending: { label: '⏳ Walkers', api: '/api/admin/walker-applications?status=pending', type: 'walker' },
     walkers_approved: { label: '✅ Walkers', api: '/api/admin/walker-applications?status=approved', type: 'walker' },
-    lost_found: { label: '🔍 Lost & Found', api: '/api/admin/lost-found-listings', type: 'lostfound' },
+   lostfound_pending: { label: '⏳ Lost & Found', api: '/api/admin/lost-found-listings?status=pending', type: 'lostfound' },
+    lostfound_approved: { label: '✅ Lost & Found', api: '/api/admin/lost-found-listings?status=approved,resolved', type: 'lostfound' },
     bookings: { label: '📅 Bookings', api: '/api/admin/booking-inquiries', type: 'booking' },
   }
 
@@ -181,7 +182,7 @@ const removeEditPhoto = (index) => {
             { group: '🐾 Pet Listings', items: [['pets_pending', '⏳ Pending Pets'], ['pets_approved', '✅ Approved Pets']] },
             { group: '🏥 Vet Listings', items: [['vets_pending', '⏳ Pending Vets'], ['vets_approved', '✅ Approved Vets']] },
             { group: '🦮 Walkers', items: [['walkers_pending', '⏳ Pending Walkers'], ['walkers_approved', '✅ Approved Walkers']] },
-            { group: '🔍 Lost & Found', items: [['lost_found', '🔍 All Reports']] },
+          { group: '🔍 Lost & Found', items: [['lostfound_pending', '⏳ Pending Reports'], ['lostfound_approved', '✅ Approved Reports']] },
 { group: '📅 Bookings', items: [['bookings', '📅 All Inquiries']] },
           ].map(({ group, items }) => (
             <div key={group} style={{ marginBottom: 24 }}>
@@ -501,26 +502,41 @@ PLEASE GENERATE:
                     </div>
                   )}
 
-                  {/* LOST & FOUND */}
+           {/* LOST & FOUND */}
                   {currentType === 'lostfound' && (
-                    <div>
-                      <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
-                        <span style={{ background: item.type === 'lost' ? '#FFF0F6' : '#E8F9ED', color: item.type === 'lost' ? '#FF6B9D' : '#58CC02', padding: '4px 12px', borderRadius: 999, fontSize: 12, fontWeight: 900, border: '1.5px solid #000' }}>{item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}</span>
-                        <h3 style={{ fontSize: 20, fontWeight: 900, color: '#000', margin: 0 }}>{item.pet_name || 'Unknown'}</h3>
-                        <span style={{ background: item.status === 'active' ? '#E8F9ED' : '#F3F4F6', color: item.status === 'active' ? '#166534' : '#666', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #000' }}>{item.status}</span>
+                    <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+                      <div style={{ width: 80, height: 80, borderRadius: 16, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, flexShrink: 0, border: '2px solid #1A1A1A', overflow: 'hidden' }}>
+                        {item.image_url ? <img src={item.image_url} alt={item.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : '🐾')}
                       </div>
-                      <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 10 }}>
-                        {[['Species', item.species || 'Unknown'], ['Area', item.area], ['Contact', item.contact_name], ['Phone', item.contact_phone]].map(([k, v]) => (
-                          <div key={k}>
-                            <div style={{ fontSize: 11, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
-                            <div style={{ fontSize: 13, fontWeight: 700, color: '#000' }}>{v}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
+                          <span style={{ background: item.type === 'lost' ? '#FFF0F6' : '#E8F9ED', color: item.type === 'lost' ? '#FF6B9D' : '#58CC02', padding: '4px 12px', borderRadius: 999, fontSize: 12, fontWeight: 900, border: '1.5px solid #1A1A1A' }}>{item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}</span>
+                          <h3 style={{ fontSize: 20, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>{item.pet_name || 'Unknown'}</h3>
+                          <span style={{ background: item.status === 'pending' ? '#FFF9E6' : item.status === 'approved' ? '#E8F9ED' : '#F3F4F6', color: item.status === 'pending' ? '#92400E' : item.status === 'approved' ? '#166534' : '#666', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{item.status}</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 10 }}>
+                          {[['Species', item.species || 'Unknown'], ['Area', item.area], ['Contact', item.contact_name], ['Phone', item.contact_phone]].map(([k, v]) => (
+                            <div key={k}>
+                              <div style={{ fontSize: 11, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{v}</div>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
+
+                        {item.status === 'pending' && (
+                          <div style={{ display: 'flex', gap: 10 }}>
+                            <button onClick={() => updateStatus(item.id, 'approved', 'lostfound')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>✅ Approve</button>
+                            <button onClick={() => updateStatus(item.id, 'rejected', 'lostfound')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>❌ Reject</button>
                           </div>
-                        ))}
+                        )}
+                        {item.status === 'approved' && (
+                          <button onClick={() => updateStatus(item.id, 'resolved', 'lostfound')} disabled={actionLoading === item.id} style={{ background: '#58CC02', color: '#fff', padding: '10px 24px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Resolved</button>
+                        )}
+                        {item.status === 'resolved' && (
+                          <button onClick={() => updateStatus(item.id, 'approved', 'lostfound')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move back to Approved</button>
+                        )}
                       </div>
-                      <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
-                      {item.status === 'active' && (
-                        <button onClick={() => updateStatus(item.id, 'resolved', 'lostfound')} disabled={actionLoading === item.id} style={{ background: '#58CC02', color: '#fff', padding: '10px 24px', borderRadius: 10, border: '2px solid #000', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>🎉 Mark as Resolved</button>
-                      )}
                     </div>
                   )}
 {/* BOOKING INQUIRY */}
