@@ -372,25 +372,19 @@ PLEASE GENERATE:
 </div>
 
 {item.status === 'pending' && (
-                          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                            <button onClick={() => updateStatus(item.id, 'approved', 'lostfound')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>✅ Approve</button>
-                            <button onClick={() => updateStatus(item.id, 'rejected', 'lostfound')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>❌ Reject</button>
-                            <button onClick={() => deleteLostFound(item.id)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '11px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🗑️</button>
-                          </div>
-                        )}
-                        {item.status === 'approved' && (
-                          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                            <button onClick={() => updateStatus(item.id, 'resolved', 'lostfound')} disabled={actionLoading === item.id} style={{ background: '#58CC02', color: '#fff', padding: '10px 24px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Resolved</button>
-                            <button onClick={() => deleteLostFound(item.id)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '10px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🗑️ Delete</button>
-                          </div>
-                        )}
-                        {item.status === 'resolved' && (
-                          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                            <button onClick={() => updateStatus(item.id, 'approved', 'lostfound')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move back to Approved</button>
-                            <button onClick={() => deleteLostFound(item.id)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '9px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🗑️ Delete</button>
-                          </div>
-                        )}
-
+  <div style={{ display: 'flex', gap: 10 }}>
+    <button onClick={() => updateStatus(item.id, 'approved', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>✅ Approve</button>
+    <button onClick={() => updateStatus(item.id, 'rejected', 'pet')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #000', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>❌ Reject</button>
+  </div>
+)}
+{item.status !== 'pending' && (
+  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+    <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
+    {item.status === 'approved' && (
+      <button onClick={() => updateStatus(item.id, 'adopted', 'pet')} style={{ background: '#FF6B9D', color: '#fff', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Adopted</button>
+    )}
+  </div>
+)}
                       </div>
                     </div>
                   )}
