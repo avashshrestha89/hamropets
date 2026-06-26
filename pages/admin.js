@@ -502,7 +502,7 @@ PLEASE GENERATE:
                     </div>
                   )}
 
-           {/* LOST & FOUND */}
+   {/* LOST & FOUND */}
                   {currentType === 'lostfound' && (
                     <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
                       <div style={{ width: 80, height: 80, borderRadius: 16, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, flexShrink: 0, border: '2px solid #1A1A1A', overflow: 'hidden' }}>
@@ -522,7 +522,105 @@ PLEASE GENERATE:
                             </div>
                           ))}
                         </div>
-                        <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
+                        <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
+
+                        {/* EDIT BUTTON */}
+                        <div style={{ marginBottom: 12 }}>
+                          <button
+                            onClick={() => {
+                              if (editingId === item.id) {
+                                setEditingId(null)
+                              } else {
+                                setEditingId(item.id)
+                                setEditForm({
+                                  pet_name: item.pet_name || '',
+                                  species: item.species || '',
+                                  area: item.area || '',
+                                  description: item.description || '',
+                                  contact_name: item.contact_name || '',
+                                  contact_phone: item.contact_phone || '',
+                                  image_url: item.image_url || '',
+                                  video_url: item.video_url || '',
+                                })
+                              }
+                            }}
+                            style={{ background: editingId === item.id ? '#F3F4F6' : '#38BDF8', color: editingId === item.id ? '#666' : '#fff', padding: '9px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}
+                          >{editingId === item.id ? '✕ Cancel Edit' : '✏️ Edit Report'}</button>
+                        </div>
+
+                        {/* INLINE EDIT FORM */}
+                        {editingId === item.id && (
+                          <div style={{ background: '#F0F8FF', borderRadius: 16, border: '2px solid #38BDF8', padding: '20px', marginBottom: 16 }}>
+                            <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 16 }}>✏️ Edit Report</div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+                              {[['Pet Name', 'pet_name'], ['Species', 'species'], ['Area', 'area'], ['Contact Name', 'contact_name'], ['Contact Phone', 'contact_phone']].map(([label, key]) => (
+                                <div key={key}>
+                                  <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+                                  <input value={editForm[key] || ''} onChange={e => setEditForm(f => ({ ...f, [key]: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+                                </div>
+                              ))}
+                            </div>
+                            <div style={{ marginBottom: 12 }}>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Description</div>
+                              <textarea rows={3} value={editForm.description || ''} onChange={e => setEditForm(f => ({ ...f, description: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
+                            </div>
+
+                            {/* PHOTO */}
+                            <div style={{ marginBottom: 12 }}>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 8 }}>Photo</div>
+                              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                {editForm.image_url && (
+                                  <div style={{ position: 'relative' }}>
+                                    <img src={editForm.image_url} alt="preview" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A' }} />
+                                    <button onClick={() => setEditForm(f => ({ ...f, image_url: '' }))} style={{ position: 'absolute', top: -6, right: -6, background: '#FF6B35', color: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 999, width: 20, height: 20, fontSize: 10, fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
+                                  </div>
+                                )}
+                                <div style={{ position: 'relative', width: 72, height: 72, borderRadius: 10, border: '2px dashed #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#fff', flexShrink: 0 }}>
+                                  <input type="file" accept="image/*" onChange={async (e) => {
+                                    const file = e.target.files[0]
+                                    if (!file) return
+                                    setEditUploading(true)
+                                    try {
+                                      const formData = new FormData()
+                                      formData.append('file', file)
+                                      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+                                      formData.append('folder', 'hamropets/lostfound')
+                                      const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, { method: 'POST', body: formData })
+                                      const data = await res.json()
+                                      if (data.secure_url) setEditForm(f => ({ ...f, image_url: data.secure_url }))
+                                    } catch (err) { alert('Upload failed: ' + err.message) }
+                                    setEditUploading(false)
+                                  }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                                  {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div style={{ marginBottom: 16 }}>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Video URL (optional)</div>
+                              <input value={editForm.video_url || ''} onChange={e => setEditForm(f => ({ ...f, video_url: e.target.value }))} placeholder="https://..." style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+                            </div>
+
+                            <div style={{ display: 'flex', gap: 10 }}>
+                              <button onClick={async () => {
+                                setActionLoading(item.id)
+                                try {
+                                  const res = await fetch('/api/admin/update-lost-found', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ id: item.id, ...editForm }),
+                                  })
+                                  if (res.ok) { setEditingId(null); fetchListings() }
+                                  else alert('Failed to save changes.')
+                                } catch (err) { alert('Something went wrong.') }
+                                setActionLoading(null)
+                              }} style={{ flex: 2, background: '#38BDF8', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                                {actionLoading === item.id ? 'Saving...' : '💾 Save Changes'}
+                              </button>
+                              <button onClick={() => setEditingId(null)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+                            </div>
+                          </div>
+                        )}
 
                         {item.status === 'pending' && (
                           <div style={{ display: 'flex', gap: 10 }}>
