@@ -10,6 +10,8 @@ export default function LostFound() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [imageUrl, setImageUrl] = useState(null)
   const [form, setForm] = useState({
     type: '', petName: '', species: '', description: '',
     area: '', contactName: '', contactPhone: '',
@@ -23,6 +25,28 @@ export default function LostFound() {
   }, [])
 
   const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+      formData.append('folder', 'hamropets/lostfound')
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        { method: 'POST', body: formData }
+      )
+      const data = await res.json()
+      if (data.secure_url) setImageUrl(data.secure_url)
+      else alert('Upload failed. Please try again.')
+    } catch (err) {
+      alert('Upload failed: ' + err.message)
+    }
+    setUploading(false)
+  }
 
   const fetchListings = async () => {
     setLoading(true)
@@ -48,11 +72,12 @@ export default function LostFound() {
       const res = await fetch('/api/lost-found', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, imageUrl }),
       })
       if (res.ok) {
         setSubmitted(true)
         setShowForm(null)
+        setImageUrl(null)
         fetchListings()
       } else {
         alert('Something went wrong. Please try again.')
@@ -116,8 +141,8 @@ export default function LostFound() {
               <p style={{ color: '#6B7280', marginTop: 6, fontSize: isMobile ? 14 : 15, fontWeight: 500 }}>Nepal's pet community comes together when it matters most</p>
             </div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <button onClick={() => { setShowForm('lost'); setSubmitted(false); setForm({ type: 'lost', petName: '', species: '', description: '', area: '', contactName: '', contactPhone: '' }) }} style={{ background: '#FF6B9D', color: '#fff', padding: isMobile ? '10px 16px' : '12px 24px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 13 : 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', whiteSpace: 'nowrap' }}>🔴 I Lost My Pet</button>
-              <button onClick={() => { setShowForm('found'); setSubmitted(false); setForm({ type: 'found', petName: '', species: '', description: '', area: '', contactName: '', contactPhone: '' }) }} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '10px 16px' : '12px 24px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 13 : 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>🟢 I Found a Pet</button>
+              <button onClick={() => { setShowForm('lost'); setSubmitted(false); setImageUrl(null); setForm({ type: 'lost', petName: '', species: '', description: '', area: '', contactName: '', contactPhone: '' }) }} style={{ background: '#FF6B9D', color: '#fff', padding: isMobile ? '10px 16px' : '12px 24px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 13 : 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', whiteSpace: 'nowrap' }}>🔴 I Lost My Pet</button>
+              <button onClick={() => { setShowForm('found'); setSubmitted(false); setImageUrl(null); setForm({ type: 'found', petName: '', species: '', description: '', area: '', contactName: '', contactPhone: '' }) }} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '10px 16px' : '12px 24px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 13 : 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>🟢 I Found a Pet</button>
             </div>
           </div>
 
@@ -126,8 +151,8 @@ export default function LostFound() {
             <div style={{ background: '#E8F9ED', borderRadius: 16, padding: '16px 20px', border: '2px solid #1A1A1A', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ fontSize: 24, flexShrink: 0 }}>✅</span>
               <div>
-                <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 16, color: '#1A1A1A' }}>Report submitted successfully!</div>
-                <div style={{ fontSize: isMobile ? 12 : 14, color: '#6B7280', fontWeight: 500 }}>Your report is now live. The community will help reunite the pet.</div>
+                <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 16, color: '#1A1A1A' }}>Report submitted for review!</div>
+                <div style={{ fontSize: isMobile ? 12 : 14, color: '#6B7280', fontWeight: 500 }}>Our team will review and approve it shortly so it appears on the site.</div>
               </div>
             </div>
           )}
@@ -141,6 +166,29 @@ export default function LostFound() {
                 </h3>
                 <button onClick={() => setShowForm(null)} style={{ background: '#F3F4F6', border: '2px solid #1A1A1A', borderRadius: 999, width: 34, height: 34, cursor: 'pointer', fontSize: 14, fontFamily: 'inherit', fontWeight: 700, flexShrink: 0 }}>✕</button>
               </div>
+
+              {/* PHOTO UPLOAD */}
+              <div style={{ marginBottom: 16 }}>
+                <label style={labelStyle}>Pet Photo {showForm === 'lost' ? '*' : '(recommended)'}</label>
+                <div style={{ position: 'relative', border: `3px dashed ${imageUrl ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '20px', textAlign: 'center', background: imageUrl ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                  {uploading ? (
+                    <div style={{ fontSize: 14, fontWeight: 700, color: '#6B7280' }}>⬆️ Uploading...</div>
+                  ) : imageUrl ? (
+                    <div>
+                      <img src={imageUrl} alt="Pet" style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 12, border: '2px solid #1A1A1A', marginBottom: 8 }} />
+                      <div style={{ fontSize: 13, fontWeight: 800, color: '#58CC02' }}>Photo uploaded ✅ — click to replace</div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ fontSize: 32, marginBottom: 6 }}>📷</div>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A' }}>Upload a clear photo of the pet</div>
+                      <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>JPG or PNG</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 14, marginBottom: 14 }}>
                 <div>
                   <label style={labelStyle}>Pet Name {showForm === 'found' ? '(if known)' : '*'}</label>
@@ -171,7 +219,7 @@ export default function LostFound() {
                 <textarea rows={3} value={form.description} onChange={e => update('description', e.target.value)} placeholder="Color, size, distinctive features, collar, any other details..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
               </div>
               <button onClick={handleSubmit} disabled={submitting} style={{ background: showForm === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', padding: '13px 28px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                {submitting ? 'Submitting...' : 'Submit Report'}
+                {submitting ? 'Submitting...' : 'Submit Report for Review'}
               </button>
             </div>
           )}
@@ -197,7 +245,11 @@ export default function LostFound() {
               {listings.map(item => (
                 <div key={item.id} style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                   <div style={{ height: isMobile ? 90 : 110, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
-                    {item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'}
+                    {item.image_url ? (
+                      <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
+                    )}
                     <div style={{ position: 'absolute', top: 8, left: 8 }}>
                       <span style={{ background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '2px 8px', border: '1.5px solid #1A1A1A' }}>
                         {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
