@@ -390,8 +390,7 @@ PLEASE GENERATE:
                             <button onClick={() => deleteLostFound(item.id)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '9px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🗑️ Delete</button>
                           </div>
                         )}
-  </div>
-)}
+
                       </div>
                     </div>
                   )}
