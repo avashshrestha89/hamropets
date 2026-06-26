@@ -369,6 +369,45 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </div>
           </div>
         )}
+{/* LOST & FOUND PANEL */}
+        {lostFoundPets.length > 0 && (
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+              <div>
+                <span style={{ background: '#FF6B9D', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🔍 Help Reunite</span>
+                <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Recently Lost & Found</h2>
+                <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500 }}>Help reunite pets with their families across Nepal</p>
+              </div>
+              <Link href="/lost-found" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+              {lostFoundPets.map(item => (
+                <Link key={item.id} href="/lost-found" style={{ textDecoration: 'none' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                    <div style={{ height: isMobile ? 90 : 120, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
+                      {item.image_url ? (
+                        <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
+                      )}
+                      <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                        {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
+                      </div>
+                    </div>
+                    <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+                      <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', marginBottom: 2 }}>{item.pet_name || 'Unknown'}</div>
+                      <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {item.area}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
+                        <span style={{ fontSize: isMobile ? 10 : 12, color: '#6B7280', fontWeight: 600 }}>🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short' })}</span>
+                        <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View →</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
         {/* SERVICES GRID */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
           <div style={{ marginBottom: 24 }}>
