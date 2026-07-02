@@ -13,9 +13,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { fullName, phone, area, email, services, experience } = req.body
-
-  if (!fullName || !phone || !area || !services) {
+const { fullName, phone, area, email, services, experience } = req.body
+  const city = req.body.city || null
+  const locality = req.body.locality || null
+  if (!fullName || !phone || !services || (!area && !city)) {
     return res.status(400).json({ error: 'Missing required fields' })
   }
 
