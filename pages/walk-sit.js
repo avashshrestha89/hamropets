@@ -20,6 +20,7 @@ export default function WalkSit({ walkers: dbWalkers }) {
   const [isMobile, setIsMobile] = useState(false)
   const [tab, setTab] = useState('find')
   const [cityFilter, setCityFilter] = useState('All')
+const [serviceFilter, setServiceFilter] = useState('All')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -125,10 +126,14 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
     nagarik_screenshot: w.nagarik_screenshot,
   })) : fallbackWalkers
 const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan']
-
-  const filteredWalkers = cityFilter === 'All'
-    ? walkers
-    : walkers.filter(w => w.city === cityFilter || w.area?.toLowerCase().includes(cityFilter.toLowerCase()))
+const filteredWalkers = walkers.filter(w => {
+    const cityMatch = cityFilter === 'All' || w.city === cityFilter || w.area?.toLowerCase().includes(cityFilter.toLowerCase())
+    const serviceMatch = serviceFilter === 'All' ||
+      (serviceFilter === 'Dog Walking' && (w.services === 'Dog Walking' || w.services === 'Both')) ||
+      (serviceFilter === 'Pet Sitting' && (w.services === 'Pet Sitting' || w.services === 'Both')) ||
+      (serviceFilter === 'Both' && w.services === 'Both')
+    return cityMatch && serviceMatch
+  })
   const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }
   const labelStyle = { fontSize: 13, fontWeight: 800, color: '#1A1A1A', display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.3 }
 
@@ -202,8 +207,8 @@ const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan
          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
                   <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>Service:</span>
-                  {['All', 'Dog Walking', 'Pet Sitting', 'Both'].map(f => (
-                    <button key={f} style={{ padding: isMobile ? '8px 12px' : '9px 18px', borderRadius: 999, border: '2px solid #1A1A1A', background: f === 'All' ? '#58CC02' : '#fff', color: f === 'All' ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 12 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A', whiteSpace: 'nowrap' }}>{f}</button>
+                {['All', 'Dog Walking', 'Pet Sitting', 'Both'].map(f => (
+                    <button key={f} onClick={() => setServiceFilter(f)} style={{ padding: isMobile ? '8px 12px' : '9px 18px', borderRadius: 999, border: `2px solid ${serviceFilter === f ? '#1A1A1A' : '#E5E7EB'}`, background: serviceFilter === f ? '#58CC02' : '#fff', color: serviceFilter === f ? '#fff' : '#666', cursor: 'pointer', fontSize: isMobile ? 12 : 13, fontWeight: 700, fontFamily: 'inherit', boxShadow: serviceFilter === f ? '2px 2px 0px #1A1A1A' : 'none', whiteSpace: 'nowrap' }}>{f}</button>
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
