@@ -223,9 +223,24 @@ export default function PetDetail({ pet }) {
                   <a href={`https://wa.me/977${(pet.submitter_whatsapp || pet.submitter_phone)?.replace(/^0/, '').replace(/^\+977/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: isMobile ? '12px' : '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
                     💬 WhatsApp Owner
                   </a>
-                  <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
+                 <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
                     ⚠️ HamroPets never charges adoption fees. Report suspicious requests immediately.
                   </div>
+
+                  {/* Swor AI Cross-Promotion Banner */}
+                  <a href="https://meroadai.com/voiceover" target="_blank" rel="nofollow noreferrer" style={{display:'block',textDecoration:'none'}}>
+                    <div style={{background:'linear-gradient(135deg,#1a0a0a 0%,#3d0f0f 100%)',borderRadius:12,padding:'12px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
+                      <div style={{display:'flex',alignItems:'center',gap:10}}>
+                        <div style={{width:34,height:34,borderRadius:8,background:'linear-gradient(135deg,#DC143C,#FF6B8A)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,color:'#fff',fontWeight:800,flexShrink:0}}>S</div>
+                        <div>
+                          <div style={{fontSize:13,fontWeight:700,color:'#fff'}}>Swor AI — Nepal's #1 Nepali AI Voiceover</div>
+                          <div style={{fontSize:11,color:'rgba(255,255,255,.6)',marginTop:2}}>Nepali text to speech · AI voice generator · TikTok & YouTube voiceover</div>
+                        </div>
+                      </div>
+                      <div style={{background:'#DC143C',color:'#fff',padding:'6px 14px',borderRadius:8,fontSize:12,fontWeight:700,flexShrink:0,whiteSpace:'nowrap'}}>Try Free →</div>
+                    </div>
+                  </a>
+                      
                 </div>
               )}
             </div>
