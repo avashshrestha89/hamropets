@@ -256,7 +256,7 @@ const removeEditPhoto = (index) => {
                           ))}
                         </div>
                         <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
-                          {item.video_url && (
+      {item.video_url && (
   <div style={{ marginBottom: 12 }}>
     <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 6 }}>📹 Uploaded Video</div>
     <video
@@ -264,12 +264,30 @@ const removeEditPhoto = (index) => {
       controls
       style={{ width: '100%', maxWidth: 400, borderRadius: 12, border: '2px solid #1A1A1A' }}
     />
-    <div style={{ marginTop: 6, display: 'flex', gap: 8, alignItems: 'center' }}>
+    <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
       <a href={item.video_url} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#38BDF8', fontWeight: 700 }}>🔗 Open in Cloudinary</a>
       <button onClick={() => {
         navigator.clipboard.writeText(item.video_url)
         alert('Video URL copied!')
       }} style={{ background: '#F3F4F6', border: '1.5px solid #1A1A1A', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>📋 Copy URL</button>
+      <button onClick={async () => {
+        if (!confirm('Delete this video permanently from Cloudinary? This cannot be undone.')) return
+        try {
+          const res = await fetch('/api/admin/delete-cloudinary-video', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: item.id, video_url: item.video_url }),
+          })
+          if (res.ok) {
+            alert('Video deleted successfully!')
+            fetchListings()
+          } else {
+            alert('Failed to delete video.')
+          }
+        } catch (err) {
+          alert('Something went wrong.')
+        }
+      }} style={{ background: '#FF3B30', color: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>🗑️ Delete Video</button>
     </div>
   </div>
 )}
