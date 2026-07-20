@@ -256,6 +256,23 @@ const removeEditPhoto = (index) => {
                           ))}
                         </div>
                         <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
+                          {item.video_url && (
+  <div style={{ marginBottom: 12 }}>
+    <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 6 }}>📹 Uploaded Video</div>
+    <video
+      src={item.video_url}
+      controls
+      style={{ width: '100%', maxWidth: 400, borderRadius: 12, border: '2px solid #1A1A1A' }}
+    />
+    <div style={{ marginTop: 6, display: 'flex', gap: 8, alignItems: 'center' }}>
+      <a href={item.video_url} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#38BDF8', fontWeight: 700 }}>🔗 Open in Cloudinary</a>
+      <button onClick={() => {
+        navigator.clipboard.writeText(item.video_url)
+        alert('Video URL copied!')
+      }} style={{ background: '#F3F4F6', border: '1.5px solid #1A1A1A', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>📋 Copy URL</button>
+    </div>
+  </div>
+)}
                         <div style={{ background: '#F0F8FF', borderRadius: 10, padding: '10px 14px', marginBottom: 16, display: 'flex', gap: 24, flexWrap: 'wrap', fontSize: 13 }}>
                           <div><span style={{ color: '#888', fontWeight: 700 }}>By: </span><span style={{ fontWeight: 800 }}>{item.submitter_name}</span></div>
                           <div><span style={{ color: '#888', fontWeight: 700 }}>📞 </span><span style={{ fontWeight: 700 }}>{item.submitter_phone}</span></div>
