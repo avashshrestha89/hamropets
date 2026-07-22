@@ -139,12 +139,90 @@ const filteredWalkers = walkers.filter(w => {
 
   return (
     <>
-      <Head>
-        <title>Dog Walking & Pet Sitting Kathmandu — HamroPets Nepal</title>
-<meta name="description" content="Find verified cage-free dog walkers and pet sitters across Kathmandu Valley. ID verified sitters. From NPR 300/walk and NPR 700/day. Nepal's first pet sitting service." />
-<meta name="keywords" content="dog walking Kathmandu, pet sitting Nepal, dog walker Kathmandu, pet sitter Kathmandu, cage free pet sitting Nepal" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+     <Head>
+  <title>Dog Walking & Pet Sitting Kathmandu — Verified & Cage-Free | HamroPets</title>
+  <meta name="description" content="Find ID-verified dog walkers and cage-free pet sitters in Kathmandu and Lalitpur. From NPR 300/walk and NPR 700/day. Nepal's first verified pet sitting and dog walking service presented by Adopt a Dog Nepal." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="dog walking Kathmandu, pet sitting Nepal, dog walker Kathmandu, pet sitter Kathmandu, cage free pet sitting Nepal, dog walker Lalitpur, pet boarding Kathmandu, dog hostel Kathmandu, pet daycare Kathmandu, trusted dog walker Jhamsikhel, dog walker New Baneshwor, pet sitter Baluwatar, dog boarding Kathmandu, home pet sitting Kathmandu, verified pet sitter Nepal, ghar ma kukur chadne manche" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Dog Walking & Pet Sitting Kathmandu — Verified & Cage-Free | HamroPets" />
+  <meta property="og:description" content="ID-verified dog walkers and cage-free pet sitters in Kathmandu and Lalitpur. NPR 300/walk · NPR 700/day. Presented by Adopt a Dog Nepal since 2018." />
+  <meta property="og:url" content="https://www.hamropets.com/walk-sit" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dog Walking & Pet Sitting Kathmandu | HamroPets" />
+  <meta name="twitter:description" content="Verified dog walkers and cage-free pet sitters in Kathmandu Valley. From NPR 300/walk. Presented by Adopt a Dog Nepal." />
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "HamroPets Dog Walking & Pet Sitting",
+          "description": "Nepal's first verified cage-free dog walking and pet sitting service in Kathmandu Valley. ID-verified sitters and walkers.",
+          "url": "https://www.hamropets.com/walk-sit",
+          "areaServed": ["Kathmandu", "Lalitpur", "Bhaktapur"],
+          "priceRange": "NPR 300 - NPR 15000",
+          "telephone": "",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kathmandu",
+            "addressCountry": "NP"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How much does dog walking cost in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Dog walking in Kathmandu costs NPR 300 to NPR 400 per session (45-60 minutes). Monthly packages for Monday to Friday daily walks cost NPR 5,000 to NPR 6,500 per month. All walkers on HamroPets are ID-verified using their Nepal Government Citizenship Card."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does pet sitting cost in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pet sitting in Kathmandu costs NPR 700 per day for 9am to 5pm daycare, or NPR 1,500 to NPR 2,000 per night for overnight sitting. Monthly daycare packages cost NPR 12,000 to NPR 15,000. All sitters provide cage-free home environments with WhatsApp photo updates."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are dog walkers and pet sitters on HamroPets verified?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Every dog walker and pet sitter on HamroPets is verified using their Nepal Government issued Citizenship Card before being listed on the platform. Only approved, ID-verified carers appear in search results."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What areas do you cover for dog walking in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HamroPets currently has verified dog walkers and pet sitters across Kathmandu Valley including Kathmandu, Lalitpur, and Bhaktapur. Areas covered include Jhamsikhel, Baluwatar, Lazimpat, New Baneshwor, Chabahil, Imadol, Thamel, Maharajgunj and surrounding neighborhoods."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between a dog hostel and a home pet sitter?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A dog hostel is a commercial facility where multiple dogs are kept, often in cages, costing NPR 800 to NPR 1,200 per day. A HamroPets home pet sitter provides cage-free, personalized care in a real home environment at NPR 700 per day — cheaper and far less stressful for your pet."
+              }
+            }
+          ]
+        }
+      ])
+    }}
+  />
+  <link rel="icon" href="/favicon.ico" />
+</Head>
 
       <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
 
@@ -407,7 +485,45 @@ const filteredWalkers = walkers.filter(w => {
           )}
 
         </div>
-
+{/* FAQ SECTION */}
+<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
+    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Dog Walking & Pet Sitting in Kathmandu — FAQs</h2>
+      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about our verified pet care services</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
+      {[
+        {
+          q: 'How much does dog walking cost in Kathmandu?',
+          a: 'Dog walking costs NPR 300 to NPR 400 per session (45-60 minutes). Monthly packages for Monday to Friday daily walks cost NPR 5,000 to NPR 6,500 per month. All walkers on HamroPets are ID-verified using their Nepal Government Citizenship Card.'
+        },
+        {
+          q: 'How much does pet sitting cost in Kathmandu?',
+          a: 'Pet sitting costs NPR 700 per day for 9am to 5pm daycare, or NPR 1,500 to NPR 2,000 per night for overnight sitting. Monthly daycare packages cost NPR 12,000 to NPR 15,000. All sitters provide cage-free home environments with WhatsApp photo updates throughout the day.'
+        },
+        {
+          q: 'Are dog walkers and pet sitters on HamroPets verified?',
+          a: 'Yes. Every dog walker and pet sitter on HamroPets is verified using their Nepal Government issued Citizenship Card before being listed. Only approved, ID-verified carers appear in search results so your pet is always in safe hands.'
+        },
+        {
+          q: 'What areas do you cover for dog walking in Kathmandu?',
+          a: 'HamroPets currently has verified dog walkers and pet sitters across Kathmandu Valley including Kathmandu, Lalitpur and Bhaktapur. Areas covered include Jhamsikhel, Baluwatar, Lazimpat, New Baneshwor, Chabahil, Imadol, Thamel, Maharajgunj and surrounding neighborhoods.'
+        },
+        {
+          q: 'What is the difference between a dog hostel and a home pet sitter?',
+          a: 'A dog hostel is a commercial facility where multiple dogs are kept, often in cages, costing NPR 800 to NPR 1,200 per day. A HamroPets home pet sitter provides cage-free personalized care in a real home environment at NPR 700 per day — cheaper and far less stressful for your pet.'
+        },
+      ].map((item, i) => (
+        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 64, padding: isMobile ? '24px 16px' : '32px 28px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
