@@ -125,84 +125,155 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
   return (
     <>
-    <Head>
-  <title>HamroPets — Nepal's First Dedicated Pet Platform</title>
-  <meta name="description" content="Adopt pets, find vets, dog walking and pet sitting across Nepal. Nepal's first dedicated pet platform presented by Adopt a Dog Nepal since 2018." />
+<Head>
+  <title>HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet</title>
+  <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, pet sitting Nepal, dog walking Kathmandu, vet directory Nepal, lost found pets Nepal, HamroPets, Adopt a Dog Nepal" />
-  <meta property="og:title" content="HamroPets — Nepal's First Dedicated Pet Platform" />
-  <meta property="og:description" content="Adopt pets, find vets, dog walking and pet sitting across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
+  <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, cat adoption Kathmandu, pet sitting Kathmandu, dog walking Kathmandu, dog walker Lalitpur, pet boarding Kathmandu, vet clinic Kathmandu, lost found pets Nepal, adopt a dog Nepal, kukur adopt garne, HamroPets, Adopt a Dog Nepal, pet care platform Nepal, dog hostel Kathmandu" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet" />
+  <meta property="og:description" content="Adopt pets, find verified dog walkers and pet sitters, locate vets, and report lost pets across Nepal. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
   <meta property="og:url" content="https://www.hamropets.com" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HamroPets — Nepal's First Pet Platform" />
+  <meta name="twitter:description" content="Adopt pets, find dog walkers, pet sitters and vets across Nepal. Presented by Adopt a Dog Nepal since 2018." />
   <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "HamroPets",
-        "url": "https://www.hamropets.com",
-        "logo": "https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png",
-        "description": "Nepal's first dedicated pet platform offering free pet adoption, verified vet directory, dog walking and pet sitting services across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018.",
-        "foundingDate": "2024",
-        "areaServed": "Nepal",
-        "parentOrganization": {
-          "@type": "Organization",
-          "name": "Adopt a Dog Nepal",
-          "foundingDate": "2018",
-          "url": "https://www.facebook.com/AdoptaDogNepal"
+      __html: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "HamroPets",
+          "url": "https://www.hamropets.com",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.hamropets.com/adopt?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         },
-        "sameAs": [
-          "https://www.facebook.com/AdoptaDogNepal",
-          "https://www.tiktok.com/@adoptadognepal"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Pet Services",
-          "itemListElement": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "HamroPets",
+          "url": "https://www.hamropets.com",
+          "logo": "https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png",
+          "description": "Nepal's first dedicated pet platform offering free pet adoption, verified vet directory, dog walking and cage-free pet sitting services across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018.",
+          "foundingDate": "2024",
+          "areaServed": "Nepal",
+          "parentOrganization": {
+            "@type": "Organization",
+            "name": "Adopt a Dog Nepal",
+            "foundingDate": "2018",
+            "url": "https://www.facebook.com/AdoptaDogNepal"
+          },
+          "sameAs": [
+            "https://www.facebook.com/AdoptaDogNepal",
+            "https://www.tiktok.com/@adoptadognepal"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Pet Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Pet Adoption Nepal",
+                  "description": "Free pet adoption across Nepal — dogs, cats and more"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Dog Walking Kathmandu",
+                  "description": "Verified dog walking service in Kathmandu Valley from NPR 300 per walk"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Pet Sitting Kathmandu",
+                  "description": "Cage-free verified pet sitting in Kathmandu Valley from NPR 700 per day"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Vet Directory Nepal",
+                  "description": "Verified vet clinics and pet services directory across Nepal"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Lost and Found Pets Nepal",
+                  "description": "Community lost and found pet reporting service across Nepal"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Pet Adoption",
-                "description": "Free pet adoption across Nepal"
+              "@type": "Question",
+              "name": "What is HamroPets?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, lost and found pet reporting, and an AI vet consultation tool across the Kathmandu Valley."
               }
             },
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Dog Walking",
-                "description": "Verified dog walking service in Kathmandu Valley from NPR 300 per walk"
+              "@type": "Question",
+              "name": "Is HamroPets operated by a nonprofit?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. HamroPets is presented by Adopt a Dog Nepal, a registered nonprofit organization that has successfully rehomed over 700 pets since 2018. Adopt a Dog Nepal manages the platform's social media presence while HamroPets.com serves as the full digital pet services platform."
               }
             },
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Pet Sitting",
-                "description": "Cage-free verified pet sitting in Kathmandu Valley from NPR 700 per day"
+              "@type": "Question",
+              "name": "What services are available for pet owners in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HamroPets offers five core services: free pet adoption (dogs and cats), verified dog walking from NPR 300 per walk, cage-free pet sitting from NPR 700 per day, a comprehensive vet clinic directory across Nepal, and a lost and found pet reporting board for the community."
               }
             },
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Vet Directory",
-                "description": "Verified vet clinics and pet services directory across Nepal"
+              "@type": "Question",
+              "name": "Are the pet sitters and dog walkers on HamroPets verified?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. All dog walkers and pet sitters listed on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed on the platform. Only approved, ID-verified sitters and walkers appear in search results."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does HamroPets charge a fee for pet adoption?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Pet adoption on HamroPets is completely free. The platform connects adopters with pet owners and rescue organizations at no charge. HamroPets advocates for ethical adoption as an alternative to buying from breeders."
               }
             }
           ]
         }
-      })
+      ])
     }}
   />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" />
+</Head>
 
       <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", overflowX: 'hidden', maxWidth: '100vw' }}>
 
@@ -606,7 +677,45 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
           </div>
         </div>
-
+{/* FAQ SECTION */}
+<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
+    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Frequently Asked Questions</h2>
+      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about HamroPets and our services</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
+      {[
+        {
+          q: 'What is HamroPets?',
+          a: 'HamroPets is Nepal\'s first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. We offer free pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and a lost and found board across Kathmandu Valley.'
+        },
+        {
+          q: 'Is HamroPets connected to a nonprofit?',
+          a: 'Yes. HamroPets is presented by Adopt a Dog Nepal, a trusted nonprofit active since 2018 with 700+ successful pet rehomings. Adopt a Dog Nepal manages our social media community while HamroPets.com is the full digital pet services platform.'
+        },
+        {
+          q: 'What services are available for pet owners in Kathmandu?',
+          a: 'Pet owners can access five core services: free pet adoption for dogs and cats, ID-verified dog walkers from NPR 300 per walk, cage-free pet sitters from NPR 700 per day, a vet clinic directory across Nepal, and a community lost and found pet board.'
+        },
+        {
+          q: 'Are the pet sitters and dog walkers on HamroPets verified?',
+          a: 'Yes. All dog walkers and pet sitters on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed. Only approved, ID-verified carers appear in search results so your pet is always in safe hands.'
+        },
+        {
+          q: 'Does HamroPets charge a fee for pet adoption?',
+          a: 'No. Pet adoption on HamroPets is completely free. We connect adopters with pet owners and rescue organizations at no charge. We advocate for ethical adoption as an alternative to buying from breeders.'
+        },
+      ].map((item, i) => (
+        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 72, padding: isMobile ? '40px 16px 28px' : '56px 28px 36px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto' }}>
