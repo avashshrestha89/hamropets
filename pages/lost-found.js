@@ -26,26 +26,33 @@ export default function LostFound() {
 
   const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
 
-  const handleImageUpload = async (e) => {
+const handleImageUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
     setUploading(true)
     try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
-      formData.append('folder', 'hamropets/lostfound')
-      const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        { method: 'POST', body: formData }
-      )
-      const data = await res.json()
-      if (data.secure_url) setImageUrl(data.secure_url)
-      else alert('Upload failed. Please try again.')
+      const reader = new FileReader()
+      reader.onload = async (ev) => {
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
+          })
+          const data = await res.json()
+          if (data.url) setImageUrl(data.url)
+          else alert('Upload failed. Please try again.')
+        } catch (err) {
+          alert('Upload failed: ' + err.message)
+        }
+        setUploading(false)
+      }
+      reader.onerror = () => { alert('File read failed.'); setUploading(false) }
+      reader.readAsDataURL(file)
     } catch (err) {
       alert('Upload failed: ' + err.message)
+      setUploading(false)
     }
-    setUploading(false)
   }
 
   const fetchListings = async () => {
@@ -93,11 +100,70 @@ export default function LostFound() {
 
   return (
     <>
-      <Head>
-        <title>Lost & Found Pets — HamroPets</title>
-        <meta name="description" content="Help reunite lost pets with their families across Nepal." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+   <Head>
+  <title>Lost & Found Pets Nepal — Report Missing or Found Pets | HamroPets</title>
+  <meta name="description" content="Report a lost or found pet in Nepal. Help reunite missing dogs and cats with their families across Kathmandu Valley. Free community service by Adopt a Dog Nepal since 2018." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="lost dog Kathmandu, found dog Nepal, missing cat Kathmandu, lost pet Nepal, harayeko kukur, report lost dog Nepal, found pet Kathmandu, lost and found pets Nepal" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Lost & Found Pets Nepal — Help Reunite Pets | HamroPets" />
+  <meta property="og:description" content="Report a lost or found pet in Nepal. Free community service by Adopt a Dog Nepal since 2018." />
+  <meta property="og:url" content="https://www.hamropets.com/lost-found" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I report a missing dog in Kathmandu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Visit HamroPets Lost & Found page, click 'I Lost My Pet', upload a clear photo, provide the last known location and your contact details. Your report will be reviewed and approved within hours."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I do if I find a lost pet in Nepal?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Secure the animal safely, take a clear photo, and post a Found Pet listing on HamroPets. Include a description of the pet, the area where you found it, and your contact number so the owner can reach you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a fee to post a lost pet on HamroPets?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Posting a lost or found pet alert on HamroPets is completely free as a community service by Adopt a Dog Nepal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I help find missing pets in my neighborhood?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Check the HamroPets Lost & Found board regularly, share listings on your local community Facebook groups and WhatsApp groups, and keep an eye out for described pets in your area."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who do I contact to rescue an injured street dog in Kathmandu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For injured street dogs contact KAT Centre (Kathmandu Animal Treatment Centre) or Sneha's Care. You can also post on HamroPets Lost & Found to alert the local pet community immediately."
+            }
+          }
+        ]
+      })
+    }}
+  />
+  <link rel="icon" href="/favicon.ico" />
+</Head>
 
       <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
 
@@ -271,7 +337,45 @@ export default function LostFound() {
           )}
 
         </div>
-
+{/* FAQ SECTION */}
+<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
+    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <span style={{ background: '#FFF0F6', color: '#FF6B9D', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Lost & Found Pets in Nepal — FAQs</h2>
+      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about reporting lost or found pets</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
+      {[
+        {
+          q: 'How do I report a missing dog in Kathmandu?',
+          a: 'Click "I Lost My Pet" on this page, upload a clear photo of your pet, provide the last known location and your contact details. Your report will be reviewed and approved by our team within hours so the community can help.'
+        },
+        {
+          q: 'What should I do if I find a lost pet in Nepal?',
+          a: 'Secure the animal safely, take a clear photo, and click "I Found a Pet" on this page. Include a description, the area where you found it, and your contact number so the owner can reach you directly.'
+        },
+        {
+          q: 'Is there a fee to post a lost pet on HamroPets?',
+          a: 'No. Posting a lost or found pet alert on HamroPets is completely free — always. This is a community service by Adopt a Dog Nepal.'
+        },
+        {
+          q: 'How can I help find missing pets in my neighborhood?',
+          a: 'Check the HamroPets Lost & Found board regularly, share listings on your local community Facebook groups and WhatsApp groups, and keep an eye out for described pets in your area.'
+        },
+        {
+          q: 'Who do I contact to rescue an injured street dog in Kathmandu?',
+          a: 'For injured street dogs contact KAT Centre (Kathmandu Animal Treatment Centre) or Sneha\'s Care. You can also post on HamroPets Lost & Found to alert the local pet community immediately.'
+        },
+      ].map((item, i) => (
+        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 64, padding: isMobile ? '24px 16px' : '32px 28px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
