@@ -117,22 +117,31 @@ const uploadEditPhoto = async (e) => {
   if (!file) return
   setEditUploading(true)
   try {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
-    formData.append('folder', 'hamropets/pets')
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      { method: 'POST', body: formData }
-    )
-    const data = await res.json()
-    if (data.secure_url) {
-      setEditForm(f => ({ ...f, images: [...(f.images || []), data.secure_url] }))
+    const reader = new FileReader()
+    reader.onload = async (ev) => {
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file: ev.target.result, folder: 'admin', resourceType: 'image' }),
+        })
+        const data = await res.json()
+        if (data.url) {
+          setEditForm(f => ({ ...f, images: [...(f.images || []), data.url] }))
+        } else {
+          alert('Upload failed. Please try again.')
+        }
+      } catch (err) {
+        alert('Upload failed: ' + err.message)
+      }
+      setEditUploading(false)
     }
+    reader.onerror = () => { alert('File read failed.'); setEditUploading(false) }
+    reader.readAsDataURL(file)
   } catch (err) {
     alert('Upload failed: ' + err.message)
+    setEditUploading(false)
   }
-  setEditUploading(false)
 }
 
 const removeEditPhoto = (index) => {
@@ -632,15 +641,26 @@ PLEASE GENERATE:
                                     if (!file) return
                                     setEditUploading(true)
                                     try {
-                                      const formData = new FormData()
-                                      formData.append('file', file)
-                                      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
-                                      formData.append('folder', 'hamropets/lostfound')
-                                      const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, { method: 'POST', body: formData })
-                                      const data = await res.json()
-                                      if (data.secure_url) setEditForm(f => ({ ...f, image_url: data.secure_url }))
-                                    } catch (err) { alert('Upload failed: ' + err.message) }
-                                    setEditUploading(false)
+                                      const reader = new FileReader()
+                                      reader.onload = async (ev) => {
+                                        try {
+                                          const res = await fetch('/api/upload', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
+                                          })
+                                          const data = await res.json()
+                                          if (data.url) setEditForm(f => ({ ...f, image_url: data.url }))
+                                          else alert('Upload failed.')
+                                        } catch (err) { alert('Upload failed: ' + err.message) }
+                                        setEditUploading(false)
+                                      }
+                                      reader.onerror = () => { alert('File read failed.'); setEditUploading(false) }
+                                      reader.readAsDataURL(file)
+                                    } catch (err) {
+                                      alert('Upload failed: ' + err.message)
+                                      setEditUploading(false)
+                                    }
                                   }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
                                   {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
                                 </div>
