@@ -732,9 +732,10 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <div style={{ marginTop: 12, display: 'inline-block', background: '#FFF0EB', padding: '5px 12px', borderRadius: 8, border: '1.5px solid #1A1A1A', fontSize: 11, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
               </div>
               {[
-                ['Platform', [['Adopt a Pet', '/adopt'], ['Vet Directory', '/vets'], ['Dog Walking', '/walk-sit'], ['Lost & Found', '/lost-found'], ['AI Vet', '/ai-vet']]],
-                ['For Businesses', [['Advertise', '/advertise'], ['List Your Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
-                ['Company', [['About HamroPets', '/'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
+               {[
+                ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['AI Vet Consultation Nepal', '/ai-vet']]],
+                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
+                ['Company', [['About HamroPets', '/'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
               ].map(([heading, items]) => (
                 <div key={heading}>
                   <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
@@ -750,7 +751,12 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               ))}
             </div>
             
-<div style={{ borderTop: '2px solid #1A1A1A', paddingTop: 20, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
+<div style={{ borderTop: '2px solid #E5E7EB', paddingTop: 20, marginBottom: 16 }}>
+              <p style={{ color: '#9CA3AF', fontSize: 11, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: 0, maxWidth: 900 }}>
+                HamroPets is Nepal's first dedicated pet platform offering free dog and cat adoption, verified dog walking from NPR 300/walk, cage-free pet sitting from NPR 700/day, a vet clinic directory across Kathmandu Valley, lost and found pet reporting, and AI vet consultation. Presented by Adopt a Dog Nepal — rehoming pets across Nepal since 2018. Serving Kathmandu, Lalitpur, Bhaktapur and surrounding areas. kukur adopt garne · pet sitting Kathmandu · dog walker Kathmandu.
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
               <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2025 HamroPets · All rights reserved</span>
               <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
             </div>
