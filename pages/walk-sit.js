@@ -67,26 +67,33 @@ const handleProfilePhotoUpload = async (e) => {
     setUploadingPhoto(false)
   }
 }
-  const handleNagarikUpload = async (e) => {
+const handleNagarikUpload = async (e) => {
     const file = e.target.files[0]
     if (!file) return
     setUploading(true)
     try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
-      formData.append('folder', 'hamropets/nagarik')
-      const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        { method: 'POST', body: formData }
-      )
-      const data = await res.json()
-      if (data.secure_url) setNagarikUrl(data.secure_url)
-      else alert('Upload failed. Please try again.')
+      const reader = new FileReader()
+      reader.onload = async (ev) => {
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file: ev.target.result, folder: 'walkers', resourceType: 'image' }),
+          })
+          const data = await res.json()
+          if (data.url) setNagarikUrl(data.url)
+          else alert('Upload failed. Please try again.')
+        } catch (err) {
+          alert('Upload failed: ' + err.message)
+        }
+        setUploading(false)
+      }
+      reader.onerror = () => { alert('File read failed.'); setUploading(false) }
+      reader.readAsDataURL(file)
     } catch (err) {
       alert('Upload failed: ' + err.message)
+      setUploading(false)
     }
-    setUploading(false)
   }
 
   const handleSubmit = async () => {
