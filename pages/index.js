@@ -731,7 +731,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.7, maxWidth: 280, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Nepal's first dedicated pet platform. Built on 8 years of trust from Adopt a Dog Nepal.</p>
                 <div style={{ marginTop: 12, display: 'inline-block', background: '#FFF0EB', padding: '5px 12px', borderRadius: 8, border: '1.5px solid #1A1A1A', fontSize: 11, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
               </div>
-              {[
+          
                {[
                 ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['AI Vet Consultation Nepal', '/ai-vet']]],
                 ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
