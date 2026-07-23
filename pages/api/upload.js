@@ -1,10 +1,9 @@
-import cloudinary from 'cloudinary'
+import { createClient } from '@supabase/supabase-js'
 
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+)
 
 export const config = {
   api: {
@@ -26,23 +25,41 @@ export default async function handler(req, res) {
   }
 
   try {
-    const result = await cloudinary.v2.uploader.upload(file, {
-      folder: folder || 'hamropets',
-      resource_type: resourceType || 'image',
-      transformation: resourceType === 'video' ? [] : [
-        { width: 1200, height: 1200, crop: 'limit' },
-        { quality: 'auto' },
-        { fetch_format: 'auto' },
-      ],
-    })
+    // Convert base64 to buffer
+    const base64Data = file.replace(/^data:([A-Za-z-+/]+);base64,/, '')
+    const mimeMatch = file.match(/^data:([A-Za-z-+/]+);base64,/)
+    const mimeType = mimeMatch ? mimeMatch[1] : (resourceType === 'video' ? 'video/mp4' : 'image/jpeg')
+    const buffer = Buffer.from(base64Data, 'base64')
+
+    // Generate unique filename
+    const ext = mimeType.split('/')[1] || 'jpg'
+    const filename = `${folder || 'hamropets'}/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${ext}`
+
+    // Upload to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('hamropets-media')
+      .upload(filename, buffer, {
+        contentType: mimeType,
+        upsert: false,
+      })
+
+    if (error) {
+      console.error('Supabase upload error:', error)
+      return res.status(500).json({ error: 'Upload failed: ' + error.message })
+    }
+
+    // Get public URL
+    const { data: urlData } = supabase.storage
+      .from('hamropets-media')
+      .getPublicUrl(filename)
 
     return res.status(200).json({
-      url: result.secure_url,
-      publicId: result.public_id,
+      url: urlData.publicUrl,
+      publicId: filename,
     })
 
   } catch (err) {
-    console.error('Cloudinary upload error:', err)
+    console.error('Upload error:', err)
     return res.status(500).json({ error: 'Upload failed' })
   }
 }
