@@ -52,19 +52,31 @@ export default function SubmitPet() {
     }
     setVideoFile(file || null)
   }
-
-  const uploadToCloudinary = async (file, resourceType = 'image') => {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
-    formData.append('folder', 'hamropets/pets')
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
-      { method: 'POST', body: formData }
-    )
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.error?.message || 'Upload failed')
-    return data.secure_url
+const uploadToCloudinary = async (file, resourceType = 'image') => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = async (e) => {
+        try {
+          const base64 = e.target.result
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              file: base64,
+              folder: 'pets',
+              resourceType,
+            }),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.error || 'Upload failed')
+          resolve(data.url)
+        } catch (err) {
+          reject(err)
+        }
+      }
+      reader.onerror = () => reject(new Error('File read failed'))
+      reader.readAsDataURL(file)
+    })
   }
 
   const handleSubmit = async () => {
