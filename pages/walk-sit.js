@@ -534,6 +534,10 @@ const filteredWalkers = walkers.filter(w => {
           a: 'HamroPets currently has verified dog walkers and pet sitters across Kathmandu Valley including Kathmandu, Lalitpur and Bhaktapur. Areas covered include Jhamsikhel, Baluwatar, Lazimpat, New Baneshwor, Chabahil, Imadol, Thamel, Maharajgunj and surrounding neighborhoods.'
         },
         {
+          q: 'Is it safe to use a dog walker in Kathmandu traffic?',
+          a: 'Yes. Verified walkers on HamroPets are experienced in navigating Kathmandu streets safely, using proper leashes and harnesses, and choosing quieter residential routes or parks away from heavy traffic. All walkers are ID-verified before listing.'
+        },
+        {
           q: 'What is the difference between a dog hostel and a home pet sitter?',
           a: 'A dog hostel is a commercial facility where multiple dogs are kept, often in cages, costing NPR 800 to NPR 1,200 per day. A HamroPets home pet sitter provides cage-free personalized care in a real home environment at NPR 700 per day — cheaper and far less stressful for your pet.'
         },
