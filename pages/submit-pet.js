@@ -38,10 +38,17 @@ export default function SubmitPet() {
 
   const update = (field, value) => setForm(f => ({ ...f, [field]: value }))
 
-  const handleImageSelect = (e) => {
+const handleImageSelect = (e) => {
     const files = Array.from(e.target.files).slice(0, 5)
-    setImageFiles(files)
-    setImagePreviews(files.map(f => URL.createObjectURL(f)))
+    if (files.length === 0) return
+    setImageFiles(prev => {
+      const combined = [...prev, ...files].slice(0, 5)
+      return combined
+    })
+    setImagePreviews(prev => {
+      const newPreviews = files.map(f => URL.createObjectURL(f))
+      return [...prev, ...newPreviews].slice(0, 5)
+    })
   }
 
   const handleVideoSelect = (e) => {
