@@ -48,11 +48,82 @@ export default function Vets({ vets }) {
 
   return (
     <>
-      <Head>
-        <title>Vets & Pet Services — HamroPets</title>
-        <meta name="description" content="Find verified vets, groomers, boarding and pet services across Nepal." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+ <Head>
+  <title>Vet Clinics & Pet Services Kathmandu — Find Trusted Vets | HamroPets</title>
+  <meta name="description" content="Find verified vet clinics, groomers, pet boarding and pet services across Nepal. Browse the most comprehensive vet directory in Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="vet clinic Kathmandu, veterinary hospital Nepal, best vet Kathmandu, 24 hour vet Kathmandu, dog vet Kathmandu, cat vet Nepal, pet grooming Kathmandu, ramro vet clinic kathmandu, emergency vet Kathmandu, pet boarding Nepal, vet near me Kathmandu, animal hospital Kathmandu, dog vaccination Kathmandu, online vet consultation Nepal" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Vet Clinics & Pet Services Kathmandu | HamroPets" />
+  <meta property="og:description" content="Find verified vet clinics, groomers and pet services across Nepal. Nepal's most comprehensive pet services directory presented by Adopt a Dog Nepal." />
+  <meta property="og:url" content="https://www.hamropets.com/vets" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vet Clinics & Pet Services Kathmandu | HamroPets" />
+  <meta name="twitter:description" content="Find verified vets, groomers and pet services across Nepal. Presented by Adopt a Dog Nepal since 2018." />
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Veterinary Clinics and Pet Services in Nepal",
+          "description": "Comprehensive directory of verified vet clinics, groomers, pet boarding and pet services across Kathmandu Valley.",
+          "url": "https://www.hamropets.com/vets"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where can I find a 24-hour emergency vet in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HamroPets provides a directory of veterinary clinics in Kathmandu Valley including emergency services. Major institutions like Central Referral Veterinary Hospital operate extended hours. Browse the HamroPets vet directory and filter by category to find emergency services near you."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does a vet consultation cost in Nepal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Routine veterinary consultations in Kathmandu generally cost NPR 500 to NPR 1,500, excluding medications, vaccinations or specialized diagnostics. Prices vary depending on the clinic, the type of animal, and the complexity of the consultation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do vets in Kathmandu offer home visits for pets?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, several veterinary professionals and clinics listed on HamroPets provide home visit or ambulatory services for emergencies and routine vaccinations. Check individual clinic listings for home visit availability."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I get my dog vaccinated against Rabies in Kathmandu?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Rabies vaccinations are available at almost all registered vet clinics on HamroPets. Many animal welfare organizations in Kathmandu also conduct free or subsidized vaccination camps periodically. Core vaccines for dogs include Rabies, Canine Distemper, and Parvovirus."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the best veterinary hospital in Nepal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The best vet depends on your pet's specific needs and your location. Kathmandu has several highly regarded institutions including advanced private clinics across Lalitpur, Kathmandu and Bhaktapur. Browse the HamroPets vet directory to find top-rated clinics near you with verified contact details."
+              }
+            }
+          ]
+        }
+      ])
+    }}
+  />
+  <link rel="icon" href="/favicon.ico" />
+</Head>
 
       <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
 
@@ -218,6 +289,45 @@ export default function Vets({ vets }) {
           </div>
 
         </div>
+{/* FAQ SECTION */}
+<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
+    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <span style={{ background: '#F0F8FF', color: '#38BDF8', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Vet Clinics & Pet Services in Nepal — FAQs</h2>
+      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about finding vets and pet services in Kathmandu</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
+      {[
+        {
+          q: 'Where can I find a 24-hour emergency vet in Kathmandu?',
+          a: 'HamroPets provides a directory of veterinary clinics in Kathmandu Valley including emergency services. Major institutions like Central Referral Veterinary Hospital operate extended hours. Browse the HamroPets vet directory above to find emergency services near you.'
+        },
+        {
+          q: 'How much does a vet consultation cost in Nepal?',
+          a: 'Routine veterinary consultations in Kathmandu generally cost NPR 500 to NPR 1,500, excluding medications, vaccinations or specialized diagnostics. Prices vary depending on the clinic, the type of animal, and the complexity of the consultation.'
+        },
+        {
+          q: 'Do vets in Kathmandu offer home visits for pets?',
+          a: 'Yes, several veterinary professionals and clinics listed on HamroPets provide home visit or ambulatory services for emergencies and routine vaccinations. Check individual clinic listings for home visit availability.'
+        },
+        {
+          q: 'Where can I get my dog vaccinated against Rabies in Kathmandu?',
+          a: 'Rabies vaccinations are available at almost all registered vet clinics on HamroPets. Many animal welfare organizations in Kathmandu also conduct free or subsidized vaccination camps periodically. Core vaccines for dogs include Rabies, Canine Distemper and Parvovirus.'
+        },
+        {
+          q: 'What is the best veterinary hospital in Nepal?',
+          a: 'The best vet depends on your pet\'s specific needs and your location. Kathmandu has several highly regarded institutions across Lalitpur, Kathmandu and Bhaktapur. Browse the HamroPets vet directory to find top-rated clinics near you with verified contact details and direct call buttons.'
+        },
+      ].map((item, i) => (
+        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
 
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 64, padding: isMobile ? '24px 16px' : '32px 28px', borderTop: '3px solid #1A1A1A' }}>
