@@ -322,7 +322,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <span style={{ background: '#fff', padding: '2px 14px', borderRadius: 14, border: '2.5px solid #1A1A1A', display: 'inline-block', transform: 'rotate(-1.5deg)', boxShadow: '3px 3px 0px #1A1A1A', color: '#FF6B35' }}>Deserves</span><br />
                 a Loving Home 🐾
               </h1>
-              <p style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, marginBottom: 28, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>700+ dogs rehomed since 2018. Find your perfect companion across Nepal.</p>
+              <h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, marginBottom: 28, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 28px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 700+ pets rehomed since 2018.</h2>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <Link href="/adopt" style={{ background: '#21a1eb', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #166534', display: 'inline-block' }}> Adopt a Pet</Link>
                 <Link href="/submit-pet" style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 700, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #555', display: 'inline-block' }}>+ Submit a Pet</Link>
