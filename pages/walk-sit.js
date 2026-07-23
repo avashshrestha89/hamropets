@@ -153,7 +153,7 @@ const filteredWalkers = walkers.filter(w => {
 
   return (
     <>
-     <Head>
+<Head>
   <title>Dog Walking & Pet Sitting Kathmandu — Verified & Cage-Free | HamroPets</title>
   <meta name="description" content="Find ID-verified dog walkers and cage-free pet sitters in Kathmandu and Lalitpur. From NPR 300/walk and NPR 700/day. Nepal's first verified pet sitting and dog walking service presented by Adopt a Dog Nepal." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -220,6 +220,14 @@ const filteredWalkers = walkers.filter(w => {
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "HamroPets currently has verified dog walkers and pet sitters across Kathmandu Valley including Kathmandu, Lalitpur, and Bhaktapur. Areas covered include Jhamsikhel, Baluwatar, Lazimpat, New Baneshwor, Chabahil, Imadol, Thamel, Maharajgunj and surrounding neighborhoods."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to use a dog walker in Kathmandu traffic?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Verified walkers on HamroPets are experienced in navigating Kathmandu streets safely, using proper leashes and harnesses, and choosing quieter residential routes or parks away from heavy traffic. All walkers are ID-verified before listing."
               }
             },
             {
