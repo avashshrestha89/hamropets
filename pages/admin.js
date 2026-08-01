@@ -368,7 +368,11 @@ const removeEditPhoto = (index) => {
 <div style={{ marginBottom: 12 }}>
   <button
     onClick={() => {
-      const text = `ADOPTION LISTING FOR GEMINI — PLEASE GENERATE FULL SOCIAL MEDIA PACKAGE:
+const locationKeywords = item.location ? `${item.location}, Nepal` : 'Kathmandu, Nepal'
+const breedKeyword = item.breed ? `${item.breed} Adoption Nepal` : 'Dog Adoption Nepal'
+const petUrl = `https://www.hamropets.com/pet/${item.id}`
+
+const text = `ADOPTION LISTING — PLEASE GENERATE FULL SOCIAL MEDIA PACKAGE WITH SEO OPTIMIZATION:
 
 OWNER DETAILS:
 Name: ${item.submitter_name}
@@ -399,11 +403,29 @@ ${item.other_info || 'None'}
 
 SUBMITTED: ${new Date(item.created_at).toLocaleDateString('en-NP')}
 
+DIRECT LISTING URL (include this in Facebook/Instagram post):
+${petUrl}
+
+LOCATION FOR SEO: ${locationKeywords}
+
 ---
+SYSTEM & GENERATION INSTRUCTIONS:
+1. Generate clean plain-text copy-paste ready output. NO raw markdown symbols like **, ##, or *** in social captions or messages.
+2. Strict NO BREEDING and FREE ADOPTION messaging throughout. Adoption is always 100% free.
+3. For TikTok: Bilingual English + Nepali caption using safe non-flagged terminology (new home / loving family). Use emoji block for phone numbers. Do NOT include any website URL in TikTok caption.
+4. For Facebook/Instagram: Include the direct listing URL ${petUrl} naturally in the caption so people can see the full profile.
+5. Include ElevenLabs voiceover script with appropriate emotion tags like [warm] [emotional] [hopeful].
+6. Include a contextual SEO & Discoverability Block at the end of the Facebook and Instagram post only — not TikTok. Format it as:
+
+📍 Location: ${item.location || 'Kathmandu'}, Nepal
+🏷️ Category: Dog Adoption & Pet Care Nepal
+🌐 Find more pets at: hamropets.com/adopt
+🔍 Search terms: ${breedKeyword} | Free Pet Adoption ${item.location || 'Kathmandu'} | Rescue Dog Nepal | Pet Rehoming Nepal | HamroPets
+
 PLEASE GENERATE:
-1. Instagram & Facebook adoption post (bilingual English/Nepali)
-2. TikTok caption in Nepali
-3. ElevenLabs voiceover script in Nepali (warm, friendly tone)
+1. Instagram & Facebook adoption post (bilingual English/Nepali + SEO Block + listing URL)
+2. TikTok caption (bilingual English/Nepali — TikTok safe, no URL)
+3. ElevenLabs voiceover script in Nepali (warm friendly tone with emotion tags)
 4. Message to owner (bilingual English/Nepali)
 5. Safety & verification guide for owner (bilingual)`
       navigator.clipboard.writeText(text)
