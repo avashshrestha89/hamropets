@@ -59,7 +59,34 @@ const handleImageSelect = (e) => {
     }
     setVideoFile(file || null)
   }
+const compressImage = (file) => {
+    return new Promise((resolve) => {
+      if (file.type.startsWith('video/')) { resolve(file); return }
+      const canvas = document.createElement('canvas')
+      const img = new Image()
+      const url = URL.createObjectURL(file)
+      img.onload = () => {
+        const maxSize = 1000
+        let width = img.width
+        let height = img.height
+        if (width > maxSize || height > maxSize) {
+          if (width > height) { height = (height / width) * maxSize; width = maxSize }
+          else { width = (width / height) * maxSize; height = maxSize }
+        }
+        canvas.width = width
+        canvas.height = height
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height)
+        canvas.toBlob((blob) => {
+          resolve(new File([blob], file.name, { type: 'image/jpeg' }))
+        }, 'image/jpeg', 0.7)
+        URL.revokeObjectURL(url)
+      }
+      img.src = url
+    })
+  }
+
 const uploadToCloudinary = async (file, resourceType = 'image') => {
+    const processedFile = resourceType === 'image' ? await compressImage(file) : file
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = async (e) => {
@@ -82,7 +109,7 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
         }
       }
       reader.onerror = () => reject(new Error('File read failed'))
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(processedFile)
     })
   }
 
