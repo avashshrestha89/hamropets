@@ -217,7 +217,7 @@ export default function PetDetail({ pet }) {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <a href={`tel:${pet.submitter_phone}`} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #166534', display: 'block' }}>
+                  <a href={`tel:${pet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #166534', display: 'block' }}>
                     📞 Call Owner — {pet.submitter_phone}
                   </a>
                   <a href={`https://wa.me/977${(pet.submitter_whatsapp || pet.submitter_phone)?.replace(/^0/, '').replace(/^\+977/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: isMobile ? '12px' : '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
