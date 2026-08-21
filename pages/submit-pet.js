@@ -403,13 +403,13 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
           )}
 
           {/* STEP 3 — PHOTOS & VIDEO */}
-          {step === 3 && (
+  {step === 3 && (
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
               {sectionTitle('Photos & Video', 'फोटो र भिडियो')}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div>
                   <label style={labelStyle}>Photos / फोटोहरू (up to 5 / ५ सम्म) *</label>
-                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>Please upload on social media quality photos / कृपया सामाजिक सञ्जालको गुणस्तरका फोटोहरू अपलोड गर्नुहोस्</p>
+                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>Please upload social media quality photos / कृपया सामाजिक सञ्जालको गुणस्तरका फोटोहरू अपलोड गर्नुहोस्</p>
                   <div style={{ border: '3px dashed #58CC02', borderRadius: 16, padding: '32px', textAlign: 'center', background: '#F0FDF4', cursor: 'pointer', position: 'relative' }}>
                     <input type="file" accept="image/jpeg,image/png,image/webp" multiple style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleImageSelect} />
                     <div style={{ fontSize: 44, marginBottom: 10 }}>📸</div>
@@ -424,11 +424,7 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
                     </div>
                   )}
                 </div>
-               <div>
-  <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
-  <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>
-    Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्
-<div>
+                <div>
                   <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
                   <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्</div>
                   <input
@@ -438,7 +434,6 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
                     onChange={e => setVideoUrl(e.target.value)}
                     style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
                   />
-           
                 </div>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
