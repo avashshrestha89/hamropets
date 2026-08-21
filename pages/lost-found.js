@@ -309,7 +309,8 @@ const handleImageUpload = async (e) => {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
               {listings.map(item => (
-                <div key={item.id} style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
+               <Link key={item.id} href={`/lost-found/${item.id}`} style={{ textDecoration: 'none' }}>
+<div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', cursor: 'pointer' }}>
                   <div style={{ height: isMobile ? 90 : 110, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
                     {item.image_url ? (
                       <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -327,13 +328,15 @@ const handleImageUpload = async (e) => {
                     <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', marginTop: 2, fontWeight: 600 }}>📍 {item.area}</div>
                     <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 1, fontWeight: 500 }}>🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short' })}</div>
                     <div style={{ fontSize: isMobile ? 11 : 13, color: '#555', marginTop: 6, lineHeight: 1.5, fontWeight: 500 }}>{item.description}</div>
-                    <a href={`tel:${item.contact_phone}`} style={{ display: 'block', marginTop: 10, background: '#fff', color: '#1A1A1A', padding: '8px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, textAlign: 'center', textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A' }}>
-                      📞 {item.contact_phone}
-                    </a>
+                    <div style={{ marginTop: 10, background: '#FF6B9D', color: '#fff', padding: '8px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: isMobile ? 11 : 13, fontWeight: 800, textAlign: 'center', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                      View Details →
+                    </div>
                   </div>
                 </div>
+</Link>
               ))}
             </div>
+  
           )}
 
         </div>
