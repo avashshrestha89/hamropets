@@ -438,7 +438,7 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
                     onChange={e => setVideoUrl(e.target.value)}
                     style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
                   />
-                </div>
+           
                 </div>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
