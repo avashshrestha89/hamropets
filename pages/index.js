@@ -390,7 +390,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <Link key={pet.id} href={pet.id.startsWith('demo') ? '/adopt' : `/pet/${pet.id}`} style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 120 : 170, background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
-                      {pet.images && pet.images.length > 0 ? <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
+                      {pet.images && pet.images.length > 0 ? <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} /> : emoji}
                       <div style={{ position: 'absolute', top: 8, left: 8, background: pet.status === 'adopted' ? '#FF6B9D' : '#fff', color: pet.status === 'adopted' ? '#fff' : '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 800, padding: '3px 8px', border: '1.5px solid #1A1A1A' }}>
   {pet.status === 'adopted' ? '🎉 ADOPTED' : pet.vaccinated ? '💉 Vaccinated' : `🐾 ${pet.species}`}
 </div>
@@ -457,7 +457,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 90 : 120, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
                       {item.image_url ? (
-                        <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
                       ) : (
                         item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
                       )}
@@ -526,7 +526,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <Link key={v.id} href="/vets" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
                     <div style={{ height: isMobile ? 90 : 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 36 : 48, borderBottom: '2px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
-                      {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : emoji}
+                      {v.logo_url ? <img src={v.logo_url} alt={v.business_name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} /> : emoji}
                       <div style={{ position: 'absolute', top: 8, right: 8, background: '#1A1A1A', color: '#FFD23F', fontSize: 9, fontWeight: 900, padding: '2px 6px', borderRadius: 4 }}>FEATURED</div>
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
