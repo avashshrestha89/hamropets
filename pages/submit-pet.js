@@ -8,7 +8,7 @@ export default function SubmitPet() {
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [imageFiles, setImageFiles] = useState([])
-  const [videoFile, setVideoFile] = useState(null)
+  const [videoUrl, setVideoUrl] = useState('')
   const [imagePreviews, setImagePreviews] = useState([])
   const [form, setForm] = useState({
     // Owner details
@@ -51,14 +51,6 @@ const handleImageSelect = (e) => {
     })
   }
 
-  const handleVideoSelect = (e) => {
-    const file = e.target.files[0]
-    if (file && file.size > 50 * 1024 * 1024) {
-      alert('Video must be under 50MB')
-      return
-    }
-    setVideoFile(file || null)
-  }
 const compressImage = (file) => {
     return new Promise((resolve) => {
       if (file.type.startsWith('video/')) { resolve(file); return }
@@ -130,10 +122,7 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
         const url = await uploadToCloudinary(file, 'image')
         imageUrls.push(url)
       }
-      let videoUrl = null
-      if (videoFile) {
-        videoUrl = await uploadToCloudinary(videoFile, 'video')
-      }
+    
       setUploading(false)
       const res = await fetch('/api/submit-pet', {
         method: 'POST',
@@ -435,15 +424,23 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
                     </div>
                   )}
                 </div>
-                <div>
-                  <label style={labelStyle}>Video / भिडियो (optional / ऐच्छिक)</label>
-                  <div style={{ border: '3px dashed #7B5EA7', borderRadius: 16, padding: '28px', textAlign: 'center', background: '#F5F0FF', cursor: 'pointer', position: 'relative' }}>
-                    <input type="file" accept="video/mp4" style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleVideoSelect} />
-                    <div style={{ fontSize: 44, marginBottom: 10 }}>🎥</div>
-                    <div style={{ fontSize: 15, fontWeight: 900, color: '#7B5EA7' }}>Click to upload video / भिडियो अपलोड गर्नुहोस्</div>
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>MP4 only · Max 50MB</div>
-                    {videoFile && <div style={{ marginTop: 10, fontSize: 13, fontWeight: 800, color: '#7B5EA7' }}>✓ {videoFile.name}</div>}
-                  </div>
+               <div>
+  <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
+  <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>
+    Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्
+  </div>
+<label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
+<div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>
+  Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्
+</div>
+<input
+    type="url"
+    placeholder="https://youtube.com/... or https://drive.google.com/..."
+    value={videoUrl || ''}
+    onChange={e => setVideoUrl(e.target.value)}
+    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
+  />
+</div>
                 </div>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
