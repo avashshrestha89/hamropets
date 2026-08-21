@@ -428,19 +428,17 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
   <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
   <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>
     Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्
-  </div>
-<label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
-<div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>
-  Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्
-</div>
-<input
-    type="url"
-    placeholder="https://youtube.com/... or https://drive.google.com/..."
-    value={videoUrl || ''}
-    onChange={e => setVideoUrl(e.target.value)}
-    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
-  />
-</div>
+<div>
+                  <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
+                  <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्</div>
+                  <input
+                    type="url"
+                    placeholder="https://youtube.com/... or https://drive.google.com/..."
+                    value={videoUrl || ''}
+                    onChange={e => setVideoUrl(e.target.value)}
+                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
+                  />
+                </div>
                 </div>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
