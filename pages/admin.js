@@ -515,7 +515,7 @@ PLEASE GENERATE:
                               setEditingId(null)
                             } else {
                               setEditingId(item.id)
-                              setEditForm({ full_name: item.full_name || '', phone: item.phone || '', city: item.city || '', locality: item.locality || '', area: item.area || '', services: item.services || '', experience: item.experience || '', email: item.email || '' })
+                              setEditForm({ full_name: item.full_name || '', phone: item.phone || '', city: item.city || '', locality: item.locality || '', area: item.area || '', services: item.services || '', experience: item.experience || '', email: item.email || '', profile_photo: item.profile_photo || '' })
                             }
                           }}
                           style={{ background: editingId === item.id ? '#F3F4F6' : '#38BDF8', color: editingId === item.id ? '#666' : '#fff', padding: '9px 18px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}
