@@ -18,7 +18,7 @@ if (rest.services !== undefined) updateData.services = rest.services
 if (rest.city !== undefined) updateData.city = rest.city
 if (rest.locality !== undefined) updateData.locality = rest.locality
 if (rest.area !== undefined) updateData.area = rest.area
-if (rest.experience !== undefined) updateData.experience = rest.experience
+if (rest.profile_photo !== undefined) updateData.profile_photo = rest.profile_photo
 const { error } = await supabase
   .from('walker_applications')
   .update(updateData)
