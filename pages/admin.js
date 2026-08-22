@@ -551,10 +551,41 @@ PLEASE GENERATE:
                             <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Experience / About</div>
                             <textarea rows={3} value={editForm.experience || ''} onChange={e => setEditForm(f => ({ ...f, experience: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
                                                    </div>
-                          <div style={{ marginBottom: 12 }}>
-                            <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Profile Photo URL</div>
-                            <input value={editForm.profile_photo || ''} onChange={e => setEditForm(f => ({ ...f, profile_photo: e.target.value }))} placeholder="Paste Supabase or image URL here" style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
-                            <div style={{ fontSize: 11, color: '#888', marginTop: 4 }}>Upload photo to Supabase Storage → walkers folder → copy URL → paste here</div>
+                         <div style={{ marginBottom: 12 }}>
+                            <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Profile Photo</div>
+                            <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8 }}>
+                              {editForm.profile_photo && (
+                                <img src={editForm.profile_photo} alt="Profile" style={{ width: 60, height: 60, borderRadius: 999, objectFit: 'cover', border: '2px solid #1A1A1A', flexShrink: 0 }} />
+                              )}
+                              <div style={{ position: 'relative', flex: 1 }}>
+                                <input type="file" accept="image/*" onChange={async (e) => {
+                                  const file = e.target.files[0]
+                                  if (!file) return
+                                  try {
+                                    const reader = new FileReader()
+                                    reader.onload = async (ev) => {
+                                      try {
+                                        const res = await fetch('/api/upload', {
+                                          method: 'POST',
+                                          headers: { 'Content-Type': 'application/json' },
+                                          body: JSON.stringify({ file: ev.target.result, folder: 'walkers', resourceType: 'image' }),
+                                        })
+                                        const data = await res.json()
+                                        if (data.url) setEditForm(f => ({ ...f, profile_photo: data.url }))
+                                        else alert('Upload failed. Try again.')
+                                      } catch (err) { alert('Upload failed: ' + err.message) }
+                                    }
+                                    reader.readAsDataURL(file)
+                                  } catch (err) { alert('Upload failed: ' + err.message) }
+                                }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                                <div style={{ padding: '9px 12px', borderRadius: 10, border: '2px dashed #1A1A1A', fontSize: 13, fontWeight: 700, color: '#1A1A1A', textAlign: 'center', background: '#F9FAFB', cursor: 'pointer' }}>
+                                  {editForm.profile_photo ? '📷 Click to replace photo' : '📷 Click to upload photo'}
+                                </div>
+                              </div>
+                            </div>
+                            {editForm.profile_photo && (
+                              <input value={editForm.profile_photo} onChange={e => setEditForm(f => ({ ...f, profile_photo: e.target.value }))} placeholder="Or paste URL directly" style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #E5E7EB', fontSize: 11, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', color: '#888' }} />
+                            )}
                           </div>
                           <div style={{ display: 'flex', gap: 10 }}>
                             <button onClick={async () => {
