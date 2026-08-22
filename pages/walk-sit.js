@@ -327,7 +327,7 @@ const filteredWalkers = walkers.filter(w => {
 {filteredWalkers.map(w => (
                   <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ height: isMobile ? 90 : 120, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
+                    <div style={{ height: isMobile ? 200 : 240, background: `linear-gradient(135deg, ${w.color}18, ${w.color}35)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 56, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
                       {w.profile_photo ? <img src={w.profile_photo} alt={w.full_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} /> : w.emoji}
                       {w.verified && (
                        <div style={{ position: 'absolute', top: 8, left: 8, background: '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A', display: 'flex', alignItems: 'center', gap: 3 }}>
