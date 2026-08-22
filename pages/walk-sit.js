@@ -131,6 +131,8 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
     id: w.id,
     full_name: w.full_name,
     area: w.area,
+    city: w.city,
+    locality: w.locality,
     services: w.services,
     emoji: w.services?.includes('Sitting') ? '👩' : '👨',
     color: w.services?.includes('Sitting') ? '#FF6B9D' : '#38BDF8',
@@ -138,6 +140,7 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
     jobs: 0,
     verified: true,
     nagarik_screenshot: w.nagarik_screenshot,
+    profile_photo: w.profile_photo,
   })) : fallbackWalkers
 const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan']
 const filteredWalkers = walkers.filter(w => {
