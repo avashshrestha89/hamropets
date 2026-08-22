@@ -550,6 +550,11 @@ PLEASE GENERATE:
                           <div style={{ marginBottom: 12 }}>
                             <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Experience / About</div>
                             <textarea rows={3} value={editForm.experience || ''} onChange={e => setEditForm(f => ({ ...f, experience: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
+                                                   </div>
+                          <div style={{ marginBottom: 12 }}>
+                            <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Profile Photo URL</div>
+                            <input value={editForm.profile_photo || ''} onChange={e => setEditForm(f => ({ ...f, profile_photo: e.target.value }))} placeholder="Paste Supabase or image URL here" style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+                            <div style={{ fontSize: 11, color: '#888', marginTop: 4 }}>Upload photo to Supabase Storage → walkers folder → copy URL → paste here</div>
                           </div>
                           <div style={{ display: 'flex', gap: 10 }}>
                             <button onClick={async () => {
