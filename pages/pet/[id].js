@@ -85,9 +85,9 @@ export default function PetDetail({ pet }) {
 
             {/* LEFT — PHOTOS */}
             <div>
-              <div style={{ position: 'relative', height: isMobile ? 280 : 360, borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden', background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 120 }}>
+              <div style={{ position: 'relative', height: isMobile ? 320 : 420, borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden', background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 120 }}>
                 {pet.images && pet.images.length > 0 ? (
-                  <img src={pet.images[activePhoto]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                  <img src={pet.images[activePhoto]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
                 ) : emoji}
 
                 {/* ADOPTED OVERLAY */}
@@ -105,7 +105,7 @@ export default function PetDetail({ pet }) {
                 <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
                   {pet.images.slice(0, 4).map((img, i) => (
                     <div key={i} onClick={() => setActivePhoto(i)} style={{ flex: 1, height: isMobile ? 60 : 80, borderRadius: 10, border: `2.5px solid ${i === activePhoto ? '#1A1A1A' : '#E5E7EB'}`, overflow: 'hidden', cursor: 'pointer', boxShadow: i === activePhoto ? '2px 2px 0px #1A1A1A' : 'none' }}>
-                      <img src={img} alt={`${pet.pet_name} ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                      <img src={img} alt={`${pet.pet_name} ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
                     </div>
                   ))}
                 </div>
