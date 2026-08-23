@@ -311,9 +311,9 @@ const handleImageUpload = async (e) => {
               {listings.map(item => (
                <Link key={item.id} href={`/lost-found/${item.id}`} style={{ textDecoration: 'none' }}>
 <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', cursor: 'pointer' }}>
-                  <div style={{ height: isMobile ? 90 : 110, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
+                  <div style={{ height: isMobile ? 200 : 240, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, position: 'relative', borderBottom: '2px solid #1A1A1A' }}>
                     {item.image_url ? (
-                      <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                      <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
                     ) : (
                       item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
                     )}
