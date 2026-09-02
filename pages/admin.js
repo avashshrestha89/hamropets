@@ -449,6 +449,18 @@ PLEASE GENERATE:
     {item.status === 'approved' && (
       <button onClick={() => updateStatus(item.id, 'adopted', 'pet')} style={{ background: '#FF6B9D', color: '#fff', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Adopted</button>
     )}
+    {item.status === 'approved' && (
+      <button onClick={async () => {
+        const res = await fetch('/api/admin/update-listing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: item.id, is_featured: !item.is_featured }),
+        })
+        if (res.ok) fetchListings()
+      }} style={{ background: item.is_featured ? '#FFD23F' : '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        {item.is_featured ? '⭐ Unfeature' : '☆ Mark as Featured'}
+      </button>
+    )}
   </div>
 )}
                       </div>
@@ -614,8 +626,22 @@ PLEASE GENERATE:
                           <button onClick={() => updateStatus(item.id, 'rejected', 'walker')} disabled={actionLoading === item.id} style={{ flex: 1, background: '#FF6B35', color: '#fff', padding: '11px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>❌ Reject</button>
                         </div>
                       )}
-                      {item.status !== 'pending' && (
-                        <button onClick={() => updateStatus(item.id, 'pending', 'walker')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
+                                           {item.status !== 'pending' && (
+                        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                          <button onClick={() => updateStatus(item.id, 'pending', 'walker')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
+                          {item.status === 'approved' && (
+                            <button onClick={async () => {
+                              const res = await fetch('/api/admin/update-walker', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ id: item.id, is_featured: !item.is_featured }),
+                              })
+                              if (res.ok) fetchListings()
+                            }} style={{ background: item.is_featured ? '#FFD23F' : '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                              {item.is_featured ? '⭐ Unfeature' : '☆ Mark as Featured'}
+                            </button>
+                          )}
+                        </div>
                       )}
                     </div>
                   )}
