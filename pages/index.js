@@ -17,7 +17,8 @@ export async function getServerSideProps() {
     supabase.from('pet_listings').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
   ])
-  return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null } }
+   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null } }
+}
 function Slideshow({ slides }) {
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)
