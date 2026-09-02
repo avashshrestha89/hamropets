@@ -371,7 +371,43 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </div>
           </div>
         </div>
-
+{/* STAR FEATURED PETS */}
+{starPets && starPets.length > 0 && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+      <div>
+        <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>⭐ Featured</span>
+        <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Featured Pets</h2>
+        <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Hand-picked pets looking for their forever home</p>
+      </div>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+      {starPets.map(pet => {
+        const emoji = speciesEmoji[pet.species?.toLowerCase()] || '🐾'
+        const color = speciesColor[pet.species?.toLowerCase()] || '#58CC02'
+        return (
+          <Link key={pet.id} href={`/pet/${pet.id}`} style={{ textDecoration: 'none' }}>
+            <div style={{ background: '#FFFFFF', borderRadius: 16, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '4px 4px 0px #B45309' }}>
+              <div style={{ height: isMobile ? 200 : 260, background: `linear-gradient(135deg, ${color}25, ${color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '3px solid #FFD23F' }}>
+                {pet.images && pet.images.length > 0 ? <img src={pet.images[0]} alt={pet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFFBEB' }} /> : emoji}
+                <div style={{ position: 'absolute', top: 8, left: 8, background: '#FFD23F', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '3px 10px', border: '1.5px solid #1A1A1A' }}>⭐ Featured</div>
+              </div>
+              <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+                <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 17, color: '#1A1A1A', marginBottom: 2 }}>{pet.pet_name}</div>
+                <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 600 }}>{pet.breed || pet.species} · {[pet.age_years > 0 ? `${pet.age_years}y` : '', pet.age_months > 0 ? `${pet.age_months}m` : ''].filter(Boolean).join(' ') || '?'} · {pet.gender}</div>
+                <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500 }}>📍 {pet.location}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 10, borderTop: '1.5px dashed #FFD23F' }}>
+                  <span style={{ background: '#FFD23F', color: '#1A1A1A', fontSize: 11, fontWeight: 800, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>FREE Adoption</span>
+                  <span style={{ background: '#1A1A1A', color: '#FFD23F', fontSize: 10, fontWeight: 800, padding: '3px 10px', borderRadius: 999 }}>View →</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )
+      })}
+    </div>
+  </div>
+)}
         {/* FEATURED PETS */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
@@ -407,6 +443,36 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             })}
           </div>
         </div>
+{/* STAR FEATURED WALKER */}
+{starWalker && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
+    <div style={{ marginBottom: 20 }}>
+      <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>⭐ Featured Sitter</span>
+      <h2 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Top Rated Pet Sitter</h2>
+    </div>
+    <a href={`/walker/${starWalker.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#FFFBEB', borderRadius: 20, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '5px 5px 0px #B45309', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+        <div style={{ width: isMobile ? '100%' : 220, height: isMobile ? 200 : 220, background: 'linear-gradient(135deg, #FFD23F25, #FFD23F50)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 64, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FFD23F', borderBottom: isMobile ? '3px solid #FFD23F' : 'none' }}>
+          {starWalker.profile_photo ? <img src={starWalker.profile_photo} alt={starWalker.full_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFFBEB' }} /> : '🌟'}
+        </div>
+        <div style={{ padding: isMobile ? '16px' : '24px', flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <div style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>{starWalker.full_name}</div>
+            <span style={{ background: '#FFD23F', color: '#1A1A1A', fontSize: 10, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>⭐ Featured</span>
+          </div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', fontWeight: 600, marginBottom: 6 }}>{starWalker.services === 'Both' ? '🦮 Dog Walking & 🛋️ Pet Sitting' : starWalker.services}</div>
+          <div style={{ fontSize: isMobile ? 12 : 13, color: '#9CA3AF', fontWeight: 500, marginBottom: 12 }}>📍 {starWalker.city || starWalker.area}{starWalker.locality ? ` · ${starWalker.locality}` : ''}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#374151', lineHeight: 1.6, marginBottom: 16, fontWeight: 500 }}>{starWalker.experience?.substring(0, 120)}{starWalker.experience?.length > 120 ? '...' : ''}</div>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 12, fontWeight: 700, padding: '5px 12px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🪪 ID Verified</span>
+            <span style={{ background: '#fff', color: '#1A1A1A', fontSize: 12, fontWeight: 700, padding: '5px 12px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>From NPR 300/walk · NPR 700/day</span>
+            <span style={{ background: '#1A1A1A', color: '#FFD23F', fontSize: 12, fontWeight: 800, padding: '5px 14px', borderRadius: 999 }}>View Profile →</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+)}
 {/* FEATURED WALKERS & SITTERS */}
         {featuredWalkers.length > 0 && (
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
