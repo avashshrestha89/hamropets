@@ -89,9 +89,7 @@ function Slideshow({ slides }) {
           style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
         >→</button>
       </div>
-    </div>
-  )
-}
+
 export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker }) {
   const [isMobile, setIsMobile] = useState(false)
 
