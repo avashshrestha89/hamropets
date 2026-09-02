@@ -93,7 +93,7 @@ function Slideshow({ slides }) {
   )
 }
 
-export default function Home({
+export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
