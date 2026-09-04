@@ -151,7 +151,8 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
           email: form.ownerEmail,
           address: form.ownerAddress,
           images: imageUrls,
-          videoUrl,
+                videoUrl,
+          boostTier: form.boostTier,
         }),
       })
       if (res.ok) setSubmitted(true)
