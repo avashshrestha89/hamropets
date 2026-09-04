@@ -478,7 +478,7 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
         </div>
       </div>
       {[
-        ['HamroPets मा तपाईंको pet को profile राखिनेछ', 'Listed on HamroPets.com'],
+        ['HamroPets मा तपाईंको पाल्तु जनावरको प्रोफाइल राखिनेछ', 'Listed on HamroPets.com'],
         ['Facebook मा सामान्य रूपमा प्रचार गरिनेछ', 'Basic Facebook promotion'],
         ['HamroPets मा सामान्य प्राथमिकतामा देखाइनेछ', 'Standard visibility'],
       ].map(([np, en]) => (
@@ -503,9 +503,9 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
       </div>
       <div style={{ fontSize: 11, color: '#38BDF8', fontWeight: 700, marginBottom: 10 }}>✓ Free का सबै सुविधा समावेश + थप:</div>
       {[
-        ['तपाईंको pet को छोटो भिडियो TikTok, Instagram र Facebook मा प्रचार', 'Social media adoption video'],
+        ['तपाईंको कुकुर/बिरालोको छोटो भिडियो TikTok, Instagram र Facebook मा प्रचार', 'Social media adoption video'],
         ['स्पष्ट नेपाली आवाज (Voiceover) मा कथा वाचन — Swor AI प्रविधिद्वारा तयार पारिएको', 'Nepali voice narration powered by Swor AI'],
-        ['खोज सूचीको सबैभन्दा माथि देखिने — छिटो adoption को लागि', 'Top of search for faster adoption'],
+        ['खोज सूचीको सबैभन्दा माथि देखिने — छिट्टै नयाँ घर भेट्टाउनको लागि', 'Top of search for faster adoption'],
       ].map(([np, en]) => (
         <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
       ))}
@@ -529,10 +529,10 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
       </div>
       <div style={{ fontSize: 11, color: '#B45309', fontWeight: 700, marginBottom: 10 }}>✓ Social Boost का सबै सुविधा समावेश + थप:</div>
       {[
-        ['१४ दिनसम्म HamroPets को homepage मा विशेष रूपमा देखाइनेछ', 'Homepage feature for 14 days'],
+        ['चौध दिनसम्म HamroPets को homepage मा विशेष रूपमा देखाइनेछ', 'Homepage feature for 14 days'],
         ['🔒 तपाईंको फोन नम्बर सार्वजनिक हुँदैन — Call HamroPets मार्फत जोडिन्छ', 'Phone number stays private'],
-        ['तपाईंको pet सँग मिल्ने adopter खोज्न Smart Matching', 'Smart adopter matching'],
-        ['५–७ जना verified सम्भावित adopter को profile पठाइनेछ', '5–7 verified adopter profiles'],
+       ['तपाईंको पाल्तु जनावरसँग मिल्ने परिवार खोज्न विशेष सहयोग', 'Smart adopter matching'],
+        ['पाँच देखि सात जना प्रमाणित, भरपर्दो सम्भावित परिवारको प्रोफाइल पठाइनेछ', '5–7 verified adopter profiles'],
       ].map(([np, en]) => (
         <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
       ))}
