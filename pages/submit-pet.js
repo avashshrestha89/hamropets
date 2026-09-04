@@ -34,6 +34,8 @@ export default function SubmitPet() {
     // Agreements
     agreeTerms: false,
     agreeContact: false,
+    // Package
+    boostTier: 'free',
   })
 
   const update = (field, value) => setForm(f => ({ ...f, [field]: value }))
@@ -450,7 +452,74 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
               {sectionTitle('Agreement & Submission', 'सहमति र सबमिसन')}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                {/* BOOST TIER SELECTION */}
+                <div>
+                  <div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>Choose Your Listing Package / आफ्नो प्याकेज छान्नुहोस्</div>
+                  <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 16, fontWeight: 500 }}>All pets get a free listing. Upgrade for faster adoption. / सबै पालतु जनावर निःशुल्क सूचीबद्ध हुन्छन्।</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {[
+                      {
+                        id: 'free',
+                        label: '🐾 Free Listing',
+                        labelNp: 'निःशुल्क सूचीकरण',
+                        price: 'NPR 0',
+                        color: '#58CC02',
+                        features: ['Listed on hamropets.com', 'Basic Facebook post', 'Standard visibility'],
+                      },
+                      {
+                        id: 'boost',
+                        label: '🚀 Social Boost',
+                        labelNp: 'सोसल बुस्ट',
+                        price: 'NPR 299',
+                        color: '#38BDF8',
+                        features: ['Everything in Free', 'TikTok + Instagram + Facebook video', 'Swor AI Nepali voiceover', '60-day featured listing'],
+                      },
+                      {
+                        id: 'shield',
+                        label: '⭐ Priority Shield',
+                        labelNp: 'प्रायोरिटी शिल्ड',
+                        price: 'NPR 599',
+                        color: '#FFD23F',
+                        features: ['Everything in Social Boost', 'Featured on homepage for 14 days', 'Phone privacy — calls via HamroPets', 'AI-powered adopter matching', 'Top 5-7 verified adopter profiles'],
+                      },
+                    ].map(tier => (
+                      <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2.5px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                          <div>
+                            <span style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>{tier.label}</span>
+                            <span style={{ fontSize: 12, color: '#6B7280', marginLeft: 8, fontWeight: 500 }}>{tier.labelNp}</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ fontWeight: 900, fontSize: 16, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
+                            <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: form.boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                              {form.boostTier === tier.id && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                          {tier.features.map(f => (
+                            <div key={f} style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>✓ {f}</div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
+                {/* PAYMENT INSTRUCTIONS — show if paid tier selected */}
+                {(form.boostTier === 'boost' || form.boostTier === 'shield') && (
+                  <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', boxShadow: '3px 3px 0px #B45309' }}>
+                    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 12 }}>💳 Payment Instructions / भुक्तानी निर्देशन</div>
+                    <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
+                      <strong>Amount:</strong> {form.boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}<br />
+                      <strong>eSewa / Khalti / Bank Transfer:</strong><br />
+                      📱 <strong>9851405178</strong> (HamroPets)<br /><br />
+                      After payment, send a screenshot to WhatsApp: <strong>9851405178</strong><br />
+                      We will activate your package within 2-4 hours. 🐾<br /><br />
+                      <span style={{ fontSize: 12, color: '#6B7280' }}>भुक्तानी गरेपछि WhatsApp मा screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र तपाईंको प्याकेज सक्रिय गर्नेछौं।</span>
+                    </div>
+                  </div>
+                )}
                 {/* TERMS */}
                 <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
                   <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>Terms & Success Story Archive / सर्तहरू र सफलता कथा अभिलेख</div>
