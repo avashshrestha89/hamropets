@@ -548,45 +548,71 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
   </div>
 </div>
 {/* COMPARISON TABLE */}
-<div style={{ 
-  background: '#F9FAFB', 
-  borderRadius: 16, 
-  border: '2px solid #1A1A1A', 
-  padding: isMobile ? '16px' : '20px', 
-  boxShadow: '4px 4px 0px #1A1A1A',
-  marginTop: 20,
-  marginBottom: 20
-}}>
-  <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 4 }}>
-    🔍 तीनवटै प्याकेजमा के फरक छ? / Package Comparison
+<div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A', marginTop: 20, marginBottom: 20 }}>
+  {/* Header */}
+  <div style={{ background: '#1A1A1A', padding: '16px 20px' }}>
+    <div style={{ fontWeight: 900, fontSize: 15, color: '#FFD23F', marginBottom: 4 }}>📊 Comparison Table / तुलनात्मक तालिका</div>
+    <div style={{ fontSize: 11, color: '#D1D5DB', lineHeight: 1.6 }}>
+      The fundamental difference is that Free Listing provides basic web presence, Social Boost maximizes reach and visibility, and Priority Shield guarantees complete privacy, screening, and safety.<br />
+      <span style={{ color: '#9CA3AF', fontSize: 10 }}>मुख्य भिन्नता: निःशुल्क सूचीकरणले आधारभूत उपस्थिति दिन्छ, सोसल बुस्टले प्रचार र भिडियो पहुँच बढाउँछ, र प्रायोरिटी शिल्डले पूर्ण गोपनीयता, सुरक्षा र प्रमाणीकरण सुनिश्चित गर्छ।</span>
+    </div>
   </div>
-  <div style={{ fontSize: 12, color: '#4B5563', marginBottom: 14, fontWeight: 500 }}>
-    निःशुल्क सूचीकरण आधारभूत हो भने सशुल्क प्याकेजले छिटो र सुरक्षित घर भेट्टाउन मद्दत गर्छ।
-  </div>
+
+  {/* Table */}
   <div style={{ overflowX: 'auto' }}>
-    <table style={{ width: '100%', minWidth: 460, borderCollapse: 'collapse', fontSize: isMobile ? 11 : 12 }}>
+    <table style={{ width: '100%', minWidth: 600, borderCollapse: 'collapse', fontSize: 12 }}>
       <thead>
-        <tr style={{ background: '#1A1A1A' }}>
-          <th style={{ padding: '10px 12px', textAlign: 'left', color: '#fff', fontWeight: 800, borderRadius: '8px 0 0 0' }}>विशेषता / Feature</th>
-          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#9CA3AF', fontWeight: 700 }}>🆓 Free (NPR 0)</th>
-          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#38BDF8', fontWeight: 800 }}>🚀 Boost (NPR 299)</th>
-          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#FFD23F', fontWeight: 800, borderRadius: '0 8px 0 0' }}>⭐ Shield (NPR 599)</th>
+        <tr>
+          <th style={{ padding: '14px 12px', background: '#F3F4F6', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#1A1A1A', width: '22%' }}>Dimension / विशेषता</th>
+          <th style={{ padding: '14px 12px', background: '#F0FDF4', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#166534', width: '26%' }}>🆓 Free (NPR 0)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>निःशुल्क सूचीकरण</span></th>
+          <th style={{ padding: '14px 12px', background: '#EFF6FF', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#1D4ED8', width: '26%' }}>🚀 Social Boost (NPR 299)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>सोसल बुस्ट</span></th>
+          <th style={{ padding: '14px 12px', background: '#FFFBEB', borderBottom: '2px solid #1A1A1A', textAlign: 'left', fontWeight: 900, color: '#B45309', width: '26%' }}>⭐ Priority Shield (NPR 599)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>प्रायोरिटी शिल्ड</span></th>
         </tr>
       </thead>
       <tbody>
         {[
-          ['मुख्य फाइदा / Focus', 'आधारभूत उपस्थिति', 'उच्च प्रचार र भिडियो', 'पूर्ण गोपनीयता र सुरक्षा'],
-          ['भिडियो कथा / Video', '❌ छैन', '✅ TikTok, IG, FB + Swor AI', '✅ TikTok, IG, FB + Swor AI'],
-          ['फोन नम्बर / Phone', '🔓 सार्वजनिक (Public)', '🔓 सार्वजनिक (Public)', '🔒 १००% गोप्य (Private)'],
-          ['अभिभावक जाँच / Screening', 'आफैंले गर्ने', 'आफैंले गर्ने', '✅ HamroPets ले जाँच गर्ने'],
-          ['Homepage Banner', '❌', '❌', '✅ चौध दिन (14 days)'],
-          ['उपयुक्त / Best For', 'हतार नभएका सामान्य केस', 'सक्रिय कुकुर/बिरालो, छिटो घर चाहिएमा', 'प्युरीब्रीड, व्यस्त वा महिला अभिभावक'],
-        ].map(([feature, free, boost, shield], i) => (
-          <tr key={i} style={{ background: i % 2 === 0 ? '#FFFFFF' : '#F3F4F6', borderBottom: '1px solid #E5E7EB' }}>
-            <td style={{ padding: '10px 12px', fontWeight: 700, color: '#1A1A1A' }}>{feature}</td>
-            <td style={{ padding: '10px 8px', color: '#4B5563', fontWeight: 500 }}>{free}</td>
-            <td style={{ padding: '10px 8px', color: '#1E3A8A', fontWeight: 600 }}>{boost}</td>
-            <td style={{ padding: '10px 8px', color: '#854D0E', fontWeight: 700 }}>{shield}</td>
+          {
+            dim: 'Core Value\nमुख्य फाइदा',
+            free: 'Standard Presence: Searchable listing on HamroPets.com directory.\n\nआधारभूत उपस्थिति: हाम्रो पेट्सको डाइरेक्टरीमा खोजी गर्न मिल्ने प्रोफाइल।',
+            boost: 'Maximum Eyeballs & Speed: Broadcasts your pet\'s appeal across social networks.\n\nअधिकतम पहुँच र गति: सामाजिक सञ्जाल मार्फत व्यापक प्रचार र ध्यानाकर्षण।',
+            shield: 'Privacy & Verification: Hands-off peace of mind and protection from bad actors.\n\nगोपनीयता र सुरक्षा: झन्झटरहित प्रक्रिया र अनावश्यक व्यक्तिहरूबाट सुरक्षा।',
+          },
+          {
+            dim: 'Video Production\nभिडियो निर्माण',
+            free: 'None included. Website text and photo profile only.\n\nसमावेश छैन। वेबसाइटमा फोटो र विवरण मात्र।',
+            boost: 'Custom short-form video on TikTok, Instagram & Facebook with Swor AI Nepali voice narration.\n\nस्वर एआईको नेपाली आवाज सहित टिकटक, इन्स्टाग्राम र फेसबुकका लागि भिडियो।',
+            shield: 'Includes the exact same full video and voiceover production package.\n\nसोसल बुस्टको सम्पूर्ण भिडियो र भ्वाइसओभर प्याकेज समावेश ✅',
+          },
+          {
+            dim: 'Phone Privacy\nफोन गोपनीयता',
+            free: '🔓 Public: Your phone number is displayed openly.\n\nसार्वजनिक: तपाईंको नम्बर जोकोहीले देख्न सक्छन्।',
+            boost: '🔓 Public: Number listed openly on site and video captions.\n\nसार्वजनिक: नम्बर वेबसाइट र भिडियोमा खुला रहन्छ।',
+            shield: '🔒 100% Private: Number hidden. Calls route through HamroPets.\n\n१००% गोप्य: तपाईंको नम्बर कतै देखिँदैन; सबै कल हाम्रो पेट्स मार्फत आउँछन्।',
+          },
+          {
+            dim: 'Caller Filtering\nकल प्रमाणीकरण',
+            free: 'Self-service: You screen all callers yourself.\n\nआफैंले गर्ने: सबै कल सिधै उठाई ब्रिडर वा फेक कलर आफैं छुट्याउनुपर्छ।',
+            boost: 'Self-service: You manage and screen all calls directly.\n\nआफैंले गर्ने: सबै फोन कल आफैंले व्यवस्थापन गर्नुपर्छ।',
+            shield: 'Pre-screened: HamroPets filters fake callers & sends top 5–7 verified family profiles.\n\nहाम्रो पेट्सले गर्ने: उत्कृष्ट ५ देखि ७ जना प्रमाणित परिवार मात्र सिफारिस गर्छ।',
+          },
+          {
+            dim: 'Platform Placement\nवेबसाइटमा स्थान',
+            free: 'Standard chronological listing.\n\nवेबसाइटमा सामान्य क्रमानुसार देखिने।',
+            boost: 'Priority top placement in search and directory results.\n\nखोज सूचीमा सबैभन्दा माथिल्लो स्थान।',
+            shield: 'Top-of-search + dedicated homepage banner for 14 days.\n\nखोज सूचीको शीर्ष + १४ दिन होमपेजको ब्यानरमा विशेष प्रदर्शन।',
+          },
+          {
+            dim: 'Ideal For\nउपयुक्त',
+            free: 'Non-urgent rehoming, community fosters, local mixed-breed pets.\n\nहतार नभएका सामान्य केस र स्थानीय जातका पाल्तु जनावर।',
+            boost: 'Local dogs, adult cats, owners comfortable handling direct calls.\n\nसक्रिय कुकुर/बिरालो, छिटो घर चाहिएको र सिधै फोन उठाउन सक्नेका लागि।',
+            shield: 'Purebreds (GSDs, Pomeranians, Huskies), unspayed pets, busy owners.\n\nप्युरीब्रीड, बन्ध्याकरण नगरिएका, व्यस्त वा महिला अभिभावकका लागि।',
+          },
+        ].map((row, i) => (
+          <tr key={i} style={{ borderBottom: '1.5px solid #E5E7EB', background: i % 2 === 0 ? '#fff' : '#F9FAFB' }}>
+            <td style={{ padding: '14px 12px', fontWeight: 800, color: '#1A1A1A', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.5, whiteSpace: 'pre-line' }}>{row.dim}</td>
+            <td style={{ padding: '14px 12px', color: '#374151', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{row.free}</td>
+            <td style={{ padding: '14px 12px', color: '#1E3A8A', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line', background: i % 2 === 0 ? '#EFF6FF' : '#DBEAFE22' }}>{row.boost}</td>
+            <td style={{ padding: '14px 12px', color: '#92400E', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line', background: i % 2 === 0 ? '#FFFBEB' : '#FEF3C722' }}>{row.shield}</td>
           </tr>
         ))}
       </tbody>
