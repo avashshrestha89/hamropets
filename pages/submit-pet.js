@@ -455,11 +455,11 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             {/* BOOST TIER SELECTION */}
 <div>
-  <div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>🐾 Choose How You Want to Promote Your Pet</div>
-  <div style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700, marginBottom: 4 }}>आफ्नो pet लाई कसरी प्रचार गर्ने हो छान्नुहोस्</div>
+<div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>🐾 Choose How You Want to Promote Your Pet</div>
+  <div style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700, marginBottom: 4 }}>आफ्नो पाल्तु जनावरको प्रचार कसरी गर्ने हो छान्नुहोस्</div>
   <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 16, fontWeight: 500, padding: '10px 14px', background: '#F0FDF4', borderRadius: 10, border: '1.5px solid #58CC02' }}>
-    ❤️ Every pet gets a free listing. Paid packages help more people discover your pet.<br />
-    <span style={{ fontSize: 11 }}>हरेक pet को listing निःशुल्क हुन्छ। Paid package ले अझ धेरै मानिससम्म तपाईंको pet पुर्‍याउन मद्दत गर्छ।</span>
+    ❤️ Every pet gets a free listing. Paid packages help your pet find a home faster.<br />
+    <span style={{ fontSize: 11 }}>सबै जनावरको सूचीकरण निःशुल्क हुन्छ। सशुल्क प्याकेजले छिट्टै मायालु घर भेट्टाउन मद्दत गर्छ।</span>
   </div>
   <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
 
@@ -504,12 +504,12 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
       <div style={{ fontSize: 11, color: '#38BDF8', fontWeight: 700, marginBottom: 10 }}>✓ Free का सबै सुविधा समावेश + थप:</div>
       {[
         ['तपाईंको pet को छोटो भिडियो TikTok, Instagram र Facebook मा प्रचार', 'Social media adoption video'],
-        ['भिडियोमा प्राकृतिक नेपाली आवाजमा pet को बारेमा छोटो जानकारी सुनाइनेछ', 'Nepali voice narration'],
-        ['६० दिनसम्म HamroPets मा विशेष प्राथमिकतामा देखाइनेछ', '60-day featured listing'],
+        ['स्पष्ट नेपाली आवाज (Voiceover) मा कथा वाचन — Swor AI प्रविधिद्वारा तयार पारिएको', 'Nepali voice narration powered by Swor AI'],
+        ['खोज सूचीको सबैभन्दा माथि देखिने — छिटो adoption को लागि', 'Top of search for faster adoption'],
       ].map(([np, en]) => (
         <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
       ))}
-      <div style={{ fontSize: 10, color: '#9CA3AF', marginTop: 6, fontWeight: 500 }}>Powered by Swor AI · Swor AI प्रविधिबाट तयार गरिएको</div>
+    
       <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ display: 'inline-block', marginTop: 10, background: '#1A1A1A', color: '#fff', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>▶ उदाहरण भिडियो हेर्नुहोस् / See Example</a>
     </div>
 
