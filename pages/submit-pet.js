@@ -453,74 +453,115 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
             <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
               {sectionTitle('Agreement & Submission', 'सहमति र सबमिसन')}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                {/* BOOST TIER SELECTION */}
-                <div>
-                  <div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>Choose Your Listing Package / आफ्नो प्याकेज छान्नुहोस्</div>
-                  <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 16, fontWeight: 500 }}>All pets get a free listing. Upgrade for faster adoption. / सबै पालतु जनावर निःशुल्क सूचीबद्ध हुन्छन्।</div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {[
-                      {
-                        id: 'free',
-                        label: '🐾 Free Listing',
-                        labelNp: 'निःशुल्क सूचीकरण',
-                        price: 'NPR 0',
-                        color: '#58CC02',
-                        features: ['Listed on hamropets.com', 'Basic Facebook post', 'Standard visibility'],
-                      },
-                      {
-                        id: 'boost',
-                        label: '🚀 Social Boost',
-                        labelNp: 'सोसल बुस्ट',
-                        price: 'NPR 299',
-                        color: '#38BDF8',
-                        features: ['Everything in Free', 'TikTok + Instagram + Facebook video', 'Swor AI Nepali voiceover', '60-day featured listing'],
-                      },
-                      {
-                        id: 'shield',
-                        label: '⭐ Priority Shield',
-                        labelNp: 'प्रायोरिटी शिल्ड',
-                        price: 'NPR 599',
-                        color: '#FFD23F',
-                        features: ['Everything in Social Boost', 'Featured on homepage for 14 days', 'Phone privacy — calls via HamroPets', 'AI-powered adopter matching', 'Top 5-7 verified adopter profiles'],
-                      },
-                    ].map(tier => (
-                      <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2.5px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                          <div>
-                            <span style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>{tier.label}</span>
-                            <span style={{ fontSize: 12, color: '#6B7280', marginLeft: 8, fontWeight: 500 }}>{tier.labelNp}</span>
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <span style={{ fontWeight: 900, fontSize: 16, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
-                            <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: form.boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                              {form.boostTier === tier.id && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
-                            </div>
-                          </div>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                          {tier.features.map(f => (
-                            <div key={f} style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>✓ {f}</div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            {/* BOOST TIER SELECTION */}
+<div>
+  <div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>🐾 Choose How You Want to Promote Your Pet</div>
+  <div style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700, marginBottom: 4 }}>आफ्नो pet लाई कसरी प्रचार गर्ने हो छान्नुहोस्</div>
+  <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 16, fontWeight: 500, padding: '10px 14px', background: '#F0FDF4', borderRadius: 10, border: '1.5px solid #58CC02' }}>
+    ❤️ Every pet gets a free listing. Paid packages help more people discover your pet.<br />
+    <span style={{ fontSize: 11 }}>हरेक pet को listing निःशुल्क हुन्छ। Paid package ले अझ धेरै मानिससम्म तपाईंको pet पुर्‍याउन मद्दत गर्छ।</span>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
 
-                {/* PAYMENT INSTRUCTIONS — show if paid tier selected */}
-                {(form.boostTier === 'boost' || form.boostTier === 'shield') && (
-                  <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', boxShadow: '3px 3px 0px #B45309' }}>
-                    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 12 }}>💳 Payment Instructions / भुक्तानी निर्देशन</div>
-                    <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
-                      <strong>Amount:</strong> {form.boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}<br />
-                      <strong>eSewa / Khalti / Bank Transfer:</strong><br />
-                      📱 <strong>9851405178</strong> (HamroPets)<br /><br />
-                      After payment, send a screenshot to WhatsApp: <strong>9851405178</strong><br />
-                      We will activate your package within 2-4 hours. 🐾<br /><br />
-                      <span style={{ fontSize: 12, color: '#6B7280' }}>भुक्तानी गरेपछि WhatsApp मा screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र तपाईंको प्याकेज सक्रिय गर्नेछौं।</span>
-                    </div>
-                  </div>
-                )}
+    {/* FREE */}
+    <div onClick={() => update('boostTier', 'free')} style={{ background: form.boostTier === 'free' ? '#F0FDF4' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2px solid ${form.boostTier === 'free' ? '#58CC02' : '#E5E7EB'}`, cursor: 'pointer', transition: 'all 0.2s' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <div>
+          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>🆓 Free Listing / निःशुल्क सूचीकरण</div>
+          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Basic adoption listing</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontWeight: 900, fontSize: 18, color: '#58CC02' }}>NPR 0</span>
+          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'free' ? '#58CC02' : '#D1D5DB'}`, background: form.boostTier === 'free' ? '#58CC02' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            {form.boostTier === 'free' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
+          </div>
+        </div>
+      </div>
+      {[
+        ['HamroPets मा तपाईंको pet को profile राखिनेछ', 'Listed on HamroPets.com'],
+        ['Facebook मा सामान्य रूपमा प्रचार गरिनेछ', 'Basic Facebook promotion'],
+        ['HamroPets मा सामान्य प्राथमिकतामा देखाइनेछ', 'Standard visibility'],
+      ].map(([np, en]) => (
+        <div key={en} style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
+      ))}
+    </div>
+
+    {/* SOCIAL BOOST — RECOMMENDED */}
+    <div onClick={() => update('boostTier', 'boost')} style={{ background: form.boostTier === 'boost' ? '#EFF6FF' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `3px solid ${form.boostTier === 'boost' ? '#38BDF8' : '#1A1A1A'}`, cursor: 'pointer', boxShadow: form.boostTier === 'boost' ? '4px 4px 0px #0284C7' : '3px 3px 0px #1A1A1A', transition: 'all 0.2s', position: 'relative' }}>
+      <div style={{ position: 'absolute', top: -12, left: 16, background: '#FF6B35', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>🔥 RECOMMENDED / हाम्रो सिफारिस</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, marginTop: 8 }}>
+        <div>
+          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>🚀 Social Boost / सामाजिक प्रचार</div>
+          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Get your pet seen by more people · थप मानिससम्म पुर्‍याउनुहोस्</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A' }}>NPR 299</span>
+          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'boost' ? '#38BDF8' : '#D1D5DB'}`, background: form.boostTier === 'boost' ? '#38BDF8' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            {form.boostTier === 'boost' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
+          </div>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#38BDF8', fontWeight: 700, marginBottom: 10 }}>✓ Free का सबै सुविधा समावेश + थप:</div>
+      {[
+        ['तपाईंको pet को छोटो भिडियो TikTok, Instagram र Facebook मा प्रचार', 'Social media adoption video'],
+        ['भिडियोमा प्राकृतिक नेपाली आवाजमा pet को बारेमा छोटो जानकारी सुनाइनेछ', 'Nepali voice narration'],
+        ['६० दिनसम्म HamroPets मा विशेष प्राथमिकतामा देखाइनेछ', '60-day featured listing'],
+      ].map(([np, en]) => (
+        <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
+      ))}
+      <div style={{ fontSize: 10, color: '#9CA3AF', marginTop: 6, fontWeight: 500 }}>Powered by Swor AI · Swor AI प्रविधिबाट तयार गरिएको</div>
+      <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ display: 'inline-block', marginTop: 10, background: '#1A1A1A', color: '#fff', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>▶ उदाहरण भिडियो हेर्नुहोस् / See Example</a>
+    </div>
+
+    {/* PRIORITY SHIELD */}
+    <div onClick={() => update('boostTier', 'shield')} style={{ background: form.boostTier === 'shield' ? '#FFFBEB' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2.5px solid ${form.boostTier === 'shield' ? '#FFD23F' : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === 'shield' ? '4px 4px 0px #B45309' : 'none', transition: 'all 0.2s' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+        <div>
+          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>⭐ Priority Shield / प्राथमिकता सुरक्षा</div>
+          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Maximum support · adopter खोज्न थप सहयोग</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A' }}>NPR 599</span>
+          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'shield' ? '#FFD23F' : '#D1D5DB'}`, background: form.boostTier === 'shield' ? '#FFD23F' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            {form.boostTier === 'shield' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
+          </div>
+        </div>
+      </div>
+      <div style={{ fontSize: 11, color: '#B45309', fontWeight: 700, marginBottom: 10 }}>✓ Social Boost का सबै सुविधा समावेश + थप:</div>
+      {[
+        ['१४ दिनसम्म HamroPets को homepage मा विशेष रूपमा देखाइनेछ', 'Homepage feature for 14 days'],
+        ['🔒 तपाईंको फोन नम्बर सार्वजनिक हुँदैन — Call HamroPets मार्फत जोडिन्छ', 'Phone number stays private'],
+        ['तपाईंको pet सँग मिल्ने adopter खोज्न Smart Matching', 'Smart adopter matching'],
+        ['५–७ जना verified सम्भावित adopter को profile पठाइनेछ', '5–7 verified adopter profiles'],
+      ].map(([np, en]) => (
+        <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
+      ))}
+    </div>
+
+  </div>
+</div>
+
+{/* PAYMENT INSTRUCTIONS */}
+{(form.boostTier === 'boost' || form.boostTier === 'shield') && (
+  <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', boxShadow: '3px 3px 0px #B45309' }}>
+    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 12 }}>💳 Payment Instructions / भुक्तानी निर्देशन</div>
+    <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
+      <strong>Amount / रकम:</strong> {form.boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}<br /><br />
+      <strong>eSewa Account / eSewa खाता:</strong><br />
+      📱 <strong>9851221428</strong> (HamroPets)<br /><br />
+      <strong>Khalti / Bank Transfer:</strong><br />
+      📱 <strong>9851405178</strong> (HamroPets)<br /><br />
+      भुक्तानी गरेपछि screenshot WhatsApp मा पठाउनुहोस्: <strong>9851405178</strong><br />
+      After payment, send screenshot to WhatsApp: <strong>9851405178</strong><br /><br />
+      <span style={{ fontSize: 12, color: '#6B7280' }}>हामी २-४ घण्टाभित्र तपाईंको package सक्रिय गर्नेछौं। We will activate your package within 2-4 hours. 🐾</span>
+    </div>
+    <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+      {['eSewa', 'Khalti', 'Bank Transfer'].map(p => (
+        <span key={p} style={{ background: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>{p}</span>
+      ))}
+    </div>
+  </div>
+)}
                 {/* TERMS */}
                 <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
                   <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>Terms & Success Story Archive / सर्तहरू र सफलता कथा अभिलेख</div>
