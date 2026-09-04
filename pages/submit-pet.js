@@ -540,7 +540,52 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
 
   </div>
 </div>
-
+{/* COMPARISON TABLE */}
+<div style={{ 
+  background: '#F9FAFB', 
+  borderRadius: 16, 
+  border: '2px solid #1A1A1A', 
+  padding: isMobile ? '16px' : '20px', 
+  boxShadow: '4px 4px 0px #1A1A1A',
+  marginTop: 20,
+  marginBottom: 20
+}}>
+  <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 4 }}>
+    🔍 तीनवटै प्याकेजमा के फरक छ? / Package Comparison
+  </div>
+  <div style={{ fontSize: 12, color: '#4B5563', marginBottom: 14, fontWeight: 500 }}>
+    निःशुल्क सूचीकरण आधारभूत हो भने सशुल्क प्याकेजले छिटो र सुरक्षित घर भेट्टाउन मद्दत गर्छ।
+  </div>
+  <div style={{ overflowX: 'auto' }}>
+    <table style={{ width: '100%', minWidth: 460, borderCollapse: 'collapse', fontSize: isMobile ? 11 : 12 }}>
+      <thead>
+        <tr style={{ background: '#1A1A1A' }}>
+          <th style={{ padding: '10px 12px', textAlign: 'left', color: '#fff', fontWeight: 800, borderRadius: '8px 0 0 0' }}>विशेषता / Feature</th>
+          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#9CA3AF', fontWeight: 700 }}>🆓 Free (NPR 0)</th>
+          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#38BDF8', fontWeight: 800 }}>🚀 Boost (NPR 299)</th>
+          <th style={{ padding: '10px 8px', textAlign: 'left', color: '#FFD23F', fontWeight: 800, borderRadius: '0 8px 0 0' }}>⭐ Shield (NPR 599)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ['मुख्य फाइदा / Focus', 'आधारभूत उपस्थिति', 'उच्च प्रचार र भिडियो', 'पूर्ण गोपनीयता र सुरक्षा'],
+          ['भिडियो कथा / Video', '❌ छैन', '✅ TikTok, IG, FB + Swor AI', '✅ TikTok, IG, FB + Swor AI'],
+          ['फोन नम्बर / Phone', '🔓 सार्वजनिक (Public)', '🔓 सार्वजनिक (Public)', '🔒 १००% गोप्य (Private)'],
+          ['अभिभावक जाँच / Screening', 'आफैंले गर्ने', 'आफैंले गर्ने', '✅ HamroPets ले जाँच गर्ने'],
+          ['Homepage Banner', '❌', '❌', '✅ चौध दिन (14 days)'],
+          ['उपयुक्त / Best For', 'हतार नभएका सामान्य केस', 'सक्रिय कुकुर/बिरालो, छिटो घर चाहिएमा', 'प्युरीब्रीड, व्यस्त वा महिला अभिभावक'],
+        ].map(([feature, free, boost, shield], i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? '#FFFFFF' : '#F3F4F6', borderBottom: '1px solid #E5E7EB' }}>
+            <td style={{ padding: '10px 12px', fontWeight: 700, color: '#1A1A1A' }}>{feature}</td>
+            <td style={{ padding: '10px 8px', color: '#4B5563', fontWeight: 500 }}>{free}</td>
+            <td style={{ padding: '10px 8px', color: '#1E3A8A', fontWeight: 600 }}>{boost}</td>
+            <td style={{ padding: '10px 8px', color: '#854D0E', fontWeight: 700 }}>{shield}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 {/* PAYMENT INSTRUCTIONS */}
 {(form.boostTier === 'boost' || form.boostTier === 'shield') && (
   <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', boxShadow: '3px 3px 0px #B45309' }}>
