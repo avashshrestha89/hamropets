@@ -549,10 +549,10 @@ const uploadToCloudinary = async (file, resourceType = 'image') => {
       <strong>Amount / रकम:</strong> {form.boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}<br /><br />
       <strong>eSewa Account / eSewa खाता:</strong><br />
       📱 <strong>9851221428</strong> (HamroPets)<br /><br />
-      <strong>Khalti / Bank Transfer:</strong><br />
-      📱 <strong>9851405178</strong> (HamroPets)<br /><br />
-      भुक्तानी गरेपछि screenshot WhatsApp मा पठाउनुहोस्: <strong>9851405178</strong><br />
-      After payment, send screenshot to WhatsApp: <strong>9851405178</strong><br /><br />
+        <strong>Khalti / Bank Transfer:</strong><br />
+      📱 <strong>9851221428</strong> (HamroPets)<br /><br />
+      भुक्तानी गरेपछि screenshot WhatsApp मा पठाउनुहोस्: <strong>9851221428</strong><br />
+      After payment, send screenshot to WhatsApp: <strong>9851221428</strong><br /><br />
       <span style={{ fontSize: 12, color: '#6B7280' }}>हामी २-४ घण्टाभित्र तपाईंको package सक्रिय गर्नेछौं। We will activate your package within 2-4 hours. 🐾</span>
     </div>
     <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
