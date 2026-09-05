@@ -453,7 +453,10 @@ export default function LostFound() {
 
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setFormStep(1)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>← Back</button>
-                    <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2,
+                    <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
+                      {submitting ? 'Submitting... / पेश हुँदैछ...' : form.boostTier === 'free' ? 'Submit Report / रिपोर्ट पेश गर्नुहोस्' : `Submit + Activate ${form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'}`}
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
