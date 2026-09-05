@@ -90,6 +90,32 @@ export default function LostFound() {
       alert('Please fill in all required fields.')
       return
     }
+    // If paid tier selected — open WhatsApp with pre-filled message
+    if (form.boostTier === 'boost' || form.boostTier === 'shield') {
+      const amount = form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'
+      const tierName = form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'
+      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851221428 now. Please activate my boost after confirming payment.`)
+      // Save the listing as pending_payment first
+      setSubmitting(true)
+      try {
+        const res = await fetch('/api/lost-found', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, imageUrl, status: 'pending_payment' }),
+        })
+        if (res.ok) {
+          setShowForm(null)
+          setSubmitted(true)
+          // Open WhatsApp
+          window.open(`https://wa.me/9779851221428?text=${msg}`, '_blank')
+        } else {
+          alert('Something went wrong. Please try again.')
+        }
+      } catch (err) { alert('Something went wrong. Please try again.') }
+      setSubmitting(false)
+      return
+    }
+    // Free tier — submit normally
     setSubmitting(true)
     try {
       const res = await fetch('/api/lost-found', {
@@ -184,8 +210,14 @@ export default function LostFound() {
               <div style={{ background: '#E8F9ED', borderRadius: 16, padding: '20px', border: '2px solid #58CC02', marginBottom: 16, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
                 <span style={{ fontSize: 28, flexShrink: 0 }}>✅</span>
                 <div>
-                  <div style={{ fontWeight: 900, fontSize: isMobile ? 15 : 17, color: '#1A1A1A', marginBottom: 4 }}>Your report is live! / तपाईंको रिपोर्ट प्रकाशित भयो!</div>
-                  <div style={{ fontSize: isMobile ? 12 : 14, color: '#6B7280', fontWeight: 500 }}>Our team will review and approve it shortly. Share the link below to spread the word faster.</div>
+                                <div style={{ fontWeight: 900, fontSize: isMobile ? 15 : 17, color: '#1A1A1A', marginBottom: 4 }}>
+                {form.boostTier === 'free' ? 'Report submitted! / रिपोर्ट पेश भयो!' : 'Payment request sent! / भुक्तानी अनुरोध पठाइयो!'}
+              </div>
+              <div style={{ fontSize: isMobile ? 12 : 14, color: '#6B7280', fontWeight: 500 }}>
+                {form.boostTier === 'free' 
+                  ? 'Our team will review and approve shortly. Share on WhatsApp/Facebook to spread the word.'
+                  : 'Complete your payment on WhatsApp. We will activate your boost within 2-4 hours after payment confirmation.'}
+              </div>
                 </div>
               </div>
 
@@ -307,9 +339,7 @@ export default function LostFound() {
                   <button onClick={() => setFormStep(2)} style={{ background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A' }}>
                     Next: Add More Details → / थप विवरण →
                   </button>
-                  <button onClick={handleSubmit} disabled={submitting} style={{ background: '#fff', color: '#1A1A1A', padding: '11px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
-                    {submitting ? 'Submitting...' : 'Skip & Submit Now / अहिले नै पेश गर्नुहोस्'}
-                  </button>
+              
                 </div>
               )}
 
@@ -454,7 +484,7 @@ export default function LostFound() {
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setFormStep(1)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>← Back</button>
                     <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? 'Submitting... / पेश हुँदैछ...' : form.boostTier === 'free' ? 'Submit Report / रिपोर्ट पेश गर्नुहोस्' : `Submit + Activate ${form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'}`}
+                      {submitting ? 'Processing...' : form.boostTier === 'free' ? 'Submit Report / रिपोर्ट पेश गर्नुहोस्' : `Send Payment via WhatsApp → ${form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}`}
                     </button>
                   </div>
                 </div>
