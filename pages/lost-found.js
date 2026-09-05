@@ -107,7 +107,7 @@ export default function LostFound() {
           setShowForm(null)
           setSubmitted(true)
           // Open WhatsApp
-          window.open(`https://wa.me/9779851221428?text=${msg}`, '_blank')
+          window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank')
         } else {
           alert('Something went wrong. Please try again.')
         }
@@ -474,7 +474,7 @@ export default function LostFound() {
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
                           Amount: <strong>{form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}</strong><br />
                           eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
-                          After payment send screenshot to WhatsApp: <strong>9851221428</strong><br />
+                          After payment send screenshot to WhatsApp: <strong>9851405178</strong><br />
                           <span style={{ fontSize: 11, color: '#6B7280' }}>We activate your boost within 2-4 hours. / हामी २-४ घण्टाभित्र activate गर्छौं।</span>
                         </div>
                       </div>
