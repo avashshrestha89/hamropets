@@ -81,6 +81,7 @@ export default function LostFound() {
       lastSeenDate: '', lastSeenTime: '', area: '', landmark: '', knownHaunts: '',
       rewardOffered: '', condition: '', canFoster: '',
       contactName: '', contactPhone: '', contactWhatsapp: '', description: '',
+      boostTier: 'free',
     })
   }
 
@@ -405,12 +406,54 @@ export default function LostFound() {
                     </>
                   )}
 
+                                {/* BOOST TIER SELECTION */}
+                  <div style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: '20px', marginTop: 8 }}>
+                    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 4 }}>🚀 Want to find your pet faster?</div>
+                    <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 14, fontWeight: 500 }}>
+                      Your report goes live free. A boost reaches our 91K+ followers urgently. Every rupee supports street animal rescue.<br />
+                      <span style={{ fontSize: 11 }}>तपाईंको रिपोर्ट निःशुल्क प्रकाशित हुन्छ। Boost ले ९१ हजार+ मानिससम्म छिट्टै पुर्‍याउँछ।</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+                      {[
+                        { id: 'free', label: '🐾 Free — Just list my report', labelNp: 'निःशुल्क सूचीकरण', price: 'NPR 0', desc: 'Listed on HamroPets · Share yourself on WhatsApp/Facebook', color: '#58CC02' },
+                        { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199', desc: 'TikTok + Instagram + Facebook post to 91K followers · Swor AI Nepali voiceover video', color: '#38BDF8' },
+                        { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499', desc: 'Everything in Boost + PDF printable poster + WhatsApp broadcast to rescue networks + Homepage featured', color: '#FF6B9D' },
+                      ].map(tier => (
+                        <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#fff', borderRadius: 12, padding: '12px 16px', border: `2px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                            <div>
+                              <span style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A' }}>{tier.label}</span>
+                              <span style={{ fontSize: 11, color: '#6B7280', marginLeft: 6 }}>{tier.labelNp}</span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <span style={{ fontWeight: 900, fontSize: 14, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
+                              <div style={{ width: 18, height: 18, borderRadius: 999, border: `2px solid ${form.boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: form.boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                {form.boostTier === tier.id && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+                              </div>
+                            </div>
+                          </div>
+                          <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500 }}>{tier.desc}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* PAYMENT INSTRUCTIONS */}
+                    {(form.boostTier === 'boost' || form.boostTier === 'shield') && (
+                      <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '2px solid #FFD23F', marginBottom: 16 }}>
+                        <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 Payment / भुक्तानी</div>
+                        <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
+                          Amount: <strong>{form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}</strong><br />
+                          eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                          After payment send screenshot to WhatsApp: <strong>9851221428</strong><br />
+                          <span style={{ fontSize: 11, color: '#6B7280' }}>We activate your boost within 2-4 hours. / हामी २-४ घण्टाभित्र activate गर्छौं।</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setFormStep(1)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>← Back</button>
-                    <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? 'Submitting... / पेश हुँदैछ...' : 'Submit Report / रिपोर्ट पेश गर्नुहोस्'}
-                    </button>
-                  </div>
+                    <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2,
                 </div>
               )}
             </div>
