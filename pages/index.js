@@ -232,7 +232,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               "name": "What is HamroPets?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, lost and found pet reporting, and an AI vet consultation tool across the Kathmandu Valley."
+                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and lost and found pet reporting across the Kathmandu Valley."
               }
             },
             {
@@ -293,7 +293,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </Link>
             {!isMobile && (
               <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                {[['Adopt', '/adopt'], ['Vets', '/vets'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['AI Vet', '/ai-vet']].map(([label, href]) => (
+                {[['Adopt', '/adopt'], ['Vets', '/vets'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found']].map(([label, href]) => (
                   <Link key={label} href={href} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 14, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none' }}>{label}</Link>
                 ))}
                 <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFF0EB', color: '#FF6B35', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #FF6B35', marginLeft: 6 }}>🎙️ Swor AI</a>
@@ -620,17 +620,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           </div>
         </div>
 
-        {/* AI VET BANNER */}
-        <div style={{ maxWidth: 1200, margin: isMobile ? '32px auto 0' : '56px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
-          <div style={{ background: '#7B5EA7', borderRadius: 20, padding: isMobile ? '28px 20px' : '44px 48px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: isMobile ? 20 : 32, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
-            <div>
-              <span style={{ background: '#fff', color: '#7B5EA7', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 12, border: '1.5px solid #1A1A1A' }}>🤖 Powered by Gemini Pro</span>
-              <h3 style={{ color: '#fff', fontSize: isMobile ? 22 : 28, fontWeight: 900, margin: '0 0 10px', letterSpacing: -0.5 }}>AI Vet — Ask Anything</h3>
-              <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: isMobile ? 13 : 15, fontWeight: 500, maxWidth: 480, fontFamily: "'DM Sans', sans-serif" }}>Instant answers about your pet's health, nutrition and behaviour. Available 24/7.</p>
-            </div>
-            <Link href="/ai-vet" style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 14 : 15, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #B45309', display: 'inline-block', whiteSpace: 'nowrap' }}>Launch AI Vet →</Link>
-          </div>
-        </div>
 
         {/* LOST & FOUND */}
         <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
@@ -820,7 +809,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             
 <div style={{ borderTop: '2px solid #E5E7EB', paddingTop: 20, marginBottom: 16 }}>
               <p style={{ color: '#9CA3AF', fontSize: 11, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: 0, maxWidth: 900 }}>
-                HamroPets is Nepal's first dedicated pet platform offering free dog and cat adoption, verified dog walking from NPR 300/walk, cage-free pet sitting from NPR 700/day, a vet clinic directory across Kathmandu Valley, lost and found pet reporting, and AI vet consultation. Presented by Adopt a Dog Nepal — rehoming pets across Nepal since 2018. Serving Kathmandu, Lalitpur, Bhaktapur and surrounding areas. kukur adopt garne · pet sitting Kathmandu · dog walker Kathmandu.
+                HamroPets is Nepal's first dedicated pet platform offering free dog and cat adoption, verified dog walking from NPR 300/walk, cage-free pet sitting from NPR 700/day, a vet clinic directory across Kathmandu Valley, lost and found pet reporting. Presented by Adopt a Dog Nepal — rehoming pets across Nepal since 2018. Serving Kathmandu, Lalitpur, Bhaktapur and surrounding areas. kukur adopt garne · pet sitting Kathmandu · dog walker Kathmandu.
               </p>
             </div>
             <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
