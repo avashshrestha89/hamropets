@@ -38,6 +38,7 @@ known_haunts: req.body.knownHaunts || null,
 reward_offered: req.body.rewardOffered || null,
 condition: req.body.condition || null,
 can_foster: req.body.canFoster || null,
+          boost_tier: req.body.boostTier || 'free',
           image_url: imageUrl || null,
           status: 'pending',
         }])
