@@ -68,7 +68,7 @@ export default function LostFoundDetail({ item }) {
             {/* PHOTO */}
             <div style={{ position: 'relative', height: isMobile ? 260 : 380, background: isLost ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '3px solid #1A1A1A' }}>
               {item.image_url ? (
-                <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
               ) : (
                 <div style={{ fontSize: 80 }}>
                   {item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'}
