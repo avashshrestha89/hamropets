@@ -20,7 +20,7 @@ const translations = {
     step1_next: "Next →",
     // Step 2
     step2_progress: (name) => `Show us ${name}'s best side 📸`,
-    step2_photo_label: (name) => `Upload a clear photo of ${name}`,838
+    step2_photo_label: (name) => `Upload a clear photo of ${name}`,
     step2_photo_hint: "JPG or PNG · Front facing photo works best",
     step2_upload_btn: "Click to upload photo",
     step2_replace: "Click to replace photo",
