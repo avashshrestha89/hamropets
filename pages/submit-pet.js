@@ -1,710 +1,899 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+// Translation dictionary
+const translations = {
+  en: {
+    // Step 0
+    welcome_title: "Submit a Pet for Adoption",
+    welcome_subtitle: "Find a loving home for your pet — free, always.",
+    lang_english: "Proceed in English",
+    lang_nepali: "नेपालीमा अगाडि बढ्नुहोस्",
+    // Step 1
+    step1_progress: "Let's start with your pet",
+    step1_species_label: "What kind of pet are you rehoming?",
+    step1_name_label: "What is your pet's name?",
+    step1_name_placeholder: "e.g. Bruno, Luna, Milo",
+    step1_age_label: "How old are they?",
+    step1_age_placeholder: "e.g. 2 years, 6 months",
+    step1_next: "Next →",
+    // Step 2
+    step2_progress: (name) => `Show us ${name}'s best side 📸`,
+    step2_photo_label: (name) => `Upload a clear photo of ${name}`,838
+    step2_photo_hint: "JPG or PNG · Front facing photo works best",
+    step2_upload_btn: "Click to upload photo",
+    step2_replace: "Click to replace photo",
+    step2_skip: "Skip for now →",
+    step2_next: "Continue →",
+    // Step 3
+    step3_progress: (name) => `Help us understand ${name}'s situation`,
+    step3_reason_intro: (name) => `Life sometimes takes unexpected turns. What's making you look for a new home for ${name}?`,
+    step3_reasons: {
+      abroad: "🌍 I'm moving abroad",
+      landlord: "🏠 Landlord / housing doesn't allow pets",
+      family: "👨‍👩‍👧 Family situation changed",
+      health: "🩺 Health or allergies in the family",
+      financial: "💰 I can no longer afford their care",
+      time: "⏰ I don't have enough time for them",
+      behaviour: "🐕 Behavioural challenges I'm struggling with",
+      rescued: "🐾 This isn't my pet — I found or rescued them",
+      other: "✍️ I'd rather explain in my own words",
+      prefer_not: "⏭️ Prefer not to say",
+    },
+    step3_other_placeholder: "Tell us in your own words...",
+    step3_validation: (name) => `Thank you for trusting us with that. Let's make a good plan for ${name}.`,
+    step3_next: "Continue →",
+    // Step 4
+    step4_progress: (name) => `Getting to know ${name} 🐾`,
+    step4_breed_label: "Breed",
+    step4_breed_placeholder: "e.g. Labrador, Golden Retriever, Mixed breed",
+    step4_vaccinated_label: "Vaccination status",
+    step4_neutered_label: "Spayed / Neutered?",
+    step4_yes: "Yes ✅",
+    step4_no: "No ❌",
+    step4_unknown: "Not sure",
+    step4_next: "Continue →",
+    // Step 5
+    step5_progress: (name) => `What is ${name} like?`,
+    step5_children_label: (name) => `Is ${name} friendly with children?`,
+    step5_dogs_label: (name) => `Is ${name} friendly with other dogs?`,
+    step5_description_label: (name) => `Describe ${name} in one honest sentence`,
+    step5_description_placeholder: (name) => `e.g. ${name} is playful, loves fetch, good with kids...`,
+    step5_description_hint: "One honest sentence beats a perfect paragraph.",
+    step5_reason_label: "Why are you looking for a new home?",
+    step5_reason_placeholder: "Please be honest — it helps find the right family",
+    step5_next: "Continue →",
+    // Step 6
+    step6_progress: "Almost there — how can adopters reach you?",
+    step6_name_label: "Your full name",
+    step6_phone_label: "Your phone number",
+    step6_phone_hint: "Only shared with verified adopters — never publicly",
+    step6_whatsapp_label: "WhatsApp number",
+    step6_whatsapp_hint: "If different from phone",
+    step6_email_label: "Email address",
+    step6_address_label: "Your area / location",
+    step6_next: (name) => `See ${name}'s profile →`,
+    // Step 7
+    step7_generating: (name) => `Generating ${name}'s official profile...`,
+    step7_ready: (name) => `${name}'s profile is ready.`,
+    step7_launch: (name) => `How would you like to launch ${name}'s profile?`,
+    step7_free_label: "🐾 Community Listing",
+    step7_free_desc: "Free forever. No catch. Your pet will still be seen by thousands.",
+    step7_boost_label: "🚀 Social Boost",
+    step7_boost_desc: "TikTok + Instagram + Facebook video to 91K followers · Swor AI Nepali voiceover",
+    step7_shield_label: "⭐ Priority Shield",
+    step7_shield_desc: "Everything in Boost + Homepage featured 14 days + Phone privacy + 5-7 verified adopter profiles",
+    step7_continue_free: "Continue with Free Listing",
+    step7_submit_free: "Publish Bruno's Profile — Free",
+    step7_submit_paid: (tier, price) => `Activate ${tier} — ${price}`,
+    step7_payment_title: "Payment Instructions",
+    step7_reassurance: "Every tier — free or paid — gets the same care from our team. Paid options just reach further, faster.",
+    // Terms
+    terms_title: "Terms & Agreement",
+    terms_free: "Adoption is 100% free. No money should exchange hands.",
+    terms_agree: "I agree to these terms ✅",
+    terms_contact: "I agree to be contacted by Adopt a Dog Nepal",
+    // General
+    back: "← Back",
+    uploading: "Uploading...",
+    submitting: "Publishing...",
+    submitted_title: (name) => `${name} is live! 🎉`,
+    submitted_desc: "Our team will review and approve shortly.",
+  },
+  ne: {
+    // Step 0
+    welcome_title: "दत्तकको लागि पाल्तु जनावर पेश गर्नुहोस्",
+    welcome_subtitle: "आफ्नो पाल्तु जनावरको लागि माया गर्ने घर खोज्नुहोस् — सधैं निःशुल्क।",
+    lang_english: "Proceed in English",
+    lang_nepali: "नेपालीमा अगाडि बढ्नुहोस्",
+    // Step 1
+    step1_progress: "आफ्नो पाल्तु जनावरबारे बताउनुहोस्",
+    step1_species_label: "तपाईं कस्तो पाल्तु जनावर दत्तक दिन चाहनुहुन्छ?",
+    step1_name_label: "तपाईंको पाल्तु जनावरको नाम के हो?",
+    step1_name_placeholder: "जस्तै: ब्रुनो, लुना, मिलो",
+    step1_age_label: "उनीहरूको उमेर कति छ?",
+    step1_age_placeholder: "जस्तै: २ वर्ष, ६ महिना",
+    step1_next: "अर्को →",
+    // Step 2
+    step2_progress: (name) => `${name} को सुन्दर फोटो देखाउनुहोस् 📸`,
+    step2_photo_label: (name) => `${name} को स्पष्ट फोटो अपलोड गर्नुहोस्`,
+    step2_photo_hint: "JPG वा PNG · अनुहार देखिने फोटो राम्रो हुन्छ",
+    step2_upload_btn: "फोटो अपलोड गर्न क्लिक गर्नुहोस्",
+    step2_replace: "फोटो फेर्न क्लिक गर्नुहोस्",
+    step2_skip: "अहिलेलाई छोड्नुहोस् →",
+    step2_next: "जारी राख्नुहोस् →",
+    // Step 3
+    step3_progress: (name) => `${name} को अवस्था बुझ्न मद्दत गर्नुहोस्`,
+    step3_reason_intro: (name) => `जीवनले कहिलेकाहीं अप्रत्याशित मोड लिन्छ। ${name} को लागि नयाँ घर किन खोज्दै हुनुहुन्छ?`,
+    step3_reasons: {
+      abroad: "🌍 म विदेश जाँदैछु",
+      landlord: "🏠 घरधनी / आवासले पाल्तु जनावर राख्न दिँदैन",
+      family: "👨‍👩‍👧 पारिवारिक अवस्था परिवर्तन भयो",
+      health: "🩺 परिवारमा स्वास्थ्य समस्या वा एलर्जी",
+      financial: "💰 अब उनीहरूको हेरचाह गर्न सक्दिनँ",
+      time: "⏰ उनीहरूलाई पर्याप्त समय दिन सक्दिनँ",
+      behaviour: "🐕 व्यवहार सम्बन्धी चुनौतीहरू",
+      rescued: "🐾 यो मेरो पाल्तु जनावर होइन — मैले भेट्टाएँ वा उद्धार गरेँ",
+      other: "✍️ म आफ्नै शब्दमा बताउन चाहन्छु",
+      prefer_not: "⏭️ नबताउन चाहन्छु",
+    },
+    step3_other_placeholder: "आफ्नै शब्दमा बताउनुहोस्...",
+    step3_validation: (name) => `हामीलाई विश्वास गर्नुभएकोमा धन्यवाद। ${name} को लागि राम्रो योजना बनाऔं।`,
+    step3_next: "जारी राख्नुहोस् →",
+    // Step 4
+    step4_progress: (name) => `${name} लाई चिन्दैछौं 🐾`,
+    step4_breed_label: "नस्ल",
+    step4_breed_placeholder: "जस्तै: ल्याब्राडोर, गोल्डेन रिट्रिभर, मिश्रित",
+    step4_vaccinated_label: "खोपको अवस्था",
+    step4_neutered_label: "बन्ध्याकरण गरिएको छ?",
+    step4_yes: "छ ✅",
+    step4_no: "छैन ❌",
+    step4_unknown: "थाहा छैन",
+    step4_next: "जारी राख्नुहोस् →",
+    // Step 5
+    step5_progress: (name) => `${name} कस्तो छ?`,
+    step5_children_label: (name) => `${name} बच्चाहरूसँग मिल्छ?`,
+    step5_dogs_label: (name) => `${name} अन्य कुकुरहरूसँग मिल्छ?`,
+    step5_description_label: (name) => `${name} लाई एक इमानदार वाक्यमा वर्णन गर्नुहोस्`,
+    step5_description_placeholder: (name) => `जस्तै: ${name} खेल्न मन पराउँछ, बच्चाहरूसँग राम्रो छ...`,
+    step5_description_hint: "एक इमानदार वाक्य उत्तम अनुच्छेदभन्दा राम्रो हुन्छ।",
+    step5_reason_label: "नयाँ घर किन खोज्दै हुनुहुन्छ?",
+    step5_reason_placeholder: "कृपया इमानदार हुनुहोस् — यसले सही परिवार खोज्न मद्दत गर्छ",
+    step5_next: "जारी राख्नुहोस् →",
+    // Step 6
+    step6_progress: "लगभग भयो — दत्तककर्ताले तपाईंलाई कसरी सम्पर्क गर्न सक्छन्?",
+    step6_name_label: "तपाईंको पूरा नाम",
+    step6_phone_label: "तपाईंको फोन नम्बर",
+    step6_phone_hint: "केवल प्रमाणित दत्तककर्तासँग साझा — कहिल्यै सार्वजनिक होइन",
+    step6_whatsapp_label: "WhatsApp नम्बर",
+    step6_whatsapp_hint: "फोनभन्दा फरक भएमा",
+    step6_email_label: "इमेल ठेगाना",
+    step6_address_label: "तपाईंको क्षेत्र / स्थान",
+    step6_next: (name) => `${name} को प्रोफाइल हेर्नुहोस् →`,
+    // Step 7
+    step7_generating: (name) => `${name} को आधिकारिक प्रोफाइल तयार गर्दैछौं...`,
+    step7_ready: (name) => `${name} को प्रोफाइल तयार छ।`,
+    step7_launch: (name) => `${name} को प्रोफाइल कसरी सुरु गर्न चाहनुहुन्छ?`,
+    step7_free_label: "🐾 सामुदायिक सूचीकरण",
+    step7_free_desc: "सधैं निःशुल्क। कुनै शर्त छैन। तपाईंको पाल्तु जनावर हजारौंले देख्नेछन्।",
+    step7_boost_label: "🚀 सोसल बुस्ट",
+    step7_boost_desc: "९१ हजार+ फलोअरलाई TikTok + Instagram + Facebook भिडियो · Swor AI नेपाली भ्वाइसओभर",
+    step7_shield_label: "⭐ प्रायोरिटी शिल्ड",
+    step7_shield_desc: "बुस्टका सबै सुविधा + १४ दिन होमपेजमा + फोन गोपनीयता + ५-७ प्रमाणित दत्तककर्ता",
+    step7_continue_free: "निःशुल्क सूचीकरणसँग जारी राख्नुहोस्",
+    step7_reassurance: "निःशुल्क होस् वा सशुल्क — हाम्रो टोलीले समान हेरचाह गर्छ। सशुल्क विकल्पले थप टाढासम्म, छिटो पुग्छ।",
+    // Terms
+    terms_title: "सर्तहरू र सहमति",
+    terms_free: "दत्तक प्रक्रिया १००% निःशुल्क छ। पैसाको कुनै लेनदेन हुनु हुँदैन।",
+    terms_agree: "म यी सर्तहरूमा सहमत छु ✅",
+    terms_contact: "म Adopt a Dog Nepal द्वारा सम्पर्क गर्न सहमत छु",
+    // General
+    back: "← पछि",
+    uploading: "अपलोड हुँदैछ...",
+    submitting: "प्रकाशन हुँदैछ...",
+    submitted_title: (name) => `${name} लाइभ छ! 🎉`,
+    submitted_desc: "हाम्रो टोलीले छिट्टै समीक्षा गरी स्वीकृत गर्नेछ।",
+  }
+}
+
+// Adaptive pitch based on reason
+const getAdaptivePitch = (reason, name, lang) => {
+  const pitches = {
+    en: {
+      abroad: `Your flight is booked — Priority Shield gets verified adopters for ${name} in days, not months.`,
+      landlord: `Need a verified home quickly? Priority Shield accelerates the entire vetting process for ${name}.`,
+      family: `Many families go through this. Let us reach the right family for ${name} fast.`,
+      health: `We understand. Social Boost puts ${name} in front of 91K animal lovers immediately.`,
+      financial: `You've already done so much for ${name}. NPR 299 gets them in front of 91K people this week.`,
+      time: `A boost means ${name} finds the right home faster — less time managing inquiries for you.`,
+      behaviour: `${name} needs the right match. Priority Shield helps us find verified, experienced adopters.`,
+      rescued: `You've already done so much. NPR 599 gets ${name} in front of 91K people this week.`,
+      other: `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`,
+      prefer_not: `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`,
+      default: `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`,
+    },
+    ne: {
+      abroad: `तपाईंको उडान तय भइसक्यो — Priority Shield ले ${name} का लागि दिनभित्र प्रमाणित दत्तककर्ता खोज्छ।`,
+      landlord: `छिटो प्रमाणित घर चाहिन्छ? Priority Shield ले ${name} को प्रक्रिया छिटो बनाउँछ।`,
+      family: `धेरै परिवारले यस्तो अवस्था सामना गर्छन्। ${name} को लागि सही परिवार छिटो खोजौं।`,
+      health: `हामी बुझ्छौं। Social Boost ले ${name} लाई ९१ हजार+ पशु प्रेमीसामु राख्छ।`,
+      financial: `तपाईंले ${name} को लागि धेरै गर्नुभयो। NPR २९९ ले यही हप्ता ९१ हजारसामु पुर्‍याउँछ।`,
+      time: `Boost ले ${name} छिटो सही घर पाउँछ — तपाईंले कम सोधपुछ व्यवस्थापन गर्नुपर्छ।`,
+      behaviour: `${name} लाई सही मिलान चाहिन्छ। Priority Shield ले अनुभवी दत्तककर्ता खोज्छ।`,
+      rescued: `तपाईंले धेरै गर्नुभयो। NPR ५९९ ले ${name} लाई यही हप्ता ९१ हजारसामु पुर्‍याउँछ।`,
+      other: `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।`,
+      prefer_not: `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।`,
+      default: `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।`,
+    }
+  }
+  return pitches[lang][reason] || pitches[lang].default
+}
 
 export default function SubmitPet() {
-  const [step, setStep] = useState(1)
+  const [lang, setLang] = useState(null) // null = Step 0
+  const [step, setStep] = useState(0)
+  const [submitted, setSubmitted] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [showGenerating, setShowGenerating] = useState(false)
+  const [imageFile, setImageFile] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
+  const [imageUrl, setImageUrl] = useState(null)
+  const [boostTier, setBoostTier] = useState('free')
   const [isMobile, setIsMobile] = useState(false)
+  const [form, setForm] = useState({
+    species: '',
+    petName: '',
+    petAge: '',
+    reason: '',
+    reasonOther: '',
+    breed: '',
+    vaccinated: '',
+    neutered: '',
+    friendlyChildren: '',
+    friendlyDogs: '',
+    description: '',
+    reasonForAdoption: '',
+    ownerName: '',
+    ownerPhone: '',
+    ownerWhatsapp: '',
+    ownerEmail: '',
+    ownerAddress: '',
+    agreeTerms: false,
+    agreeContact: false,
+  })
+
+  const t = (key, ...args) => {
+    const val = translations[lang || 'en'][key]
+    if (typeof val === 'function') return val(...args)
+    return val || key
+  }
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
-  const [submitted, setSubmitted] = useState(false)
-  const [uploading, setUploading] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [imageFiles, setImageFiles] = useState([])
-  const [videoUrl, setVideoUrl] = useState('')
-  const [imagePreviews, setImagePreviews] = useState([])
-  const [form, setForm] = useState({
-    // Owner details
-    ownerName: '',
-    ownerPhone: '',
-    ownerWhatsapp: '',
-    ownerEmail: '',
-    ownerAddress: '',
-    // Pet details
-    petName: '',
-    petAge: '',
-    breed: '',
-    species: 'Dog',
-    gender: 'Female',
-    vaccinated: '',
-    neutered: '',
-    friendlyChildren: '',
-    friendlyDogs: '',
-    // Additional
-    description: '',
-    reasonForAdoption: '',
-    otherInfo: '',
-    // Agreements
-    agreeTerms: false,
-    agreeContact: false,
-    // Package
-    boostTier: 'free',
-  })
 
   const update = (field, value) => setForm(f => ({ ...f, [field]: value }))
 
-const handleImageSelect = (e) => {
-    const files = Array.from(e.target.files).slice(0, 5)
-    if (files.length === 0) return
-    setImageFiles(prev => {
-      const combined = [...prev, ...files].slice(0, 5)
-      return combined
-    })
-    setImagePreviews(prev => {
-      const newPreviews = files.map(f => URL.createObjectURL(f))
-      return [...prev, ...newPreviews].slice(0, 5)
-    })
-  }
+  const petName = form.petName || (lang === 'ne' ? 'तपाईंको पाल्तु जनावर' : 'your pet')
 
-const compressImage = (file) => {
+  const compressImage = (file) => {
     return new Promise((resolve) => {
-      if (file.type.startsWith('video/')) { resolve(file); return }
       const canvas = document.createElement('canvas')
       const img = new Image()
       const url = URL.createObjectURL(file)
       img.onload = () => {
         const maxSize = 1000
-        let width = img.width
-        let height = img.height
-        if (width > maxSize || height > maxSize) {
-          if (width > height) { height = (height / width) * maxSize; width = maxSize }
-          else { width = (width / height) * maxSize; height = maxSize }
+        let w = img.width, h = img.height
+        if (w > maxSize || h > maxSize) {
+          if (w > h) { h = (h / w) * maxSize; w = maxSize }
+          else { w = (w / h) * maxSize; h = maxSize }
         }
-        canvas.width = width
-        canvas.height = height
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height)
-        canvas.toBlob((blob) => {
-          resolve(new File([blob], file.name, { type: 'image/jpeg' }))
-        }, 'image/jpeg', 0.7)
+        canvas.width = w; canvas.height = h
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h)
+        canvas.toBlob((blob) => resolve(new File([blob], file.name, { type: 'image/jpeg' })), 'image/jpeg', 0.7)
         URL.revokeObjectURL(url)
       }
       img.src = url
     })
   }
 
-const uploadToCloudinary = async (file, resourceType = 'image') => {
-    const processedFile = resourceType === 'image' ? await compressImage(file) : file
+  const handleImageSelect = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setImagePreview(URL.createObjectURL(file))
+    setImageFile(file)
+  }
+
+  const uploadImage = async (file) => {
+    const processed = await compressImage(file)
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = async (e) => {
         try {
-          const base64 = e.target.result
           const res = await fetch('/api/upload', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              file: base64,
-              folder: 'pets',
-              resourceType,
-            }),
+            body: JSON.stringify({ file: e.target.result, folder: 'pets', resourceType: 'image' }),
           })
           const data = await res.json()
           if (!res.ok) throw new Error(data.error || 'Upload failed')
           resolve(data.url)
-        } catch (err) {
-          reject(err)
-        }
+        } catch (err) { reject(err) }
       }
       reader.onerror = () => reject(new Error('File read failed'))
-      reader.readAsDataURL(processedFile)
+      reader.readAsDataURL(processed)
     })
+  }
+
+  const goToStep7 = () => {
+    setShowGenerating(true)
+    setTimeout(() => {
+      setShowGenerating(false)
+      setStep(7)
+    }, 2000)
   }
 
   const handleSubmit = async () => {
     if (!form.agreeTerms || !form.agreeContact) {
-      alert('Please agree to both terms before submitting. / सबमिट गर्नु अघि कृपया दुवै सर्तहरूमा सहमत हुनुहोला।')
-      return
-    }
-    if (!form.ownerName || !form.ownerPhone) {
-      alert('Please fill in your name and phone number. / कृपया आफ्नो नाम र फोन नम्बर भर्नुहोला।')
+      alert(lang === 'ne' ? 'कृपया दुवै सर्तहरूमा सहमत हुनुहोला।' : 'Please agree to both terms before submitting.')
       return
     }
     setSubmitting(true)
-    setUploading(true)
     try {
-      const imageUrls = []
-      for (const file of imageFiles) {
-        const url = await uploadToCloudinary(file, 'image')
-        imageUrls.push(url)
+      let uploadedUrl = imageUrl
+      if (imageFile && !imageUrl) {
+        setUploading(true)
+        uploadedUrl = await uploadImage(imageFile)
+        setImageUrl(uploadedUrl)
+        setUploading(false)
       }
-    
-      setUploading(false)
-      const res = await fetch('/api/submit-pet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          petName: form.petName,
-          breed: form.breed,
-          species: form.species,
-          gender: form.gender,
-          ageYears: '',
-          ageMonths: '',
-          petAge: form.petAge,
-          location: form.ownerAddress,
-          vaccinated: form.vaccinated === 'yes',
-          neutered: form.neutered === 'yes',
-          friendlyChildren: form.friendlyChildren,
-          friendlyDogs: form.friendlyDogs,
-          description: form.description,
-          reasonForAdoption: form.reasonForAdoption,
-          otherInfo: form.otherInfo,
-          submitterName: form.ownerName,
-          phone: form.ownerPhone,
-          whatsapp: form.ownerWhatsapp,
-          email: form.ownerEmail,
-          address: form.ownerAddress,
-          images: imageUrls,
-                videoUrl,
-          boostTier: form.boostTier,
-        }),
-      })
-      if (res.ok) setSubmitted(true)
-      else alert('Something went wrong. Please try again. / केही गडबड भयो। कृपया पुनः प्रयास गर्नुहोला।')
+      if (boostTier !== 'free') {
+        const amount = boostTier === 'boost' ? 'NPR 299' : 'NPR 599'
+        const tierName = boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'
+        const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851221428 now.`)
+        const res = await fetch('/api/submit-pet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            petName: form.petName, breed: form.breed, species: form.species,
+            gender: '', ageYears: '', ageMonths: '', petAge: form.petAge,
+            location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
+            neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
+            friendlyDogs: form.friendlyDogs, description: form.description,
+            reasonForAdoption: form.reasonForAdoption || form.reason,
+            submitterName: form.ownerName, phone: form.ownerPhone,
+            whatsapp: form.ownerWhatsapp, email: form.ownerEmail,
+            address: form.ownerAddress, images: uploadedUrl ? [uploadedUrl] : [],
+            videoUrl: null, boostTier, status: 'pending_payment',
+          }),
+        })
+        if (res.ok) {
+          setSubmitted(true)
+          window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank')
+        }
+      } else {
+        const res = await fetch('/api/submit-pet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            petName: form.petName, breed: form.breed, species: form.species,
+            gender: '', ageYears: '', ageMonths: '', petAge: form.petAge,
+            location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
+            neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
+            friendlyDogs: form.friendlyDogs, description: form.description,
+            reasonForAdoption: form.reasonForAdoption || form.reason,
+            submitterName: form.ownerName, phone: form.ownerPhone,
+            whatsapp: form.ownerWhatsapp, email: form.ownerEmail,
+            address: form.ownerAddress, images: uploadedUrl ? [uploadedUrl] : [],
+            videoUrl: null, boostTier,
+          }),
+        })
+        if (res.ok) setSubmitted(true)
+        else alert('Something went wrong. Please try again.')
+      }
     } catch (err) {
-      console.error(err)
-      alert('Upload failed: ' + err.message)
+      alert('Error: ' + err.message)
     }
     setSubmitting(false)
-    setUploading(false)
   }
 
-  const inputStyle = { width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', background: '#fff', fontWeight: 500 }
-  const labelStyle = { fontSize: 13, fontWeight: 800, color: '#000', display: 'block', marginBottom: 7 }
-  const sectionTitle = (en, np) => (
-    <div style={{ marginBottom: 20, paddingBottom: 10, borderBottom: '2px solid #000' }}>
-      <div style={{ fontWeight: 900, fontSize: 18, color: '#000' }}>{en}</div>
-      <div style={{ fontWeight: 600, fontSize: 14, color: '#666', marginTop: 2 }}>{np}</div>
-    </div>
-  )
-  const radioGroup = (field, options) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {options.map(([value, en, np]) => (
-        <label key={value} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', padding: '10px 14px', borderRadius: 10, border: `2px solid ${form[field] === value ? '#000' : '#E5E7EB'}`, background: form[field] === value ? '#F0FDF4' : '#fff' }}>
-          <input type="radio" name={field} value={value} checked={form[field] === value} onChange={() => update(field, value)} style={{ marginTop: 2, accentColor: '#58CC02', flexShrink: 0 }} />
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 14, color: '#000' }}>{en}</div>
-            <div style={{ fontWeight: 500, fontSize: 12, color: '#666' }}>{np}</div>
-          </div>
-        </label>
-      ))}
+  const inputStyle = { width: '100%', padding: '14px 16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', background: '#fff' }
+  const labelStyle = { fontSize: 13, fontWeight: 800, color: '#1A1A1A', display: 'block', marginBottom: 8 }
+
+  // LIVE PREVIEW CARD
+  const PreviewCard = () => (
+    <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '6px 6px 0px #1A1A1A' }}>
+      <div style={{ height: 200, background: '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '3px solid #1A1A1A', position: 'relative' }}>
+        {imagePreview ? (
+          <img src={imagePreview} alt={petName} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
+        ) : (
+          <div style={{ fontSize: 64 }}>{form.species === 'Dog' ? '🐕' : form.species === 'Cat' ? '🐈' : form.species === 'Bird' ? '🐦' : '🐾'}</div>
+        )}
+        <div style={{ position: 'absolute', top: 10, left: 10, background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+          {lang === 'ne' ? 'दत्तकको लागि उपलब्ध' : 'Available for Adoption'}
+        </div>
+      </div>
+      <div style={{ padding: '16px' }}>
+        <div style={{ fontWeight: 900, fontSize: 20, color: '#1A1A1A', marginBottom: 4 }}>
+          {form.petName || (lang === 'ne' ? 'नाम...' : 'Name...')}
+        </div>
+        <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 8 }}>
+          {[form.breed, form.species, form.petAge].filter(Boolean).join(' · ') || (lang === 'ne' ? 'विवरण आउँदैछ...' : 'Details coming...')}
+        </div>
+        {form.description && (
+          <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10, fontStyle: 'italic' }}>"{form.description}"</div>
+        )}
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {form.vaccinated === 'yes' && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #166534' }}>💉 Vaccinated</span>}
+          {form.neutered === 'yes' && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #166534' }}>✂️ Neutered</span>}
+          {form.friendlyChildren === 'yes' && <span style={{ background: '#EFF6FF', color: '#1D4ED8', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1D4ED8' }}>👶 Kid-friendly</span>}
+        </div>
+        <div style={{ marginTop: 12, padding: '10px 14px', background: '#F9FAFB', borderRadius: 10, fontSize: 12, color: '#6B7280' }}>
+          📍 {form.ownerAddress || (lang === 'ne' ? 'स्थान...' : 'Location...')}
+        </div>
+      </div>
     </div>
   )
 
-  if (submitted) {
+  // STEP 0 — LANGUAGE SELECTION
+  if (!lang) {
     return (
       <>
-        <Head><title>Submitted — HamroPets</title></Head>
-        <div style={{ minHeight: '100vh', background: '#FFFFFF', fontFamily: 'system-ui, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center', maxWidth: 520, padding: '40px' }}>
-            <div style={{ fontSize: 80, marginBottom: 20 }}>🎉</div>
-            <h1 style={{ fontSize: 32, fontWeight: 900, color: '#000', marginBottom: 12 }}>Submission Received!</h1>
-            <p style={{ fontSize: 16, fontWeight: 700, color: '#000', marginBottom: 4 }}>सबमिसन प्राप्त भयो!</p>
-            <p style={{ color: '#666', fontSize: 15, lineHeight: 1.7, marginBottom: 8, fontWeight: 500 }}>
-              Thank you! Your pet listing is now under review. We'll approve it within 24 hours.
-            </p>
-            <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>
-              धन्यवाद! तपाईंको पाल्तु जनावरको सूची अहिले समीक्षाधीन छ। हामी २४ घण्टाभित्र स्वीकृत गर्नेछौं।
-            </p>
-            <div style={{ background: '#E8F9ED', borderRadius: 16, padding: '20px', border: '2px solid #000', marginBottom: 28 }}>
-              <div style={{ fontSize: 14, fontWeight: 800, color: '#000', marginBottom: 8 }}>✅ What happens next? / अब के हुन्छ?</div>
-              <div style={{ fontSize: 13, color: '#555', lineHeight: 1.8, fontWeight: 500 }}>
-                Our team reviews your submission · हाम्रो टोलीले तपाईंको सबमिसन समीक्षा गर्छ।<br />
-                Once approved, your listing goes live · स्वीकृत भएपछि, तपाईंको सूची सार्वजनिक हुन्छ।<br />
-                Interested adopters will contact you · इच्छुक दत्तकग्राहीहरूले तपाईंलाई सम्पर्क गर्नेछन्।
-              </div>
+        <Head>
+          <title>Submit a Pet for Adoption — HamroPets</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
+        <div style={{ minHeight: '100vh', background: '#FFFFFF', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 48 }}>
+            <div style={{ width: 48, height: 48, borderRadius: 12, overflow: 'hidden', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+              <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png" alt="HamroPets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <Link href="/" style={{ background: '#58CC02', color: '#fff', padding: '14px 32px', borderRadius: 12, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2px solid #000', boxShadow: '3px 3px 0px #000', display: 'inline-block' }}>← Back to Home / गृहपृष्ठमा फर्कनुहोस्</Link>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 22, color: '#1A1A1A', letterSpacing: -0.5 }}>HamroPets</div>
+              <div style={{ fontSize: 10, color: '#58CC02', fontWeight: 800 }}>NEPAL'S PET HOME</div>
+            </div>
+          </Link>
+
+          <div style={{ textAlign: 'center', marginBottom: 40, maxWidth: 480 }}>
+            <div style={{ fontSize: 40, marginBottom: 16 }}>🐾</div>
+            <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px' }}>Welcome to HamroPets</h1>
+            <p style={{ fontSize: 16, color: '#6B7280', margin: 0, fontWeight: 500 }}>हाम्रो पेट्समा स्वागत छ। हामी तपाईंलाई मद्दत गर्न यहाँ छौँ।</p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 16, width: '100%', maxWidth: 480 }}>
+            <button onClick={() => { setLang('en'); setStep(1) }} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '20px 24px', borderRadius: 16, border: '3px solid #1A1A1A', fontSize: 16, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '4px 4px 0px #1A1A1A', textAlign: 'center' }}>
+              🇬🇧 Proceed in English
+            </button>
+            <button onClick={() => { setLang('ne'); setStep(1) }} style={{ flex: 1, background: '#58CC02', color: '#fff', padding: '20px 24px', borderRadius: 16, border: '3px solid #1A1A1A', fontSize: 16, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '4px 4px 0px #166534', textAlign: 'center' }}>
+              🇳🇵 नेपालीमा अगाडि बढ्नुहोस्
+            </button>
+          </div>
+
+          <div style={{ marginTop: 24, fontSize: 13, color: '#9CA3AF', fontWeight: 500 }}>
+            Basic rehoming is always completely free · निःशुल्क सूचीकरण सधैं उपलब्ध
           </div>
         </div>
       </>
     )
   }
 
+  // SUBMITTED
+  if (submitted) {
+    return (
+      <>
+        <Head><title>Submitted — HamroPets</title></Head>
+        <div style={{ minHeight: '100vh', background: '#fff', fontFamily: 'system-ui, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <div style={{ textAlign: 'center', maxWidth: 520 }}>
+            <div style={{ fontSize: 80, marginBottom: 20 }}>🎉</div>
+            <h1 style={{ fontSize: 32, fontWeight: 900, color: '#1A1A1A', marginBottom: 12 }}>{t('submitted_title', petName)}</h1>
+            <p style={{ color: '#6B7280', fontSize: 15, marginBottom: 32 }}>{t('submitted_desc')}</p>
+            <Link href="/" style={{ background: '#58CC02', color: '#fff', padding: '14px 32px', borderRadius: 12, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>← {lang === 'ne' ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Back to Home'}</Link>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // GENERATING SCREEN (mobile step 7 reveal)
+  if (showGenerating) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#fff', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+        <div style={{ fontSize: 64, marginBottom: 24, animation: 'pulse 1s infinite' }}>🐾</div>
+        <div style={{ fontSize: 20, fontWeight: 900, color: '#1A1A1A', textAlign: 'center' }}>{t('step7_generating', petName)}</div>
+        <div style={{ marginTop: 20, display: 'flex', gap: 6 }}>
+          {[0, 1, 2].map(i => (
+            <div key={i} style={{ width: 10, height: 10, borderRadius: 999, background: '#58CC02', opacity: 0.4 }} />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // MAIN FORM LAYOUT
+  const FormContent = () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+      {/* STEP 1 — SPECIES, NAME, AGE */}
+      {step === 1 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <div>
+            <label style={labelStyle}>{t('step1_species_label')}</label>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+              {[['Dog', '🐕'], ['Cat', '🐈'], ['Bird', '🐦'], ['Rabbit', '🐇'], ['Other', '🐾']].map(([val, emoji]) => (
+                <button key={val} onClick={() => update('species', val)} style={{ padding: '14px', borderRadius: 14, border: `2.5px solid ${form.species === val ? '#58CC02' : '#E5E7EB'}`, background: form.species === val ? '#E8F9ED' : '#fff', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 700, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, boxShadow: form.species === val ? '3px 3px 0px #166534' : 'none' }}>
+                  <span style={{ fontSize: 28 }}>{emoji}</span>
+                  <span>{val}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step1_name_label')}</label>
+            <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder={t('step1_name_placeholder')} style={inputStyle} />
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step1_age_label')}</label>
+            <input value={form.petAge} onChange={e => update('petAge', e.target.value)} placeholder={t('step1_age_placeholder')} style={inputStyle} />
+          </div>
+          <button onClick={() => { if (!form.species || !form.petName) { alert(lang === 'ne' ? 'कृपया प्रजाति र नाम भर्नुहोस्।' : 'Please select species and enter name.'); return } setStep(2) }} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 16, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>
+            {t('step1_next')}
+          </button>
+        </div>
+      )}
+
+      {/* STEP 2 — PHOTO */}
+      {step === 2 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <div style={{ fontSize: 15, color: '#374151', fontWeight: 500, lineHeight: 1.6 }}>
+            {lang === 'ne' ? `${petName} को फोटो अपलोड गर्दा दत्तककर्ताले उनीहरूलाई तुरुन्त माया गर्छन्। 📸` : `A photo of ${petName} helps adopters fall in love immediately. 📸`}
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step2_photo_label', petName)}</label>
+            <div style={{ position: 'relative', border: `3px dashed ${imagePreview ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '32px', textAlign: 'center', background: imagePreview ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
+              <input type="file" accept="image/*" onChange={handleImageSelect} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+              {imagePreview ? (
+                <div>
+                  <img src={imagePreview} alt={petName} style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 14, border: '3px solid #1A1A1A', marginBottom: 10 }} />
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#58CC02' }}>{petName} {lang === 'ne' ? 'को फोटो राम्रो छ! साँच्चै।' : 'looks great in that photo. Seriously.'} ✅</div>
+                  <div style={{ fontSize: 12, color: '#6B7280', marginTop: 4 }}>{t('step2_replace')}</div>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ fontSize: 48, marginBottom: 12 }}>📷</div>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: '#1A1A1A', marginBottom: 4 }}>{t('step2_upload_btn')}</div>
+                  <div style={{ fontSize: 13, color: '#9CA3AF' }}>{t('step2_photo_hint')}</div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => setStep(1)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+            <button onClick={() => setStep(3)} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>
+              {imagePreview ? t('step2_next') : t('step2_skip')}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3 — REASON */}
+      {step === 3 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ fontSize: 15, color: '#374151', fontWeight: 500, lineHeight: 1.7, padding: '16px', background: '#FFF9E6', borderRadius: 14, border: '1.5px solid #FFD23F' }}>
+            {t('step3_reason_intro', petName)}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {Object.entries(translations[lang].step3_reasons).map(([key, label]) => (
+              <button key={key} onClick={() => update('reason', key)} style={{ padding: '14px 16px', borderRadius: 14, border: `2px solid ${form.reason === key ? '#1A1A1A' : '#E5E7EB'}`, background: form.reason === key ? '#F9FAFB' : '#fff', cursor: 'pointer', fontFamily: 'inherit', fontSize: 14, fontWeight: form.reason === key ? 800 : 500, textAlign: 'left', boxShadow: form.reason === key ? '3px 3px 0px #1A1A1A' : 'none' }}>
+                {label}
+              </button>
+            ))}
+          </div>
+          {form.reason === 'other' && (
+            <textarea rows={3} value={form.reasonOther} onChange={e => update('reasonOther', e.target.value)} placeholder={t('step3_other_placeholder')} style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+          )}
+          {form.reason && (
+            <div style={{ background: '#E8F9ED', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #58CC02', fontSize: 14, color: '#166534', fontWeight: 600, lineHeight: 1.6 }}>
+              ❤️ {t('step3_validation', petName)}
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+            <button onClick={() => { if (!form.reason) { alert(lang === 'ne' ? 'कृपया एउटा विकल्प छान्नुहोस्।' : 'Please select a reason.'); return } setStep(4) }} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>
+              {t('step3_next')}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 4 — THEIR STORY */}
+      {step === 4 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={labelStyle}>{t('step4_breed_label')}</label>
+            <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder={t('step4_breed_placeholder')} style={inputStyle} />
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step4_vaccinated_label')}</label>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {[['yes', t('step4_yes')], ['no', t('step4_no')], ['unknown', t('step4_unknown')]].map(([val, label]) => (
+                <button key={val} onClick={() => update('vaccinated', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.vaccinated === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.vaccinated === val ? '#1A1A1A' : '#fff', color: form.vaccinated === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step4_neutered_label')}</label>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {[['yes', t('step4_yes')], ['no', t('step4_no')], ['unknown', t('step4_unknown')]].map(([val, label]) => (
+                <button key={val} onClick={() => update('neutered', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.neutered === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.neutered === val ? '#1A1A1A' : '#fff', color: form.neutered === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => setStep(3)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+            <button onClick={() => setStep(5)} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>
+              {t('step4_next')}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 5 — PERSONALITY */}
+      {step === 5 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={labelStyle}>{t('step5_children_label', petName)}</label>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {[['yes', t('step4_yes')], ['no', t('step4_no')], ['unknown', t('step4_unknown')]].map(([val, label]) => (
+                <button key={val} onClick={() => update('friendlyChildren', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.friendlyChildren === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.friendlyChildren === val ? '#1A1A1A' : '#fff', color: form.friendlyChildren === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step5_dogs_label', petName)}</label>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {[['yes', t('step4_yes')], ['no', t('step4_no')], ['unknown', t('step4_unknown')]].map(([val, label]) => (
+                <button key={val} onClick={() => update('friendlyDogs', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.friendlyDogs === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.friendlyDogs === val ? '#1A1A1A' : '#fff', color: form.friendlyDogs === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step5_description_label', petName)}</label>
+            <div style={{ fontSize: 12, color: '#9CA3AF', marginBottom: 6 }}>{t('step5_description_hint')}</div>
+            <textarea rows={3} value={form.description} onChange={e => update('description', e.target.value)} placeholder={t('step5_description_placeholder', petName)} style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step5_reason_label')}</label>
+            <textarea rows={3} value={form.reasonForAdoption} onChange={e => update('reasonForAdoption', e.target.value)} placeholder={t('step5_reason_placeholder')} style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
+          </div>
+          {form.description && (
+            <div style={{ background: '#EFF6FF', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#1D4ED8', fontWeight: 600 }}>
+              ✨ {lang === 'ne' ? `${petName} एकदम राम्रो साथी लाग्छ। कोही बाहिर उनीहरूलाई खोज्दैछन्।` : `Sounds like a wonderful companion. Someone out there is looking for exactly this.`}
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => setStep(4)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+            <button onClick={() => { if (!form.description) { alert(lang === 'ne' ? `कृपया ${petName} को बारेमा एक वाक्य लेख्नुहोस्।` : `Please describe ${petName} in one sentence.`); return } setStep(6) }} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #166534' }}>
+              {t('step5_next')}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 6 — YOUR DETAILS */}
+      {step === 6 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={labelStyle}>{t('step6_name_label')}</label>
+            <input value={form.ownerName} onChange={e => update('ownerName', e.target.value)} placeholder="Full name" style={inputStyle} />
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step6_phone_label')}</label>
+            <input type="tel" value={form.ownerPhone} onChange={e => update('ownerPhone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
+            <div style={{ fontSize: 12, color: '#9CA3AF', marginTop: 4 }}>{t('step6_phone_hint')}</div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step6_whatsapp_label')}</label>
+            <input type="tel" value={form.ownerWhatsapp} onChange={e => update('ownerWhatsapp', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
+            <div style={{ fontSize: 12, color: '#9CA3AF', marginTop: 4 }}>{t('step6_whatsapp_hint')}</div>
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step6_email_label')}</label>
+            <input type="email" value={form.ownerEmail} onChange={e => update('ownerEmail', e.target.value)} placeholder="your@email.com" style={inputStyle} />
+          </div>
+          <div>
+            <label style={labelStyle}>{t('step6_address_label')}</label>
+            <input value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} placeholder="e.g. Lalitpur, Kathmandu" style={inputStyle} />
+          </div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => setStep(5)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+            <button onClick={() => { if (!form.ownerName || !form.ownerPhone) { alert(lang === 'ne' ? 'कृपया नाम र फोन नम्बर भर्नुहोस्।' : 'Please enter your name and phone number.'); return } goToStep7() }} style={{ flex: 2, background: '#1A1A1A', color: '#FFD23F', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #555' }}>
+              {t('step6_next', petName)}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 7 — PROFILE REVEAL + TIER SELECTION */}
+      {step === 7 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Mobile: show full profile card as reveal */}
+          {isMobile && (
+            <div style={{ marginBottom: 8 }}>
+              <PreviewCard />
+            </div>
+          )}
+
+          <div>
+            <div style={{ fontWeight: 900, fontSize: 22, color: '#1A1A1A', marginBottom: 4 }}>{t('step7_ready', petName)}</div>
+            <div style={{ fontSize: 15, color: '#6B7280', fontWeight: 500, marginBottom: 16 }}>{t('step7_launch', petName)}</div>
+
+            {/* Adaptive pitch */}
+            <div style={{ background: '#FFF9E6', borderRadius: 14, padding: '14px 16px', border: '2px solid #FFD23F', marginBottom: 20, fontSize: 14, color: '#92400E', fontWeight: 600, lineHeight: 1.6 }}>
+              💡 {getAdaptivePitch(form.reason, petName, lang)}
+            </div>
+
+            {/* Tier cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+              {[
+                { id: 'free', label: t('step7_free_label'), desc: t('step7_free_desc'), price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
+                { id: 'boost', label: t('step7_boost_label'), desc: t('step7_boost_desc'), price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? 'धेरैले रोजेको' : 'Most chosen' },
+                { id: 'shield', label: t('step7_shield_label'), desc: t('step7_shield_desc'), price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
+              ].map(tier => (
+                <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
+                  {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#FF6B35', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                    <span style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A' }}>{tier.label}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontWeight: 900, fontSize: 15, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
+                      <div style={{ width: 18, height: 18, borderRadius: 999, border: `2px solid ${boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {boostTier === tier.id && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>{tier.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Payment instructions for paid tiers */}
+            {(boostTier === 'boost' || boostTier === 'shield') && (
+              <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '2px solid #FFD23F', marginBottom: 16 }}>
+                <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 {lang === 'ne' ? 'भुक्तानी' : 'Payment'}</div>
+                <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
+                  {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
+                  eSewa / Khalti: <strong>9851221428</strong><br />
+                  WhatsApp: <strong>9851405178</strong><br />
+                  <span style={{ fontSize: 11, color: '#6B7280' }}>{lang === 'ne' ? 'भुक्तानी पछि screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र activate गर्छौं।' : 'Send payment screenshot to WhatsApp. We activate within 2-4 hours.'}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Terms */}
+            <div style={{ background: '#F9FAFB', borderRadius: 14, padding: '16px', border: '1.5px solid #E5E7EB', marginBottom: 16 }}>
+              <div style={{ fontWeight: 800, fontSize: 13, marginBottom: 10 }}>{t('terms_title')}</div>
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 10 }}>
+                <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{t('terms_free')} — {t('terms_agree')}</span>
+              </label>
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{t('terms_contact')} ✅</span>
+              </label>
+            </div>
+
+            <div style={{ fontSize: 12, color: '#9CA3AF', textAlign: 'center', marginBottom: 16 }}>{t('step7_reassurance')}</div>
+
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button onClick={() => setStep(6)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 14, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{t('back')}</button>
+              <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: boostTier === 'free' ? '#FF6B35' : '#FFD23F', color: boostTier === 'free' ? '#fff' : '#1A1A1A', padding: '13px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
+                {submitting ? t('submitting') : boostTier === 'free' ? `Publish ${petName}'s Profile — Free` : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`}
+              </button>
+            </div>
+
+            {boostTier !== 'free' && (
+              <button onClick={() => setBoostTier('free')} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'underline', marginTop: 8, display: 'block', textAlign: 'center', width: '100%' }}>
+                {t('step7_continue_free')}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+
+  // PROGRESS LABELS
+  const progressLabels = {
+    1: t('step1_progress'),
+    2: t('step2_progress', petName),
+    3: t('step3_progress', petName),
+    4: t('step4_progress', petName),
+    5: t('step5_progress', petName),
+    6: t('step6_progress'),
+    7: t('step7_ready', petName),
+  }
+
   return (
     <>
       <Head>
         <title>Submit a Pet for Adoption — HamroPets</title>
-        <meta name="description" content="Submit your pet for adoption on HamroPets Nepal. Free forever." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div style={{ minHeight: '100vh', background: '#FFFFFF', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, sans-serif' }}>
 
         {/* NAV */}
-        <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #000', position: 'sticky', top: 0, zIndex: 100 }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 28px', height: 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <nav style={{ background: '#fff', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px' : '0 28px', height: isMobile ? 60 : 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-              <div style={{ width: 42, height: 42, borderRadius: 12, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, border: '2.5px solid #000', boxShadow: '3px 3px 0px #000' }}>🐾</div>
+              <div style={{ width: isMobile ? 34 : 42, height: isMobile ? 34 : 42, borderRadius: 10, overflow: 'hidden', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png" alt="HamroPets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
               <div>
-                <div style={{ fontWeight: 900, fontSize: 22, color: '#000', letterSpacing: -0.5, lineHeight: 1 }}>HamroPets</div>
-                <div style={{ fontSize: 10, color: '#58CC02', fontWeight: 800, letterSpacing: 1 }}>NEPAL'S PET HOME</div>
+                <div style={{ fontWeight: 900, fontSize: isMobile ? 16 : 22, color: '#1A1A1A' }}>HamroPets</div>
+                <div style={{ fontSize: 9, color: '#58CC02', fontWeight: 800 }}>NEPAL'S PET HOME</div>
               </div>
             </Link>
-            <Link href="/" style={{ color: '#666', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>← Back to Home / गृहपृष्ठमा फर्कनुहोस्</Link>
+            {/* Language toggle */}
+            <div style={{ display: 'flex', gap: 4, background: '#F3F4F6', borderRadius: 999, padding: 4, border: '1.5px solid #1A1A1A' }}>
+              {['en', 'ne'].map(l => (
+                <button key={l} onClick={() => setLang(l)} style={{ padding: '5px 12px', borderRadius: 999, border: 'none', background: lang === l ? '#1A1A1A' : 'transparent', color: lang === l ? '#fff' : '#6B7280', fontSize: 12, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+                  {l === 'en' ? 'EN' : 'ने'}
+                </button>
+              ))}
+            </div>
           </div>
         </nav>
 
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 28px 80px' }}>
-
-          {/* HEADER */}
-          <div style={{ marginBottom: 36 }}>
-            <span style={{ background: '#58CC02', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #000', boxShadow: '2px 2px 0px #000' }}>🐾 Free Forever / सधैं निःशुल्क</span>
-            <h1 style={{ fontSize: 36, fontWeight: 900, color: '#000', margin: '0 0 4px', letterSpacing: -1 }}>Submit a Pet for Adoption</h1>
-            <p style={{ fontSize: 18, fontWeight: 700, color: '#000', margin: '0 0 8px' }}>गोद दिनको लागि पाल्तु जनावर सबमिट गर्नुहोस्</p>
-            <p style={{ color: '#666', fontSize: 14, fontWeight: 500 }}>Reviewed within 24 hours · Nothing goes live without approval · २४ घण्टाभित्र समीक्षा · स्वीकृति बिना केही सार्वजनिक हुँदैन</p>
-          </div>
-
-          {/* STEP INDICATOR */}
-          <div style={{ display: 'flex', gap: 0, marginBottom: 36, border: '2px solid #000', borderRadius: 14, overflow: 'hidden', boxShadow: '3px 3px 0px #000' }}>
-            {['1. Owner Info', '2. Pet Details', '3. Photos & Video', '4. Submit'].map((s, i) => (
-              <div key={s} onClick={() => i + 1 < step && setStep(i + 1)} style={{ flex: 1, padding: '11px 6px', textAlign: 'center', background: step === i + 1 ? '#58CC02' : step > i + 1 ? '#E8F9ED' : '#fff', color: step === i + 1 ? '#fff' : step > i + 1 ? '#58CC02' : '#888', fontSize: 12, fontWeight: 800, cursor: i + 1 < step ? 'pointer' : 'default', borderRight: i < 3 ? '2px solid #000' : 'none' }}>
-                {step > i + 1 ? '✓ ' : ''}{s}
-              </div>
-            ))}
-          </div>
-
-          {/* STEP 1 — OWNER INFO */}
-          {step === 1 && (
-            <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
-              {sectionTitle('Owner / Care-taker Details', 'मालिक / हेरचाहकर्ताको विवरण')}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                <div>
-                  <label style={labelStyle}>Full Name / पूरा नाम *</label>
-                  <input value={form.ownerName} onChange={e => update('ownerName', e.target.value)} placeholder="Your full name / तपाईंको पूरा नाम" style={inputStyle} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Phone Number / फोन नम्बर *</label>
-                  <input type="tel" value={form.ownerPhone} onChange={e => update('ownerPhone', e.target.value)} placeholder="98XXXXXXXX" style={inputStyle} />
-                </div>
-                <div>
-                  <label style={labelStyle}>WhatsApp / Viber Number / WhatsApp/Viber नम्बर</label>
-                  <input type="tel" value={form.ownerWhatsapp} onChange={e => update('ownerWhatsapp', e.target.value)} placeholder="98XXXXXXXX (if different / फरक भएमा)" style={inputStyle} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Email Address / इमेल ठेगाना *</label>
-                  <input type="email" value={form.ownerEmail} onChange={e => update('ownerEmail', e.target.value)} placeholder="your@email.com" style={inputStyle} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Current Address / हालको ठेगाना *</label>
-                  <input value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} placeholder="e.g. Lalitpur, Kathmandu / जस्तै: ललितपुर, काठमाडौं" style={inputStyle} />
-                </div>
-                <button onClick={() => { if (!form.ownerName || !form.ownerPhone || !form.ownerEmail || !form.ownerAddress) { alert('Please fill all required fields. / कृपया सबै आवश्यक फिल्डहरू भर्नुहोला।'); return } setStep(2) }} style={{ background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
-                  Next: Pet Details / अर्को: पाल्तु जनावरको विवरण →
-                </button>
-              </div>
+        {/* PROGRESS BAR */}
+        <div style={{ background: '#fff', borderBottom: '2px solid #E5E7EB', padding: isMobile ? '12px 16px' : '14px 28px' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A', marginBottom: 8 }}>{progressLabels[step]}</div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {[1, 2, 3, 4, 5, 6, 7].map(s => (
+                <div key={s} style={{ flex: 1, height: 4, borderRadius: 999, background: step >= s ? '#58CC02' : '#E5E7EB', transition: 'background 0.3s' }} />
+              ))}
             </div>
-          )}
+          </div>
+        </div>
 
-          {/* STEP 2 — PET DETAILS */}
-          {step === 2 && (
-            <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
-              {sectionTitle('Pet / Dog Details', 'पाल्तु जनावर / कुकुरको विवरण')}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <div>
-                    <label style={labelStyle}>Pet Name / पाल्तु जनावरको नाम *</label>
-                    <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder="e.g. Bruno / जस्तै: ब्रुनो" style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Age / उमेर *</label>
-                    <input value={form.petAge} onChange={e => update('petAge', e.target.value)} placeholder="e.g. 6 months / जस्तै: ६ महिना" style={inputStyle} />
-                  </div>
+        {/* MAIN CONTENT */}
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '24px 16px 60px' : '40px 28px 80px' }}>
+          {!isMobile && step >= 1 && step <= 6 ? (
+            // Desktop: 60/40 split with live preview
+            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 48, alignItems: 'start' }}>
+              <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #1A1A1A', padding: '32px', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                <FormContent />
+              </div>
+              <div style={{ position: 'sticky', top: 100 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
+                  {lang === 'ne' ? `${petName} को प्रोफाइल` : `${petName}'s Profile Preview`}
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <div>
-                    <label style={labelStyle}>Breed / जात</label>
-                    <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder="e.g. Labrador Mix / जस्तै: ल्याब्राडोर मिक्स" style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Species / प्रजाति</label>
-                    <select value={form.species} onChange={e => update('species', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {[['Dog', 'कुकुर'], ['Cat', 'बिरालो'], ['Bird', 'चरा'], ['Rabbit', 'खरायो'], ['Other', 'अन्य']].map(([en, np]) => (
-                        <option key={en} value={en}>{en} / {np}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label style={labelStyle}>Gender / लिङ्ग *</label>
-                  <div style={{ display: 'flex', gap: 12 }}>
-                    {[['Male', 'भाले / नर'], ['Female', 'पोथी / मादा']].map(([val, np]) => (
-                      <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#000' : '#E5E7EB'}`, background: form.gender === val ? '#58CC02' : '#fff', color: form.gender === val ? '#fff' : '#666', cursor: 'pointer', fontSize: 14, fontWeight: 800, fontFamily: 'inherit' }}>
-                        {val} / {np}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* VACCINATION */}
-                <div>
-                  <label style={labelStyle}>Vaccination Status / खोपको अवस्था *</label>
-                  {radioGroup('vaccinated', [
-                    ['yes', 'Up to Date — All vaccines completed ✅', 'पूर्ण रूपमा लगाइएको — सबै खोपहरू पूरा भएको ✅'],
-                    ['partial', 'Partially Vaccinated', 'आंशिक रूपमा खोप लगाइएको'],
-                    ['no', 'Not Vaccinated ❌', 'खोप लगाइएको छैन ❌'],
-                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
-                  ])}
-                </div>
-
-                {/* NEUTERED */}
-                <div>
-                  <label style={labelStyle}>Spayed / Neutered? / बाँझोपन गरिएको छ? *</label>
-                  {radioGroup('neutered', [
-                    ['yes', 'Yes / गरिएको छ ✅', 'गरिएको छ ✅'],
-                    ['no', 'No / गरिएको छैन ❌', 'गरिएको छैन ❌'],
-                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
-                  ])}
-                </div>
-
-                {/* FRIENDLY WITH CHILDREN */}
-                <div>
-                  <label style={labelStyle}>Friendly with Children? / बच्चाहरूसँग मिल्छ? *</label>
-                  {radioGroup('friendlyChildren', [
-                    ['yes', 'Yes, very friendly with children / छ, बच्चाहरूसँग धेरै मिल्छ', 'छ, बच्चाहरूसँग धेरै मिल्छ'],
-                    ['no', 'No, not recommended with children / छैन, बच्चाहरूसँग उपयुक्त छैन', 'छैन'],
-                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
-                  ])}
-                </div>
-
-                {/* FRIENDLY WITH DOGS */}
-                <div>
-                  <label style={labelStyle}>Friendly with Other Dogs? / अन्य कुकुरहरूसँग मिल्छ? *</label>
-                  {radioGroup('friendlyDogs', [
-                    ['yes', 'Yes, gets along well with other dogs / छ, अन्य कुकुरहरूसँग राम्रोसँग मिल्छ', 'छ'],
-                    ['no', 'No, prefers to be the only pet / छैन, एक्लै बस्न मन पराउँछ', 'छैन'],
-                    ['unknown', "I don't know / थाहा छैन", 'थाहा छैन'],
-                  ])}
-                </div>
-
-                {/* DESCRIPTION */}
-                <div>
-                  <label style={labelStyle}>
-                    Short Description & Temperament / छोटो विवरण र स्वभाव *
-                  </label>
-                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>
-                    Describe personality, habits, known commands, special needs / व्यक्तित्व, बानीव्यहोरा, थाहा भएका आदेशहरू, विशेष आवश्यकताहरू वर्णन गर्नुहोस्
-                  </p>
-                  <textarea rows={5} value={form.description} onChange={e => update('description', e.target.value)} placeholder="e.g. Bruno is playful, loves fetch, good with kids... / जस्तै: ब्रुनो खेल्न मन पराउँछ, बच्चाहरूसँग राम्रो छ..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
-                </div>
-
-                {/* REASON */}
-                <div>
-                  <label style={labelStyle}>Why do you want to put your pet for adoption? / किन गोद दिन चाहनुहुन्छ? *</label>
-                  <textarea rows={4} value={form.reasonForAdoption} onChange={e => update('reasonForAdoption', e.target.value)} placeholder="Please be honest — it helps find the right family / कृपया इमानदार हुनुहोस् — यसले सही परिवार खोज्न मद्दत गर्छ" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
-                </div>
-
-                {/* OTHER INFO */}
-                <div>
-                  <label style={labelStyle}>Any other information? / अन्य कुनै जानकारी?</label>
-                  <textarea rows={3} value={form.otherInfo} onChange={e => update('otherInfo', e.target.value)} placeholder="Anything else we should know... / अरू केही जान्नु पर्ने छ भने..." style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
-                </div>
-
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <button onClick={() => setStep(1)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
-                  <button onClick={() => { if (!form.petName || !form.petAge || !form.vaccinated || !form.neutered || !form.friendlyChildren || !form.friendlyDogs || !form.description || !form.reasonForAdoption) { alert('Please fill all required fields. / कृपया सबै आवश्यक फिल्डहरू भर्नुहोला।'); return } setStep(3) }} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
-                    Next: Photos & Video / अर्को: फोटो र भिडियो →
-                  </button>
+                <PreviewCard />
+                <div style={{ marginTop: 12, fontSize: 12, color: '#9CA3AF', textAlign: 'center', fontStyle: 'italic' }}>
+                  {lang === 'ne' ? 'तपाईं भर्दा प्रोफाइल अपडेट हुन्छ' : 'Updates as you fill in details'}
                 </div>
               </div>
             </div>
-          )}
-
-          {/* STEP 3 — PHOTOS & VIDEO */}
-  {step === 3 && (
-            <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
-              {sectionTitle('Photos & Video', 'फोटो र भिडियो')}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                <div>
-                  <label style={labelStyle}>Photos / फोटोहरू (up to 5 / ५ सम्म) *</label>
-                  <p style={{ fontSize: 12, color: '#888', marginBottom: 8, fontWeight: 500 }}>Please upload social media quality photos / कृपया सामाजिक सञ्जालको गुणस्तरका फोटोहरू अपलोड गर्नुहोस्</p>
-                  <div style={{ border: '3px dashed #58CC02', borderRadius: 16, padding: '32px', textAlign: 'center', background: '#F0FDF4', cursor: 'pointer', position: 'relative' }}>
-                    <input type="file" accept="image/jpeg,image/png,image/webp" multiple style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} onChange={handleImageSelect} />
-                    <div style={{ fontSize: 44, marginBottom: 10 }}>📸</div>
-                    <div style={{ fontSize: 15, fontWeight: 900, color: '#58CC02' }}>Click to upload / क्लिक गरेर अपलोड गर्नुहोस्</div>
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 6, fontWeight: 500 }}>JPG, PNG, WEBP · Max 5 photos / ५ फोटोसम्म</div>
-                  </div>
-                  {imagePreviews.length > 0 && (
-                    <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-                      {imagePreviews.map((src, i) => (
-                        <img key={i} src={src} alt={`preview ${i}`} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 10, border: '2px solid #000' }} />
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <label style={labelStyle}>Video Link / भिडियो लिंक (optional / ऐच्छिक)</label>
-                  <div style={{ fontSize: 12, color: '#888', marginBottom: 10, fontWeight: 500 }}>Upload your video to YouTube or Google Drive first, then paste the link here · पहिले YouTube वा Google Drive मा अपलोड गर्नुहोस् र लिंक यहाँ पेस्ट गर्नुहोस्</div>
-                  <input
-                    type="url"
-                    placeholder="https://youtube.com/... or https://drive.google.com/..."
-                    value={videoUrl || ''}
-                    onChange={e => setVideoUrl(e.target.value)}
-                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }}
-                  />
-                </div>
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <button onClick={() => setStep(2)} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
-                  <button onClick={() => setStep(4)} style={{ flex: 2, background: '#58CC02', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000' }}>
-                    Next: Review & Submit / अर्को: समीक्षा र सबमिट →
-                  </button>
-                </div>
-              </div>
+          ) : (
+            // Mobile OR Step 7: full width
+            <div style={{ maxWidth: step === 7 ? 680 : 560, margin: '0 auto', background: '#fff', borderRadius: 20, border: '2px solid #1A1A1A', padding: isMobile ? '20px 16px' : '32px', boxShadow: '4px 4px 0px #1A1A1A' }}>
+              <FormContent />
             </div>
           )}
-
-          {/* STEP 4 — AGREEMENTS & SUBMIT */}
-          {step === 4 && (
-            <div style={{ background: '#fff', borderRadius: 20, border: '2px solid #000', padding: '32px', boxShadow: '4px 4px 0px #000' }}>
-              {sectionTitle('Agreement & Submission', 'सहमति र सबमिसन')}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {/* BOOST TIER SELECTION */}
-<div>
-<div style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A', marginBottom: 6 }}>🐾 Choose How You Want to Promote Your Pet</div>
-  <div style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 700, marginBottom: 4 }}>आफ्नो पाल्तु जनावरको प्रचार कसरी गर्ने हो छान्नुहोस्</div>
-  <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 16, fontWeight: 500, padding: '10px 14px', background: '#F0FDF4', borderRadius: 10, border: '1.5px solid #58CC02' }}>
-    ❤️ Every pet gets a free listing. Paid packages help your pet find a home faster.<br />
-    <span style={{ fontSize: 11 }}>सबै जनावरको सूचीकरण निःशुल्क हुन्छ। सशुल्क प्याकेजले छिट्टै मायालु घर भेट्टाउन मद्दत गर्छ।</span>
-  </div>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-
-    {/* FREE */}
-    <div onClick={() => update('boostTier', 'free')} style={{ background: form.boostTier === 'free' ? '#F0FDF4' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2px solid ${form.boostTier === 'free' ? '#58CC02' : '#E5E7EB'}`, cursor: 'pointer', transition: 'all 0.2s' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-        <div>
-          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>🆓 Free Listing / निःशुल्क सूचीकरण</div>
-          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Basic adoption listing</div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontWeight: 900, fontSize: 18, color: '#58CC02' }}>NPR 0</span>
-          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'free' ? '#58CC02' : '#D1D5DB'}`, background: form.boostTier === 'free' ? '#58CC02' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            {form.boostTier === 'free' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
-          </div>
-        </div>
-      </div>
-      {[
-        ['HamroPets मा तपाईंको पाल्तु जनावरको प्रोफाइल राखिनेछ', 'Listed on HamroPets.com'],
-        ['Facebook मा सामान्य रूपमा प्रचार गरिनेछ', 'Basic Facebook promotion'],
-        ['HamroPets मा सामान्य प्राथमिकतामा देखाइनेछ', 'Standard visibility'],
-      ].map(([np, en]) => (
-        <div key={en} style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
-      ))}
-    </div>
-
-    {/* SOCIAL BOOST — RECOMMENDED */}
-    <div onClick={() => update('boostTier', 'boost')} style={{ background: form.boostTier === 'boost' ? '#EFF6FF' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `3px solid ${form.boostTier === 'boost' ? '#38BDF8' : '#1A1A1A'}`, cursor: 'pointer', boxShadow: form.boostTier === 'boost' ? '4px 4px 0px #0284C7' : '3px 3px 0px #1A1A1A', transition: 'all 0.2s', position: 'relative' }}>
-      <div style={{ position: 'absolute', top: -12, left: 16, background: '#FF6B35', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>🔥 RECOMMENDED / हाम्रो सिफारिस</div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, marginTop: 8 }}>
-        <div>
-          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>🚀 Social Boost / सामाजिक प्रचार</div>
-          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Get your pet seen by more people · थप मानिससम्म पुर्‍याउनुहोस्</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A' }}>NPR 299</span>
-          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'boost' ? '#38BDF8' : '#D1D5DB'}`, background: form.boostTier === 'boost' ? '#38BDF8' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            {form.boostTier === 'boost' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
-          </div>
-        </div>
-      </div>
-      <div style={{ fontSize: 11, color: '#38BDF8', fontWeight: 700, marginBottom: 10 }}>✓ Free का सबै सुविधा समावेश + थप:</div>
-      {[
-        ['तपाईंको कुकुर/बिरालोको छोटो भिडियो TikTok, Instagram र Facebook मा प्रचार', 'Social media adoption video'],
-        ['स्पष्ट नेपाली आवाज (Voiceover) मा कथा वाचन — Swor AI प्रविधिद्वारा तयार पारिएको', 'Nepali voice narration powered by Swor AI'],
-        ['खोज सूचीको सबैभन्दा माथि देखिने — छिट्टै नयाँ घर भेट्टाउनको लागि', 'Top of search for faster adoption'],
-      ].map(([np, en]) => (
-        <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
-      ))}
-    
-      <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ display: 'inline-block', marginTop: 10, background: '#1A1A1A', color: '#fff', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>▶ उदाहरण भिडियो हेर्नुहोस् / See Example</a>
-    </div>
-
-    {/* PRIORITY SHIELD */}
-    <div onClick={() => update('boostTier', 'shield')} style={{ background: form.boostTier === 'shield' ? '#FFFBEB' : '#FAFAFA', borderRadius: 16, padding: '16px 20px', border: `2.5px solid ${form.boostTier === 'shield' ? '#FFD23F' : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === 'shield' ? '4px 4px 0px #B45309' : 'none', transition: 'all 0.2s' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-        <div>
-          <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>⭐ Priority Shield / प्राथमिकता सुरक्षा</div>
-          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>Maximum support · adopter खोज्न थप सहयोग</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontWeight: 900, fontSize: 18, color: '#1A1A1A' }}>NPR 599</span>
-          <div style={{ width: 22, height: 22, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'shield' ? '#FFD23F' : '#D1D5DB'}`, background: form.boostTier === 'shield' ? '#FFD23F' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            {form.boostTier === 'shield' && <div style={{ width: 10, height: 10, borderRadius: 999, background: '#fff' }} />}
-          </div>
-        </div>
-      </div>
-      <div style={{ fontSize: 11, color: '#B45309', fontWeight: 700, marginBottom: 10 }}>✓ Social Boost का सबै सुविधा समावेश + थप:</div>
-      {[
-        ['चौध दिनसम्म HamroPets को homepage मा विशेष रूपमा देखाइनेछ', 'Homepage feature for 14 days'],
-        ['🔒 तपाईंको फोन नम्बर सार्वजनिक हुँदैन — Call HamroPets मार्फत जोडिन्छ', 'Phone number stays private'],
-       ['तपाईंको पाल्तु जनावरसँग मिल्ने परिवार खोज्न विशेष सहयोग', 'Smart adopter matching'],
-        ['पाँच देखि सात जना प्रमाणित, भरपर्दो सम्भावित परिवारको प्रोफाइल पठाइनेछ', '5–7 verified adopter profiles'],
-      ].map(([np, en]) => (
-        <div key={en} style={{ fontSize: 12, color: '#374151', fontWeight: 500, marginBottom: 3 }}>✓ {np} <span style={{ color: '#9CA3AF' }}>({en})</span></div>
-      ))}
-    </div>
-
-  </div>
-</div>
-{/* COMPARISON TABLE */}
-<div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A', marginTop: 20, marginBottom: 20 }}>
-  {/* Header */}
-  <div style={{ background: '#1A1A1A', padding: '16px 20px' }}>
-    <div style={{ fontWeight: 900, fontSize: 15, color: '#FFD23F', marginBottom: 4 }}>📊 Comparison Table / तुलनात्मक तालिका</div>
-    <div style={{ fontSize: 11, color: '#D1D5DB', lineHeight: 1.6 }}>
-      The fundamental difference is that Free Listing provides basic web presence, Social Boost maximizes reach and visibility, and Priority Shield guarantees complete privacy, screening, and safety.<br />
-      <span style={{ color: '#9CA3AF', fontSize: 10 }}>मुख्य भिन्नता: निःशुल्क सूचीकरणले आधारभूत उपस्थिति दिन्छ, सोसल बुस्टले प्रचार र भिडियो पहुँच बढाउँछ, र प्रायोरिटी शिल्डले पूर्ण गोपनीयता, सुरक्षा र प्रमाणीकरण सुनिश्चित गर्छ।</span>
-    </div>
-  </div>
-
-  {/* Table */}
-  <div style={{ overflowX: 'auto' }}>
-    <table style={{ width: '100%', minWidth: 600, borderCollapse: 'collapse', fontSize: 12 }}>
-      <thead>
-        <tr>
-          <th style={{ padding: '14px 12px', background: '#F3F4F6', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#1A1A1A', width: '22%' }}>Dimension / विशेषता</th>
-          <th style={{ padding: '14px 12px', background: '#F0FDF4', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#166534', width: '26%' }}>🆓 Free (NPR 0)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>निःशुल्क सूचीकरण</span></th>
-          <th style={{ padding: '14px 12px', background: '#EFF6FF', borderBottom: '2px solid #1A1A1A', borderRight: '1.5px solid #E5E7EB', textAlign: 'left', fontWeight: 900, color: '#1D4ED8', width: '26%' }}>🚀 Social Boost (NPR 299)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>सोसल बुस्ट</span></th>
-          <th style={{ padding: '14px 12px', background: '#FFFBEB', borderBottom: '2px solid #1A1A1A', textAlign: 'left', fontWeight: 900, color: '#B45309', width: '26%' }}>⭐ Priority Shield (NPR 599)<br /><span style={{ fontSize: 10, fontWeight: 600, color: '#6B7280' }}>प्रायोरिटी शिल्ड</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          {
-            dim: 'Core Value\nमुख्य फाइदा',
-            free: 'Standard Presence: Searchable listing on HamroPets.com directory.\n\nआधारभूत उपस्थिति: हाम्रो पेट्सको डाइरेक्टरीमा खोजी गर्न मिल्ने प्रोफाइल।',
-            boost: 'Maximum Eyeballs & Speed: Broadcasts your pet\'s appeal across social networks.\n\nअधिकतम पहुँच र गति: सामाजिक सञ्जाल मार्फत व्यापक प्रचार र ध्यानाकर्षण।',
-            shield: 'Privacy & Verification: Hands-off peace of mind and protection from bad actors.\n\nगोपनीयता र सुरक्षा: झन्झटरहित प्रक्रिया र अनावश्यक व्यक्तिहरूबाट सुरक्षा।',
-          },
-          {
-            dim: 'Video Production\nभिडियो निर्माण',
-            free: 'None included. Website text and photo profile only.\n\nसमावेश छैन। वेबसाइटमा फोटो र विवरण मात्र।',
-            boost: 'Custom short-form video on TikTok, Instagram & Facebook with Swor AI Nepali voice narration.\n\nस्वर एआईको नेपाली आवाज सहित टिकटक, इन्स्टाग्राम र फेसबुकका लागि भिडियो।',
-            shield: 'Includes the exact same full video and voiceover production package.\n\nसोसल बुस्टको सम्पूर्ण भिडियो र भ्वाइसओभर प्याकेज समावेश ✅',
-          },
-          {
-            dim: 'Phone Privacy\nफोन गोपनीयता',
-            free: '🔓 Public: Your phone number is displayed openly.\n\nसार्वजनिक: तपाईंको नम्बर जोकोहीले देख्न सक्छन्।',
-            boost: '🔓 Public: Number listed openly on site and video captions.\n\nसार्वजनिक: नम्बर वेबसाइट र भिडियोमा खुला रहन्छ।',
-            shield: '🔒 100% Private: Number hidden. Calls route through HamroPets.\n\n१००% गोप्य: तपाईंको नम्बर कतै देखिँदैन; सबै कल हाम्रो पेट्स मार्फत आउँछन्।',
-          },
-          {
-            dim: 'Caller Filtering\nकल प्रमाणीकरण',
-            free: 'Self-service: You screen all callers yourself.\n\nआफैंले गर्ने: सबै कल सिधै उठाई ब्रिडर वा फेक कलर आफैं छुट्याउनुपर्छ।',
-            boost: 'Self-service: You manage and screen all calls directly.\n\nआफैंले गर्ने: सबै फोन कल आफैंले व्यवस्थापन गर्नुपर्छ।',
-            shield: 'Pre-screened: HamroPets filters fake callers & sends top 5–7 verified family profiles.\n\nहाम्रो पेट्सले गर्ने: उत्कृष्ट ५ देखि ७ जना प्रमाणित परिवार मात्र सिफारिस गर्छ।',
-          },
-          {
-            dim: 'Platform Placement\nवेबसाइटमा स्थान',
-            free: 'Standard chronological listing.\n\nवेबसाइटमा सामान्य क्रमानुसार देखिने।',
-            boost: 'Priority top placement in search and directory results.\n\nखोज सूचीमा सबैभन्दा माथिल्लो स्थान।',
-            shield: 'Top-of-search + dedicated homepage banner for 14 days.\n\nखोज सूचीको शीर्ष + १४ दिन होमपेजको ब्यानरमा विशेष प्रदर्शन।',
-          },
-          {
-            dim: 'Ideal For\nउपयुक्त',
-            free: 'Non-urgent rehoming, community fosters, local mixed-breed pets.\n\nहतार नभएका सामान्य केस र स्थानीय जातका पाल्तु जनावर।',
-            boost: 'Local dogs, adult cats, owners comfortable handling direct calls.\n\nसक्रिय कुकुर/बिरालो, छिटो घर चाहिएको र सिधै फोन उठाउन सक्नेका लागि।',
-            shield: 'Purebreds (GSDs, Pomeranians, Huskies), unspayed pets, busy owners.\n\nप्युरीब्रीड, बन्ध्याकरण नगरिएका, व्यस्त वा महिला अभिभावकका लागि।',
-          },
-        ].map((row, i) => (
-          <tr key={i} style={{ borderBottom: '1.5px solid #E5E7EB', background: i % 2 === 0 ? '#fff' : '#F9FAFB' }}>
-            <td style={{ padding: '14px 12px', fontWeight: 800, color: '#1A1A1A', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.5, whiteSpace: 'pre-line' }}>{row.dim}</td>
-            <td style={{ padding: '14px 12px', color: '#374151', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{row.free}</td>
-            <td style={{ padding: '14px 12px', color: '#1E3A8A', borderRight: '1.5px solid #E5E7EB', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line', background: i % 2 === 0 ? '#EFF6FF' : '#DBEAFE22' }}>{row.boost}</td>
-            <td style={{ padding: '14px 12px', color: '#92400E', verticalAlign: 'top', lineHeight: 1.6, whiteSpace: 'pre-line', background: i % 2 === 0 ? '#FFFBEB' : '#FEF3C722' }}>{row.shield}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
-{/* PAYMENT INSTRUCTIONS */}
-{(form.boostTier === 'boost' || form.boostTier === 'shield') && (
-  <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', boxShadow: '3px 3px 0px #B45309' }}>
-    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 12 }}>💳 Payment Instructions / भुक्तानी निर्देशन</div>
-    <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.8, fontWeight: 500 }}>
-      <strong>Amount / रकम:</strong> {form.boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}<br /><br />
-      <strong>eSewa Account / eSewa खाता:</strong><br />
-      📱 <strong>9851221428</strong> (HamroPets)<br /><br />
-        <strong>Khalti / Bank Transfer:</strong><br />
-      📱 <strong>9851221428</strong> (HamroPets)<br /><br />
-      भुक्तानी गरेपछि screenshot WhatsApp मा पठाउनुहोस्: <strong>9851221428</strong><br />
-      After payment, send screenshot to WhatsApp: <strong>9851221428</strong><br /><br />
-      <span style={{ fontSize: 12, color: '#6B7280' }}>हामी २-४ घण्टाभित्र तपाईंको package सक्रिय गर्नेछौं। We will activate your package within 2-4 hours. 🐾</span>
-    </div>
-    <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-      {['eSewa', 'Khalti', 'Bank Transfer'].map(p => (
-        <span key={p} style={{ background: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>{p}</span>
-      ))}
-    </div>
-  </div>
-)}
-                {/* TERMS */}
-                <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>Terms & Success Story Archive / सर्तहरू र सफलता कथा अभिलेख</div>
-                  <div style={{ fontSize: 13, color: '#555', lineHeight: 1.8, fontWeight: 500 }}>
-                    • The adoption process is 100% free. No money should be exchanged. / दत्तक प्रक्रिया १००% निःशुल्क छ।<br />
-                    • HamroPets will keep your pet's photos on our page as a "Success Story" after adoption. / HamroPets ले तपाईंको पाल्तु जनावरको फोटो "सफलता कथा" को रूपमा राख्नेछ।<br />
-                    • Your personal contact details will be deleted from the post once your pet finds a home. / घर पाएपछि तपाईंको सम्पर्क विवरण हटाइनेछ।<br />
-                    • HamroPets does not take responsibility for any misinformation provided. / गलत जानकारीको लागि HamroPets जिम्मेवार हुँदैन।
-                  </div>
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginTop: 14 }}>
-                    <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#000' }}>
-                      I agree to these terms / म यी सर्तहरूमा सहमत छु ✅
-                    </span>
-                  </label>
-                </div>
-
-                {/* CONSENT */}
-                <div style={{ background: '#FAFAFA', borderRadius: 14, padding: '20px', border: '1.5px solid #E5E7EB' }}>
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
-                    <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#000', lineHeight: 1.6 }}>
-                      I agree to be contacted by Adopt a Dog Nepal or its affiliated parties and receive updates.<br />
-                      <span style={{ fontWeight: 500, color: '#666' }}>म Adopt a Dog Nepal वा यसका सम्बद्ध पक्षहरूद्वारा सम्पर्क गर्न र अपडेटहरू प्राप्त गर्न सहमत छु।</span>
-                    </span>
-                  </label>
-                </div>
-
-                {/* SAFETY GUIDE */}
-                <div style={{ background: '#FFF9E6', borderRadius: 14, padding: '20px', border: '1.5px solid #FFD23F' }}>
-                  <div style={{ fontWeight: 800, fontSize: 14, color: '#000', marginBottom: 10 }}>⚠️ Safety & Verification Guide / सुरक्षा र प्रमाणीकरण मार्गदर्शन</div>
-                  <div style={{ fontSize: 13, color: '#555', lineHeight: 1.9, fontWeight: 500 }}>
-                    1. <strong>Request Government ID</strong> — Always ask for adopter's Citizenship Card (Nagarita). / नागरिकताको फोटो अनिवार्य माग्नुहोला।<br />
-                    2. <strong>Social Media Check</strong> — Verify their Facebook or Instagram profile. / उनीहरूको सामाजिक सञ्जाल प्रोफाइल जाँच गर्नुहोला।<br />
-                    3. <strong>No Financial Transactions</strong> — Adoption is 100% free. / एडोप्सन पूर्ण रूपमा निःशुल्क हुनुपर्छ।<br />
-                    4. <strong>Home Visit / Video</strong> — Ask for a video of where the pet will stay. / पाल्तु जनावर बस्ने ठाउँको भिडियो माग्नुहोला।<br />
-                    5. <strong>Follow-up</strong> — Check in after a few weeks. / केही हप्ता पछि अवस्थाबारे सोधपुछ गर्नुहोला।
-                  </div>
-                </div>
-
-                {uploading && (
-                  <div style={{ background: '#E8F9ED', borderRadius: 12, padding: '14px 18px', border: '1.5px solid #58CC02', fontSize: 14, color: '#166534', fontWeight: 700, textAlign: 'center' }}>
-                    ⬆️ Uploading photos and video... / फोटो र भिडियो अपलोड हुँदैछ... कृपया प्रतीक्षा गर्नुहोस्
-                  </div>
-                )}
-
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <button onClick={() => setStep(3)} disabled={submitting} style={{ flex: 1, background: '#fff', color: '#000', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #000' }}>← Back</button>
-                  <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: '#FF6B35', color: '#fff', padding: '13px', borderRadius: 12, border: '2px solid #000', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #000', opacity: submitting ? 0.7 : 1 }}>
-                    {submitting ? (uploading ? '⬆️ Uploading... / अपलोड हुँदैछ...' : '🐾 Saving... / सेभ हुँदैछ...') : '🐾 Submit for Review / समीक षाको लागि सबमिट गर्नुहोस्'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-        </div>
-
-        {/* FOOTER */}
-        <footer style={{ background: '#fff', borderTop: '3px solid #000', padding: '28px' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ color: '#888', fontSize: 13, fontWeight: 600 }}>© 2025 HamroPets · Nepal's First Pet Platform</span>
-            <Link href="/" style={{ color: '#666', fontSize: 13, textDecoration: 'none', fontWeight: 700 }}>← Back to Home</Link>
-          </div>
-        </footer>
 
       </div>
     </>
