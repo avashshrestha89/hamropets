@@ -160,6 +160,7 @@ const filteredWalkers = walkers.filter(w => {
   <title>Dog Walking & Pet Sitting Kathmandu — Verified & Cage-Free | HamroPets</title>
   <meta name="description" content="Find ID-verified dog walkers and cage-free pet sitters in Kathmandu and Lalitpur. From NPR 300/walk and NPR 700/day. Nepal's first verified pet sitting and dog walking service presented by Adopt a Dog Nepal." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.hamropets.com/walk-sit" />
   <meta name="keywords" content="dog walking Kathmandu, pet sitting Nepal, dog walker Kathmandu, pet sitter Kathmandu, cage free pet sitting Nepal, dog walker Lalitpur, pet boarding Kathmandu, dog hostel Kathmandu, pet daycare Kathmandu, trusted dog walker Jhamsikhel, dog walker New Baneshwor, pet sitter Baluwatar, dog boarding Kathmandu, home pet sitting Kathmandu, verified pet sitter Nepal, ghar ma kukur chadne manche" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Dog Walking & Pet Sitting Kathmandu — Verified & Cage-Free | HamroPets" />
