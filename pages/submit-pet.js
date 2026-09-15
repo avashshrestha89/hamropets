@@ -349,7 +349,14 @@ export default function SubmitPet() {
   if (!lang) {
     return (
       <>
-        <Head><title>Submit a Pet for Adoption — HamroPets</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
+        <Head>
+  <title>Submit a Pet for Adoption in Nepal — Free Pet Listing | HamroPets</title>
+  <meta name="description" content="Submit your pet for adoption on HamroPets — Nepal's first dedicated pet platform. Free listing, reviewed within 24 hours. Presented by Adopt a Dog Nepal since 2018." />
+  <meta httpEquiv="content-language" content="en-NP, ne-NP" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.hamropets.com/submit-pet" />
+</Head>
         <div style={{ minHeight: '100vh', background: '#fff', fontFamily: 'system-ui, sans-serif', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 48 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, overflow: 'hidden', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
