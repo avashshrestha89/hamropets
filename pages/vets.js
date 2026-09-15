@@ -52,6 +52,7 @@ export default function Vets({ vets }) {
   <title>Vet Clinics & Pet Services Kathmandu — Find Trusted Vets | HamroPets</title>
   <meta name="description" content="Find verified vet clinics, groomers, pet boarding and pet services across Nepal. Browse the most comprehensive vet directory in Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.hamropets.com/vets" />
   <meta name="keywords" content="vet clinic Kathmandu, veterinary hospital Nepal, best vet Kathmandu, 24 hour vet Kathmandu, dog vet Kathmandu, cat vet Nepal, pet grooming Kathmandu, ramro vet clinic kathmandu, emergency vet Kathmandu, pet boarding Nepal, vet near me Kathmandu, animal hospital Kathmandu, dog vaccination Kathmandu, online vet consultation Nepal" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Vet Clinics & Pet Services Kathmandu | HamroPets" />
