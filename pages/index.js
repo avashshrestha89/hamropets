@@ -132,6 +132,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   <title>HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet</title>
   <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.hamropets.com/" />
   <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, cat adoption Kathmandu, pet sitting Kathmandu, dog walking Kathmandu, dog walker Lalitpur, pet boarding Kathmandu, vet clinic Kathmandu, lost found pets Nepal, adopt a dog Nepal, kukur adopt garne, HamroPets, Adopt a Dog Nepal, pet care platform Nepal, dog hostel Kathmandu" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet" />
