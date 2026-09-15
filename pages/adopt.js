@@ -53,6 +53,7 @@ export default function Adopt({ pets }) {
         <meta name="description" content="Free pet adoption in Nepal. Browse verified dog and cat listings across Kathmandu Valley. Presented by Adopt a Dog Nepal — 700+ pets rehomed since 2018." />
         <meta httpEquiv="content-language" content="en-NP, ne-NP" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.hamropets.com/adopt" />
         <meta name="keywords" content="adopt dog Nepal, adopt cat Nepal, pet adoption Kathmandu, free dog adoption Nepal, rescue dog Nepal, puppy adoption Kathmandu, cat adoption Kathmandu, adopt a dog in Nepal, kukur adopt garne, dog adoption Lalitpur, free pet adoption Kathmandu, adopt street dog Nepal, animal shelter Kathmandu, dog rescue Nepal" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Adopt a Dog or Cat in Nepal — Free Pet Adoption | HamroPets" />
