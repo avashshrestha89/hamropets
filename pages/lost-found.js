@@ -147,6 +147,7 @@ export default function LostFound() {
         <title>Lost & Found Pets Nepal — Report Missing or Found Pets | HamroPets</title>
         <meta name="description" content="Report a lost or found pet in Nepal. Help reunite missing dogs and cats with their families across Kathmandu Valley. Free community service by Adopt a Dog Nepal since 2018." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.hamropets.com/lost-found" />
         <meta name="keywords" content="lost dog Kathmandu, found dog Nepal, missing cat Kathmandu, lost pet Nepal, harayeko kukur, report lost dog Nepal, found pet Kathmandu, lost and found pets Nepal" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Lost & Found Pets Nepal — Help Reunite Pets | HamroPets" />
