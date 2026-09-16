@@ -201,6 +201,7 @@ export default function SubmitPet() {
   const [lang, setLang] = useState(null)
   const [step, setStep] = useState(0)
   const [submitted, setSubmitted] = useState(false)
+  const [paidSubmitted, setPaidSubmitted] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [showGenerating, setShowGenerating] = useState(false)
@@ -325,7 +326,7 @@ const handleImageSelect = async (e) => {
         const tierName = boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'
         const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851221428 now.`)
         const res = await fetch('/api/submit-pet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-        if (res.ok) { setSubmitted(true); window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank') }
+        if (res.ok) { setPaidSubmitted(true); window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank') }
         else alert('Something went wrong. Please try again.')
       } else {
         const res = await fetch('/api/submit-pet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -393,6 +394,44 @@ const handleImageSelect = async (e) => {
   }
 
   // SUBMITTED
+if (paidSubmitted) {
+    return (
+      <>
+        <Head><title>Payment Pending — HamroPets</title></Head>
+        <div style={{ minHeight: '100vh', background: '#fff', fontFamily: 'system-ui, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <div style={{ textAlign: 'center', maxWidth: 520 }}>
+            <div style={{ fontSize: 80, marginBottom: 20 }}>💳</div>
+            <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', marginBottom: 12 }}>
+              {lang === 'ne' ? 'भुक्तानी पूरा गर्नुहोस्!' : 'Complete Your Payment!'}
+            </h1>
+            <p style={{ color: '#6B7280', fontSize: 15, marginBottom: 24, lineHeight: 1.7 }}>
+              {lang === 'ne' 
+                ? `${petName} को प्रोफाइल सेभ भयो। भुक्तानी पुष्टि भएपछि मात्र यो सार्वजनिक हुनेछ।`
+                : `${petName}'s profile has been saved. It will go live only after we confirm your payment.`}
+            </p>
+            <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', marginBottom: 24, textAlign: 'left' }}>
+              <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 10 }}>💳 {lang === 'ne' ? 'भुक्तानी विवरण' : 'Payment Details'}</div>
+              <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.9 }}>
+                {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
+                eSewa / Khalti: <strong>9851221428</strong><br />
+                {lang === 'ne' ? 'भुक्तानी पछि WhatsApp मा screenshot पठाउनुहोस्' : 'After payment send screenshot to WhatsApp'}: <strong>9851405178</strong>
+              </div>
+            </div>
+            <a href={`https://wa.me/9779851405178`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '14px 32px', borderRadius: 12, fontSize: 15, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block', marginBottom: 16 }}>
+              💬 {lang === 'ne' ? 'WhatsApp मा भुक्तानी पठाउनुहोस्' : 'Send Payment on WhatsApp'}
+            </a>
+            <br />
+            <Link href="/" style={{ color: '#9CA3AF', fontSize: 13, textDecoration: 'underline' }}>
+              {lang === 'ne' ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Back to Home'}
+            </Link>
+            <p style={{ color: '#9CA3AF', fontSize: 12, marginTop: 16 }}>
+              {lang === 'ne' ? 'भुक्तानी पुष्टि भएपछि २-४ घण्टाभित्र तपाईंको listing सक्रिय हुनेछ।' : 'Your listing will be activated within 2-4 hours after payment confirmation.'}
+            </p>
+          </div>
+        </div>
+      </>
+    )
+  }
   if (submitted) {
     return (
       <>
