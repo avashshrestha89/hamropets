@@ -205,7 +205,7 @@ export default function SubmitPet() {
   const [submitting, setSubmitting] = useState(false)
   const [showGenerating, setShowGenerating] = useState(false)
   const [imagePreview, setImagePreview] = useState(null)
-  const [imageFile, setImageFile] = useState(null)
+  const [imageFile, setImageFile] = useState([])
   const [imageUrl, setImageUrl] = useState(null)
   const [boostTier, setBoostTier] = useState('free')
   const [isMobile, setIsMobile] = useState(false)
@@ -254,11 +254,11 @@ export default function SubmitPet() {
     img.src = url
   })
 
-  const handleImageSelect = async (e) => {
-    const file = e.target.files[0]
-    if (!file) return
-    setImagePreview(URL.createObjectURL(file))
-    setImageFile(file)
+const handleImageSelect = async (e) => {
+    const files = Array.from(e.target.files).slice(0, 5)
+    if (!files.length) return
+    setImagePreview(URL.createObjectURL(files[0]))
+    setImageFile(files)
   }
 
   const uploadImage = async (file) => {
@@ -294,11 +294,17 @@ export default function SubmitPet() {
     }
     setSubmitting(true)
     try {
-      let uploadedUrl = imageUrl
-      if (imageFile && !imageUrl) {
+ let uploadedUrls = []
+      if (imageFile && imageFile.length > 0) {
         setUploading(true)
-        uploadedUrl = await uploadImage(imageFile)
-        setImageUrl(uploadedUrl)
+        for (const file of imageFile) {
+          try {
+            const url = await uploadImage(file)
+            uploadedUrls.push(url)
+          } catch (err) {
+            console.error('Upload error:', err)
+          }
+        }
         setUploading(false)
       }
       const payload = {
@@ -310,7 +316,7 @@ export default function SubmitPet() {
         reasonForAdoption: form.reasonForAdoption || form.reason,
         submitterName: form.ownerName, phone: form.ownerPhone,
         whatsapp: form.ownerWhatsapp, email: form.ownerEmail,
-        address: form.ownerAddress, images: uploadedUrl ? [uploadedUrl] : [],
+        address: form.ownerAddress, images: uploadedUrls,
         videoUrl: null, boostTier,
         status: boostTier !== 'free' ? 'pending_payment' : 'pending',
       }
@@ -532,11 +538,14 @@ export default function SubmitPet() {
                       {lang === 'ne' ? `${petName} को फोटो अपलोड गर्दा दत्तककर्ताले उनीहरूलाई तुरुन्त माया गर्छन्। 📸` : `A photo of ${petName} helps adopters fall in love immediately. 📸`}
                     </div>
                     <div style={{ position: 'relative', border: `3px dashed ${imagePreview ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '32px', textAlign: 'center', background: imagePreview ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
-                      <input type="file" accept="image/*" onChange={handleImageSelect} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                      <input type="file" accept="image/*" multiple onChange={handleImageSelect} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
                       {imagePreview ? (
                         <div>
-                          <img src={imagePreview} alt={petName} style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 14, border: '3px solid #1A1A1A', marginBottom: 10 }} />
-                          <div style={{ fontSize: 14, fontWeight: 800, color: '#58CC02' }}>{petName} {lang === 'ne' ? 'को फोटो राम्रो छ! साँच्चै।' : 'looks great in that photo. Seriously.'} ✅</div>
+<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 8 }}>
+                            {Array.isArray(imageFile) && imageFile.map((f, i) => (
+                              <img key={i} src={URL.createObjectURL(f)} alt={`${petName} ${i+1}`} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A' }} />
+                            ))}
+                          </div>                          <div style={{ fontSize: 14, fontWeight: 800, color: '#58CC02' }}>{imageFile.length} {lang === 'ne' ? 'फोटो अपलोड भयो ✅ — थप फोटो थप्न क्लिक गर्नुहोस्' : 'photo(s) selected ✅ — click to add more'}</div>
                           <div style={{ fontSize: 12, color: '#6B7280', marginTop: 4 }}>{t('step2_replace')}</div>
                         </div>
                       ) : (
@@ -713,7 +722,7 @@ export default function SubmitPet() {
                     {lang === 'ne' ? `${petName} को फोटो अपलोड गर्दा दत्तककर्ताले उनीहरूलाई तुरुन्त माया गर्छन्। 📸` : `A photo of ${petName} helps adopters fall in love immediately. 📸`}
                   </div>
                   <div style={{ position: 'relative', border: `3px dashed ${imagePreview ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '24px', textAlign: 'center', background: imagePreview ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
-                    <input type="file" accept="image/*" onChange={handleImageSelect} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                    <input type="file" accept="image/*" multiple onChange={handleImageSelect} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
                     {imagePreview ? (
                       <div>
                         <img src={imagePreview} alt={petName} style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 12, border: '3px solid #1A1A1A', marginBottom: 8 }} />
