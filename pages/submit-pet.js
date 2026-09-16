@@ -545,8 +545,19 @@ const handleImageSelect = async (e) => {
                             {Array.isArray(imageFile) && imageFile.map((f, i) => (
                               <img key={i} src={URL.createObjectURL(f)} alt={`${petName} ${i+1}`} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A' }} />
                             ))}
-                          </div>                          <div style={{ fontSize: 14, fontWeight: 800, color: '#58CC02' }}>{imageFile.length} {lang === 'ne' ? 'फोटो अपलोड भयो ✅ — थप फोटो थप्न क्लिक गर्नुहोस्' : 'photo(s) selected ✅ — click to add more'}</div>
-                          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 4 }}>{t('step2_replace')}</div>
+                          </div>
+                          <div style={{ fontSize: 13, fontWeight: 800, color: '#58CC02', marginBottom: 8 }}>{imageFile.length} {lang === 'ne' ? 'फोटो ✅' : 'photo(s) uploaded ✅'}</div>
+                          {imageFile.length < 5 && (
+                            <div style={{ position: 'relative', display: 'inline-block' }}>
+                              <input type="file" accept="image/*" onChange={(e) => {
+                                const newFiles = Array.from(e.target.files)
+                                setImageFile(prev => [...prev, ...newFiles].slice(0, 5))
+                              }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                              <div style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 10, padding: '8px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+                                + {lang === 'ne' ? 'थप फोटो थप्नुहोस्' : 'Add More Photos'} ({imageFile.length}/5)
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <div>
