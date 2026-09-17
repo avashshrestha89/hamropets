@@ -143,7 +143,7 @@ export default function Adopt({ pets }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
+      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
 
         {/* NAV */}
         <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -207,7 +207,7 @@ export default function Adopt({ pets }) {
 
           {/* PET GRID */}
           {filtered.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 12 : 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(4, minmax(0, 1fr))', gap: isMobile ? 12 : 20 }}>
               {filtered.map(pet => {
                 const emoji = speciesEmoji[pet.species?.toLowerCase()] || '🐾'
                 const color = speciesColor[pet.species?.toLowerCase()] || '#58CC02'
