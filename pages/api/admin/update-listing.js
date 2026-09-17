@@ -32,6 +32,7 @@ export default async function handler(req, res) {
   if (rest.images !== undefined) updateData.images = rest.images
   if (rest.video_url !== undefined) updateData.video_url = rest.video_url
   if (rest.is_featured !== undefined) updateData.is_featured = rest.is_featured
+  if (rest.is_super_featured !== undefined) updateData.is_super_featured = rest.is_super_featured
 
   const { error } = await supabase
     .from('pet_listings')
