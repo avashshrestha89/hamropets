@@ -226,7 +226,7 @@ export default function Adopt({ pets }) {
                       <div style={{ padding: isMobile ? '10px 12px' : '16px 18px' }}>
                         <div style={{ fontWeight: 900, fontSize: isMobile ? 15 : 20, color: '#1A1A1A' }}>{pet.pet_name}</div>
                         <div style={{ color: '#6B7280', fontSize: isMobile ? 11 : 13, marginTop: 2, fontWeight: 600, textTransform: 'capitalize' }}>
-                          {pet.breed || pet.species} · {age}
+                          {pet.breed || pet.species} · {age} · {pet.gender === 'male' ? '♂ Male' : pet.gender === 'female' ? '♀ Female' : pet.gender || ''}
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
                           <span style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', fontWeight: 700 }}>📍 {pet.location}</span>
