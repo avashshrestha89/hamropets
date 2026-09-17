@@ -323,7 +323,7 @@ const filteredWalkers = walkers.filter(w => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
 
 {filteredWalkers.map(w => (
                   <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
