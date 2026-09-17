@@ -280,11 +280,11 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   <link rel="icon" href="/favicon.ico" />
 </Head>
 
-      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", overflowX: 'hidden', maxWidth: '100vw' }}>
+      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
 
         {/* NAV */}
         <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px' : '0 28px', height: isMobile ? 60 : 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px 0 16px' : '0 28px', height: isMobile ? 60 : 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
               <div style={{ width: isMobile ? 34 : 42, height: isMobile ? 34 : 42, borderRadius: 10, overflow: 'hidden', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', flexShrink: 0 }}>   <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png" alt="HamroPets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> </div>
               <div>
@@ -433,7 +433,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Hand-picked pets looking for their forever home</p>
       </div>
     </div>
-    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 12 : 20 }}>
       {starPets.map(pet => {
         const emoji = speciesEmoji[pet.species?.toLowerCase()] || '🐾'
         const color = speciesColor[pet.species?.toLowerCase()] || '#58CC02'
@@ -536,7 +536,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               </div>
               <Link href="/walk-sit" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
                   {featuredWalkers.map(w => (
 <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', display: 'flex', flexDirection: 'column' }}>
@@ -570,7 +570,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               </div>
               <Link href="/lost-found" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
             </div>
-           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
+           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
               {lostFoundPets.map(item => (
                 <Link key={item.id} href="/lost-found" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
@@ -604,7 +604,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             <span style={{ background: '#58CC02', color: '#1a1a1a', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #166534' }}>🏥 Services</span>
             <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Everything Your Pet Needs</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 12 : 20 }}>
             {[
               { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>, label: 'Vets & Clinics', desc: 'Find verified vets near you', color: '#FF6B35', href: '/vets' },
               { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7B5EA7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v18M18 3v18M3 6h18M3 18h18"/></svg>, label: 'Grooming', desc: 'Professional pet groomers', color: '#7B5EA7', href: '/vets' },
@@ -673,7 +673,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
 
         {/* LOST & FOUND */}
-        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
+        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
           <div style={{ background: '#FFF0F6', borderRadius: 20, padding: isMobile ? '28px 20px' : '40px 48px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: isMobile ? 20 : 32, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', flexWrap: 'wrap' }}>
             <div>
               <div style={{ fontSize: 32, marginBottom: 8 }}>🔍</div>
@@ -688,7 +688,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         </div>
 
         {/* SWOR AI BANNER */}
-        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
+        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
           <div style={{ background: '#FF6B35', borderRadius: 20, padding: isMobile ? '28px 20px' : '40px 48px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: isMobile ? 20 : 32, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               <div style={{ width: isMobile ? 52 : 68, height: isMobile ? 52 : 68, borderRadius: 16, background: '#FFD23F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 24 : 32, border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', flexShrink: 0 }}>🎙️</div>
@@ -704,7 +704,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         </div>
 
         {/* SOCIAL MEDIA */}
-        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px' : '0 28px' }}>
+        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
           <div style={{ marginBottom: 24, textAlign: 'center' }}>
             <span style={{ background: '#1A1A1A', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #555' }}>📱 Follow Us</span>
             <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
