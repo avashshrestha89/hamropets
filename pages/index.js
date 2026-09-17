@@ -9,15 +9,16 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
- const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }] = await Promise.all([
+ const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(8),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
     supabase.from('lost_found').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
-    supabase.from('pet_listings').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
+   supabase.from('pet_listings').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
+    supabase.from('pet_listings').select('*').eq('is_super_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
   ])
-   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null } }
+   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null } }
 }
 function Slideshow({ slides }) {
   const [current, setCurrent] = useState(0)
@@ -94,7 +95,7 @@ function Slideshow({ slides }) {
   )
 }
 
-export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker }) {
+export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet }) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -373,6 +374,55 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </div>
           </div>
         </div>
+{/* SUPER URGENT — PRIORITY SHIELD */}
+{superPet && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
+    <div style={{ marginBottom: 16 }}>
+      <span style={{ background: '#FF3B30', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A', animation: 'pulse 2s infinite' }}>🚨 URGENT</span>
+    </div>
+    <Link href={`/pet/${superPet.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+      <div style={{ background: '#fff', borderRadius: 20, border: '4px solid #FF3B30', overflow: 'hidden', boxShadow: '6px 6px 0px #FF3B30', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+        {/* PHOTO */}
+        <div style={{ width: isMobile ? '100%' : 320, height: isMobile ? 240 : 300, background: '#FEF2F2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, flexShrink: 0, borderRight: isMobile ? 'none' : '4px solid #FF3B30', borderBottom: isMobile ? '4px solid #FF3B30' : 'none', position: 'relative' }}>
+          {superPet.images && superPet.images.length > 0 ? (
+            <img src={superPet.images[0]} alt={superPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FEF2F2' }} />
+          ) : (
+            <span>{superPet.species === 'dog' ? '🐕' : superPet.species === 'cat' ? '🐈' : '🐾'}</span>
+          )}
+          <div style={{ position: 'absolute', top: 12, left: 12, background: '#FF3B30', color: '#fff', fontSize: 11, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
+            🚨 NEEDS HOME URGENTLY
+          </div>
+        </div>
+        {/* DETAILS */}
+        <div style={{ padding: isMobile ? '20px 16px' : '28px 32px', flex: 1 }}>
+          <div style={{ fontWeight: 900, fontSize: isMobile ? 24 : 32, color: '#1A1A1A', marginBottom: 6, letterSpacing: -0.5 }}>{superPet.pet_name}</div>
+          <div style={{ fontSize: isMobile ? 13 : 15, color: '#6B7280', fontWeight: 600, marginBottom: 12 }}>
+            {superPet.breed || superPet.species} · {superPet.gender} · 📍 {superPet.location}
+          </div>
+          <p style={{ fontSize: isMobile ? 14 : 16, color: '#374151', lineHeight: 1.7, marginBottom: 20, fontWeight: 500 }}>
+            {superPet.description?.substring(0, 200)}{superPet.description?.length > 200 ? '...' : ''}
+          </p>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
+            {superPet.vaccinated && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 999, border: '1.5px solid #166534' }}>💉 Vaccinated</span>}
+            {superPet.neutered && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 999, border: '1.5px solid #166534' }}>✂️ Neutered</span>}
+            {superPet.friendly_children === 'yes' && <span style={{ background: '#EFF6FF', color: '#1D4ED8', fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 999, border: '1.5px solid #1D4ED8' }}>👶 Kid-friendly</span>}
+          </div>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <a href={`tel:${superPet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+              📞 Call Now
+            </a>
+            <a href={`https://wa.me/977${superPet.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+              💬 WhatsApp
+            </a>
+            <span style={{ background: '#1A1A1A', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, border: '2px solid #1A1A1A' }}>
+              View Full Profile →
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  </div>
+)}
 {/* STAR FEATURED PETS */}
 {starPets && starPets.length > 0 && (
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
