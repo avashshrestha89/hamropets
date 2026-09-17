@@ -536,8 +536,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               </div>
               <Link href="/walk-sit" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
-              {featuredWalkers.map(w => (
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
+                  {featuredWalkers.map(w => (
 <a key={w.id} href={`/walker/${w.id}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ height: isMobile ? 200 : 240, background: w.services?.includes('Sitting') ? 'linear-gradient(135deg, #FF6B9D25, #FF6B9D50)' : 'linear-gradient(135deg, #38BDF825, #38BDF850)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
@@ -570,7 +570,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               </div>
               <Link href="/lost-found" style={{ background: '#fff', color: '#1A1A1A', padding: '10px 18px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 700, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>View All →</Link>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20 }}>
+           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: isMobile ? 10 : 20, width: '100%', minWidth: 0 }}>
               {lostFoundPets.map(item => (
                 <Link key={item.id} href="/lost-found" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
