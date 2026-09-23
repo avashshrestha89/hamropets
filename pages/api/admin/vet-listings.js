@@ -14,5 +14,6 @@ export default async function handler(req, res) {
     .eq('status', status)
     .order('created_at', { ascending: false })
   if (error) return res.status(500).json({ error: error.message })
-  return res.status(200).json({ listings: data })
+res.setHeader('Cache-Control', 'no-store')
+return res.status(200).json({ listings: data })
 }
