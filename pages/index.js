@@ -842,7 +842,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           
                {[
 ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found']]],                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
-                ['Company', [['About HamroPets', '/'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
+                ['Company', [['About HamroPets', '/about'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['Contact Us', '/advertise']]],
               ].map(([heading, items]) => (
                 <div key={heading}>
                   <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
