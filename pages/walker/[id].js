@@ -142,13 +142,21 @@ export default function WalkerProfile({ walker }) {
 
   return (
     <>
-      <Head>
-        <title>{walker.full_name} — HamroPets Walker/Sitter</title>
-        <meta name="description" content={`${walker.full_name} is a verified pet walker/sitter in ${walker.city || walker.area}, Nepal.`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+   <Head>
+  <title>{walker.full_name} — Verified Dog Walker & Pet Sitter in {walker.city || walker.area} | HamroPets Nepal</title>
+  <meta name="description" content={`${walker.full_name} is a verified dog walker and pet sitter in ${walker.city || walker.area}, Nepal. ${walker.services?.includes('walking') ? 'Dog walking from NPR 300/walk. ' : ''}${walker.services?.includes('sitting') ? 'Cage-free pet sitting from NPR 700/day. ' : ''}ID-verified with Nepal citizenship card. Book directly on HamroPets.`} />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow" />
+  <meta httpEquiv="content-language" content="en-NP, ne-NP" />
+  <link rel="canonical" href={`https://www.hamropets.com/walker/${walker.id}`} />
+  <meta property="og:title" content={`${walker.full_name} — Verified Dog Walker in ${walker.city || walker.area} | HamroPets`} />
+  <meta property="og:description" content={`Verified dog walker and pet sitter in ${walker.city || walker.area}, Nepal. Book directly on HamroPets — Nepal's first pet platform.`} />
+  <meta property="og:image" content={walker.profile_photo || 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png'} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://www.hamropets.com/walker/${walker.id}`} />
+</Head>
 
-      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
+      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
 
         {/* NAV */}
         <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
