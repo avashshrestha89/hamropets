@@ -67,14 +67,20 @@ export default function ListBusiness() {
 
   return (
     <>
-      <Head>
-        <title>List Your Business — HamroPets</title>
-        <meta name="description" content="List your vet clinic, grooming salon or pet service on HamroPets Nepal." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <Head>
+  <title>List Your Vet Clinic or Pet Business on HamroPets — Nepal's First Pet Platform</title>
+  <meta name="description" content="List your vet clinic, grooming salon, pet shop or pet care service on HamroPets — Nepal's first dedicated pet platform. Reach thousands of pet owners across Kathmandu, Lalitpur and Bhaktapur. Free basic listing available." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow" />
+  <meta httpEquiv="content-language" content="en-NP, ne-NP" />
+  <link rel="canonical" href="https://www.hamropets.com/list-business" />
+  <meta property="og:title" content="List Your Vet Clinic or Pet Business on HamroPets Nepal" />
+  <meta property="og:description" content="Reach thousands of pet owners across Kathmandu Valley. List your vet clinic, grooming salon or pet service on HamroPets — Nepal's first pet platform." />
+  <meta property="og:url" content="https://www.hamropets.com/list-business" />
+  <meta property="og:type" content="website" />
+</Head>
 
-      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
-
+<div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
         {/* NAV */}
         <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 16px' : '0 28px', height: isMobile ? 60 : 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
