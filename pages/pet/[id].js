@@ -44,13 +44,21 @@ export default function PetDetail({ pet }) {
 
   return (
     <>
-      <Head>
-        <title>{pet.pet_name} — {isAdopted ? 'Adopted' : 'Adopt on HamroPets'}</title>
-        <meta name="description" content={`${isAdopted ? `${pet.pet_name} has been adopted!` : `Adopt ${pet.pet_name}, a ${pet.species} in ${pet.location}. Free adoption on HamroPets.`}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <Head>
+  <title>{pet.pet_name} — {pet.breed || pet.species} for Free Adoption in {pet.location} | HamroPets Nepal</title>
+  <meta name="description" content={`Adopt ${pet.pet_name}${pet.breed ? `, a ${pet.breed}` : ''} ${pet.species?.toLowerCase()} in ${pet.location}, Nepal. ${pet.vaccinated ? 'Vaccinated. ' : ''}${pet.neutered ? 'Neutered. ' : ''}Free adoption presented by Adopt a Dog Nepal — 700+ pets rehomed since 2018. Contact owner directly on HamroPets.`} />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow" />
+  <meta httpEquiv="content-language" content="en-NP, ne-NP" />
+  <link rel="canonical" href={`https://www.hamropets.com/pet/${pet.id}`} />
+  <meta property="og:title" content={`${pet.pet_name} — Free Adoption in ${pet.location} | HamroPets`} />
+  <meta property="og:description" content={`Adopt ${pet.pet_name}${pet.breed ? `, a ${pet.breed}` : ''} in ${pet.location}. Free adoption on HamroPets — Nepal's first pet platform.`} />
+  <meta property="og:image" content={pet.images?.[0] || 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png'} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://www.hamropets.com/pet/${pet.id}`} />
+</Head>
 
-      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', maxWidth: '100vw' }}>
+      <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
 
         {/* NAV */}
         <nav style={{ background: '#FFFFFF', borderBottom: '3px solid #1A1A1A', position: 'sticky', top: 0, zIndex: 100 }}>
