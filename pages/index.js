@@ -328,9 +328,24 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 a Loving Home 🐾
               </h1>
 <h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 700+ pets rehomed since 2018.</h2>
-<p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 14, lineHeight: 1.8, fontWeight: 500, margin: '0 0 28px', fontFamily: "'DM Sans', sans-serif" }}>
-  <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit operating since April 2018 that has rehomed over 700 dogs and cats across Nepal. HamroPets offers free pet adoption listings, ID-verified dog walkers from NPR 300 per walk, cage-free pet sitting from NPR 700 per day, a veterinary clinic directory across Kathmandu, Lalitpur and Bhaktapur, and a lost and found pet reporting system. All adoptions on HamroPets are 100% free. Payment accepted via eSewa and Khalti.
-</p>              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+<div style={{ background: '#FAFAFA', border: '2px solid #1A1A1A', borderRadius: 16, padding: '16px 20px', marginBottom: 28, boxShadow: '3px 3px 0px #1A1A1A' }}>
+  <p style={{ color: '#374151', fontSize: isMobile ? 13 : 15, lineHeight: 1.7, fontWeight: 500, margin: '0 0 14px', fontFamily: "'DM Sans', sans-serif" }}>
+    <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>700+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>. Payment via eSewa and Khalti.
+  </p>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    {[
+      ['🐾', 'Free Pet Adoption'],
+      ['🪪', 'ID-Verified Walkers · NPR 300/walk'],
+      ['🏡', 'Cage-Free Sitting · NPR 700/day'],
+      ['🏥', 'Vet Directory · KTM Valley'],
+      ['🔍', 'Lost & Found Pets'],
+    ].map(([emoji, label]) => (
+      <span key={label} style={{ background: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 999, padding: '5px 12px', fontSize: isMobile ? 11 : 12, fontWeight: 700, color: '#1A1A1A', display: 'inline-flex', alignItems: 'center', gap: 5, boxShadow: '1.5px 1.5px 0px #1A1A1A' }}>
+        {emoji} {label}
+      </span>
+    ))}
+  </div>
+</div>            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <Link href="/adopt" style={{ background: '#21a1eb', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #166534', display: 'inline-block' }}> Adopt a Pet</Link>
                 <Link href="/submit-pet" style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 700, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #555', display: 'inline-block' }}>+ Submit a Pet</Link>
               </div>
