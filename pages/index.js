@@ -131,14 +131,14 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     <>
 <Head>
   <title>HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet</title>
-  <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
+  <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta httpEquiv="content-language" content="en-NP, ne-NP" />
     <link rel="canonical" href="https://www.hamropets.com/" />
   <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, cat adoption Kathmandu, pet sitting Kathmandu, dog walking Kathmandu, dog walker Lalitpur, pet boarding Kathmandu, vet clinic Kathmandu, lost found pets Nepal, adopt a dog Nepal, kukur adopt garne, HamroPets, Adopt a Dog Nepal, pet care platform Nepal, dog hostel Kathmandu" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet" />
-  <meta property="og:description" content="Adopt pets, find verified dog walkers and pet sitters, locate vets, and report lost pets across Nepal. Presented by Adopt a Dog Nepal since 2018. 700+ pets rehomed." />
+  <meta property="og:description" content="Adopt pets, find verified dog walkers and pet sitters, locate vets, and report lost pets across Nepal. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
   <meta property="og:url" content="https://www.hamropets.com" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
@@ -235,7 +235,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               "name": "What is HamroPets?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and lost and found pet reporting across the Kathmandu Valley."
+                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and lost and found pet reporting across the Kathmandu Valley."
               }
             },
             {
@@ -243,7 +243,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               "name": "Is HamroPets operated by a nonprofit?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. HamroPets is presented by Adopt a Dog Nepal, a registered nonprofit organization that has successfully rehomed over 700 pets since 2018. Adopt a Dog Nepal manages the platform's social media presence while HamroPets.com serves as the full digital pet services platform."
+                "text": "Yes. HamroPets is presented by Adopt a Dog Nepal, a registered nonprofit organization that has successfully rehomed over 1000 pets since 2018. Adopt a Dog Nepal manages the platform's social media presence while HamroPets.com serves as the full digital pet services platform."
               }
             },
             {
@@ -327,10 +327,10 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <span style={{ background: '#fff', padding: '2px 14px', borderRadius: 14, border: '2.5px solid #1A1A1A', display: 'inline-block', transform: 'rotate(-1.5deg)', boxShadow: '3px 3px 0px #1A1A1A', color: '#FF6B35' }}>Deserves</span><br />
                 a Loving Home 🐾
               </h1>
-<h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 700+ pets rehomed since 2018.</h2>
+<h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 1000+ pets rehomed since 2018.</h2>
 <div style={{ background: '#FAFAFA', border: '2px solid #1A1A1A', borderRadius: 16, padding: '16px 20px', marginBottom: 28, boxShadow: '3px 3px 0px #1A1A1A' }}>
   <p style={{ color: '#374151', fontSize: isMobile ? 13 : 15, lineHeight: 1.7, fontWeight: 500, margin: '0 0 14px', fontFamily: "'DM Sans', sans-serif" }}>
-    <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>700+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>. Payment via eSewa and Khalti.
+    <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>1000+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>. Payment via eSewa and Khalti.
   </p>
   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
     {[
