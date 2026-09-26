@@ -350,7 +350,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <Link href="/submit-pet" style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 700, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #555', display: 'inline-block' }}>+ Submit a Pet</Link>
               </div>
               <div style={{ display: 'flex', gap: 12, marginTop: 28, flexWrap: 'wrap' }}>
-                {[['700+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
+                {[['1000+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
                   <div key={l} style={{ background: '#fff', borderRadius: 14, padding: '10px 16px', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
                     <div style={{ color: c, fontWeight: 900, fontSize: isMobile ? 18 : 22, lineHeight: 1 }}>{v}</div>
                     <div style={{ color: '#6B7280', fontSize: 11, marginTop: 3, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{l}</div>
@@ -745,7 +745,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div></div>
+                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div></div>
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Since</div></div>
                   </div>
                   <div style={{ background: '#69C9D0', color: '#1A1A1A', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on TikTok →</div>
@@ -794,7 +794,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                   </div>
                   <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
                     <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Since</div></div>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>700+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div></div>
+                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div></div>
                   </div>
                   <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Instagram →</div>
                 </div>
@@ -811,7 +811,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
       <div style={{ flex: 1 }}>
         <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 20, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>📊 Real Impact</span>
         <h2 style={{ fontSize: isMobile ? 26 : 38, fontWeight: 900, color: '#fff', margin: '0 0 16px', letterSpacing: -0.5, lineHeight: 1.15 }}>
-          The Nonprofit Behind HamroPets Has Rehomed 700+ Pets Since 2018
+          The Nonprofit Behind HamroPets Has Rehomed 1000+ Pets Since 2018
         </h2>
         <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, margin: '0 0 24px', fontWeight: 500 }}>
           HamroPets is presented by <strong style={{ color: '#FFD23F' }}>Adopt a Dog Nepal (ADAN)</strong> — a nonprofit founded in April 2018 by <strong style={{ color: '#FFD23F' }}>Avash Shrestha</strong>, Founder & Executive Director, and based in Kathmandu. ADAN has been rehoming rescued dogs and cats across Nepal for over 8 years, building one of the country's most trusted animal welfare communities with 91,000+ TikTok followers.
@@ -826,7 +826,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 16, flexShrink: 0, width: isMobile ? '100%' : 380 }}>
         {[
-          ['700+', 'Pets Successfully Rehomed', '#FFD23F'],
+          ['1000+', 'Pets Successfully Rehomed', '#FFD23F'],
           ['8+', 'Years of Animal Welfare Work', '#58CC02'],
           ['91K+', 'TikTok Community Followers', '#38BDF8'],
           ['100%', 'Free Pet Adoption Always', '#FF6B9D'],
@@ -852,11 +852,11 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
       {[
         {
           q: 'What is HamroPets?',
-          a: 'HamroPets is Nepal\'s first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 700+ pets since 2018. We offer free pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and a lost and found board across Kathmandu Valley.'
+          a: 'HamroPets is Nepal\'s first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. We offer free pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and a lost and found board across Kathmandu Valley.'
         },
         {
           q: 'Is HamroPets connected to a nonprofit?',
-          a: 'Yes. HamroPets is presented by Adopt a Dog Nepal, a trusted nonprofit active since 2018 with 700+ successful pet rehomings. Adopt a Dog Nepal manages our social media community while HamroPets.com is the full digital pet services platform.'
+          a: 'Yes. HamroPets is presented by Adopt a Dog Nepal, a trusted nonprofit active since 2018 with 1000+ successful pet rehomings. Adopt a Dog Nepal manages our social media community while HamroPets.com is the full digital pet services platform.'
         },
         {
           q: 'What services are available for pet owners in Kathmandu?',
