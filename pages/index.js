@@ -869,6 +869,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   <div style={{ display: 'flex', gap: 16 }}>
     <Link href="/privacy-policy" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
     <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
+                  <Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
   </div>
 </div>              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
             </div>
