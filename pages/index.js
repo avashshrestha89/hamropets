@@ -787,6 +787,43 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
           </div>
         </div>
+
+{/* CASE STUDY — ADOPT A DOG NEPAL */}
+<div style={{ background: '#1A3320', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '48px 16px' : '72px 28px', marginTop: isMobile ? 48 : 72 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 32 : 64, alignItems: isMobile ? 'flex-start' : 'center' }}>
+      <div style={{ flex: 1 }}>
+        <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 20, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>📊 Real Impact</span>
+        <h2 style={{ fontSize: isMobile ? 26 : 38, fontWeight: 900, color: '#fff', margin: '0 0 16px', letterSpacing: -0.5, lineHeight: 1.15 }}>
+          The Nonprofit Behind HamroPets Has Rehomed 700+ Pets Since 2018
+        </h2>
+        <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, margin: '0 0 24px', fontWeight: 500 }}>
+          HamroPets is presented by <strong style={{ color: '#FFD23F' }}>Adopt a Dog Nepal (ADAN)</strong> — a nonprofit founded in April 2018 and based in Kathmandu. ADAN has been rehoming rescued dogs and cats across Nepal for over 8 years, building one of the country's most trusted animal welfare communities with 91,000+ TikTok followers.
+        </p>
+        <p style={{ fontSize: isMobile ? 14 : 15, color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, margin: '0 0 32px', fontWeight: 500 }}>
+          Every pet listing on HamroPets is reviewed and approved by the ADAN team before going live. Every walker is ID-verified. Every vet listing is manually checked. This is not just a marketplace — it is Nepal's most trusted pet platform backed by 8 years of real animal welfare work.
+        </p>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Link href="/about" style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>About HamroPets →</Link>
+          <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.3)' }}>TikTok 91K+ →</a>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 16, flexShrink: 0, width: isMobile ? '100%' : 380 }}>
+        {[
+          ['700+', 'Pets Successfully Rehomed', '#FFD23F'],
+          ['8+', 'Years of Animal Welfare Work', '#58CC02'],
+          ['91K+', 'TikTok Community Followers', '#38BDF8'],
+          ['100%', 'Free Pet Adoption Always', '#FF6B9D'],
+        ].map(([v, l, c]) => (
+          <div key={l} style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 16, padding: '20px 16px', border: '2px solid rgba(255,255,255,0.15)', textAlign: 'center' }}>
+            <div style={{ color: c, fontWeight: 900, fontSize: isMobile ? 26 : 32, lineHeight: 1, marginBottom: 8 }}>{v}</div>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 600, lineHeight: 1.4 }}>{l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
 {/* FAQ SECTION */}
 <div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
