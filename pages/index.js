@@ -814,7 +814,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           The Nonprofit Behind HamroPets Has Rehomed 700+ Pets Since 2018
         </h2>
         <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, margin: '0 0 24px', fontWeight: 500 }}>
-          HamroPets is presented by <strong style={{ color: '#FFD23F' }}>Adopt a Dog Nepal (ADAN)</strong> — a nonprofit founded in April 2018 and based in Kathmandu. ADAN has been rehoming rescued dogs and cats across Nepal for over 8 years, building one of the country's most trusted animal welfare communities with 91,000+ TikTok followers.
+          HamroPets is presented by <strong style={{ color: '#FFD23F' }}>Adopt a Dog Nepal (ADAN)</strong> — a nonprofit founded in April 2018 by <strong style={{ color: '#FFD23F' }}>Avash Shrestha</strong>, Founder & Executive Director, and based in Kathmandu. ADAN has been rehoming rescued dogs and cats across Nepal for over 8 years, building one of the country's most trusted animal welfare communities with 91,000+ TikTok followers.
         </p>
         <p style={{ fontSize: isMobile ? 14 : 15, color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, margin: '0 0 32px', fontWeight: 500 }}>
           Every pet listing on HamroPets is reviewed and approved by the ADAN team before going live. Every walker is ID-verified. Every vet listing is manually checked. This is not just a marketplace — it is Nepal's most trusted pet platform backed by 8 years of real animal welfare work.
