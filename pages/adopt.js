@@ -50,7 +50,7 @@ export default function Adopt({ pets }) {
     <>
       <Head>
         <title>Adopt a Dog or Cat in Nepal — Free Pet Adoption Kathmandu | HamroPets</title>
-        <meta name="description" content="Free pet adoption in Nepal. Browse verified dog and cat listings across Kathmandu Valley. Presented by Adopt a Dog Nepal — 700+ pets rehomed since 2018." />
+        <meta name="description" content="Free pet adoption in Nepal. Browse verified dog and cat listings across Kathmandu, Lalitpur and Bhaktapur. All adoptions 100% free. Presented by Adopt a Dog Nepal — 700+ pets rehomed since 2018. Payment via eSewa and Khalti." />
         <meta httpEquiv="content-language" content="en-NP, ne-NP" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href="https://www.hamropets.com/adopt" />
