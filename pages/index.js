@@ -897,7 +897,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           
                {[
 ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['Free Dog Adoption Kathmandu', '/adopt-dog-kathmandu'], ['Lost & Found Pets Nepal Guide', '/lost-found-pets-nepal'], ['Dog Walker Kathmandu', '/dog-walker-kathmandu']]],                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
-                ['Company', [['About HamroPets', '/about'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['HamroPets vs Hamrobazaar', '/hamrobazaar-alternative-nepal'], ['Contact Us', '/advertise']]],
+                ['Company', [['Avash Shrestha — Founder', '/avash-shrestha'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['HamroPets vs Hamrobazaar', '/hamrobazaar-alternative-nepal'], ['Contact Us', '/advertise']]],
               ].map(([heading, items]) => (
                 <div key={heading}>
                   <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
