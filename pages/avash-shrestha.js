@@ -82,10 +82,6 @@ export default function AvashShrestha() {
         {/* HERO */}
         <div style={{ background: '#1A3320', padding: isMobile ? '48px 16px' : '72px 28px', borderBottom: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 900, margin: '0 auto' }}>
-            <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 20, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>👤 Founder Profile</span>
-            <h1 style={{ fontSize: isMobile ? 30 : 48, fontWeight: 900, color: '#fff', margin: '0 0 12px', letterSpacing: -1, lineHeight: 1.1 }}>
-              Avash Shrestha
-            </h1>
            <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 24 : 48, alignItems: isMobile ? 'flex-start' : 'center' }}>
               <div style={{ flexShrink: 0 }}>
                 <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/IMG_4801_Original.jpg" alt="Avash Shrestha — Founder of HamroPets and Adopt a Dog Nepal" style={{ width: isMobile ? 120 : 180, height: isMobile ? 120 : 180, borderRadius: 20, objectFit: 'cover', objectPosition: 'center', border: '4px solid #FFD23F', boxShadow: '6px 6px 0px #B45309' }} />
@@ -103,9 +99,6 @@ export default function AvashShrestha() {
                 </p>
               </div>
             </div>
-            <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, margin: 0, maxWidth: 680, fontWeight: 500 }}>
-              Avash Shrestha founded Adopt a Dog Nepal in April 2018 and HamroPets.com in 2026 — building Nepal's most trusted animal welfare community and its first dedicated pet services platform from the ground up.
-            </p>
           </div>
         </div>
 
@@ -239,11 +232,10 @@ export default function AvashShrestha() {
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {[
-                  ['🎓', 'MBA — California University, California, USA · Management Information Systems & Knowledge Management'],
-                  ['🏦', 'Financial Services — Wells Fargo, Silicon Valley · High-net-worth portfolio management and BSA/AML compliance'],
-                  ['🏦', 'Standard Chartered Bank, Kathmandu · Banking operations and digital transformation'],
-                  ['💻', 'IT System Validation & Compliance — enterprise digital transformation across fintech and banking'],
-                  ['📜', 'FINRA Series 6 & 66 licensed · Pursuing CAMS certification'],
+['🎓', 'MBA — California University, California, USA'],
+['🏦', '12+ years in financial services across the United States and Nepal — banking, compliance and digital transformation'],
+['💻', 'Background in enterprise digital transformation, IT compliance and fintech product development'],
+['📜', 'Holds US financial services licenses · Pursuing international compliance certification'],
                   ['🐾', 'Founder & Executive Director, Adopt a Dog Nepal — April 2018 to present'],
                   ['🌐', 'Founder, HamroPets.com — Nepal\'s first dedicated pet services platform, 2026'],
                   ['🚀', 'Founder, Swor AI (sworai.com) — Nepal\'s first Nepali AI voice platform'],
