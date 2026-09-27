@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 export default function Advertise() {
   const [isMobile, setIsMobile] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', budget: 'Starter — NPR 15,000/mo', message: '' })
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', budget: 'Starter — NPR 999/mo', message: '' })
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768)
@@ -118,13 +118,13 @@ export default function Advertise() {
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 24 }}>
               {[
                 {
-                  tier: 'Starter', price: 'NPR 15,000', period: '/month',
+                  tier: 'Starter', price: 'NPR 999', period: '/month',
                   color: '#fff', textColor: '#1A1A1A', btnBg: '#58CC02', btnColor: '#fff',
                   tag: null,
                   features: ['Homepage sidebar banner', 'Category page banner', 'Monthly performance report', 'Email support'],
                 },
                 {
-                  tier: 'Growth', price: 'NPR 35,000', period: '/month',
+                  tier: 'Growth', price: 'NPR 2.999', period: '/month',
                   color: '#FF6B35', textColor: '#fff', btnBg: '#FFD23F', btnColor: '#1A1A1A',
                   tag: '⭐ Most Popular',
                   features: ['Hero homepage banner', 'All category page banners', 'Newsletter sponsorship', 'Sponsored listing badge', 'Bi-weekly performance report', 'Priority support'],
@@ -219,7 +219,7 @@ export default function Advertise() {
                   <div>
                     <label style={labelStyle}>Budget / Package</label>
                     <select value={form.budget} onChange={e => update('budget', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {['Starter — NPR 15,000/mo', 'Growth — NPR 35,000/mo', 'Partner — Custom Budget', "Not sure yet — let's talk"].map(o => <option key={o}>{o}</option>)}
+                      {['Starter — NPR 999/mo', 'Growth — NPR 2.999/mo', 'Partner — Custom Budget', "Not sure yet — let's talk"].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
                   <div>
