@@ -124,7 +124,7 @@ export default function Advertise() {
                   features: ['Homepage sidebar banner', 'Category page banner', 'Monthly performance report', 'Email support'],
                 },
                 {
-                  tier: 'Growth', price: 'NPR 2.999', period: '/month',
+                  tier: 'Growth', price: 'NPR 2,999', period: '/month',
                   color: '#FF6B35', textColor: '#fff', btnBg: '#FFD23F', btnColor: '#1A1A1A',
                   tag: '⭐ Most Popular',
                   features: ['Hero homepage banner', 'All category page banners', 'Newsletter sponsorship', 'Sponsored listing badge', 'Bi-weekly performance report', 'Priority support'],
@@ -219,7 +219,7 @@ export default function Advertise() {
                   <div>
                     <label style={labelStyle}>Budget / Package</label>
                     <select value={form.budget} onChange={e => update('budget', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      {['Starter — NPR 999/mo', 'Growth — NPR 2.999/mo', 'Partner — Custom Budget', "Not sure yet — let's talk"].map(o => <option key={o}>{o}</option>)}
+                      {['Starter — NPR 999/mo', 'Growth — NPR 2,999/mo', 'Partner — Custom Budget', "Not sure yet — let's talk"].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
                   <div>
