@@ -86,9 +86,23 @@ export default function AvashShrestha() {
             <h1 style={{ fontSize: isMobile ? 30 : 48, fontWeight: 900, color: '#fff', margin: '0 0 12px', letterSpacing: -1, lineHeight: 1.1 }}>
               Avash Shrestha
             </h1>
-            <p style={{ fontSize: isMobile ? 15 : 18, color: '#FFD23F', fontWeight: 700, margin: '0 0 20px' }}>
-              Founder & Executive Director — HamroPets & Adopt a Dog Nepal
-            </p>
+           <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 24 : 48, alignItems: isMobile ? 'flex-start' : 'center' }}>
+              <div style={{ flexShrink: 0 }}>
+                <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/IMG_4801_Original.jpg" alt="Avash Shrestha — Founder of HamroPets and Adopt a Dog Nepal" style={{ width: isMobile ? 120 : 180, height: isMobile ? 120 : 180, borderRadius: 20, objectFit: 'cover', objectPosition: 'center', border: '4px solid #FFD23F', boxShadow: '6px 6px 0px #B45309' }} />
+              </div>
+              <div>
+                <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 16, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>👤 Founder Profile</span>
+                <h1 style={{ fontSize: isMobile ? 30 : 48, fontWeight: 900, color: '#fff', margin: '0 0 8px', letterSpacing: -1, lineHeight: 1.1 }}>
+                  Avash Shrestha
+                </h1>
+                <p style={{ fontSize: isMobile ? 14 : 17, color: '#FFD23F', fontWeight: 700, margin: '0 0 16px' }}>
+                  Founder & Executive Director — HamroPets & Adopt a Dog Nepal
+                </p>
+                <p style={{ fontSize: isMobile ? 13 : 15, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, margin: 0, maxWidth: 560, fontWeight: 500 }}>
+                  Avash Shrestha founded Adopt a Dog Nepal in April 2018 and HamroPets.com in 2026 — building Nepal's most trusted animal welfare community and its first dedicated pet services platform from the ground up.
+                </p>
+              </div>
+            </div>
             <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, margin: 0, maxWidth: 680, fontWeight: 500 }}>
               Avash Shrestha founded Adopt a Dog Nepal in April 2018 and HamroPets.com in 2026 — building Nepal's most trusted animal welfare community and its first dedicated pet services platform from the ground up.
             </p>
