@@ -91,8 +91,8 @@ export default function AvashShrestha() {
                 <h1 style={{ fontSize: isMobile ? 30 : 48, fontWeight: 900, color: '#fff', margin: '0 0 8px', letterSpacing: -1, lineHeight: 1.1 }}>
                   Avash Shrestha
                 </h1>
-                <p style={{ fontSize: isMobile ? 14 : 17, color: '#FFD23F', fontWeight: 700, margin: '0 0 16px' }}>
-                  Founder & Executive Director — HamroPets & Adopt a Dog Nepal
+               <p style={{ fontSize: isMobile ? 14 : 17, color: '#FFD23F', fontWeight: 700, margin: '0 0 16px' }}>
+                  Entrepreneur · AI Product Builder · Animal Welfare Advocate · Kathmandu, Nepal
                 </p>
                 <p style={{ fontSize: isMobile ? 13 : 15, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7, margin: 0, maxWidth: 560, fontWeight: 500 }}>
                   Avash Shrestha founded Adopt a Dog Nepal in April 2018 and HamroPets.com in 2026 — building Nepal's most trusted animal welfare community and its first dedicated pet services platform from the ground up.
@@ -112,7 +112,7 @@ export default function AvashShrestha() {
                 ['Current Role', 'Founder & Executive Director, HamroPets.com'],
                 ['Nonprofit', 'Founder & Executive Director, Adopt a Dog Nepal (Est. April 2018)'],
                 ['Education', 'MBA — California University, California, USA'],
-                ['Expertise', 'Digital Transformation · IT Compliance · Animal Welfare Operations · Financial Services'],
+                ['Expertise', 'Serial Entrepreneur · AI Product Builder · Social Impact Leader · Animal Welfare Advocate'],
                 ['Based In', 'Kathmandu, Nepal'],
                 ['Impact', '1,000+ pets rehomed · 91K+ TikTok followers · 8+ years of animal welfare work'],
               ].map(([label, value]) => (
