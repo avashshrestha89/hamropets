@@ -224,7 +224,42 @@ export default function AvashShrestha() {
                 Avash Shrestha built the bridge. The 91,000+ community members walked across it — and kept building on the other side.
               </p>
             </div>
+{/* NEPAL EARTHQUAKE FUNDRAISER */}
+            <div>
+              <h2 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 900, color: '#1A1A1A', margin: '0 0 16px', paddingBottom: 12, borderBottom: '3px solid #FF6B35' }}>
+                Serving Nepal from Abroad — 2015 Earthquake Relief
+              </h2>
+              <p style={{ fontSize: isMobile ? 14 : 16, color: '#374151', lineHeight: 1.8, marginBottom: 16 }}>
+                When a 7.8 magnitude earthquake struck Nepal in April 2015 killing nearly 9,000 people, Avash Shrestha was studying at the University of Bridgeport in Connecticut, USA. Rather than watching from a distance, he organized a community fundraiser on campus — rallying students, staff and local businesses to raise funds for the victims back home.
+              </p>
+              <p style={{ fontSize: isMobile ? 14 : 16, color: '#374151', lineHeight: 1.8, marginBottom: 24 }}>
+                The event raised <strong style={{ color: '#1A1A1A' }}>USD 28,000</strong> — donated entirely to the Red Cross for Nepal earthquake relief. The effort was covered by the <a href="https://dailyvoice.com/article/university-of-bridgeport-students-take-a-lunch-break-to-help-nepal/" target="_blank" rel="noreferrer" style={{ color: '#FF6B35', fontWeight: 700, textDecoration: 'underline' }}>Daily Voice, Bridgeport CT</a>.
+              </p>
 
+              {/* PHOTOS */}
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16, marginBottom: 20 }}>
+                <div style={{ borderRadius: 16, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                  <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/newsnet-photo-fid-5014375.avif" alt="Avash Shrestha organizing Nepal earthquake fundraiser at University of Bridgeport 2015" style={{ width: '100%', height: isMobile ? 200 : 260, objectFit: 'cover', display: 'block' }} />
+                </div>
+                <div style={{ borderRadius: 16, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '4px 4px 0px #1A1A1A' }}>
+                  <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/newsnet-photo-fid-5014376.avif" alt="Nepal earthquake relief fundraiser University of Bridgeport 2015 — $28,000 raised for Red Cross" style={{ width: '100%', height: isMobile ? 200 : 260, objectFit: 'cover', display: 'block' }} />
+                </div>
+              </div>
+
+              {/* CALLOUT */}
+              <div style={{ background: '#FFF4F0', borderRadius: 16, border: '2px solid #FF6B35', padding: '20px 24px', boxShadow: '3px 3px 0px #FF6B35', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                <div style={{ fontSize: 32, flexShrink: 0 }}>🇳🇵</div>
+                <div>
+                  <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 6 }}>USD 28,000 Raised for Nepal Earthquake Victims — 2015</div>
+                  <div style={{ fontSize: 13, color: '#6B7280', fontWeight: 500, lineHeight: 1.7 }}>
+                    Organized at the University of Bridgeport, Connecticut · Donated entirely to the Red Cross · Covered by Daily Voice, Bridgeport CT · "Students, staff and businesses rallied — and enjoyed a feast — as they raised money for victims of the massive earthquake that ripped through Nepal."
+                  </div>
+                  <a href="https://dailyvoice.com/article/university-of-bridgeport-students-take-a-lunch-break-to-help-nepal/" target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 10, background: '#FF6B35', color: '#fff', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #1A1A1A' }}>
+                    Read the Daily Voice Article →
+                  </a>
+                </div>
+              </div>
+            </div>
             {/* CREDENTIALS */}
             <div>
               <h2 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 900, color: '#1A1A1A', margin: '0 0 20px', paddingBottom: 12, borderBottom: '2px solid #E5E7EB' }}>
