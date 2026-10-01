@@ -211,8 +211,8 @@ export default function SubmitPet() {
   const [boostTier, setBoostTier] = useState('free')
   const [isMobile, setIsMobile] = useState(false)
   const [form, setForm] = useState({
-    species: '', petName: '', petAge: '', reason: '', reasonOther: '',
-    breed: '', vaccinated: '', neutered: '', friendlyChildren: '',
+species: '', petName: '', petAge: '', reason: '', reasonOther: '',
+    breed: '', gender: form.gender, vaccinated: '', neutered: '', friendlyChildren: '',
     friendlyDogs: '', description: '', reasonForAdoption: '',
     ownerName: '', ownerPhone: '', ownerWhatsapp: '', ownerEmail: '',
     ownerAddress: '', agreeTerms: false, agreeContact: false,
@@ -310,7 +310,7 @@ const handleImageSelect = async (e) => {
       }
       const payload = {
         petName: form.petName, breed: form.breed, species: form.species,
-        gender: '', ageYears: '', ageMonths: '', petAge: form.petAge,
+        gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAge,
         location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
         neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
         friendlyDogs: form.friendlyDogs, description: form.description,
@@ -645,6 +645,16 @@ if (paidSubmitted) {
                     <div>
                       <label style={labelStyle}>{t('step4_breed_label')}</label>
                       <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder={t('step4_breed_placeholder')} style={inputStyle} />
+                           <div>
+                      <label style={labelStyle}>{lang === 'ne' ? 'लिङ्ग / Gender' : 'Gender'}</label>
+                      <div style={{ display: 'flex', gap: 10 }}>
+                        {[['Male', lang === 'ne' ? '♂ नर' : '♂ Male'], ['Female', lang === 'ne' ? '♀ मादा' : '♀ Female'], ['Unknown', lang === 'ne' ? 'थाहा छैन' : 'Unknown']].map(([val, label]) => (
+                          <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>                                                                                    
                     </div>
                     <div>
                       <label style={labelStyle}>{t('step4_vaccinated_label')}</label>
@@ -824,6 +834,16 @@ if (paidSubmitted) {
                   <div>
                     <label style={labelStyle}>{t('step4_breed_label')}</label>
                     <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder={t('step4_breed_placeholder')} style={inputStyle} />
+                                                                                                             <div>
+                      <label style={labelStyle}>{lang === 'ne' ? 'लिङ्ग / Gender' : 'Gender'}</label>
+                      <div style={{ display: 'flex', gap: 10 }}>
+                        {[['Male', lang === 'ne' ? '♂ नर' : '♂ Male'], ['Female', lang === 'ne' ? '♀ मादा' : '♀ Female'], ['Unknown', lang === 'ne' ? 'थाहा छैन' : 'Unknown']].map(([val, label]) => (
+                          <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <label style={labelStyle}>{t('step4_vaccinated_label')}</label>
