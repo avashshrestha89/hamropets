@@ -224,16 +224,38 @@ export default function PetDetail({ pet }) {
                   <Link href="/adopt" style={{ background: '#58CC02', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', display: 'inline-block' }}>Find Other Pets →</Link>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <a href={`tel:${pet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #166534', display: 'block' }}>
-                    📞 Call Owner — {pet.submitter_phone}
-                  </a>
-                  <a href={`https://wa.me/977${(pet.submitter_whatsapp || pet.submitter_phone)?.replace(/^0/, '').replace(/^\+977/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: isMobile ? '12px' : '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
-                    💬 WhatsApp Owner
-                  </a>
-                 <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
-                    ⚠️ HamroPets never charges adoption fees. Report suspicious requests immediately.
-                  </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {pet.boost_tier === 'shield' ? (
+                    <>
+                      <div style={{ background: '#1A3320', borderRadius: 14, padding: '16px', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                          <span style={{ background: '#FFD23F', color: '#1A1A1A', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🛡️ PRIORITY SHIELD</span>
+                        </div>
+                        <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: isMobile ? 13 : 14, fontWeight: 500, lineHeight: 1.6, margin: '0 0 12px' }}>
+                          To ensure {pet.pet_name} finds the safest forever home, the owner is reviewing applications. Apply in 2 minutes and we will send your profile to the owner if you are shortlisted.
+                        </p>
+                        <a href={`/adopt/apply/${pet.id}`} style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '13px' : '15px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #B45309', display: 'block' }}>
+                          🐾 Apply to Adopt {pet.pet_name} →
+                        </a>
+                      </div>
+                      <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
+                        🔒 Owner's contact is private. Applications are reviewed by HamroPets before forwarding.
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <a href={`tel:${pet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '14px' : '16px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #166534', display: 'block' }}>
+                        📞 Call Owner — {pet.submitter_phone}
+                      </a>
+                      <a href={`https://wa.me/977${(pet.submitter_whatsapp || pet.submitter_phone)?.replace(/^0/, '').replace(/^\+977/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: isMobile ? '12px' : '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block' }}>
+                        💬 WhatsApp Owner
+                      </a>
+                      <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
+                        ⚠️ HamroPets never charges adoption fees. Report suspicious requests immediately.
+                      </div>
+                    </>
+                  )}
+                </div>
 
                   {/* Swor AI Cross-Promotion Banner */}
                   <a href="https://meroadai.com/voiceover" target="_blank" rel="nofollow noreferrer" style={{display:'block',textDecoration:'none'}}>
