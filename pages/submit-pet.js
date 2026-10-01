@@ -212,7 +212,7 @@ export default function SubmitPet() {
   const [isMobile, setIsMobile] = useState(false)
   const [form, setForm] = useState({
 species: '', petName: '', petAge: '', reason: '', reasonOther: '',
-    breed: '', gender: form.gender, vaccinated: '', neutered: '', friendlyChildren: '',
+    breed: '', gender: '', vaccinated: '', neutered: '', friendlyChildren: '',
     friendlyDogs: '', description: '', reasonForAdoption: '',
     ownerName: '', ownerPhone: '', ownerWhatsapp: '', ownerEmail: '',
     ownerAddress: '', agreeTerms: false, agreeContact: false,
@@ -838,10 +838,12 @@ if (paidSubmitted) {
                       <label style={labelStyle}>{lang === 'ne' ? 'लिङ्ग / Gender' : 'Gender'}</label>
                       <div style={{ display: 'flex', gap: 10 }}>
                         {[['Male', lang === 'ne' ? '♂ नर' : '♂ Male'], ['Female', lang === 'ne' ? '♀ मादा' : '♀ Female'], ['Unknown', lang === 'ne' ? 'थाहा छैन' : 'Unknown']].map(([val, label]) => (
-                          <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                                                 <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
                             {label}
                           </button>
                         ))}
+                      </div>
+                    </div>
                       </div>
                     </div>
                   </div>
