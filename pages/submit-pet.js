@@ -211,7 +211,7 @@ export default function SubmitPet() {
   const [boostTier, setBoostTier] = useState('free')
   const [isMobile, setIsMobile] = useState(false)
   const [form, setForm] = useState({
-species: '', petName: '', petAge: '', reason: '', reasonOther: '',
+species: '', petName: '', petAge: '', petAgeYears: '', petAgeMonths: '', reason: '', reasonOther: '',
     breed: '', gender: '', vaccinated: '', neutered: '', friendlyChildren: '',
     friendlyDogs: '', description: '', reasonForAdoption: '',
     ownerName: '', ownerPhone: '', ownerWhatsapp: '', ownerEmail: '',
@@ -310,7 +310,7 @@ const handleImageSelect = async (e) => {
       }
       const payload = {
         petName: form.petName, breed: form.breed, species: form.species,
-        gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAge,
+        gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAgeYears && form.petAgeMonths ? `${form.petAgeYears} years ${form.petAgeMonths} months` : form.petAgeYears ? `${form.petAgeYears} years` : form.petAgeMonths ? `${form.petAgeMonths} months` : '',
         location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
         neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
         friendlyDogs: form.friendlyDogs, description: form.description,
@@ -564,8 +564,21 @@ if (paidSubmitted) {
                       <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder={t('step1_name_placeholder')} style={inputStyle} autoFocus />
                     </div>
                     <div>
-                      <label style={labelStyle}>{t('step1_age_label')}</label>
-                      <input value={form.petAge} onChange={e => update('petAge', e.target.value)} placeholder={t('step1_age_placeholder')} style={inputStyle} />
+                   <label style={labelStyle}>{t('step1_age_label')}</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                      <select value={form.petAgeYears} onChange={e => update('petAgeYears', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <option value="">{lang === 'ne' ? 'वर्ष छान्नुहोस्' : 'Select years'}</option>
+                        {['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15+'].map(y => (
+                          <option key={y} value={y}>{y} {lang === 'ne' ? 'वर्ष' : 'year(s)'}</option>
+                        ))}
+                      </select>
+                      <select value={form.petAgeMonths} onChange={e => update('petAgeMonths', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <option value="">{lang === 'ne' ? 'महिना छान्नुहोस्' : 'Select months'}</option>
+                        {['0','1','2','3','4','5','6','7','8','9','10','11'].map(m => (
+                          <option key={m} value={m}>{m} {lang === 'ne' ? 'महिना' : 'month(s)'}</option>
+                        ))}
+                      </select>
+                    </div>
                     </div>
                     <button onClick={() => { if (!form.species || !form.petName) { alert(lang === 'ne' ? 'कृपया प्रजाति र नाम भर्नुहोस्।' : 'Please select a species and enter a name.'); return } setStep(2) }} style={btnPrimary}>{t('step1_next')}</button>
                   </div>
@@ -723,8 +736,23 @@ if (paidSubmitted) {
                       <input type="email" value={form.ownerEmail} onChange={e => update('ownerEmail', e.target.value)} placeholder="your@email.com" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>{t('step6_address_label')}</label>
-                      <input value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} placeholder="e.g. Lalitpur, Kathmandu" style={inputStyle} />
+                     <label style={labelStyle}>{t('step6_address_label')}</label>
+                    <select value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                      <option value="">{lang === 'ne' ? 'क्षेत्र छान्नुहोस्' : 'Select your area'}</option>
+                      {[
+                        'Kathmandu — Thamel', 'Kathmandu — Naxal', 'Kathmandu — Lazimpat',
+                        'Kathmandu — Baluwatar', 'Kathmandu — Baneshwor', 'Kathmandu — Koteshwor',
+                        'Kathmandu — Bouddha', 'Kathmandu — Kapan', 'Kathmandu — Maharajgunj',
+                        'Kathmandu — Tokha', 'Kathmandu — Sitapaila', 'Kathmandu — Kalanki',
+                        'Lalitpur — Jhamsikhel', 'Lalitpur — Kupondole', 'Lalitpur — Patan',
+                        'Lalitpur — Sanepa', 'Lalitpur — Jawalakhel', 'Lalitpur — Bhaisepati',
+                        'Lalitpur — Imadol', 'Lalitpur — Thaiba', 'Lalitpur — Lubhu',
+                        'Bhaktapur — Bhaktapur Durbar', 'Bhaktapur — Suryabinayak', 'Bhaktapur — Thimi',
+                        'Outside Valley — Please specify in description',
+                      ].map(area => (
+                        <option key={area} value={area}>{area}</option>
+                      ))}
+                    </select>
                     </div>
                     <div style={{ display: 'flex', gap: 10 }}>
                       <button onClick={() => setStep(5)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
@@ -769,8 +797,21 @@ if (paidSubmitted) {
                     <input value={form.petName} onChange={e => update('petName', e.target.value)} placeholder={t('step1_name_placeholder')} style={inputStyle} />
                   </div>
                   <div>
-                    <label style={labelStyle}>{t('step1_age_label')}</label>
-                    <input value={form.petAge} onChange={e => update('petAge', e.target.value)} placeholder={t('step1_age_placeholder')} style={inputStyle} />
+                   <label style={labelStyle}>{t('step1_age_label')}</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                      <select value={form.petAgeYears} onChange={e => update('petAgeYears', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <option value="">{lang === 'ne' ? 'वर्ष छान्नुहोस्' : 'Select years'}</option>
+                        {['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15+'].map(y => (
+                          <option key={y} value={y}>{y} {lang === 'ne' ? 'वर्ष' : 'year(s)'}</option>
+                        ))}
+                      </select>
+                      <select value={form.petAgeMonths} onChange={e => update('petAgeMonths', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                        <option value="">{lang === 'ne' ? 'महिना छान्नुहोस्' : 'Select months'}</option>
+                        {['0','1','2','3','4','5','6','7','8','9','10','11'].map(m => (
+                          <option key={m} value={m}>{m} {lang === 'ne' ? 'महिना' : 'month(s)'}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <button onClick={() => { if (!form.species || !form.petName) { alert(lang === 'ne' ? 'कृपया प्रजाति र नाम भर्नुहोस्।' : 'Please select a species and enter a name.'); return } setStep(2) }} style={btnPrimary}>{t('step1_next')}</button>
                 </div>
@@ -918,8 +959,23 @@ if (paidSubmitted) {
                     <input type="email" value={form.ownerEmail} onChange={e => update('ownerEmail', e.target.value)} placeholder="your@email.com" style={inputStyle} />
                   </div>
                   <div>
-                    <label style={labelStyle}>{t('step6_address_label')}</label>
-                    <input value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} placeholder="e.g. Lalitpur, Kathmandu" style={inputStyle} />
+                   <label style={labelStyle}>{t('step6_address_label')}</label>
+                    <select value={form.ownerAddress} onChange={e => update('ownerAddress', e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
+                      <option value="">{lang === 'ne' ? 'क्षेत्र छान्नुहोस्' : 'Select your area'}</option>
+                      {[
+                        'Kathmandu — Thamel', 'Kathmandu — Naxal', 'Kathmandu — Lazimpat',
+                        'Kathmandu — Baluwatar', 'Kathmandu — Baneshwor', 'Kathmandu — Koteshwor',
+                        'Kathmandu — Bouddha', 'Kathmandu — Kapan', 'Kathmandu — Maharajgunj',
+                        'Kathmandu — Tokha', 'Kathmandu — Sitapaila', 'Kathmandu — Kalanki',
+                        'Lalitpur — Jhamsikhel', 'Lalitpur — Kupondole', 'Lalitpur — Patan',
+                        'Lalitpur — Sanepa', 'Lalitpur — Jawalakhel', 'Lalitpur — Bhaisepati',
+                        'Lalitpur — Imadol', 'Lalitpur — Thaiba', 'Lalitpur — Lubhu',
+                        'Bhaktapur — Bhaktapur Durbar', 'Bhaktapur — Suryabinayak', 'Bhaktapur — Thimi',
+                        'Outside Valley — Please specify in description',
+                      ].map(area => (
+                        <option key={area} value={area}>{area}</option>
+                      ))}
+                    </select>
                   </div>
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setStep(5)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
