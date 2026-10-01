@@ -29,7 +29,8 @@ const tabConfig = {
     walkers_approved: { label: '✅ Walkers', api: '/api/admin/walker-applications?status=approved', type: 'walker' },
    lostfound_pending: { label: '⏳ Lost & Found', api: '/api/admin/lost-found-listings?status=pending', type: 'lostfound' },
     lostfound_approved: { label: '✅ Lost & Found', api: '/api/admin/lost-found-listings?status=approved,resolved', type: 'lostfound' },
-    bookings: { label: '📅 Bookings', api: '/api/admin/booking-inquiries', type: 'booking' },
+bookings: { label: '📅 Bookings', api: '/api/admin/booking-inquiries', type: 'booking' },
+    applications: { label: '🐾 Applications', api: '/api/admin/adoption-applications', type: 'application' },
   }
 
   const fetchListings = async () => {
