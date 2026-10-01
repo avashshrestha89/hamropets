@@ -255,8 +255,7 @@ export default function PetDetail({ pet }) {
                       </div>
                     </>
                   )}
-                </div>
-</div>
+                          </div>
                   {/* Swor AI Cross-Promotion Banner */}
                   <a href="https://meroadai.com/voiceover" target="_blank" rel="nofollow noreferrer" style={{display:'block',textDecoration:'none'}}>
                     <div style={{background:'linear-gradient(135deg,#1a0a0a 0%,#3d0f0f 100%)',borderRadius:12,padding:'12px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
