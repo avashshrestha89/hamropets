@@ -223,7 +223,7 @@ export default function PetDetail({ pet }) {
                   <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', fontWeight: 500, marginBottom: 16 }}>This pet has found a loving home through HamroPets.</div>
                   <Link href="/adopt" style={{ background: '#58CC02', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', display: 'inline-block' }}>Find Other Pets →</Link>
                 </div>
-              ) : (
+                       ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {pet.boost_tier === 'shield' ? (
                     <>
@@ -254,8 +254,9 @@ export default function PetDetail({ pet }) {
                         ⚠️ HamroPets never charges adoption fees. Report suspicious requests immediately.
                       </div>
                     </>
-                  )}
-                          </div>
+                             )}
+                </div>
+              )}
                   {/* Swor AI Cross-Promotion Banner */}
                   <a href="https://meroadai.com/voiceover" target="_blank" rel="nofollow noreferrer" style={{display:'block',textDecoration:'none'}}>
                     <div style={{background:'linear-gradient(135deg,#1a0a0a 0%,#3d0f0f 100%)',borderRadius:12,padding:'12px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
