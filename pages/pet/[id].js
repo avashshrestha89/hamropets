@@ -232,7 +232,7 @@ export default function PetDetail({ pet }) {
                           <span style={{ background: '#FFD23F', color: '#1A1A1A', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🛡️ PRIORITY SHIELD</span>
                         </div>
                         <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: isMobile ? 13 : 14, fontWeight: 500, lineHeight: 1.6, margin: '0 0 12px' }}>
-                          To ensure {pet.pet_name} finds the safest forever home, the owner is reviewing applications. Apply in 2 minutes and we will send your profile to the owner if you are shortlisted.
+                          To ensure {pet.pet_name} finds the safest forever home, the owner is personally reviewing each application. Apply in 2 minutes — we will share your profile directly with the owner.
                         </p>
                         <a href={`/adopt/apply/${pet.id}`} style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '13px' : '15px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #B45309', display: 'block' }}>
                           🐾 Apply to Adopt {pet.pet_name} →
