@@ -432,12 +432,20 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             {superPet.friendly_children === 'yes' && <span style={{ background: '#EFF6FF', color: '#1D4ED8', fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 999, border: '1.5px solid #1D4ED8' }}>👶 Kid-friendly</span>}
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <a href={`tel:${superPet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
-              📞 Call Now
-            </a>
-            <a href={`https://wa.me/977${superPet.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
-              💬 WhatsApp
-            </a>
+          {superPet.boost_tier !== 'shield' ? (
+              <>
+                <a href={`tel:${superPet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                  📞 Call Now
+                </a>
+                <a href={`https://wa.me/977${superPet.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                  💬 WhatsApp
+                </a>
+              </>
+            ) : (
+              <a href={`/adopt/apply/${superPet.id}`} style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>
+                🐾 Apply to Adopt {superPet.pet_name} →
+              </a>
+            )}
             <span style={{ background: '#1A1A1A', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, border: '2px solid #1A1A1A' }}>
               View Full Profile →
             </span>
