@@ -267,16 +267,14 @@ export default function PetDetail({ pet }) {
                           <div style={{fontSize:11,color:'rgba(255,255,255,.6)',marginTop:2}}>Nepali text to speech · AI voice generator · TikTok & YouTube voiceover</div>
                         </div>
                       </div>
-                      <div style={{background:'#DC143C',color:'#fff',padding:'6px 14px',borderRadius:8,fontSize:12,fontWeight:700,flexShrink:0,whiteSpace:'nowrap'}}>Try Free →</div>
+                     <div style={{background:'#DC143C',color:'#fff',padding:'6px 14px',borderRadius:8,fontSize:12,fontWeight:700,flexShrink:0,whiteSpace:'nowrap'}}>Try Free →</div>
+                        </div>
+                      </a>
+                          
                     </div>
-                  </a>
-                      
-                </div>
-              )}
-            </div>
-          </div>
+                  </div>
 
-          {/* BACK LINK */}
+              {/* BACK LINK */}
           <div style={{ marginTop: 40, paddingTop: 28, borderTop: '2px solid #E5E7EB' }}>
             <Link href="/adopt" style={{ background: '#fff', color: '#1A1A1A', padding: '11px 22px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, textDecoration: 'none', boxShadow: '3px 3px 0px #1A1A1A', display: 'inline-block' }}>← Browse More Pets</Link>
           </div>
