@@ -210,6 +210,7 @@ const removeEditPhoto = (index) => {
             { group: '🦮 Walkers', items: [['walkers_pending', '⏳ Pending Walkers'], ['walkers_approved', '✅ Approved Walkers']] },
           { group: '🔍 Lost & Found', items: [['lostfound_pending', '⏳ Pending Reports'], ['lostfound_approved', '✅ Approved Reports']] },
 { group: '📅 Bookings', items: [['bookings', '📅 All Inquiries']] },
+{ group: '🐾 Adoptions', items: [['applications', '🐾 Adopter Applications']] },
           ].map(({ group, items }) => (
             <div key={group} style={{ marginBottom: 24 }}>
               <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1, padding: '0 8px', marginBottom: 6 }}>{group}</div>
