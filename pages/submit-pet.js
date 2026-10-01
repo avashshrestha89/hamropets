@@ -829,36 +829,45 @@ if (paidSubmitted) {
                 </div>
               )}
 
-              {isMobile && step === 4 && (
+    {isMobile && step === 4 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  
+                  {/* Breed Section */}
                   <div>
                     <label style={labelStyle}>{t('step4_breed_label')}</label>
                     <input value={form.breed} onChange={e => update('breed', e.target.value)} placeholder={t('step4_breed_placeholder')} style={inputStyle} />
-                                                                                                             <div>
-                      <label style={labelStyle}>{lang === 'ne' ? 'लिङ्ग / Gender' : 'Gender'}</label>
-                      <div style={{ display: 'flex', gap: 10 }}>
-                        {[['Male', lang === 'ne' ? '♂ नर' : '♂ Male'], ['Female', lang === 'ne' ? '♀ मादा' : '♀ Female'], ['Unknown', lang === 'ne' ? 'थाहा छैन' : 'Unknown']].map(([val, label]) => (
-                                                 <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
-                            {label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                      </div>
+                  </div>
+                  
+                  {/* Gender Section */}
+                  <div>
+                    <label style={labelStyle}>{lang === 'ne' ? 'लिङ्ग / Gender' : 'Gender'}</label>
+                    <div style={{ display: 'flex', gap: 10 }}>
+                      {[['Male', lang === 'ne' ? '♂ नर' : '♂ Male'], ['Female', lang === 'ne' ? '♀ मादा' : '♀ Female'], ['Unknown', lang === 'ne' ? 'थाहा छैन' : 'Unknown']].map(([val, label]) => (
+                        <button key={val} onClick={() => update('gender', val)} style={{ flex: 1, padding: '12px', borderRadius: 12, border: `2px solid ${form.gender === val ? '#1A1A1A' : '#E5E7EB'}`, background: form.gender === val ? '#1A1A1A' : '#fff', color: form.gender === val ? '#fff' : '#6B7280', cursor: 'pointer', fontSize: 13, fontWeight: 700, fontFamily: 'inherit' }}>
+                          {label}
+                        </button>
+                      ))}
                     </div>
                   </div>
+                  
+                  {/* Vaccinated Section */}
                   <div>
                     <label style={labelStyle}>{t('step4_vaccinated_label')}</label>
                     {yesNoButtons('vaccinated', form.vaccinated)}
                   </div>
+                  
+                  {/* Neutered Section */}
                   <div>
                     <label style={labelStyle}>{t('step4_neutered_label')}</label>
                     {yesNoButtons('neutered', form.neutered)}
                   </div>
+                  
+                  {/* Action Buttons */}
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setStep(3)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
                     <button onClick={() => setStep(5)} style={{ ...btnPrimary, flex: 2 }}>{t('step4_next')}</button>
                   </div>
+                  
                 </div>
               )}
 
