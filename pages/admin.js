@@ -835,6 +835,61 @@ PLEASE GENERATE:
                         {item.status === 'pending' && <button onClick={() => updateStatus(item.id, 'confirmed', 'booking')} style={{ flex: 1, background: '#38BDF8', color: '#fff', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>✅ Confirm</button>}
                       </div>
                     </div>
+                                    )}
+
+                  {currentType === 'application' && (
+                    <div>
+                      <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>{item.full_name}</h3>
+                        <span style={{ background: item.status === 'pending' ? '#FFF9E6' : item.status === 'shortlisted' ? '#E8F9ED' : '#FEF2F2', color: item.status === 'pending' ? '#92400E' : item.status === 'shortlisted' ? '#166534' : '#991B1B', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{item.status}</span>
+                        {item.score && <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>Score: {item.score}/5</span>}
+                      </div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: '#7B5EA7', marginBottom: 10 }}>🐾 Applying for: {item.pet_name}</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10, marginBottom: 12 }}>
+                        {[
+                          ['Phone', item.phone],
+                          ['Location', item.location],
+                          ['Age', item.age],
+                          ['Housing', item.housing_type?.replace(/_/g, ' ')],
+                          ['Household', item.household_type?.replace(/_/g, ' ')],
+                          ['Family OK?', item.family_consensus?.replace(/_/g, ' ')],
+                          ['Previous Pet', item.previous_pet?.replace(/_/g, ' ')],
+                          ['Financial Ready', item.financial_ready?.replace(/_/g, ' ')],
+                        ].filter(([, v]) => v).map(([k, v]) => (
+                          <div key={k} style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 12px' }}>
+                            <div style={{ fontSize: 10, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{v}</div>
+                          </div>
+                        ))}
+                      </div>
+                      {item.dashain_plan && <div style={{ background: '#FFF9E6', borderRadius: 10, padding: '10px 14px', marginBottom: 8, fontSize: 13, color: '#92400E', lineHeight: 1.6 }}><strong>Dashain Plan:</strong> {item.dashain_plan}</div>}
+                      {item.why_this_pet && <div style={{ background: '#F0FDF4', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#166534', lineHeight: 1.6 }}><strong>Why this pet:</strong> {item.why_this_pet}</div>}
+                      {item.landlord_consent && <div style={{ background: '#EFF6FF', borderRadius: 10, padding: '8px 14px', marginBottom: 8, fontSize: 13, color: '#1D4ED8' }}><strong>Landlord consent:</strong> {item.landlord_consent}</div>}
+                      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                        <a href={`https://wa.me/977${item.phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '9px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, textDecoration: 'none' }}>💬 WhatsApp</a>
+                        {item.status === 'pending' && (
+                          <>
+                            <button onClick={async () => {
+                              await fetch('/api/admin/update-application', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: item.id, status: 'shortlisted' }) })
+                              fetchListings()
+                            }} style={{ background: '#58CC02', color: '#fff', padding: '9px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit' }}>✅ Shortlist</button>
+                            <button onClick={async () => {
+                              await fetch('/api/admin/update-application', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: item.id, status: 'rejected' }) })
+                              fetchListings()
+                            }} style={{ background: '#FF3B30', color: '#fff', padding: '9px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit' }}>❌ Reject</button>
+                          </>
+                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: '#6B7280' }}>Score:</span>
+                          {[1,2,3,4,5].map(n => (
+                            <button key={n} onClick={async () => {
+                              await fetch('/api/admin/update-application', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: item.id, score: n }) })
+                              fetchListings()
+                            }} style={{ width: 28, height: 28, borderRadius: 6, border: `2px solid ${item.score >= n ? '#FFD23F' : '#E5E7EB'}`, background: item.score >= n ? '#FFD23F' : '#fff', cursor: 'pointer', fontSize: 12, fontWeight: 900, fontFamily: 'inherit' }}>{n}</button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               ))}
