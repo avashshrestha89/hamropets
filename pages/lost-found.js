@@ -441,15 +441,15 @@ export default function LostFound() {
                                 {/* BOOST TIER SELECTION */}
                   <div style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: '20px', marginTop: 8 }}>
                     <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 4 }}>🚀 Want to find your pet faster?</div>
-                    <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 14, fontWeight: 500 }}>
-                      Your report goes live free. A boost reaches our 91K+ followers urgently. Every rupee supports street animal rescue.<br />
-                      <span style={{ fontSize: 11 }}>तपाईंको रिपोर्ट निःशुल्क प्रकाशित हुन्छ। Boost ले ९१ हजार+ मानिससम्म छिट्टै पुर्‍याउँछ।</span>
+                   <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 14, fontWeight: 500 }}>
+                      Your report goes live 100% free. A boost broadcasts urgently to our 91K+ pet network across Kathmandu Valley. Every rupee directly supports street animal rescue.<br />
+                      <span style={{ fontSize: 11 }}>तपाईंको रिपोर्ट निःशुल्क प्रकाशित हुन्छ। बुस्ट गर्दा ९१,०००+ पशु प्रेमीहरूसम्म सन्देश तुरुन्त पुग्छ।</span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
                       {[
-                        { id: 'free', label: '🐾 Basic Community Report', labelNp: 'साधारण रिपोर्ट (निःशुल्क)', price: 'NPR 0', desc: 'Instant website listing with a shareable lost-pet link for your neighborhood · Best if you plan to share manually. For 20X more reach, consider Social Boost or Emergency Shield below.', color: '#58CC02' },
-                        { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199', desc: '✅ Published to HamroPets TikTok, Instagram & Facebook · ✅ Swor AI Nepali voiceover video · ✅ Reaches 91K+ pet lovers across Kathmandu · High-priority feed placement', color: '#38BDF8' },
-                        { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499', desc: '✅ Everything in Social Boost · ✅ Dedicated digital flyer designed by our team · ✅ WhatsApp broadcast to local rescue networks · ✅ Homepage featured listing · Maximum urgency — we handle everything for you', color: '#FF6B9D' },
+                        { id: 'free', label: '🐾 Basic Community Report', labelNp: 'साधारण रिपोर्ट (निःशुल्क)', price: 'NPR 0', desc: 'Instant website listing with a shareable digital link for your personal networks · Best if you plan to share across local groups yourself.', color: '#58CC02' },
+                        { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199 (One-time)', desc: '✅ Broadcast to HamroPets TikTok (91K+), Instagram & Facebook · ✅ High-priority feed & story placement · ✅ Custom Nepali voiceover video alert · ✅ Reaches active pet lovers across Kathmandu Valley', color: '#38BDF8' },
+                        { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499 (One-time)', desc: '✅ Everything in Social Boost · ✅ Urgent homepage featured placement · ✅ Dedicated missing-pet flyer created by our design team · ✅ WhatsApp broadcast to verified local rescue & volunteer networks · ✅ Maximum visibility — our team manages the alerts for you', color: '#FF6B9D' },
                       ].map(tier => (
                         <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#fff', borderRadius: 12, padding: '12px 16px', border: `2px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
