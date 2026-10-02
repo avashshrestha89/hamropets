@@ -13,7 +13,7 @@ export default function LostFound() {
   const [submitted, setSubmitted] = useState(false)
   const [submittedId, setSubmittedId] = useState(null)
   const [uploading, setUploading] = useState(false)
-  const [imageUrl, setImageUrl] = useState(null)
+  const [imageUrls, setImageUrls] = useState([])
   const [form, setForm] = useState({
     type: '', petName: '', species: '', breed: '',
     gender: '', age: '', color: '', collarDescription: '',
@@ -47,7 +47,7 @@ export default function LostFound() {
             body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
           })
           const data = await res.json()
-          if (data.url) setImageUrl(data.url)
+          if (data.url) setImageUrls(prev => [...prev, data.url])
           else alert('Upload failed. Please try again.')
         } catch (err) { alert('Upload failed: ' + err.message) }
         setUploading(false)
@@ -74,7 +74,7 @@ export default function LostFound() {
     setFormStep(1)
     setSubmitted(false)
     setSubmittedId(null)
-    setImageUrl(null)
+    setImageUrls([])
     setForm({
       type, petName: '', species: '', breed: '', gender: '', age: '',
       color: '', collarDescription: '', distinctiveMarks: '', temperament: '',
@@ -101,7 +101,7 @@ export default function LostFound() {
         const res = await fetch('/api/lost-found', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...form, imageUrl, status: 'pending_payment' }),
+          body: JSON.stringify({ ...form, imageUrl: imageUrls[0], imageUrls, status: 'pending_payment' }),
         })
         if (res.ok) {
           setShowForm(null)
@@ -121,7 +121,7 @@ export default function LostFound() {
       const res = await fetch('/api/lost-found', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, imageUrl }),
+        body: JSON.stringify({ ...form, imageUrl: imageUrls[0], imageUrls }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -276,27 +276,24 @@ export default function LostFound() {
               {/* STEP 1 — REQUIRED */}
               {formStep === 1 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-                 {/* PHOTO */}
+{/* PHOTO */}
                   <div>
-                    <label style={labelStyle}>Pet Photo * / पाल्तु जनावरको फोटो *</label>
-                    <div style={{ position: 'relative', border: `3px dashed ${imageUrl ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '20px', textAlign: 'center', background: imageUrl ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
-                      <input type="file" accept="image/*" onChange={handleImageUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
-                      {uploading ? (
-                        <div style={{ fontSize: 14, fontWeight: 700, color: '#6B7280' }}>⬆️ Uploading...</div>
-                      ) : imageUrl ? (
-                        <div>
-                          <img src={imageUrl} alt="Pet" style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 12, border: '2px solid #1A1A1A', marginBottom: 8 }} />
-                          <div style={{ fontSize: 13, fontWeight: 800, color: '#58CC02' }}>Photo uploaded ✅ — click to replace</div>
+                    <label style={labelStyle}>Pet Photos / पाल्तु जनावरको फोटो (up to 5)</label>
+                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
+                      {imageUrls.map((url, i) => (
+                        <div key={i} style={{ position: 'relative' }}>
+                          <img src={url} alt={`pet ${i}`} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 12, border: '2px solid #58CC02' }} />
+                          <button onClick={() => setImageUrls(prev => prev.filter((_, idx) => idx !== i))} style={{ position: 'absolute', top: -6, right: -6, background: '#FF3B30', color: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 999, width: 20, height: 20, fontSize: 10, fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
                         </div>
-                      ) : (
-                        <div>
-                          <div style={{ fontSize: 32, marginBottom: 6 }}>📷</div>
-                          <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A' }}>Upload a clear photo / स्पष्ट फोटो अपलोड गर्नुहोस्</div>
-                          <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>JPG or PNG</div>
+                      ))}
+                      {imageUrls.length < 5 && (
+                        <div style={{ position: 'relative', width: 80, height: 80, border: `3px dashed ${uploading ? '#6B7280' : '#1A1A1A'}`, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#FAFAFA' }}>
+                          <input type="file" accept="image/*" onChange={handleImageUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                          {uploading ? <div style={{ fontSize: 20 }}>⏳</div> : <div style={{ fontSize: 28, color: '#9CA3AF' }}>+</div>}
                         </div>
                       )}
                     </div>
+                    <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>Upload up to 5 photos · More photos = faster recovery</div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 14 }}>
