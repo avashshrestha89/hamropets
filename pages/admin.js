@@ -356,16 +356,13 @@ const removeEditPhoto = (index) => {
               <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Other Info</div>
               <textarea rows={2} value={editForm.other_info || ''} onChange={e => setEditForm(f => ({ ...f, other_info: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-              {[['Owner Name', 'submitter_name'], ['Owner Phone', 'submitter_phone'], ['Owner WhatsApp', 'submitter_whatsapp'], ['Owner Email', 'submitter_email']].map(([label, key]) => (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
               {[['Owner Name', 'submitter_name'], ['Owner Phone', 'submitter_phone'], ['Owner WhatsApp', 'submitter_whatsapp'], ['Owner Email', 'submitter_email']].map(([label, key]) => (
                 <div key={key}>
                   <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
                   <input value={editForm[key] || ''} onChange={e => setEditForm(f => ({ ...f, [key]: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
                 </div>
               ))}
-                    </div>
             </div>
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 8 }}>Photos</div>
