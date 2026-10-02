@@ -277,7 +277,7 @@ export default function LostFound() {
               {formStep === 1 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
-                  {/* PHOTO */}
+                 {/* PHOTO */}
                   <div>
                     <label style={labelStyle}>Pet Photo * / पाल्तु जनावरको फोटो *</label>
                     <div style={{ position: 'relative', border: `3px dashed ${imageUrl ? '#58CC02' : '#1A1A1A'}`, borderRadius: 16, padding: '20px', textAlign: 'center', background: imageUrl ? '#E8F9ED' : '#FAFAFA', cursor: 'pointer' }}>
