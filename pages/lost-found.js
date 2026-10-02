@@ -447,7 +447,7 @@ export default function LostFound() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
                       {[
-                        { id: 'free', label: '🐾 Free — Just list my report', labelNp: 'निःशुल्क सूचीकरण', price: 'NPR 0', desc: 'Listed on HamroPets · Share yourself on WhatsApp/Facebook', color: '#58CC02' },
+                        { id: 'free', label: '🐾 Basic Community Report', labelNp: 'साधारण रिपोर्ट (निःशुल्क)', price: 'NPR 0', desc: 'Instant website listing with a shareable lost-pet link for your neighborhood · Best if you plan to share manually. For 20X more reach, consider Social Boost or Emergency Shield below.', color: '#58CC02' },
                         { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199', desc: 'TikTok + Instagram + Facebook post to 91K followers · Swor AI Nepali voiceover video', color: '#38BDF8' },
                         { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499', desc: 'Everything in Boost + PDF printable poster + WhatsApp broadcast to rescue networks + Homepage featured', color: '#FF6B9D' },
                       ].map(tier => (
