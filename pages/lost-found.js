@@ -447,7 +447,7 @@ export default function LostFound() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
                       {[
-                        { id: 'free', label: '🐾 Basic Community Report', labelNp: 'साधारण रिपोर्ट (निःशुल्क)', price: 'NPR 0', desc: 'Instant website listing with a shareable digital link for your personal networks · Best if you plan to share across local groups yourself.', color: '#58CC02' },
+                        { id: 'free', label: '🐾 Free Web Listing', labelNp: 'निःशुल्क वेब लिस्टिङ', price: 'NPR 0', desc: 'Instant website listing with a shareable digital link for your personal networks · Best if you plan to share across local groups yourself.', color: '#58CC02' },
                         { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199 (One-time)', desc: '✅ Broadcast to HamroPets TikTok (91K+), Instagram & Facebook · ✅ High-priority feed & story placement · ✅ Custom Nepali voiceover video alert · ✅ Reaches active pet lovers across Kathmandu Valley', color: '#38BDF8' },
                         { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499 (One-time)', desc: '✅ Everything in Social Boost · ✅ Urgent homepage featured placement · ✅ Dedicated missing-pet flyer created by our design team · ✅ WhatsApp broadcast to verified local rescue & volunteer networks · ✅ Maximum visibility — our team manages the alerts for you', color: '#FF6B9D' },
                       ].map(tier => (
