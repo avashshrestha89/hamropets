@@ -711,14 +711,14 @@ PLEASE GENERATE:
                                 setEditingId(null)
                               } else {
                                 setEditingId(item.id)
-                                setEditForm({
+                            setEditForm({
                                   pet_name: item.pet_name || '',
                                   species: item.species || '',
                                   area: item.area || '',
                                   description: item.description || '',
                                   contact_name: item.contact_name || '',
                                   contact_phone: item.contact_phone || '',
-                                  image_url: item.image_url || '',
+                                  images: item.images || (item.image_url ? [item.image_url] : []),
                                   video_url: item.video_url || '',
                                 })
                               }
@@ -744,16 +744,17 @@ PLEASE GENERATE:
                               <textarea rows={3} value={editForm.description || ''} onChange={e => setEditForm(f => ({ ...f, description: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
                             </div>
 
-                            {/* PHOTO */}
+                       {/* PHOTO */}
                             <div style={{ marginBottom: 12 }}>
-                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 8 }}>Photo</div>
-                              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                                {editForm.image_url && (
-                                  <div style={{ position: 'relative' }}>
-                                    <img src={editForm.image_url} alt="preview" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A' }} />
-                                    <button onClick={() => setEditForm(f => ({ ...f, image_url: '' }))} style={{ position: 'absolute', top: -6, right: -6, background: '#FF6B35', color: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 999, width: 20, height: 20, fontSize: 10, fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 8 }}>Photos (up to 5)</div>
+                              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                                {(editForm.images || []).map((url, i) => (
+                                  <div key={i} style={{ position: 'relative' }}>
+                                    <img src={url} alt={`photo ${i}`} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A' }} />
+                                    <button onClick={() => setEditForm(f => ({ ...f, images: f.images.filter((_, idx) => idx !== i) }))} style={{ position: 'absolute', top: -6, right: -6, background: '#FF6B35', color: '#fff', border: '1.5px solid #1A1A1A', borderRadius: 999, width: 20, height: 20, fontSize: 10, fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
                                   </div>
-                                )}
+                                ))}
+                                {(editForm.images || []).length < 5 && (
                                 <div style={{ position: 'relative', width: 72, height: 72, borderRadius: 10, border: '2px dashed #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#fff', flexShrink: 0 }}>
                                   <input type="file" accept="image/*" onChange={async (e) => {
                                     const file = e.target.files[0]
@@ -769,7 +770,7 @@ PLEASE GENERATE:
                                             body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
                                           })
                                           const data = await res.json()
-                                          if (data.url) setEditForm(f => ({ ...f, image_url: data.url }))
+                                          if (data.url) setEditForm(f => ({ ...f, images: [...(f.images || []), data.url] }))
                                           else alert('Upload failed.')
                                         } catch (err) { alert('Upload failed: ' + err.message) }
                                         setEditUploading(false)
