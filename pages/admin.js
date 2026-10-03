@@ -744,7 +744,7 @@ PLEASE GENERATE:
                               <textarea rows={3} value={editForm.description || ''} onChange={e => setEditForm(f => ({ ...f, description: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none', resize: 'vertical' }} />
                             </div>
 
-                       {/* PHOTO */}
+                       {{/* PHOTO */}
                             <div style={{ marginBottom: 12 }}>
                               <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 8 }}>Photos (up to 5)</div>
                               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -755,35 +755,36 @@ PLEASE GENERATE:
                                   </div>
                                 ))}
                                 {(editForm.images || []).length < 5 && (
-                                <div style={{ position: 'relative', width: 72, height: 72, borderRadius: 10, border: '2px dashed #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#fff', flexShrink: 0 }}>
-                                  <input type="file" accept="image/*" onChange={async (e) => {
-                                    const file = e.target.files[0]
-                                    if (!file) return
-                                    setEditUploading(true)
-                                    try {
-                                      const reader = new FileReader()
-                                      reader.onload = async (ev) => {
-                                        try {
-                                          const res = await fetch('/api/upload', {
-                                            method: 'POST',
-                                            headers: { 'Content-Type': 'application/json' },
-                                            body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
-                                          })
-                                          const data = await res.json()
-                                          if (data.url) setEditForm(f => ({ ...f, images: [...(f.images || []), data.url] }))
-                                          else alert('Upload failed.')
-                                        } catch (err) { alert('Upload failed: ' + err.message) }
+                                  <div style={{ position: 'relative', width: 72, height: 72, borderRadius: 10, border: '2px dashed #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#fff', flexShrink: 0 }}>
+                                    <input type="file" accept="image/*" onChange={async (e) => {
+                                      const file = e.target.files[0]
+                                      if (!file) return
+                                      setEditUploading(true)
+                                      try {
+                                        const reader = new FileReader()
+                                        reader.onload = async (ev) => {
+                                          try {
+                                            const res = await fetch('/api/upload', {
+                                              method: 'POST',
+                                              headers: { 'Content-Type': 'application/json' },
+                                              body: JSON.stringify({ file: ev.target.result, folder: 'lost-found', resourceType: 'image' }),
+                                            })
+                                            const data = await res.json()
+                                            if (data.url) setEditForm(f => ({ ...f, images: [...(f.images || []), data.url] }))
+                                            else alert('Upload failed.')
+                                          } catch (err) { alert('Upload failed: ' + err.message) }
+                                          setEditUploading(false)
+                                        }
+                                        reader.onerror = () => { alert('File read failed.'); setEditUploading(false) }
+                                        reader.readAsDataURL(file)
+                                      } catch (err) {
+                                        alert('Upload failed: ' + err.message)
                                         setEditUploading(false)
                                       }
-                                      reader.onerror = () => { alert('File read failed.'); setEditUploading(false) }
-                                      reader.readAsDataURL(file)
-                                    } catch (err) {
-                                      alert('Upload failed: ' + err.message)
-                                      setEditUploading(false)
-                                    }
-                                  }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
-                                                                {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
-                                </div>
+                                    }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
+                                    {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
+                                  </div>
+                                )} {/* <--- THIS IS THE FIX */}
                               </div>
                             </div>
                             <div style={{ marginBottom: 16 }}>
