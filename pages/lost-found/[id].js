@@ -65,21 +65,31 @@ export default function LostFoundDetail({ item }) {
           {/* MAIN CARD */}
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '6px 6px 0px #1A1A1A', marginBottom: 24 }}>
 
-            {/* PHOTO */}
-            <div style={{ position: 'relative', height: isMobile ? 260 : 380, background: isLost ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '3px solid #1A1A1A' }}>
-              {item.image_url ? (
-                <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
-              ) : (
-                <div style={{ fontSize: 80 }}>
-                  {item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'}
+           {/* PHOTO */}
+            <div>
+              <div style={{ position: 'relative', height: isMobile ? 260 : 380, background: isLost ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '3px solid #1A1A1A' }}>
+                {(item.images && item.images.length > 0) || item.image_url ? (
+                  <img src={(item.images && item.images.length > 0) ? item.images[0] : item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
+                ) : (
+                  <div style={{ fontSize: 80 }}>
+                    {item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'}
+                  </div>
+                )}
+                <div style={{ position: 'absolute', top: 16, left: 16, background: color, color: '#fff', fontSize: 13, fontWeight: 900, padding: '6px 14px', borderRadius: 999, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                  {label}
+                </div>
+                <div style={{ position: 'absolute', top: 16, right: 16, background: '#fff', color: '#6B7280', fontSize: 12, fontWeight: 600, padding: '6px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
+                  🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </div>
+              </div>
+              {/* ADDITIONAL PHOTOS */}
+              {item.images && item.images.length > 1 && (
+                <div style={{ display: 'flex', gap: 8, padding: '12px 16px', background: '#F9FAFB', borderBottom: '2px solid #E5E7EB', overflowX: 'auto' }}>
+                  {item.images.map((url, i) => (
+                    <img key={i} src={url} alt={`photo ${i + 1}`} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A', flexShrink: 0, cursor: 'pointer' }} />
+                  ))}
                 </div>
               )}
-              <div style={{ position: 'absolute', top: 16, left: 16, background: color, color: '#fff', fontSize: 13, fontWeight: 900, padding: '6px 14px', borderRadius: 999, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>
-                {label}
-              </div>
-              <div style={{ position: 'absolute', top: 16, right: 16, background: '#fff', color: '#6B7280', fontSize: 12, fontWeight: 600, padding: '6px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
-                🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short', year: 'numeric' })}
-              </div>
             </div>
 
             {/* DETAILS */}
