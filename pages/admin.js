@@ -784,9 +784,8 @@ PLEASE GENERATE:
                                   }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
                                   {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
                                 </div>
-                              </div>
+                                                          </div>
                             </div>
-
                             <div style={{ marginBottom: 16 }}>
                               <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Video URL (optional)</div>
                               <input value={editForm.video_url || ''} onChange={e => setEditForm(f => ({ ...f, video_url: e.target.value }))} placeholder="https://..." style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
