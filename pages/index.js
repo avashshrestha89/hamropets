@@ -456,6 +456,76 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </Link>
   </div>
 )}
+{/* SUPER URGENT PET 2 */}
+{superPet2 && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '16px 16px 0' : '16px 28px 0' }}>
+    <Link href={`/pet/${superPet2.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+      <div style={{ background: '#fff', borderRadius: 20, border: '4px solid #FF3B30', overflow: 'hidden', boxShadow: '6px 6px 0px #FF3B30', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+        <div style={{ width: isMobile ? '100%' : 320, height: isMobile ? 200 : 260, background: '#FEF2F2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, flexShrink: 0, borderRight: isMobile ? 'none' : '4px solid #FF3B30', borderBottom: isMobile ? '4px solid #FF3B30' : 'none', position: 'relative' }}>
+          {superPet2.images && superPet2.images.length > 0 ? (
+            <img src={superPet2.images[0]} alt={superPet2.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FEF2F2' }} />
+          ) : (
+            <span>{superPet2.species === 'dog' ? '🐕' : superPet2.species === 'cat' ? '🐈' : '🐾'}</span>
+          )}
+          <div style={{ position: 'absolute', top: 12, left: 12, background: '#FF3B30', color: '#fff', fontSize: 11, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>🚨 NEEDS HOME URGENTLY</div>
+        </div>
+        <div style={{ padding: isMobile ? '20px 16px' : '28px 32px', flex: 1 }}>
+          <div style={{ fontWeight: 900, fontSize: isMobile ? 22 : 28, color: '#1A1A1A', marginBottom: 6 }}>{superPet2.pet_name}</div>
+          <div style={{ fontSize: isMobile ? 13 : 15, color: '#6B7280', fontWeight: 600, marginBottom: 12 }}>{superPet2.breed || superPet2.species} · {superPet2.gender} · 📍 {superPet2.location}</div>
+          <p style={{ fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.7, marginBottom: 20, fontWeight: 500 }}>{superPet2.description?.substring(0, 180)}{superPet2.description?.length > 180 ? '...' : ''}</p>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            {superPet2.boost_tier !== 'shield' ? (
+              <>
+                <a href={`tel:${superPet2.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>📞 Call Now</a>
+                <a href={`https://wa.me/977${superPet2.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>💬 WhatsApp</a>
+              </>
+            ) : (
+              <a href={`/adopt/apply/${superPet2.id}`} onClick={e => e.stopPropagation()} style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>🐾 Apply to Adopt {superPet2.pet_name} →</a>
+            )}
+            <span style={{ background: '#1A1A1A', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, border: '2px solid #1A1A1A' }}>View Full Profile →</span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  </div>
+)}
+
+{/* URGENT LOST PETS */}
+{urgentLostPets && urgentLostPets.length > 0 && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '24px 16px 0' : '24px 28px 0' }}>
+    <div style={{ marginBottom: 16 }}>
+      <span style={{ background: '#FF6B9D', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🔴 URGENT — LOST PETS</span>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {urgentLostPets.map(lostPet => (
+        <Link key={lostPet.id} href={`/lost-found`} style={{ textDecoration: 'none', display: 'block' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 180 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
+              {lostPet.images && lostPet.images.length > 0 ? (
+                <img src={lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
+              )}
+            </div>
+            <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
+                <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔴 LOST</span>
+                <span style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>{lostPet.pet_name || 'Unknown'}</span>
+              </div>
+              <div style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, marginBottom: 8 }}>📍 {lostPet.area} · {lostPet.species}</div>
+              <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 16, fontWeight: 500 }}>{lostPet.description?.substring(0, 150)}{lostPet.description?.length > 150 ? '...' : ''}</p>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <a href={`tel:${lostPet.contact_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF6B9D', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>📞 Call Now</a>
+                <a href={`https://wa.me/977${lostPet.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>💬 WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
+
 {/* STAR FEATURED PETS */}
 {starPets && starPets.length > 0 && (
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
