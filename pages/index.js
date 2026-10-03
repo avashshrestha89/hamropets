@@ -498,11 +498,11 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {urgentLostPets.map(lostPet => (
-        <Link key={lostPet.id} href={`/lost-found`} style={{ textDecoration: 'none', display: 'block' }}>
+        <Link key={lostPet.id} href={`/lost-found/${lostPet.id}`} style={{ textDecoration: 'none', display: 'block' }}>
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
             <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 180 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
-              {lostPet.images && lostPet.images.length > 0 ? (
-                <img src={lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+{(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
+                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
               )}
