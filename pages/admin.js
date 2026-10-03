@@ -718,7 +718,7 @@ PLEASE GENERATE:
                                   description: item.description || '',
                                   contact_name: item.contact_name || '',
                                   contact_phone: item.contact_phone || '',
-                                  images: item.images || (item.image_url ? [item.image_url] : []),
+                                  images: Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? JSON.parse(item.images) : (item.image_url ? [item.image_url] : [])),
                                   video_url: item.video_url || '',
                                 })
                               }
