@@ -782,8 +782,9 @@ PLEASE GENERATE:
                                       setEditUploading(false)
                                     }
                                   }} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }} />
-                                  {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
-                                                               </div>
+                                                                {editUploading ? <span style={{ fontSize: 10, color: '#666' }}>...</span> : <span style={{ fontSize: 24, color: '#58CC02' }}>+</span>}
+                                </div>
+                              </div>
                             </div>
                             <div style={{ marginBottom: 16 }}>
                               <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>Video URL (optional)</div>
