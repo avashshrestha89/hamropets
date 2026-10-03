@@ -21,11 +21,13 @@ export default async function handler(req, res) {
   if (rest.video_url !== undefined) updateData.video_url = rest.video_url
   if (rest.boost_tier !== undefined) updateData.boost_tier = rest.boost_tier
 
-  // Handle images — save first image as image_url, full array as images
+  // Handle images — save full array to images column, first image to image_url for backward compat
   if (rest.images !== undefined && Array.isArray(rest.images)) {
+    updateData.images = rest.images
     updateData.image_url = rest.images[0] || null
   } else if (rest.image_url !== undefined) {
     updateData.image_url = rest.image_url
+    updateData.images = rest.image_url ? [rest.image_url] : []
   }
 
   const { error } = await supabase
