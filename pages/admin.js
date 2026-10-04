@@ -711,14 +711,14 @@ PLEASE GENERATE:
                                 setEditingId(null)
                               } else {
                                 setEditingId(item.id)
-                            setEditForm({
+                     setEditForm({
                                   pet_name: item.pet_name || '',
                                   species: item.species || '',
                                   area: item.area || '',
                                   description: item.description || '',
                                   contact_name: item.contact_name || '',
                                   contact_phone: item.contact_phone || '',
-                                  images: item.image_url ? [item.image_url] : [],
+                                  images: item.images && item.images.length > 0 ? item.images : (item.image_url ? [item.image_url] : []),
                                   video_url: item.video_url || '',
                                 })
                               }
