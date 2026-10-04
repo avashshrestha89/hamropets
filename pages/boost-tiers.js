@@ -53,7 +53,7 @@ export default function BoostTiers() {
           </div>
         </div>
 
-        <div style={{ maxWidth: 900, margin: '0 auto', padding: isMobile ? '32px 16px 60px' : '56px 28px 80px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '32px 16px 60px' : '56px 28px 80px' }}>
 <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: 24, marginBottom: 48, alignItems: 'start' }}>
           {/* TIER 1 — FREE */}
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A' }}>
@@ -118,24 +118,6 @@ export default function BoostTiers() {
                 ))}
               </div>
 
-              {/* MOCK TIKTOK POST */}
-              <div style={{ background: '#000', borderRadius: 16, padding: '16px', marginBottom: 16, border: '2px solid #1A1A1A' }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#aaa', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>Example TikTok Post</div>
-                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 999, background: '#FFD23F', border: '2px solid #fff', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>🐾</div>
-                  <div>
-                    <div style={{ fontWeight: 800, fontSize: 13, color: '#fff', marginBottom: 4 }}>@hamropets</div>
-                    <div style={{ fontSize: 13, color: '#E5E7EB', lineHeight: 1.6 }}>
-                      🐕 Buddy लाई नयाँ घर चाहिएको छ! 1 वर्षको Golden Retriever — खोप लगाइएको, बच्चाहरूसँग मिल्ने। एडप्सन निःशुल्क!<br />
-                      <span style={{ color: '#38BDF8' }}>#HamroPets #DogAdoptionNepal #KathmanduDogs</span>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ marginTop: 10, background: '#1A1A1A', borderRadius: 10, padding: '10px 14px', fontSize: 12, color: '#9CA3AF' }}>
-                  🎙️ Swor AI Nepali voiceover · 📍 Kathmandu · ❤️ 2.4K likes · 💬 89 comments
-                </div>
-              </div>
-
               <div style={{ background: '#EFF9FF', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #38BDF8', fontSize: 13, color: '#1D4ED8', fontWeight: 500 }}>
                 💡 Best for: Pet owners who want maximum community reach without doing the social media work themselves. Most listings with Social Boost receive 3-5X more inquiries within 48 hours.
               </div>
@@ -171,36 +153,6 @@ export default function BoostTiers() {
                 ))}
               </div>
 
-              {/* MOCK SHIELD LISTING */}
-              <div style={{ background: '#1A3320', borderRadius: 16, padding: '16px', marginBottom: 16, border: '2px solid #1A1A1A' }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#FFD23F', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>How Your Listing Looks</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                  <span style={{ background: '#FFD23F', color: '#1A1A1A', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🛡️ PRIORITY SHIELD</span>
-                  <span style={{ background: '#FF3B30', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999 }}>🚨 SUPER URGENT</span>
-                </div>
-                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: 12 }}>
-                  To ensure your pet finds the safest forever home, the owner is personally reviewing each application. Apply in 2 minutes — we will share your profile directly with the owner.
-                </div>
-                <div style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px', borderRadius: 10, textAlign: 'center', fontWeight: 900, fontSize: 14, border: '2px solid #1A1A1A' }}>
-                  🐾 Apply to Adopt →
-                </div>
-                <div style={{ marginTop: 8, fontSize: 12, color: 'rgba(255,255,255,0.6)', textAlign: 'center' }}>
-                  🔒 Owner's contact is private. Applications reviewed by HamroPets before forwarding.
-                </div>
-              </div>
-
-              {/* MOCK ADMIN VIEW */}
-              <div style={{ background: '#F9FAFB', borderRadius: 16, padding: '16px', marginBottom: 16, border: '2px solid #E5E7EB' }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 }}>What You Receive from HamroPets</div>
-                <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.7 }}>
-                  नमस्ते [Owner] जी! 🐾 तपाईंको कुकुरको लागि राम्रा एप्लिकेसनहरु आएका छन्।<br /><br />
-                  <strong>👤 Candidate 1:</strong> Ram Sharma, 28 · Owns house with compound · Lalitpur<br />
-                  ⭐ Previous dog owner, family fully supportive, clear Dashain plan<br /><br />
-                  <strong>👤 Candidate 2:</strong> Priya Thapa, 32 · Nuclear family · Baneshwor<br />
-                  ⭐ Works from home, vaccinated pets before, NPR budget confirmed<br /><br />
-                  <span style={{ color: '#58CC02', fontWeight: 700 }}>कुन-कुन व्यक्तिसँग कुरा गर्न चाहनुहुन्छ भन्नुहोला — म नम्बर दिनेछु। 🙏</span>
-                </div>
-              </div>
 
               <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #FFD23F', fontSize: 13, color: '#92400E', fontWeight: 500 }}>
                 💡 Best for: Pet owners who want complete privacy, zero spam calls, and only speak with pre-screened serious adopters. You receive a curated shortlist — not 50 random callers.
