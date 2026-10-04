@@ -1038,6 +1038,10 @@ if (paidSubmitted) {
                       <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{t('terms_contact')} ✅</span>
                     </label>
                   </div>
+                            <div style={{ background: '#F0FDF4', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #58CC02', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 4 }}>
+                    <div style={{ fontSize: 13, color: '#166534', fontWeight: 600 }}>🤔 Not sure which tier is right?</div>
+                    <a href="/boost-tiers" target="_blank" style={{ fontSize: 12, fontWeight: 900, color: '#166534', textDecoration: 'underline', flexShrink: 0 }}>See full comparison with examples →</a>
+                  </div>
                   <div style={{ fontSize: 12, color: '#9CA3AF', textAlign: 'center' }}>{t('step7_reassurance')}</div>
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setStep(6)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
