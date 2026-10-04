@@ -21,6 +21,7 @@ export async function getServerSideProps({ params }) {
 
 export default function LostFoundDetail({ item }) {
   const [isMobile, setIsMobile] = useState(false)
+  const [activePhoto, setActivePhoto] = useState(0) // <--- ADD THIS LINE
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768)
@@ -65,11 +66,11 @@ export default function LostFoundDetail({ item }) {
           {/* MAIN CARD */}
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '6px 6px 0px #1A1A1A', marginBottom: 24 }}>
 
-           {/* PHOTO */}
+      {/* PHOTO */}
             <div>
               <div style={{ position: 'relative', height: isMobile ? 260 : 380, background: isLost ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '3px solid #1A1A1A' }}>
                 {(item.images && item.images.length > 0) || item.image_url ? (
-                  <img src={(item.images && item.images.length > 0) ? item.images[0] : item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
+                  <img src={(item.images && item.images.length > 0) ? item.images[activePhoto] : item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
                 ) : (
                   <div style={{ fontSize: 80 }}>
                     {item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'}
@@ -86,7 +87,17 @@ export default function LostFoundDetail({ item }) {
               {item.images && item.images.length > 1 && (
                 <div style={{ display: 'flex', gap: 8, padding: '12px 16px', background: '#F9FAFB', borderBottom: '2px solid #E5E7EB', overflowX: 'auto' }}>
                   {item.images.map((url, i) => (
-                    <img key={i} src={url} alt={`photo ${i + 1}`} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10, border: '2px solid #1A1A1A', flexShrink: 0, cursor: 'pointer' }} />
+                    <img 
+                      key={i} 
+                      src={url} 
+                      alt={`photo ${i + 1}`} 
+                      onClick={() => setActivePhoto(i)}
+                      style={{ 
+                        width: 72, height: 72, objectFit: 'cover', borderRadius: 10, flexShrink: 0, cursor: 'pointer',
+                        border: i === activePhoto ? '3px solid #1A1A1A' : '2px solid #E5E7EB',
+                        opacity: i === activePhoto ? 1 : 0.6
+                      }} 
+                    />
                   ))}
                 </div>
               )}
