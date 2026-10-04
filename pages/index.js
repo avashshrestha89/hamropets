@@ -813,8 +813,16 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
             <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>Stay updated with our latest rescues, adoptions and stories</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 20 }}>
-
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))', gap: isMobile ? 16 : 20 }}>
+<a href="https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+              <div style={{ background: '#25D366', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
+                <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #25D366, #128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                  <div style={{ fontSize: 64 }}>💬</div>
+                  <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>WhatsApp</div>
+                </div>
+                <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center', margin: '12px' }}>Follow on WhatsApp →</div>
+              </div>
+            </a>
             <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <div style={{ background: '#1A1A1A', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #555', overflow: 'hidden' }}>
                 <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #010101, #69C9D0)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
