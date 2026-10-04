@@ -54,9 +54,9 @@ export default function BoostTiers() {
         </div>
 
         <div style={{ maxWidth: 900, margin: '0 auto', padding: isMobile ? '32px 16px 60px' : '56px 28px 80px' }}>
-
+<div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: 24, marginBottom: 48, alignItems: 'start' }}>
           {/* TIER 1 — FREE */}
-          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A', marginBottom: 32 }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A' }}>
             <div style={{ background: '#F9FAFB', padding: isMobile ? '20px 16px' : '24px 32px', borderBottom: '2px solid #1A1A1A', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
               <div>
                 <div style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>🐾 Free Web Listing</div>
@@ -89,7 +89,7 @@ export default function BoostTiers() {
           </div>
 
           {/* TIER 2 — SOCIAL BOOST */}
-          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #38BDF8', overflow: 'hidden', boxShadow: '5px 5px 0px #38BDF8', marginBottom: 32, position: 'relative' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #38BDF8', overflow: 'hidden', boxShadow: '5px 5px 0px #38BDF8', position: 'relative' }}>
             <div style={{ position: 'absolute', top: -1, right: 20, background: '#FF6B35', color: '#fff', fontSize: 11, fontWeight: 900, padding: '4px 14px', borderRadius: '0 0 10px 10px', border: '1.5px solid #1A1A1A' }}>🔥 MOST POPULAR</div>
             <div style={{ background: '#EFF9FF', padding: isMobile ? '20px 16px' : '24px 32px', borderBottom: '2px solid #38BDF8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
               <div>
@@ -143,7 +143,7 @@ export default function BoostTiers() {
           </div>
 
           {/* TIER 3 — PRIORITY SHIELD */}
-          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '5px 5px 0px #B45309', marginBottom: 48, position: 'relative' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '5px 5px 0px #B45309', position: 'relative' }}>
             <div style={{ position: 'absolute', top: -1, right: 20, background: '#1A3320', color: '#FFD23F', fontSize: 11, fontWeight: 900, padding: '4px 14px', borderRadius: '0 0 10px 10px', border: '1.5px solid #1A1A1A' }}>⭐ PREMIUM</div>
             <div style={{ background: '#1A3320', padding: isMobile ? '20px 16px' : '24px 32px', borderBottom: '2px solid #FFD23F', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
               <div>
@@ -207,6 +207,8 @@ export default function BoostTiers() {
               </div>
             </div>
           </div>
+</div>
+
 
           {/* COMPARISON TABLE */}
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #1A1A1A', overflow: 'hidden', boxShadow: '5px 5px 0px #1A1A1A', marginBottom: 48 }}>
