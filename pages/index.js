@@ -972,6 +972,139 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
   </div>
 </div>
+
+// ============================================================
+// DONATION SECTION — Add this inside your pages/index.js
+// Place it BEFORE the closing </div> of your main content,
+// after the "Lost & Found" section (or wherever fits best).
+// ============================================================
+
+// 1. Add this import at the TOP of your index.js (if not already there):
+//    import Link from 'next/link';
+
+// 2. Paste this JSX block inside your page's return():
+
+{/* ===== DONATION STRIP ===== */}
+<div
+  style={{
+    width: '100%',
+    maxWidth: '100%',
+    background: '#FFD23F',
+    borderTop: '3px solid #1A1A1A',
+    borderBottom: '3px solid #1A1A1A',
+    padding: '40px 16px',
+    textAlign: 'center',
+  }}
+>
+  <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+    <div style={{ fontSize: '48px', marginBottom: '10px' }}>🐾</div>
+    <h2
+      style={{
+        fontSize: 'clamp(22px, 4vw, 36px)',
+        fontWeight: 900,
+        color: '#1A1A1A',
+        margin: '0 0 10px',
+        lineHeight: 1.1,
+      }}
+    >
+      Support Adopt a Dog Nepal
+    </h2>
+    <p
+      style={{
+        fontSize: 'clamp(14px, 2vw, 17px)',
+        color: '#333',
+        maxWidth: '520px',
+        margin: '0 auto 24px',
+        lineHeight: 1.5,
+      }}
+    >
+      Help us rescue, vaccinate & rehome stray dogs. 1,000+ pets rehomed since 2018.
+      Every rupee makes a difference. 🇳🇵
+    </p>
+
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '24px',
+      }}
+    >
+      {/* QR Code */}
+      <div
+        style={{
+          background: '#fff',
+          border: '2px solid #1A1A1A',
+          boxShadow: '4px 4px 0px #1A1A1A',
+          borderRadius: '14px',
+          padding: '16px',
+          display: 'inline-block',
+        }}
+      >
+        <img
+          src="/donate-qr.png"
+          alt="Donate to Adopt a Dog Nepal via eSewa or Khalti - scan QR code"
+          width={130}
+          height={130}
+          style={{ display: 'block', borderRadius: '6px' }}
+          onError={(e) => {
+            e.target.src = `https://chart.googleapis.com/chart?chs=130x130&cht=qr&chl=9851221428&choe=UTF-8`;
+            e.target.onerror = null;
+          }}
+        />
+        <p style={{ margin: '8px 0 0', fontSize: '12px', color: '#666', fontWeight: 600 }}>
+          Scan with eSewa / Khalti
+        </p>
+      </div>
+
+      {/* Text + CTA */}
+      <div style={{ textAlign: 'left' }}>
+        <div
+          style={{
+            background: '#1A1A1A',
+            color: '#FFD23F',
+            borderRadius: '8px',
+            padding: '10px 16px',
+            fontSize: '20px',
+            fontWeight: 900,
+            letterSpacing: '1px',
+            marginBottom: '12px',
+            display: 'inline-block',
+          }}
+        >
+          📲 9851221428
+        </div>
+        <div style={{ fontSize: '13px', color: '#555', marginBottom: '4px' }}>
+          eSewa / Khalti — Adopt a Dog Nepal
+        </div>
+        <div style={{ fontSize: '13px', color: '#555', marginBottom: '16px' }}>
+          After paying, WhatsApp your receipt to 9851405178
+        </div>
+        <Link href="/donate">
+          <a
+            style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: '#58CC02',
+              color: '#fff',
+              border: '2px solid #1A1A1A',
+              boxShadow: '3px 3px 0px #1A1A1A',
+              borderRadius: '8px',
+              fontWeight: 800,
+              fontSize: '16px',
+              textDecoration: 'none',
+              letterSpacing: '0.3px',
+            }}
+          >
+            💚 Donate Now &rarr;
+          </a>
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+{/* ===== END DONATION STRIP ===== */}
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 72, padding: isMobile ? '40px 16px 28px' : '56px 28px 36px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto' }}>
