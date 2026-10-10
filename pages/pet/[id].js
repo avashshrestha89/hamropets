@@ -189,7 +189,7 @@ export default function PetDetail({ pet }) {
               )}
 
             {/* Owner Info — hidden for Priority Shield */}
-              {!isAdopted && !pet.is_priority_shield && (
+              {!isAdopted && pet.boost_tier !== 'shield' && (
                 <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 20 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>👤 Owner Details</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
