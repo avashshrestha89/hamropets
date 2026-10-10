@@ -216,7 +216,7 @@ export default function PetDetail({ pet }) {
                       )}
 
               {/* Priority Shield contact form */}
-              {!isAdopted && pet.is_priority_shield && (
+              {!isAdopted && pet.boost_tier === 'shield' && (
                 <div style={{ background: '#F5F3FF', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '2px solid #7C3AED', marginBottom: 20 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>🛡️ Protected Listing</div>
                   <p style={{ margin: '0 0 16px', fontSize: 14, color: '#1A1A1A', fontWeight: 600, lineHeight: 1.5 }}>
