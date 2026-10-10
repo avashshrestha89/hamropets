@@ -1038,7 +1038,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           height={130}
           style={{ display: 'block', borderRadius: '6px' }}
           onError={(e) => {
-            e.target.src = `https://chart.googleapis.com/chart?chs=130x130&cht=qr&chl=9851221428&choe=UTF-8`;
+            e.target.src = `https://chart.googleapis.com/chart?chs=130x130&cht=qr&chl=9779851405178&choe=UTF-8`;
             e.target.onerror = null;
           }}
         />
@@ -1062,7 +1062,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             display: 'inline-block',
           }}
         >
-          📲 9851221428
+          📲 9779851405178
         </div>
         <div style={{ fontSize: '13px', color: '#555', marginBottom: '4px' }}>
           eSewa / Khalti — Adopt a Dog Nepal
