@@ -215,14 +215,16 @@ export default function PetDetail({ pet }) {
                 </div>
                       )}
 
-              {/* Priority Shield contact form */}
+                   {/* Priority Shield — hide phone, show apply button */}
               {!isAdopted && pet.boost_tier === 'shield' && (
                 <div style={{ background: '#F5F3FF', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '2px solid #7C3AED', marginBottom: 20 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: '#7C3AED', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>🛡️ Protected Listing</div>
                   <p style={{ margin: '0 0 16px', fontSize: 14, color: '#1A1A1A', fontWeight: 600, lineHeight: 1.5 }}>
-                    This owner's contact details are private. Send them a message below and they'll get back to you directly.
+                    This owner's contact details are private. Fill out a quick form and we'll connect you with them.
                   </p>
-                  <ContactForm petId={pet.id} petName={pet.pet_name} />
+                  <a href={`/adopt/apply/${pet.id}`} style={{ display: 'inline-block', background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                    🐾 Apply to Adopt {pet.pet_name} →
+                  </a>
                 </div>
               )}
 
