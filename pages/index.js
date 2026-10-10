@@ -973,17 +973,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   </div>
 </div>
 
-// ============================================================
-// DONATION SECTION — Add this inside your pages/index.js
-// Place it BEFORE the closing </div> of your main content,
-// after the "Lost & Found" section (or wherever fits best).
-// ============================================================
-
-// 1. Add this import at the TOP of your index.js (if not already there):
-//    import Link from 'next/link';
-
-// 2. Paste this JSX block inside your page's return():
-
 {/* ===== DONATION STRIP ===== */}
 <div
   style={{
