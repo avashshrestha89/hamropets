@@ -482,18 +482,32 @@ PLEASE GENERATE:
         if (res.ok) fetchListings()
       }} style={{ background: item.is_featured ? '#FFD23F' : '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
         {item.is_featured ? '⭐ Unfeature' : '☆ Mark as Featured'}
-{item.status === 'approved' && (
-  <button onClick={async () => {
-    const res = await fetch('/api/admin/update-listing', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: item.id, is_super_featured: !item.is_super_featured }),
-    })
-    if (res.ok) fetchListings()
-  }} style={{ background: item.is_super_featured ? '#FF3B30' : '#fff', color: item.is_super_featured ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
-    {item.is_super_featured ? '🚨 Remove Urgent' : '🚨 Mark as Urgent'}
-  </button>
-)}
+      </button>
+    )}
+
+    {item.status === 'approved' && (
+      <button onClick={async () => {
+        const res = await fetch('/api/admin/update-listing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: item.id, is_super_featured: !item.is_super_featured }),
+        })
+        if (res.ok) fetchListings()
+      }} style={{ background: item.is_super_featured ? '#FF3B30' : '#fff', color: item.is_super_featured ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        {item.is_super_featured ? '🚨 Remove Urgent' : '🚨 Mark as Urgent'}
+      </button>
+    )}
+
+    {item.status === 'approved' && (
+      <button onClick={async () => {
+        const res = await fetch('/api/admin/update-listing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: item.id, is_priority_shield: !item.is_priority_shield }),
+        })
+        if (res.ok) fetchListings()
+      }} style={{ background: item.is_priority_shield ? '#7C3AED' : '#fff', color: item.is_priority_shield ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        {item.is_priority_shield ? '🛡️ Remove Shield' : '🛡️ Priority Shield'}
       </button>
     )}
   </div>
