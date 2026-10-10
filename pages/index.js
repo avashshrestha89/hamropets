@@ -1123,7 +1123,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           
                {[
 ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['Free Dog Adoption Kathmandu', '/adopt-dog-kathmandu'], ['Lost & Found Pets Nepal Guide', '/lost-found-pets-nepal'], ['Dog Walker Kathmandu', '/dog-walker-kathmandu'], ['📊 Compare Listing Tiers', '/boost-tiers'], ['💬 WhatsApp Channel', 'https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i']]],                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
-                ['Company', [['Avash Shrestha — Founder', '/avash-shrestha'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['HamroPets vs Hamrobazaar', '/hamrobazaar-alternative-nepal'], ['Contact Us', '/advertise']]],
+                ['Company', [['Avash Shrestha — Founder', '/avash-shrestha'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['💚 Donate — Support Dog Rescue', '/donate'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['HamroPets vs Hamrobazaar', '/hamrobazaar-alternative-nepal'], ['Contact Us', '/advertise']]],
               ].map(([heading, items]) => (
                 <div key={heading}>
                   <div style={{ fontWeight: 800, fontSize: 11, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>{heading}</div>
@@ -1150,8 +1150,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   <div style={{ display: 'flex', gap: 16 }}>
     <Link href="/privacy-policy" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
     <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
-                  <Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
-  </div>
+<Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
+<Link href="/donate" style={{ color: '#58CC02', fontSize: 12, textDecoration: 'none', fontWeight: 700 }}>💚 Donate</Link>  </div>
 </div>              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
             </div>
           </div>
