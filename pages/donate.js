@@ -177,11 +177,11 @@ export default function DonatePage() {
                   key={i}
                   style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: '14px', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}
                 >
-                  <div style={{ position: 'relative', paddingBottom: '75%', background: '#f0f0f0' }}>
+                  <div style={{ position: 'relative', paddingBottom: '100%', background: '#f0f0f0' }}>
                     <img
                       src={story.img}
                       alt={story.caption}
-                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                     <div style={{ position: 'absolute', top: '12px', left: '12px', background: '#58CC02', color: '#fff', fontSize: '12px', fontWeight: 800, padding: '4px 10px', borderRadius: '999px', border: '1.5px solid #1A1A1A' }}>
                       {story.tag}
