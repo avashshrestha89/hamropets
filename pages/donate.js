@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const ESEWA_NUMBER = '9851221428';
-const KHALTI_NUMBER = '9851221428';
+const ESEWA_NUMBER = '9779851405178';
+const KHALTI_NUMBER = '9779851405178';
 
 const faqItems = [
   {
@@ -28,11 +28,11 @@ const faqItems = [
   },
   {
     question: 'Will I receive a donation receipt?',
-    answer: 'Yes! After your donation, send your payment screenshot to our WhatsApp at 9851405178 or email hamropets@gmail.com and we will send you a receipt within 24 hours.',
+    answer: 'Yes! After your donation, send your payment screenshot to our WhatsApp at 9779851405178 or email hamropets@gmail.com and we will send you a receipt within 24 hours.',
   },
   {
     question: 'के म दान पाउँदा रसिद पाउँछु? (Do I get a receipt?)',
-    answer: 'हो! दान गरेपछि आफ्नो भुक्तानीको स्क्रिनसट हाम्रो WhatsApp 9851405178 मा पठाउनुस् — हामी 24 घण्टाभित्र रसिद पठाउनेछौं।',
+    answer: 'हो! दान गरेपछि आफ्नो भुक्तानीको स्क्रिनसट हाम्रो WhatsApp 9779851405178 मा पठाउनुस् — हामी 24 घण्टाभित्र रसिद पठाउनेछौं।',
   },
   {
     question: 'How many dogs has Adopt a Dog Nepal helped?',
@@ -72,7 +72,7 @@ export default function DonatePage() {
     description: 'Nepal\'s leading pet adoption nonprofit, rehoming 1,000+ pets since 2018.',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+977-9851221428',
+      telephone: '+977-9851405178',
       contactType: 'Donations',
     },
     sameAs: [
@@ -101,7 +101,7 @@ export default function DonatePage() {
         <title>Donate to Adopt a Dog Nepal | Support Stray Dog Rescue in Nepal | HamroPets</title>
         <meta
           name="description"
-          content="Support Adopt a Dog Nepal's mission to rescue and rehome stray dogs. Donate via eSewa or Khalti (9851221428). Your donation funds vet care, food, and shelter for 1,000+ rescued pets since 2018."
+          content="Support Adopt a Dog Nepal's mission to rescue and rehome stray dogs. Donate via eSewa or Khalti (9779851405178). Your donation funds vet care, food, and shelter for 1,000+ rescued pets since 2018."
         />
         <meta
           name="keywords"
@@ -113,7 +113,7 @@ export default function DonatePage() {
         <meta property="og:title" content="Donate to Adopt a Dog Nepal | Help Rescue Dogs in Nepal" />
         <meta
           property="og:description"
-          content="Every rupee helps rescued dogs get food, vet care & a loving home. Donate via eSewa/Khalti to 9851221428. Adopt a Dog Nepal has rehomed 1,000+ pets since 2018."
+          content="Every rupee helps rescued dogs get food, vet care & a loving home. Donate via eSewa/Khalti to 9779851405178. Adopt a Dog Nepal has rehomed 1,000+ pets since 2018."
         />
         <meta property="og:url" content="https://www.hamropets.com/donate" />
         <meta property="og:type" content="website" />
@@ -127,7 +127,7 @@ export default function DonatePage() {
         <meta name="twitter:title" content="Donate to Adopt a Dog Nepal | HamroPets" />
         <meta
           name="twitter:description"
-          content="Help rescue dogs in Nepal. Donate via eSewa or Khalti to 9851221428. 1,000+ pets rehomed since 2018."
+          content="Help rescue dogs in Nepal. Donate via eSewa or Khalti to 9779851405178. 1,000+ pets rehomed since 2018."
         />
 
         {/* Language */}
@@ -407,13 +407,13 @@ export default function DonatePage() {
               {/* QR Code placeholder — replace src with actual QR code image */}
               <img
                 src="/donate-qr.png"
-                alt="QR Code to donate to Adopt a Dog Nepal via eSewa or Khalti - number 9851221428"
+                alt="QR Code to donate to Adopt a Dog Nepal via eSewa or Khalti - number 9779851405178"
                 width={200}
                 height={200}
                 style={{ display: 'block', borderRadius: '8px' }}
                 onError={(e) => {
                   // Fallback: show a generated QR via Google Charts API
-                  e.target.src = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=9851221428&choe=UTF-8`;
+                  e.target.src = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=9779851405178&choe=UTF-8`;
                   e.target.onerror = null;
                 }}
               />
