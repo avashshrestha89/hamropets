@@ -86,4 +86,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <!-- Add this block inside your public/sitemap.xml <urlset> before the closing </urlset> tag -->
+
+  <url>
+    <loc>https://www.hamropets.com/donate</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
