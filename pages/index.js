@@ -284,7 +284,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           </div>
         )}
         {/* HERO */}
-        <div style={{ background: '#FFFFFF', padding: isMobile ? '40px 16px 48px' : '72px 28px 80px', borderBottom: '3px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ background: '#FFFFFF', padding: isMobile ? '40px 16px 24px' : '72px 28px 32px', borderBottom: '3px solid #1A1A1A', position: 'relative', overflow: 'hidden' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 48, alignItems: 'center' }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#FFD23F', border: '2.5px solid #1A1A1A', borderRadius: 999, padding: '7px 18px', marginBottom: 20, boxShadow: '3px 3px 0px #B45309' }}>
