@@ -770,7 +770,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
     {/* Photo */}
     <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
-      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
     </div>
 
     {/* Text */}
@@ -784,7 +784,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         He started this journey with all of you back in 2018 — founding Adopt a Dog Nepal and building HamroPets.com, Nepal's first dedicated pet platform, from halfway across the world. More than a thousand pets have been rehomed since, every placement free, sustained by community rather than profit. What began as a simple act of care has quietly become real infrastructure for animals and the people who love them.
       </p>
       <p style={{ margin: '0 0 24px', fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>
-        If you're an entrepreneur with an idea — whether you're already building or just getting started, in any industry — he'd love to connect. Great ideas don't have boundaries.
+        If you're an entrepreneur with an idea — whether you're already building or just getting started, in any industry — he'd love to connect. Great ideas don't have boundaries. If you see a way to collaborate, have a concept you want to explore, or anywhere you think he fits — leave a message below. He will get back to you personally. If you see a way to collaborate, have a concept you want to explore, or anywhere you think he fits — leave a message below. He will get back to you personally.
       </p>
       <a href="/collaborate" style={{ display: 'inline-block', background: '#1A1A1A', color: '#FFD23F', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #555', letterSpacing: 0.3 }}>
         💬 Let's Collaborate →
