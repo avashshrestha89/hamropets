@@ -21,77 +21,37 @@ export async function getServerSideProps() {
   ])
    return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
 }
-function Slideshow({ slides }) {
-  const [current, setCurrent] = useState(0)
-  const [paused, setPaused] = useState(false)
-
-  useEffect(() => {
-    if (paused) return
-    const timer = setInterval(() => {
-      setCurrent(prev => (prev + 1) % slides.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [slides.length, paused])
-
-  const prev = () => setCurrent(c => (c - 1 + slides.length) % slides.length)
-  const next = () => setCurrent(c => (c + 1) % slides.length)
+function AutoScroller() {
+  const photos = [
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/591136623_2212884655904492_4198644748439595867_n.jpg',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/9DC3A6E1-40CE-472D-8B24-62156481C0C1.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1657.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1658.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1659.JPG',
+      'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1674.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1668.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1665.JPG',
+  ]
+  const doubled = [...photos, ...photos]
 
   return (
-    <div style={{ width: '100%' }}>
-      {/* IMAGE */}
-      <div style={{ position: 'relative', width: '100%', paddingBottom: '75%' }}>
-        {slides.map((slide, i) => (
-          <Link key={i} href={slide.href} style={{ textDecoration: 'none' }}>
-            <img
-              src={slide.url}
-              alt={slide.alt}
-              style={{
-                position: 'absolute',
-                top: 0, left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                display: 'block',
-                opacity: i === current ? 1 : 0,
-                transition: 'opacity 0.6s ease-in-out',
-                borderRadius: 17,
-              }}
-            />
-          </Link>
+    <div style={{ width: '100%', overflow: 'hidden', background: '#1A1A1A', padding: '0', position: 'relative' }}>
+      <div style={{ padding: '18px 0 10px', textAlign: 'center' }}>
+        <span style={{ color: '#FFD23F', fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase' }}>🐾 Real Success Stories — 1,000+ Pets Rehomed Since 2018</span>
+      </div>
+      <div style={{ display: 'flex', gap: 12, padding: '0 0 18px', animation: 'scrollLeft 28s linear infinite', width: 'max-content' }}>
+        {doubled.map((src, i) => (
+          <div key={i} style={{ width: 220, height: 220, flexShrink: 0, borderRadius: 14, overflow: 'hidden', border: '2px solid #333' }}>
+            <img src={src} alt="Adoption success story" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
         ))}
       </div>
-
-      {/* CONTROLS BELOW IMAGE */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 }}>
-        {/* PREV */}
-        <button
-          onClick={prev}
-          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
-        >←</button>
-
-        {/* DOTS */}
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              style={{ width: i === current ? 24 : 8, height: 8, borderRadius: 999, background: i === current ? '#58CC02' : '#D1D5DB', border: '1.5px solid #1A1A1A', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
-            />
-          ))}
-        </div>
-
-        {/* PAUSE / PLAY */}
-        <button
-          onClick={() => setPaused(p => !p)}
-          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 13, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
-        >{paused ? '▶' : '⏸'}</button>
-
-        {/* NEXT */}
-        <button
-          onClick={next}
-          style={{ background: '#fff', border: '2px solid #1A1A1A', borderRadius: 999, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 15, fontWeight: 900, boxShadow: '2px 2px 0px #1A1A1A' }}
-        >→</button>
-           </div>
+      <style>{`
+        @keyframes scrollLeft {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   )
 }
@@ -365,18 +325,9 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 ))}
               </div>
             </div>
-          {/* HERO SLIDESHOW */}
+          {/* HERO — AUTO SCROLL GALLERY */}
 <div style={{ width: '100%' }}>
-  {(() => {
-    const slides = [
-      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png', alt: 'HamroPets — Nepal First Pet Platform', href: '/adopt' },
-      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780734064/Woman_with_dogs_in_living_202606061405_pybvmm.jpg', alt: 'Pet Sitting in Kathmandu', href: '/walk-sit' },
-      { url: 'https://res.cloudinary.com/dkxxscyei/image/upload/v1780734061/List_your_business_Kathmandu_202606061405_jnb2r2.jpg', alt: 'List Your Business on HamroPets', href: '/list-business' },
-    ]
-    return (
-      <Slideshow slides={slides} />
-    )
-  })()}
+  <AutoScroller />
 </div>
           </div>
         </div>
