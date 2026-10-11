@@ -767,22 +767,9 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 {/* FOUNDER BIO */}
 <div style={{ background: '#FAFAFA', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '40px 16px' : '56px 28px' }}>
   <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 28 : 48, alignItems: 'flex-start' }}>
-
-    {/* Photo */}
-    <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
-      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', objectPosition: 'top', objectPosition: 'top', objectPosition: 'top', display: 'block' }} />
-    </div>
-
-  {/* FOUNDER BIO */}
-<div style={{ background: '#FAFAFA', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '40px 16px' : '56px 28px' }}>
-  <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 28 : 48, alignItems: 'flex-start' }}>
-
-    {/* Photo */}
     <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
       <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#f0f0f0', display: 'block' }} />
     </div>
-
-    {/* Text */}
     <div style={{ flex: 1 }}>
       <div style={{ display: 'inline-block', background: '#FFD23F', border: '2px solid #1A1A1A', borderRadius: 999, padding: '4px 14px', fontSize: 11, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 14, boxShadow: '2px 2px 0px #1A1A1A' }}>
         Meet the Founder
@@ -799,7 +786,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         💬 Let's Collaborate →
       </a>
     </div>
-
   </div>
 </div>
     {/* 1. REAL IMPACT */}
@@ -1132,7 +1118,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
 <Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
 <Link href="/donate" style={{ color: '#58CC02', fontSize: 12, textDecoration: 'none', fontWeight: 700 }}>💚 Donate</Link>  </div>
-</div>              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
+<</div>              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
             </div>
           </div>
         </footer>
