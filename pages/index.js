@@ -764,7 +764,35 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '12px 20px' : '14px 28px', borderRadius: 14, fontSize: isMobile ? 13 : 15, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309', display: 'inline-block', whiteSpace: 'nowrap' }}>Try Swor AI →</a>
           </div>
         </div>
+{/* FOUNDER BIO */}
+<div style={{ background: '#FAFAFA', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '40px 16px' : '56px 28px' }}>
+  <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 28 : 48, alignItems: 'flex-start' }}>
 
+    {/* Photo */}
+    <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
+      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+    </div>
+
+    {/* Text */}
+    <div style={{ flex: 1 }}>
+      <div style={{ display: 'inline-block', background: '#FFD23F', border: '2px solid #1A1A1A', borderRadius: 999, padding: '4px 14px', fontSize: 11, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 14, boxShadow: '2px 2px 0px #1A1A1A' }}>
+        Meet the Founder
+      </div>
+      <h3 style={{ margin: '0 0 4px', fontSize: isMobile ? 20 : 24, fontWeight: 900, color: '#1A1A1A', letterSpacing: -0.5 }}>Avash Shrestha</h3>
+      <p style={{ margin: '0 0 16px', fontSize: 13, color: '#58CC02', fontWeight: 700 }}>Founder — HamroPets & Adopt a Dog Nepal</p>
+      <p style={{ margin: '0 0 20px', fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>
+        He started this journey with all of you back in 2018 — founding Adopt a Dog Nepal and building HamroPets.com, Nepal's first dedicated pet platform, from halfway across the world. More than a thousand pets have been rehomed since, every placement free, sustained by community rather than profit. What began as a simple act of care has quietly become real infrastructure for animals and the people who love them.
+      </p>
+      <p style={{ margin: '0 0 24px', fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>
+        If you're an entrepreneur with an idea — whether you're already building or just getting started, in any industry — he'd love to connect. Great ideas don't have boundaries.
+      </p>
+      <a href="/collaborate" style={{ display: 'inline-block', background: '#1A1A1A', color: '#FFD23F', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #555', letterSpacing: 0.3 }}>
+        💬 Let's Collaborate →
+      </a>
+    </div>
+
+  </div>
+</div>
         {/* SOCIAL MEDIA */}
         <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
           <div style={{ marginBottom: 24, textAlign: 'center' }}>
