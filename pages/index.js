@@ -35,13 +35,13 @@ function AutoScroller() {
   const doubled = [...photos, ...photos]
 
   return (
-    <div style={{ width: '100%', overflow: 'hidden', background: '#1A1A1A', padding: '0', position: 'relative' }}>
+    <div style={{ width: '100%', overflow: 'hidden', background: '#1A1A1A', padding: '0', position: 'relative', maxHeight: 260 }}>
       <div style={{ padding: '18px 0 10px', textAlign: 'center' }}>
         <span style={{ color: '#FFD23F', fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase' }}>🐾 Real Success Stories — 1,000+ Pets Rehomed Since 2018</span>
       </div>
       <div style={{ display: 'flex', gap: 12, padding: '0 0 18px', animation: 'scrollLeft 28s linear infinite', width: 'max-content' }}>
         {doubled.map((src, i) => (
-          <div key={i} style={{ width: 220, height: 220, flexShrink: 0, borderRadius: 14, overflow: 'hidden', border: '2px solid #333' }}>
+          <div key={i} style={{ width: 200, height: 160, flexShrink: 0, borderRadius: 14, overflow: 'hidden', border: '2px solid #333' }}>
             <img src={src} alt="Adoption success story" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         ))}
