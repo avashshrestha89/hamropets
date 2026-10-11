@@ -773,6 +773,15 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
       <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', objectPosition: 'top', objectPosition: 'top', objectPosition: 'top', display: 'block' }} />
     </div>
 
+  {/* FOUNDER BIO */}
+<div style={{ background: '#FAFAFA', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '40px 16px' : '56px 28px' }}>
+  <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 28 : 48, alignItems: 'flex-start' }}>
+
+    {/* Photo */}
+    <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
+      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#f0f0f0', display: 'block' }} />
+    </div>
+
     {/* Text */}
     <div style={{ flex: 1 }}>
       <div style={{ display: 'inline-block', background: '#FFD23F', border: '2px solid #1A1A1A', borderRadius: 999, padding: '4px 14px', fontSize: 11, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 14, boxShadow: '2px 2px 0px #1A1A1A' }}>
@@ -784,7 +793,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         He started this journey with all of you back in 2018 — founding Adopt a Dog Nepal and building HamroPets.com, Nepal's first dedicated pet platform, from halfway across the world. More than a thousand pets have been rehomed since, every placement free, sustained by community rather than profit. What began as a simple act of care has quietly become real infrastructure for animals and the people who love them.
       </p>
       <p style={{ margin: '0 0 24px', fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>
-        If you're an entrepreneur with an idea — in any industry, at any stage — and you see a way to work together, leave a message below. He will get back to you personally. If you see a way to collaborate, have a concept you want to explore, or anywhere you think he fits — leave a message below. He will get back to you personally. If you see a way to collaborate, have a concept you want to explore, or anywhere you think he fits — leave a message below. He will get back to you personally.
+        If you're an entrepreneur with an idea — in any industry, at any stage — and you see a way to work together, leave a message below. He will get back to you personally.
       </p>
       <a href="/collaborate" style={{ display: 'inline-block', background: '#1A1A1A', color: '#FFD23F', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #555', letterSpacing: 0.3 }}>
         💬 Let's Collaborate →
