@@ -793,98 +793,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
   </div>
 </div>
-        {/* SOCIAL MEDIA */}
-        <div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
-          <div style={{ marginBottom: 24, textAlign: 'center' }}>
-            <span style={{ background: '#1A1A1A', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #555' }}>📱 Follow Us</span>
-            <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
-            <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>Stay updated with our latest rescues, adoptions and stories</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))', gap: isMobile ? 16 : 20 }}>
-<a href="https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#25D366', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
-                <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #25D366, #128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-                  <div style={{ fontSize: 64 }}>💬</div>
-                  <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>WhatsApp</div>
-                </div>
-                <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center', margin: '12px' }}>Follow on WhatsApp →</div>
-              </div>
-            </a>
-            <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#1A1A1A', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #555', overflow: 'hidden' }}>
-                <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #010101, #69C9D0)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-                  <div style={{ fontSize: 64 }}>🎵</div>
-                  <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>TikTok</div>
-                </div>
-                <div style={{ padding: '18px 20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 999, background: '#69C9D0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #fff' }}>🐕</div>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Adopt a Dog Nepal</div>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div></div>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Since</div></div>
-                  </div>
-                  <div style={{ background: '#69C9D0', color: '#1A1A1A', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on TikTok →</div>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://www.facebook.com/AdoptaDogNepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#1877F2', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
-                <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #1877F2, #0a5bc4)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-                  <div style={{ fontSize: 64 }}>📘</div>
-                  <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1877F2' }}>Facebook</div>
-                  <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, color: '#fff' }}>1.4M+ Views</div>
-                </div>
-                <div style={{ padding: '18px 20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐾</div>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>Adopt a Dog Nepal</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Animal Rescue · Kathmandu</div>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1.4M+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Views</div></div>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>Active</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Daily posts</div></div>
-                  </div>
-                  <div style={{ background: '#fff', color: '#1877F2', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Facebook →</div>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://www.instagram.com/adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-              <div style={{ background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
-                <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-                  <div style={{ fontSize: 64 }}>📸</div>
-                  <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#833AB4' }}>Instagram</div>
-                  <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, color: '#fff' }}>Appeal Filed</div>
-                </div>
-                <div style={{ padding: '18px 20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐕</div>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Coming back soon</div>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Since</div></div>
-                    <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div></div>
-                  </div>
-                  <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Instagram →</div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-{/* CASE STUDY — ADOPT A DOG NEPAL */}
+    {/* 1. REAL IMPACT */}
 <div style={{ background: '#1A3320', borderTop: '3px solid #1A1A1A', borderBottom: '3px solid #1A1A1A', padding: isMobile ? '48px 16px' : '72px 28px', marginTop: isMobile ? 48 : 72 }}>
   <div style={{ maxWidth: 1200, margin: '0 auto' }}>
     <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 32 : 64, alignItems: isMobile ? 'flex-start' : 'center' }}>
@@ -920,47 +829,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
   </div>
 </div>
-{/* FAQ SECTION */}
-<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
-  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
-    <div style={{ marginBottom: 40, textAlign: 'center' }}>
-      <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
-      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Frequently Asked Questions</h2>
-      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about HamroPets and our services</p>
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
-      {[
-        {
-          q: 'What is HamroPets?',
-          a: 'HamroPets is Nepal\'s first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. We offer free pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and a lost and found board across Kathmandu Valley.'
-        },
-        {
-          q: 'Is HamroPets connected to a nonprofit?',
-          a: 'Yes. HamroPets is presented by Adopt a Dog Nepal, a trusted nonprofit active since 2018 with 1000+ successful pet rehomings. Adopt a Dog Nepal manages our social media community while HamroPets.com is the full digital pet services platform.'
-        },
-        {
-          q: 'What services are available for pet owners in Kathmandu?',
-          a: 'Pet owners can access five core services: free pet adoption for dogs and cats, ID-verified dog walkers from NPR 300 per walk, cage-free pet sitters from NPR 700 per day, a vet clinic directory across Nepal, and a community lost and found pet board.'
-        },
-        {
-          q: 'Are the pet sitters and dog walkers on HamroPets verified?',
-          a: 'Yes. All dog walkers and pet sitters on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed. Only approved, ID-verified carers appear in search results so your pet is always in safe hands.'
-        },
-        {
-          q: 'Does HamroPets charge a fee for pet adoption?',
-          a: 'No. Pet adoption on HamroPets is completely free. We connect adopters with pet owners and rescue organizations at no charge. We advocate for ethical adoption as an alternative to buying from breeders.'
-        },
-      ].map((item, i) => (
-        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
-          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
-          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
 
-{/* ===== DONATION STRIP ===== */}
+{/* 2. SUPPORT & DONATE */}
 <div
   style={{
     width: '100%',
@@ -1007,7 +877,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         gap: '24px',
       }}
     >
-      {/* QR Code */}
       <div
         style={{
           background: '#fff',
@@ -1034,7 +903,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         </p>
       </div>
 
-      {/* Text + CTA */}
       <div style={{ textAlign: 'left' }}>
         <div
           style={{
@@ -1080,7 +948,134 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
   </div>
 </div>
-{/* ===== END DONATION STRIP ===== */}
+
+{/* 3. FOLLOW US (Social Media) */}
+<div style={{ maxWidth: 1200, margin: '24px auto 0', padding: isMobile ? '0 16px 0 16px' : '0 28px' }}>
+  <div style={{ marginBottom: 24, textAlign: 'center' }}>
+    <span style={{ background: '#1A1A1A', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #555' }}>📱 Follow Us</span>
+    <h2 style={{ fontSize: isMobile ? 24 : 32, fontWeight: 900, color: '#1A1A1A', margin: 0 }}>Follow Adopt a Dog Nepal</h2>
+    <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500, marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>Stay updated with our latest rescues, adoptions and stories</p>
+  </div>
+  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))', gap: isMobile ? 16 : 20 }}>
+    <a href="https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#25D366', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #25D366, #128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>💬</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>WhatsApp</div>
+        </div>
+        <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center', margin: '12px' }}>Follow on WhatsApp →</div>
+      </div>
+    </a>
+    <a href="https://www.tiktok.com/@adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#1A1A1A', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #555', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #010101, #69C9D0)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>🎵</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1A1A1A' }}>TikTok</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#69C9D0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #fff' }}>🐕</div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Adopt a Dog Nepal</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Rescues</div></div>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>Since</div></div>
+          </div>
+          <div style={{ background: '#69C9D0', color: '#1A1A1A', padding: '10px', borderRadius: 10, border: '2px solid #fff', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on TikTok →</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://www.facebook.com/AdoptaDogNepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: '#1877F2', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #1877F2, #0a5bc4)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>📘</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#1877F2' }}>Facebook</div>
+          <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, color: '#fff' }}>1.4M+ Views</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐾</div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>Adopt a Dog Nepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Animal Rescue · Kathmandu</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1.4M+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Views</div></div>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>Active</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Daily posts</div></div>
+          </div>
+          <div style={{ background: '#fff', color: '#1877F2', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Facebook →</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://www.instagram.com/adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={{ background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
+        <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontSize: 64 }}>📸</div>
+          <div style={{ position: 'absolute', top: 12, right: 12, background: '#fff', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, color: '#833AB4' }}>Instagram</div>
+          <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(0,0,0,0.4)', borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 700, color: '#fff' }}>Appeal Filed</div>
+        </div>
+        <div style={{ padding: '18px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 999, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, border: '2px solid #1A1A1A' }}>🐕</div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 15, color: '#fff' }}>@adoptadognepal</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Coming back soon</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 16, marginBottom: 14 }}>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>2018</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Since</div></div>
+            <div><div style={{ fontWeight: 900, fontSize: 16, color: '#fff' }}>1000+</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>Rehomed</div></div>
+          </div>
+          <div style={{ background: '#fff', color: '#833AB4', padding: '10px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, textAlign: 'center' }}>Follow on Instagram →</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+{/* 4. FAQ */}
+<div style={{ background: '#FFFFFF', borderTop: '3px solid #1A1A1A', marginTop: isMobile ? 48 : 64 }}>
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '48px 16px' : '64px 28px' }}>
+    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <span style={{ background: '#E8F9ED', color: '#58CC02', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 12, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>❓ FAQ</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 36, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Frequently Asked Questions</h2>
+      <p style={{ color: '#6B7280', fontSize: isMobile ? 13 : 15, fontWeight: 500, margin: 0 }}>Everything you need to know about HamroPets and our services</p>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 780, margin: '0 auto' }}>
+      {[
+        {
+          q: 'What is HamroPets?',
+          a: 'HamroPets is Nepal\'s first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. We offer free pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and a lost and found board across Kathmandu Valley.'
+        },
+        {
+          q: 'Is HamroPets connected to a nonprofit?',
+          a: 'Yes. HamroPets is presented by Adopt a Dog Nepal, a trusted nonprofit active since 2018 with 1000+ successful pet rehomings. Adopt a Dog Nepal manages our social media community while HamroPets.com is the full digital pet services platform.'
+        },
+        {
+          q: 'What services are available for pet owners in Kathmandu?',
+          a: 'Pet owners can access five core services: free pet adoption for dogs and cats, ID-verified dog walkers from NPR 300 per walk, cage-free pet sitters from NPR 700 per day, a vet clinic directory across Nepal, and a community lost and found pet board.'
+        },
+        {
+          q: 'Are the pet sitters and dog walkers on HamroPets verified?',
+          a: 'Yes. All dog walkers and pet sitters on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed. Only approved, ID-verified carers appear in search results so your pet is always in safe hands.'
+        },
+        {
+          q: 'Does HamroPets charge a fee for pet adoption?',
+          a: 'No. Pet adoption on HamroPets is completely free. We connect adopters with pet owners and rescue organizations at no charge. We advocate for ethical adoption as an alternative to buying from breeders.'
+        },
+      ].map((item, i) => (
+        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
         {/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 72, padding: isMobile ? '40px 16px 28px' : '56px 28px 36px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto' }}>
