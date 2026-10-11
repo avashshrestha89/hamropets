@@ -701,7 +701,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </div>
           </div>
         )}
-        {/* SERVICES GRID */}
+              {false && /* SERVICES GRID — hidden, restore by changing false to true */
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
           <div style={{ marginBottom: 24 }}>
             <span style={{ background: '#58CC02', color: '#1a1a1a', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 800, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #166534' }}>🏥 Services</span>
@@ -727,8 +727,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
+                  </div>
+        </div>}
 
         {/* FEATURED VETS */}
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>
