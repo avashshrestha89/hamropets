@@ -770,7 +770,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
     {/* Photo */}
     <div style={{ flexShrink: 0, width: isMobile ? 100 : 140, height: isMobile ? 100 : 140, borderRadius: 20, overflow: 'hidden', border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A' }}>
-      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
+      <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Remove_airbud_from_ear_20261011220355.jpg" alt="Avash Shrestha — Founder" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', objectPosition: 'top', display: 'block' }} />
     </div>
 
     {/* Text */}
