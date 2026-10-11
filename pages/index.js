@@ -28,7 +28,7 @@ function AutoScroller() {
     'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1657.JPG',
     'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1658.JPG',
     'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1659.JPG',
-      'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1674.JPG',
+    'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1674.JPG',
     'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1668.JPG',
     'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/success-stories/IMG_1665.JPG',
   ]
@@ -36,8 +36,8 @@ function AutoScroller() {
 
   return (
     <div style={{ width: '100%', background: '#1A1A1A', overflow: 'hidden' }}>
-      <div style={{ padding: '14px 0 10px', textAlign: 'center' }}>
-        <span style={{ color: '#FFD23F', fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase' }}>🐾 Real Success Stories — 1,000+ Pets Rehomed Since 2018</span>
+      <div style={{ padding: '16px 0 12px', textAlign: 'center' }}>
+        <span style={{ color: '#FFFFFF', fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', opacity: 0.6 }}>Real Success Stories</span>
       </div>
       <div style={{ overflow: 'hidden', height: 170 }}>
         <div style={{ display: 'flex', gap: 12, paddingLeft: 12, animation: 'scrollLeft 28s linear infinite', width: 'max-content', height: '100%' }}>
@@ -48,7 +48,10 @@ function AutoScroller() {
           ))}
         </div>
       </div>
-      <div style={{ height: 14, background: '#1A1A1A' }} />
+      <div style={{ padding: '12px 0 16px', textAlign: 'center' }}>
+        <span style={{ color: '#58CC02', fontSize: 15, fontWeight: 900, letterSpacing: 0.5 }}>1,000+ Pets Rehomed</span>
+        <span style={{ color: '#ffffff', fontSize: 13, fontWeight: 500, opacity: 0.5, marginLeft: 8 }}>Since 2018</span>
+      </div>
       <style>{`
         @keyframes scrollLeft {
           0% { transform: translateX(0); }
