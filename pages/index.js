@@ -328,13 +328,16 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               </div>
             </div>
           {/* HERO — AUTO SCROLL GALLERY */}
-<div style={{ width: '100%' }}>
-  <AutoScroller />
-</div>
-          </div>
-        </div>
 
-        {/* SPECIES + LOCATION FILTER */}
+                </div>
+      </div>
+
+      {/* FULL WIDTH AUTO SCROLLER BANNER */}
+      <div style={{ width: '100%', borderBottom: '3px solid #1A1A1A' }}>
+        <AutoScroller />
+      </div>
+
+      {/* SPECIES + LOCATION FILTER */}
         <div style={{ background: '#FFFFFF', padding: isMobile ? '20px 16px' : '24px 28px', borderBottom: '2px solid #E5E7EB' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 12 : 14, flexWrap: 'wrap', alignItems: isMobile ? 'flex-start' : 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
