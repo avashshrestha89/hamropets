@@ -118,7 +118,15 @@ export default function PetDetail({ pet }) {
                   ))}
                 </div>
               )}
-
+              {/* Free adoption disclaimer */}
+              <div style={{ marginTop: 16, background: '#FFF9E6', border: '2px solid #FFD23F', borderRadius: 12, padding: '12px 16px' }}>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#1A1A1A', lineHeight: 1.6 }}>
+                  🐾 Adoption is 100% free. We do not charge any adoption fee, transportation fee, delivery fee, or any other charges. If anyone asks you to pay for adoption, HamroPets and Adopt a Dog Nepal are not liable for any such expenses.
+                </p>
+                <p style={{ margin: '8px 0 0', fontSize: 13, fontWeight: 600, color: '#444', lineHeight: 1.6 }}>
+                  🐾 दत्तक लिनु पूर्णतः निःशुल्क छ। हामी कुनै पनि दत्तक शुल्क, यातायात शुल्क, वा अन्य कुनै शुल्क लिँदैनौं। यदि कसैले दत्तकका लागि पैसा माग्छ भने, HamroPets र Adopt a Dog Nepal त्यस्तो खर्चका लागि जिम्मेवार छैनौं।
+                </p>
+              </div>
               {/* Video */}
               {pet.video_url && (
                 <div style={{ marginTop: 16 }}>
