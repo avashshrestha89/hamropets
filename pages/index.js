@@ -1071,7 +1071,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
   </div>
 </div>
-        {/* FOOTER */}
+{/* FOOTER */}
         <footer style={{ background: '#FFFFFF', marginTop: isMobile ? 48 : 72, padding: isMobile ? '40px 16px 28px' : '56px 28px 36px', borderTop: '3px solid #1A1A1A' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto' }}>
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '1.6fr 1fr 1fr 1fr', gap: isMobile ? 24 : 48, marginBottom: 36 }}>
@@ -1086,9 +1086,10 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                 <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.7, maxWidth: 280, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>Nepal's first dedicated pet platform. Built on 8 years of trust from Adopt a Dog Nepal.</p>
                 <div style={{ marginTop: 12, display: 'inline-block', background: '#FFF0EB', padding: '5px 12px', borderRadius: 8, border: '1.5px solid #1A1A1A', fontSize: 11, fontWeight: 800, color: '#FF6B35' }}>🚀 A MeroAD.ai Product</div>
               </div>
-          
-               {[
-['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['Free Dog Adoption Kathmandu', '/adopt-dog-kathmandu'], ['Lost & Found Pets Nepal Guide', '/lost-found-pets-nepal'], ['Dog Walker Kathmandu', '/dog-walker-kathmandu'], ['📊 Compare Listing Tiers', '/boost-tiers'], ['💬 WhatsApp Channel', 'https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i']]],                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
+              
+              {[
+                ['Platform', [['Adopt a Dog or Cat in Nepal', '/adopt'], ['Vet Clinics & Pet Services Kathmandu', '/vets'], ['Dog Walking & Pet Sitting Kathmandu', '/walk-sit'], ['Lost & Found Pets Nepal', '/lost-found'], ['Free Dog Adoption Kathmandu', '/adopt-dog-kathmandu'], ['Lost & Found Pets Nepal Guide', '/lost-found-pets-nepal'], ['Dog Walker Kathmandu', '/dog-walker-kathmandu'], ['📊 Compare Listing Tiers', '/boost-tiers'], ['💬 WhatsApp Channel', 'https://whatsapp.com/channel/0029Vb9c4iz1iUxWIHkfl41i']]],
+                ['For Businesses', [['Advertise on HamroPets', '/advertise'], ['List Your Vet Clinic', '/list-business'], ['Partner with Us', '/advertise']]],
                 ['Company', [['Avash Shrestha — Founder', '/avash-shrestha'], ['Adopt a Dog Nepal', 'https://www.facebook.com/AdoptaDogNepal'], ['💚 Donate — Support Dog Rescue', '/donate'], ['Swor AI — Nepali TTS', 'https://meroadai.com'], ['HamroPets vs Hamrobazaar', '/hamrobazaar-alternative-nepal'], ['Contact Us', '/advertise']]],
               ].map(([heading, items]) => (
                 <div key={heading}>
@@ -1105,20 +1106,23 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               ))}
             </div>
             
-<div style={{ borderTop: '2px solid #E5E7EB', paddingTop: 20, marginBottom: 16 }}>
+            <div style={{ borderTop: '2px solid #E5E7EB', paddingTop: 20, marginBottom: 16 }}>
               <p style={{ color: '#9CA3AF', fontSize: 11, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: 0, maxWidth: 900 }}>
                 HamroPets is Nepal's first dedicated pet platform offering free dog and cat adoption, verified dog walking from NPR 300/walk, cage-free pet sitting from NPR 700/day, a vet clinic directory across Kathmandu Valley, lost and found pet reporting. Presented by Adopt a Dog Nepal — rehoming pets across Nepal since 2018. Serving Kathmandu, Lalitpur, Bhaktapur and surrounding areas. kukur adopt garne · pet sitting Kathmandu · dog walker Kathmandu.
               </p>
             </div>
+            
             <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
-<div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-  <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2026 HamroPets · All rights reserved</span>
-  <div style={{ display: 'flex', gap: 16 }}>
-    <Link href="/privacy-policy" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
-    <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
-<Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
-<Link href="/donate" style={{ color: '#58CC02', fontSize: 12, textDecoration: 'none', fontWeight: 700 }}>💚 Donate</Link>  </div>
-<</div>              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2026 HamroPets · All rights reserved</span>
+                <div style={{ display: 'flex', gap: 16 }}>
+                  <Link href="/privacy-policy" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
+                  <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
+                  <Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
+                  <Link href="/donate" style={{ color: '#58CC02', fontSize: 12, textDecoration: 'none', fontWeight: 700 }}>💚 Donate</Link>
+                </div>
+              </div>
+              <span style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 800, background: '#FFF0F6', padding: '4px 12px', borderRadius: 8, border: '2px solid #1A1A1A' }}>Built with ❤️ in Kathmandu 🇳🇵</span>
             </div>
           </div>
         </footer>
