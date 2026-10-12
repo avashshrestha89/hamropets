@@ -996,10 +996,9 @@ if (paidSubmitted) {
                     💡 {getAdaptivePitch(form.reason, petName, lang)}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {[
-                      { id: 'free', label: t('step7_free_label'), desc: t('step7_free_desc'), price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
-                      { id: 'boost', label: t('step7_boost_label'), desc: t('step7_boost_desc'), price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? 'धेरैले रोजेको' : 'Most chosen' },
-                      { id: 'shield', label: t('step7_shield_label'), desc: t('step7_shield_desc'), price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
+                    {[{ id: 'free', label: t('step7_free_label'), descEn: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descNe: 'HamroPets.com मा प्रोफाइल रहनेछ। ब्राउज गर्नेले भेट्टाउन सक्छन्।', price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
+{ id: 'boost', label: t('step7_boost_label'), descEn: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descNe: '२४ घण्टाभित्र भिडियो · TikTok ५०K · IG ३०K · FB २०K · ७ एडप्सन ग्रुप (१ लाख+ पहुँच)', price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value' },
+{ id: 'shield', label: t('step7_shield_label'), descEn: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descNe: '२ घण्टाभित्रै पोस्ट · Boost का सबै सुविधा + होमपेज टप १४ दिन + फोन नम्बर गोप्य + हामी कल सम्हाल्छौँ र २–३ परिवार सिफारिस गर्छौँ', price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
                     ].map(tier => (
                       <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
                         {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#FF6B35', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
