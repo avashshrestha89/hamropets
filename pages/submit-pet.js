@@ -64,7 +64,7 @@ const translations = {
     step6_next: (name) => `See ${name}'s profile →`,
     step7_generating: (name) => `Generating ${name}'s official profile...`,
     step7_ready: (name) => `${name}'s profile is ready.`,
-    step7_launch: (name) => `How would you like to launch ${name}'s profile?`,
+    step7_launch: (name) => `Most pets find a home in under 2 weeks. Choose how fast ${name} gets there.`,
     step7_free_label: "🐾 Community Listing",
     step7_free_desc: "Free forever. No catch. Your pet will still be seen by thousands.",
     step7_boost_label: "🚀 Social Boost",
@@ -144,7 +144,7 @@ const translations = {
     step6_next: (name) => `${name} को प्रोफाइल हेर्नुहोस् →`,
     step7_generating: (name) => `${name} को आधिकारिक प्रोफाइल तयार गर्दैछौं...`,
     step7_ready: (name) => `${name} को प्रोफाइल तयार छ।`,
-    step7_launch: (name) => `${name} को प्रोफाइल कसरी सुरु गर्न चाहनुहुन्छ?`,
+    step7_launch: (name) => `धेरैजसो पेट्सले २ हप्ताभित्रै नयाँ घर पाउँछन्। ${name} लाई कति समयभित्र चाहिन्छ?`,
     step7_free_label: "🐾 सामुदायिक सूचीकरण",
     step7_free_desc: "सधैं निःशुल्क। कुनै शर्त छैन। तपाईंको पाल्तु जनावर हजारौंले देख्नेछन्।",
     step7_boost_label: "🚀 सोसल बुस्ट",
@@ -168,33 +168,34 @@ const translations = {
 const getAdaptivePitch = (reason, name, lang) => {
   const pitches = {
     en: {
-      abroad: `Your flight is booked — Priority Shield gets verified adopters for ${name} in days, not months.`,
-      landlord: `Need a verified home quickly? Priority Shield accelerates the entire vetting process for ${name}.`,
-      family: `Many families go through this. Let us reach the right family for ${name} fast.`,
-      health: `We understand. Social Boost puts ${name} in front of 91K animal lovers immediately.`,
-      financial: `You've already done so much for ${name}. NPR 299 gets them in front of 91K people this week.`,
-      time: `A boost means ${name} finds the right home faster — less time managing inquiries for you.`,
+      abroad: `Moving soon? Priority Shield finds a verified family for ${name} within days — we handle everything.`,
+      landlord: `Need a quick verified placement? Priority Shield fast-tracks the whole process for ${name}.`,
+      family: `Many families go through this. Let us find the right family for ${name} fast.`,
+      health: `We understand. Social Boost puts ${name} in front of 100K+ animal lovers within 24 hours.`,
+      financial: `You've already done so much for ${name}. NPR 299 reaches 100K+ people this week.`,
+      time: `Social Boost means ${name} finds the right home faster — less time managing inquiries for you.`,
       behaviour: `${name} needs the right match. Priority Shield helps us find verified, experienced adopters.`,
-      rescued: `You've already done so much. NPR 599 gets ${name} in front of 91K people this week.`,
-      other: `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`,
-      prefer_not: `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`,
+      rescued: `You've already given ${name} a second chance. Let us find them a forever home fast.`,
+      other: `${name} can reach 100K+ animal lovers across TikTok, Instagram, and Facebook.`,
+      prefer_not: `${name} can reach 100K+ animal lovers across TikTok, Instagram, and Facebook.`,
     },
     ne: {
-      abroad: `तपाईंको उडान तय भइसक्यो — Priority Shield ले ${name} का लागि दिनभित्र प्रमाणित दत्तककर्ता खोज्छ।`,
-      landlord: `छिटो प्रमाणित घर चाहिन्छ? Priority Shield ले ${name} को प्रक्रिया छिटो बनाउँछ।`,
-      family: `धेरै परिवारले यस्तो अवस्था सामना गर्छन्। ${name} को लागि सही परिवार छिटो खोजौं।`,
-      health: `हामी बुझ्छौं। Social Boost ले ${name} लाई ९१ हजार+ पशु प्रेमीसामु राख्छ।`,
-      financial: `तपाईंले ${name} को लागि धेरै गर्नुभयो। NPR २९९ ले यही हप्ता ९१ हजारसामु पुर्‍याउँछ।`,
-      time: `Boost ले ${name} छिटो सही घर पाउँछ — तपाईंले कम सोधपुछ व्यवस्थापन गर्नुपर्छ।`,
-      behaviour: `${name} लाई सही मिलान चाहिन्छ। Priority Shield ले अनुभवी दत्तककर्ता खोज्छ।`,
-      rescued: `तपाईंले धेरै गर्नुभयो। NPR ५९९ ले ${name} लाई यही हप्ता ९१ हजारसामु पुर्‍याउँछ।`,
-      other: `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।`,
-      prefer_not: `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।`,
+      abroad: `बाहिर जाँदै हुनुहुन्छ? Priority Shield ले ${name} का लागि केही दिनभित्रै योग्य नयाँ परिवार खोज्छ — झन्झट सबै हाम्रो।`,
+      landlord: `छिटो घर चाहिन्छ? Priority Shield ले ${name} को एडप्सन प्रक्रिया छिटो बनाउँछ।`,
+      family: `धेरै परिवारले यस्तो अवस्था सामना गर्छन्। ${name} का लागि सही परिवार छिटो खोजौं।`,
+      health: `हामी बुझ्छौं। Social Boost ले ${name} लाई २४ घण्टाभित्र १ लाख+ पशु प्रेमीसामु पुर्‍याउँछ।`,
+      financial: `तपाईंले ${name} को लागि धेरै गर्नुभयो। NPR २९९ ले यही हप्ता १ लाख+ मान्छेसामु पुर्‍याउँछ।`,
+      time: `Social Boost ले ${name} छिटो सही घर पाउँछ — तपाईंलाई कम सोधपुछ व्यवस्थापन गर्नुपर्छ।`,
+      behaviour: `${name} लाई सही परिवार चाहिन्छ। Priority Shield ले अनुभवी र योग्य परिवार खोज्छ।`,
+      rescued: `तपाईंले ${name} लाई दोस्रो मौका दिनुभयो। अब हामी सही घर खोज्छौं — छिटो।`,
+      other: `${name} TikTok, Instagram र Facebook मार्फत १ लाख+ पशु प्रेमीसम्म पुग्न सक्छ।`,
+      prefer_not: `${name} TikTok, Instagram र Facebook मार्फत १ लाख+ पशु प्रेमीसम्म पुग्न सक्छ।`,
     }
   }
-  return (pitches[lang] && pitches[lang][reason]) || (lang === 'ne' ? `${name} हाम्रो TikTok र Instagram मार्फत ९१,००० + पशु प्रेमीसम्म पुग्न सक्छ।` : `${name} can reach 91,000+ animal lovers on our TikTok and Instagram.`)
+  return (pitches[lang]?.[reason]) || (lang === 'ne'
+    ? `${name} TikTok, Instagram र Facebook मार्फत १ लाख+ पशु प्रेमीसम्म पुग्न सक्छ।`
+    : `${name} can reach 100K+ animal lovers across TikTok, Instagram, and Facebook.`)
 }
-
 const LOGO_URL = "https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png"
 
 export default function SubmitPet() {
@@ -1001,7 +1002,7 @@ if (paidSubmitted) {
 { id: 'shield', label: t('step7_shield_label'), descEn: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descNe: '२ घण्टाभित्रै पोस्ट · Boost का सबै सुविधा + होमपेज टप १४ दिन + फोन नम्बर गोप्य + हामी कल सम्हाल्छौँ र २–३ परिवार सिफारिस गर्छौँ', price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
                     ].map(tier => (
                       <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
-                        {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#FF6B35', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
+                        {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                           <span style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A' }}>{tier.label}</span>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1011,8 +1012,8 @@ if (paidSubmitted) {
                             </div>
                           </div>
                         </div>
-                        <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>{tier.desc}</div>
-                      </div>
+<div style={{ fontSize: 12, color: '#374151', fontWeight: 600, lineHeight: 1.6 }}>{tier.descEn}</div>
+<div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, marginTop: 3, lineHeight: 1.6 }}>{tier.descNe}</div>                      </div>
                     ))}
                   </div>
                   {(boostTier === 'boost' || boostTier === 'shield') && (
