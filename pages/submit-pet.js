@@ -145,7 +145,7 @@ const translations = {
     step7_generating: (name) => `${name} को आधिकारिक प्रोफाइल तयार गर्दैछौं...`,
     step7_ready: (name) => `${name} को प्रोफाइल तयार छ।`,
     step7_launch: (name) => `धेरैजसो पेट्सले २ हप्ताभित्रै नयाँ घर पाउँछन्। ${name} लाई कति समयभित्र चाहिन्छ?`,
-    step7_free_label: "🐾 सामुदायिक सूचीकरण",
+    step7_free_label: "🐾 सामुदायिक लिस्टिङ",
     step7_free_desc: "सधैं निःशुल्क। कुनै शर्त छैन। तपाईंको पाल्तु जनावर हजारौंले देख्नेछन्।",
     step7_boost_label: "🚀 सोसल बुस्ट",
     step7_boost_desc: "९१ हजार+ फलोअरलाई TikTok + Instagram + Facebook भिडियो · Swor AI नेपाली भ्वाइसओभर",
@@ -180,14 +180,14 @@ const getAdaptivePitch = (reason, name, lang) => {
       prefer_not: `${name} can reach 100K+ animal lovers across TikTok, Instagram, and Facebook.`,
     },
     ne: {
-      abroad: `बाहिर जाँदै हुनुहुन्छ? Priority Shield ले ${name} का लागि केही दिनभित्रै योग्य नयाँ परिवार खोज्छ — झन्झट सबै हाम्रो।`,
-      landlord: `छिटो घर चाहिन्छ? Priority Shield ले ${name} को एडप्सन प्रक्रिया छिटो बनाउँछ।`,
-      family: `धेरै परिवारले यस्तो अवस्था सामना गर्छन्। ${name} का लागि सही परिवार छिटो खोजौं।`,
-      health: `हामी बुझ्छौं। Social Boost ले ${name} लाई २४ घण्टाभित्र १ लाख+ पशु प्रेमीसामु पुर्‍याउँछ।`,
-      financial: `तपाईंले ${name} को लागि धेरै गर्नुभयो। NPR २९९ ले यही हप्ता १ लाख+ मान्छेसामु पुर्‍याउँछ।`,
-      time: `Social Boost ले ${name} छिटो सही घर पाउँछ — तपाईंलाई कम सोधपुछ व्यवस्थापन गर्नुपर्छ।`,
+      abroad: `विदेश जाँदै हुनुहुन्छ? Priority Shield ले ${name} का लागि केही दिनभित्रै योग्य नयाँ परिवार खोज्छ — झन्झट सबै हाम्रो।`,
+      landlord: `छिटो नयाँ घर चाहिन्छ? Priority Shield ले ${name} को एडप्सन प्रक्रिया छिटो बनाउँछ।`,
+      family: `धेरै परिवारले यस्तो अवस्था सामना गर्छन्। ${name} का लागि सही परिवार छिटो खोजौँ।`,
+      health: `हामी बुझ्छौँ। Social Boost ले ${name} लाई २४ घण्टाभित्र १ लाख+ पशु प्रेमीसामु पुर्‍याउँछ।`,
+      financial: `तपाईंले ${name} को लागि धेरै गर्नुभयो। NPR २९९ ले यही हप्ता १ लाख+ मानिसहरूमाझ प्रोफाइल पुर्‍याउँछ।`,
+      time: `Social Boost मार्फत ${name} ले छिटो सही घर पाउनेछ — अनावश्यक फोन र सोधपुछको झन्झट पनि कम हुनेछ।`,
       behaviour: `${name} लाई सही परिवार चाहिन्छ। Priority Shield ले अनुभवी र योग्य परिवार खोज्छ।`,
-      rescued: `तपाईंले ${name} लाई दोस्रो मौका दिनुभयो। अब हामी सही घर खोज्छौं — छिटो।`,
+      rescued: `तपाईंले ${name} लाई दोस्रो मौका दिनुभयो। अब हामी सही घर खोज्छौँ — छिटो।`,
       other: `${name} TikTok, Instagram र Facebook मार्फत १ लाख+ पशु प्रेमीसम्म पुग्न सक्छ।`,
       prefer_not: `${name} TikTok, Instagram र Facebook मार्फत १ लाख+ पशु प्रेमीसम्म पुग्न सक्छ।`,
     }
@@ -997,9 +997,9 @@ if (paidSubmitted) {
                     💡 {getAdaptivePitch(form.reason, petName, lang)}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {[{ id: 'free', label: t('step7_free_label'), descEn: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descNe: 'HamroPets.com मा प्रोफाइल रहनेछ। ब्राउज गर्नेले भेट्टाउन सक्छन्।', price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
-{ id: 'boost', label: t('step7_boost_label'), descEn: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descNe: '२४ घण्टाभित्र भिडियो · TikTok ५०K · IG ३०K · FB २०K · ७ एडप्सन ग्रुप (१ लाख+ पहुँच)', price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value' },
-{ id: 'shield', label: t('step7_shield_label'), descEn: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descNe: '२ घण्टाभित्रै पोस्ट · Boost का सबै सुविधा + होमपेज टप १४ दिन + फोन नम्बर गोप्य + हामी कल सम्हाल्छौँ र २–३ परिवार सिफारिस गर्छौँ', price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
+                   {[{ id: 'free', label: t('step7_free_label'), desc: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descEn: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descNe: 'HamroPets.com मा प्रोफाइल रहनेछ। ब्राउज गर्नेले भेट्टाउन सक्छन्।', price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
+{ id: 'boost', label: t('step7_boost_label'), desc: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descEn: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descNe: '२४ घण्टाभित्र भिडियो · TikTok ५०K · IG ३०K · FB २०K · ७ एडप्सन ग्रुप (१ लाख+ पहुँच)', price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value' },
+{ id: 'shield', label: t('step7_shield_label'), desc: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descEn: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descNe: '२ घण्टाभित्रै पोस्ट · Boost का सबै सुविधा + होमपेज टप १४ दिन + फोन नम्बर गोप्य + हामी कल सम्हाल्छौँ र २–३ परिवार सिफारिस गर्छौँ', price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
                     ].map(tier => (
                       <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
                         {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
