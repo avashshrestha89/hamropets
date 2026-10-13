@@ -1075,7 +1075,9 @@ descNe: `HamroPets.com मा ${petName} को प्रोफाइल रा�
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setStep(6)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
                     <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: boostTier === 'free' ? '#FF6B35' : '#FFD23F', color: boostTier === 'free' ? '#fff' : '#1A1A1A', padding: '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? t('submitting') : boostTier === 'free' ? (lang === 'ne' ? `${petName} को प्रोफाइल प्रकाशित गर्नुहोस् — निःशुल्क` : `Publish ${petName}'s Profile — Free`) : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`}
+                      {submitting ? t('submitting') : boostTier === 'free' ? (lang === 'ne' ? `${petName} को प्रोफाइल प्रकाशित गर्नुहोस् — निःशुल्क` : `Publish ${petName}'s Profile — Free`) : lang === 'ne'
+  ? `${boostTier === 'boost' ? 'Social Boost सक्रिय गर्नुहोस्' : 'Priority Shield सक्रिय गर्नुहोस्'} — ${boostTier === 'boost' ? 'NPR २९९' : 'NPR ५९९'}`
+  : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`}
                     </button>
                   </div>
                   {boostTier !== 'free' && (
