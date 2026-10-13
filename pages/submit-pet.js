@@ -64,7 +64,7 @@ const translations = {
     step6_next: (name) => `See ${name}'s profile →`,
     step7_generating: (name) => `Generating ${name}'s official profile...`,
     step7_ready: (name) => `${name}'s profile is ready.`,
-    step7_launch: (name) => `Most pets find a home in under 2 weeks. Choose how fast ${name} gets there.`,
+    step7_launch: (name) => `Let's find ${name} a loving home. Choose how much help you'd like.`,
     step7_free_label: "🐾 Community Listing",
     step7_free_desc: "Free forever. No catch. Your pet will still be seen by thousands.",
     step7_boost_label: "🚀 Social Boost",
@@ -144,7 +144,7 @@ const translations = {
     step6_next: (name) => `${name} को प्रोफाइल हेर्नुहोस् →`,
     step7_generating: (name) => `${name} को आधिकारिक प्रोफाइल तयार गर्दैछौं...`,
     step7_ready: (name) => `${name} को प्रोफाइल तयार छ।`,
-    step7_launch: (name) => `धेरैजसो पेट्सले २ हप्ताभित्रै नयाँ घर पाउँछन्। ${name} लाई कति समयभित्र चाहिन्छ?`,
+    step7_launch: (name) => `${name} लाई माया गर्ने परिवार खोजौँ। कति सहयोग चाहिन्छ, छान्नुहोस्।`,
     step7_free_label: "🐾 सामुदायिक लिस्टिङ",
     step7_free_desc: "सधैं निःशुल्क। कुनै शर्त छैन। तपाईंको पाल्तु जनावर हजारौंले देख्नेछन्।",
     step7_boost_label: "🚀 सोसल बुस्ट",
@@ -997,10 +997,39 @@ if (paidSubmitted) {
                     💡 {getAdaptivePitch(form.reason, petName, lang)}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                   {[{ id: 'free', label: t('step7_free_label'), desc: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descEn: 'Listed on HamroPets.com. Adopters find you by browsing the site.', descNe: 'HamroPets.com मा प्रोफाइल रहनेछ। ब्राउज गर्नेले भेट्टाउन सक्छन्।', price: 'NPR 0', color: '#58CC02', shadow: '#166534' },
-{ id: 'boost', label: t('step7_boost_label'), desc: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descEn: 'Custom bilingual video within 24 hrs · TikTok 50K · IG 30K · FB 20K · 7 adoption groups (100K+ reach)', descNe: '२४ घण्टाभित्र भिडियो · TikTok ५०K · IG ३०K · FB २०K · ७ एडप्सन ग्रुप (१ लाख+ पहुँच)', price: 'NPR 299', color: '#38BDF8', shadow: '#0284C7', badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value' },
-{ id: 'shield', label: t('step7_shield_label'), desc: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descEn: 'Posted within 2 hrs · Everything in Boost + Homepage top 14 days + Phone hidden + We screen all calls & shortlist 2–3 families', descNe: '२ घण्टाभित्रै पोस्ट · Boost का सबै सुविधा + होमपेज टप १४ दिन + फोन नम्बर गोप्य + हामी कल सम्हाल्छौँ र २–३ परिवार सिफारिस गर्छौँ', price: 'NPR 599', color: '#FFD23F', shadow: '#B45309' },
-                    ].map(tier => (
+                   {[
+  {
+    id: 'free',
+    label: t('step7_free_label'),
+    desc: `${petName} gets listed on HamroPets.com. People looking to adopt can find them by browsing the site. No extra promotion — the right family has to find them on their own.`,
+    descEn: `${petName} gets listed on HamroPets.com. People looking to adopt can find them by browsing the site. No extra promotion — the right family has to find them on their own.`,
+    descNe: `HamroPets.com मा ${petName} को प्रोफाइल राखिन्छ। पाल्तु जनावर खोज्नेले वेबसाइट ब्राउज गर्दा भेट्टाउन सक्छन्। छुट्टै प्रचार हुँदैन — सही परिवारले आफैँ खोज्नुपर्छ।`,
+    price: 'NPR 0',
+    color: '#58CC02',
+    shadow: '#166534',
+  },
+  {
+    id: 'boost',
+    label: t('step7_boost_label'),
+    desc: `${petName} deserves to be seen by more people. Within 24 hours, we create a short bilingual video and share it everywhere.\n📱 TikTok · 50K weekly views\n📸 Instagram · 30K weekly views\n👥 Facebook · 20K weekly views\n➕ 7 adoption groups · 100K+ combined followers`,
+    descEn: `${petName} deserves to be seen by more people. Within 24 hours, we create a short bilingual video and share it everywhere.\n📱 TikTok · 50K weekly views\n📸 Instagram · 30K weekly views\n👥 Facebook · 20K weekly views\n➕ 7 adoption groups · 100K+ combined followers`,
+    descNe: `${petName} लाई धेरै मानिससम्म पुर्‍याऔँ। २४ घण्टाभित्र नेपाली + अंग्रेजी भिडियो बनाएर सबै ठाउँमा शेयर गर्छौँ।\n📱 TikTok · ५०K साप्ताहिक\n📸 Instagram · ३०K साप्ताहिक\n👥 Facebook · २०K साप्ताहिक\n➕ ७ दत्तक समूह · १ लाख+ फलोअर`,
+    price: 'NPR 299',
+    color: '#38BDF8',
+    shadow: '#0284C7',
+    badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value',
+  },
+  {
+    id: 'shield',
+    label: t('step7_shield_label'),
+    desc: `Everything in Social Boost, plus we handle the hard part. Posted within 2 hours. ${petName} stays Super Urgent on the homepage for 14 days. Your number stays private. We take all the calls, shortlist 2–3 families, and consult you before any decision. You focus on ${petName}. We handle everything else.`,
+    descEn: `Everything in Social Boost, plus we handle the hard part. Posted within 2 hours. ${petName} stays Super Urgent on the homepage for 14 days. Your number stays private. We take all the calls, shortlist 2–3 families, and consult you before any decision. You focus on ${petName}. We handle everything else.`,
+    descNe: `Social Boost का सबै सुविधा, साथै मुस्किल काम हामी गर्छौँ। २ घण्टाभित्र पोस्ट। १४ दिन होमपेजमा Super Urgent। तपाईंको नम्बर गोप्य। हामी सबै कल सम्हाल्छौँ, २–३ परिवार छान्छौँ, निर्णय तपाईंको। ${petName} को ख्याल तपाईं राख्नुस् — बाँकी सबै हामीले गर्छौँ।`,
+    price: 'NPR 599',
+    color: '#FFD23F',
+    shadow: '#B45309',
+  },
+].map(tier => (
                       <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
                         {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
@@ -1012,8 +1041,8 @@ if (paidSubmitted) {
                             </div>
                           </div>
                         </div>
-<div style={{ fontSize: 12, color: '#374151', fontWeight: 600, lineHeight: 1.6 }}>{tier.descEn}</div>
-<div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, marginTop: 3, lineHeight: 1.6 }}>{tier.descNe}</div>                      </div>
+<div style={{ fontSize: 12, color: '#374151', fontWeight: 600, lineHeight: 1.6, whiteSpace: 'pre-line' }}>{tier.descEn}</div>
+<div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, marginTop: 3, lineHeight: 1.6, whiteSpace: 'pre-line' }}>{tier.descNe}</div>                   </div>
                     ))}
                   </div>
                   {(boostTier === 'boost' || boostTier === 'shield') && (
