@@ -325,7 +325,7 @@ const handleImageSelect = async (e) => {
       if (boostTier !== 'free') {
         const amount = boostTier === 'boost' ? 'NPR 299' : 'NPR 599'
         const tierName = boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'
-        const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851221428 now.`)
+        const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851405178 now.`)
         const res = await fetch('/api/submit-pet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         if (res.ok) { setPaidSubmitted(true); window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank') }
         else alert('Something went wrong. Please try again.')
@@ -414,7 +414,7 @@ if (paidSubmitted) {
               <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 10 }}>💳 {lang === 'ne' ? 'भुक्तानी विवरण' : 'Payment Details'}</div>
               <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.9 }}>
                 {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
-                eSewa / Khalti: <strong>9851221428</strong><br />
+                eSewa / Khalti: <strong>9851405178</strong><br />
                 {lang === 'ne' ? 'भुक्तानी पछि WhatsApp मा screenshot पठाउनुहोस्' : 'After payment send screenshot to WhatsApp'}: <strong>9851405178</strong>
               </div>
             </div>
@@ -1050,7 +1050,7 @@ descNe: `HamroPets.com मा ${petName} को प्रोफाइल रा�
                       <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 {lang === 'ne' ? 'भुक्तानी' : 'Payment'}</div>
                       <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
                         {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
-                        eSewa / Khalti: <strong>9851221428</strong><br />
+                        eSewa / Khalti: <strong>9851405178</strong><br />
                         WhatsApp: <strong>9851405178</strong><br />
                         <span style={{ fontSize: 11, color: '#6B7280' }}>{lang === 'ne' ? 'भुक्तानी पछि screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र activate गर्छौं।' : 'Send payment screenshot to WhatsApp. We activate within 2-4 hours.'}</span>
                       </div>
