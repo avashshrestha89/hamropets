@@ -778,7 +778,7 @@ if (paidSubmitted) {
             </div>
           ) : (
             /* MOBILE OR STEP 7 */
-            <div style={{ maxWidth: step === 7 ? 680 : 560, margin: '0 auto', background: '#fff', borderRadius: 20, border: '2px solid #1A1A1A', padding: isMobile ? '20px 16px' : '32px', boxShadow: '4px 4px 0px #1A1A1A' }}>
+            <div style={{ maxWidth: step === 7 ? 680 : 560, margin: '0 auto', background: step === 7 ? '#F7F4EC' : '#fff', borderRadius: 20, border: step === 7 ? '1px solid #E2E5DE' : '2px solid #1A1A1A', padding: isMobile ? '20px 16px' : '32px', boxShadow: step === 7 ? '0 2px 16px rgba(36,75,56,0.07)' : '4px 4px 0px #1A1A1A' }}>
 
               {/* MOBILE STEPS */}
               {isMobile && step === 1 && (
@@ -989,99 +989,255 @@ if (paidSubmitted) {
 
               {/* STEP 7 — works for both mobile and desktop */}
               {step === 7 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                  {isMobile && <div style={{ marginBottom: 8 }}>{previewCard}</div>}
-                  <div style={{ fontWeight: 900, fontSize: isMobile ? 20 : 24, color: '#1A1A1A', marginBottom: 4 }}>{t('step7_ready', petName)}</div>
-                  <div style={{ fontSize: 15, color: '#6B7280', fontWeight: 500 }}>{t('step7_launch', petName)}</div>
-                  <div style={{ background: '#FFF9E6', borderRadius: 14, padding: '14px 16px', border: '2px solid #FFD23F', fontSize: 14, color: '#92400E', fontWeight: 600, lineHeight: 1.6 }}>
-                    💡 {getAdaptivePitch(form.reason, petName, lang)}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 0, background: '#F7F4EC', borderRadius: 16, margin: isMobile ? '-20px -16px' : '-32px', padding: isMobile ? '24px 16px' : '36px 40px' }}>
+
+                  {/* Heading section */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                    {imagePreview && (
+                      <div style={{ width: 64, height: 64, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #E2E5DE', boxShadow: '0 2px 8px rgba(36,75,56,0.10)' }}>
+                        <img src={imagePreview} alt={petName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 700, fontSize: isMobile ? 20 : 24, color: '#202923', lineHeight: 1.3 }}>{t('step7_ready', petName)}</div>
+                      <div style={{ fontSize: 14, color: '#667067', marginTop: 4, lineHeight: 1.5 }}>{t('step7_launch', petName)}</div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                   {[
-  {
-    id: 'free',
-    label: t('step7_free_label'),
-    desc: `${petName} gets listed on HamroPets.com. People looking to adopt can find them by browsing the site. No extra promotion — the right family has to find them on their own.`,
-descEn: `${petName}'s profile will be listed on HamroPets.com, where people looking to adopt can find them.`,
-descNe: `HamroPets.com मा ${petName} को प्रोफाइल राखिन्छ, जहाँ जनावर पाल्न चाहनेले उहाँलाई भेट्टाउन सक्छन्।`,
-    price: 'NPR 0',
-    color: '#58CC02',
-    shadow: '#166534',
-  },
- {
-    id: 'boost',
-    label: t('step7_boost_label'),
-    desc: `${petName} deserves to be seen by more people. Within 24 hours, we'll create a promotional video for ${petName} with Nepali and English voiceovers, then share it across our social media platforms and 7 adoption groups.\n📱 TikTok · 50K weekly views\n📸 Instagram · 30K weekly views\n👥 Facebook · 20K weekly views\n➕ 7 adoption groups · 100K+ combined followers`,
-    descEn: `${petName} deserves to be seen by more people. Within 24 hours, we'll create a promotional video for ${petName} with Nepali and English voiceovers, then share it across our social media platforms and 7 adoption groups.\n📱 TikTok · 50K weekly views\n📸 Instagram · 30K weekly views\n👥 Facebook · 20K weekly views\n➕ 7 adoption groups · 100K+ combined followers`,
-    descNe: `${petName} को कुरा धेरैभन्दा धेरै मानिससम्म पुर्‍याऔँ। २४ घण्टाभित्र हामी नेपाली र अंग्रेजी आवाजसहित ${petName} को प्रचार भिडियो बनाउँछौँ र आफ्ना सामाजिक सञ्जालका साथै ७ वटा दत्तक समूहमा शेयर गर्छौँ।\n📱 TikTok · ५०K साप्ताहिक\n📸 Instagram · ३०K साप्ताहिक\n👥 Facebook · २०K साप्ताहिक\n➕ ७ दत्तक समूह · १ लाख+ फलोअर`,
-    price: 'NPR 299',
-    color: '#38BDF8',
-    shadow: '#0284C7',
-    badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value',
-  },
-{
-    id: 'shield',
-    label: t('step7_shield_label'),
-    desc: `Everything in Social Boost, plus extra help when you need it most. We publish ${petName}'s adoption appeal within 2 hours. ${petName} stays pinned at the top of our homepage as Super Urgent for 14 days. Your phone number stays private. We handle calls and inquiries, shortlist 2–3 suitable families, and consult you before any decision. You focus on ${petName}. We'll help you find the right family.`,
-    descEn: `Everything in Social Boost, plus extra help when you need it most.\n\nWe publish ${petName}'s adoption appeal within 2 hours. ${petName} stays pinned at the top of our homepage as Super Urgent for 14 days.\n\nYour phone number stays private. We handle calls and inquiries, shortlist 2–3 suitable families, and consult you before any decision.\n\nYou focus on ${petName}. We'll help you find the right family.`,
-    descNe: `Social Boost का सबै सुविधा, साथै तपाईंलाई अझ बढी सहयोग।\n\nहामी २ घण्टाभित्र ${petName} को दत्तक अपील पोस्ट गर्छौँ। ${petName} को प्रोफाइल १४ दिनसम्म हाम्रो होमपेजको सबैभन्दा माथि Super Urgent भनेर राखिन्छ।\n\nतपाईंको फोन नम्बर गोप्य रहन्छ। फोन र सोधपुछ हामी सम्हाल्छौँ, २–३ वटा उपयुक्त परिवार छान्छौँ र निर्णय गर्नुअघि तपाईंसँग सल्लाह गर्छौँ।\n\n${petName} को ख्याल तपाईं राख्नुस्, सही परिवार खोज्न हामी साथ दिन्छौँ।`,
-    price: 'NPR 599',
-    color: '#FFD23F',
-    shadow: '#B45309',
-  },
-].map(tier => (
-                      <div key={tier.id} onClick={() => setBoostTier(tier.id)} style={{ background: boostTier === tier.id ? `${tier.color}18` : '#FAFAFA', borderRadius: 14, padding: '14px 16px', border: `2.5px solid ${boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: boostTier === tier.id ? `3px 3px 0px ${tier.shadow}` : 'none', position: 'relative', transition: 'all 0.2s' }}>
-                        {tier.badge && <div style={{ position: 'absolute', top: -10, left: 16, background: '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔥 {tier.badge}</div>}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                          <span style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A' }}>{tier.label}</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <span style={{ fontWeight: 900, fontSize: 15, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
-                            <div style={{ width: 18, height: 18, borderRadius: 999, border: `2px solid ${boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              {boostTier === tier.id && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+
+                  {/* Adaptive pitch callout */}
+                  <div style={{ background: '#E4EBDD', borderRadius: 12, padding: '12px 16px', marginBottom: 24, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>💡</span>
+                    <div style={{ fontSize: 13, color: '#244B38', fontWeight: 500, lineHeight: 1.6 }}>{getAdaptivePitch(form.reason, petName, lang)}</div>
+                  </div>
+
+                  {/* Tier cards */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                    {[
+                      {
+                        id: 'free',
+                        label: t('step7_free_label'),
+                        desc: `${petName} gets listed on HamroPets.com. People looking to adopt can find them by browsing the site. No extra promotion — the right family has to find them on their own.`,
+                        descEn: `${petName}'s profile will be listed on HamroPets.com, where people looking to adopt can find them.`,
+                        descNe: `HamroPets.com मा ${petName} को प्रोफाइल राखिन्छ, जहाँ जनावर पाल्न चाहनेले उहाँलाई भेट्टाउन सक्छन्।`,
+                        price: 'NPR 0',
+                        priceColor: '#244B38',
+                      },
+                      {
+                        id: 'boost',
+                        label: t('step7_boost_label'),
+                        desc: `${petName} deserves to be seen by more people. Within 24 hours, we'll create a promotional video for ${petName} with Nepali and English voiceovers, then share it across our social media platforms and 7 adoption groups.\n📱 TikTok · 50K weekly views\n📸 Instagram · 30K weekly views\n👥 Facebook · 20K weekly views\n➕ 7 adoption groups · 100K+ combined followers`,
+                        descEn: `${petName} deserves to be seen by more people. Within 24 hours, we'll create a promotional video for ${petName} with Nepali and English voiceovers, then share it across our social media platforms and 7 adoption groups.`,
+                        descNe: `${petName} को कुरा धेरैभन्दा धेरै मानिससम्म पुर्‍याऔँ। २४ घण्टाभित्र हामी नेपाली र अंग्रेजी आवाजसहित ${petName} को प्रचार भिडियो बनाउँछौँ र आफ्ना सामाजिक सञ्जालका साथै ७ वटा दत्तक समूहमा शेयर गर्छौँ।`,
+                        price: 'NPR 299',
+                        priceColor: '#244B38',
+                        badge: lang === 'ne' ? '🌟 उत्कृष्ट छनोट' : '🌟 Best Value',
+                        stats: [
+                          { platform: 'TikTok', stat: lang === 'ne' ? '५०K साप्ताहिक' : '50K weekly views' },
+                          { platform: 'Instagram', stat: lang === 'ne' ? '३०K साप्ताहिक' : '30K weekly views' },
+                          { platform: 'Facebook', stat: lang === 'ne' ? '२०K साप्ताहिक' : '20K weekly views' },
+                          { platform: lang === 'ne' ? '७ दत्तक समूह' : '7 adoption groups', stat: lang === 'ne' ? '१ लाख+ फलोअर' : '100K+ combined followers' },
+                        ],
+                      },
+                      {
+                        id: 'shield',
+                        label: t('step7_shield_label'),
+                        desc: `Everything in Social Boost, plus extra help when you need it most. We publish ${petName}'s adoption appeal within 2 hours. ${petName} stays pinned at the top of our homepage as Super Urgent for 14 days. Your phone number stays private. We handle calls and inquiries, shortlist 2–3 suitable families, and consult you before any decision. You focus on ${petName}. We'll help you find the right family.`,
+                        descEn: `Everything in Social Boost, plus extra help when you need it most.\n\nWe publish ${petName}'s adoption appeal within 2 hours. ${petName} stays pinned at the top of our homepage as Super Urgent for 14 days.\n\nYour phone number stays private. We handle calls and inquiries, shortlist 2–3 suitable families, and consult you before any decision.\n\nYou focus on ${petName}. We'll help you find the right family.`,
+                        descNe: `Social Boost का सबै सुविधा, साथै तपाईंलाई अझ बढी सहयोग।\n\nहामी २ घण्टाभित्र ${petName} को दत्तक अपील पोस्ट गर्छौँ। ${petName} को प्रोफाइल १४ दिनसम्म हाम्रो होमपेजको सबैभन्दा माथि Super Urgent भनेर राखिन्छ।\n\nतपाईंको फोन नम्बर गोप्य रहन्छ। फोन र सोधपुछ हामी सम्हाल्छौँ, २–३ वटा उपयुक्त परिवार छान्छौँ र निर्णय गर्नुअघि तपाईंसँग सल्लाह गर्छौँ।\n\n${petName} को ख्याल तपाईं राख्नुस्, सही परिवार खोज्न हामी साथ दिन्छौँ।`,
+                        price: 'NPR 599',
+                        priceColor: '#244B38',
+                        benefits: lang === 'ne'
+                          ? ['२ घण्टाभित्र पोस्ट', '१४ दिन होमपेज पिन', 'फोन नम्बर गोप्य', 'फोन र सोधपुछ व्यवस्थापन', '२–३ परिवार छनोट', 'निर्णयमा सल्लाह']
+                          : ['Posted within 2 hours', 'Homepage pinned for 14 days', 'Your phone stays private', 'Calls & inquiries handled for you', '2–3 suitable families shortlisted', 'Consultation before any decision'],
+                      },
+                    ].map(tier => {
+                      const isSelected = boostTier === tier.id
+                      return (
+                        <div
+                          key={tier.id}
+                          onClick={() => setBoostTier(tier.id)}
+                          role="radio"
+                          aria-checked={isSelected}
+                          tabIndex={0}
+                          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setBoostTier(tier.id)}
+                          style={{
+                            background: isSelected ? '#F2F7F0' : '#FFFFFF',
+                            borderRadius: 16,
+                            padding: isMobile ? '16px' : '20px 24px',
+                            border: `1.5px solid ${isSelected ? '#244B38' : '#E2E5DE'}`,
+                            cursor: 'pointer',
+                            boxShadow: isSelected ? '0 4px 16px rgba(36,75,56,0.10)' : '0 1px 4px rgba(36,75,56,0.05)',
+                            position: 'relative',
+                            transition: 'all 0.18s ease',
+                            outline: 'none',
+                          }}
+                        >
+                          {/* Best Value badge */}
+                          {tier.badge && (
+                            <div style={{
+                              position: 'absolute', top: -11, left: 20,
+                              background: '#244B38', color: '#F7F4EC',
+                              fontSize: 11, fontWeight: 600,
+                              padding: '3px 12px', borderRadius: 999,
+                              letterSpacing: 0.2,
+                            }}>
+                              {tier.badge}
+                            </div>
+                          )}
+
+                          {/* Card header */}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                            <span style={{ fontWeight: 700, fontSize: 15, color: '#202923' }}>{tier.label}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <span style={{ fontWeight: 700, fontSize: 15, color: tier.priceColor }}>{tier.price}</span>
+                              <div style={{
+                                width: 20, height: 20, borderRadius: '50%',
+                                border: `2px solid ${isSelected ? '#244B38' : '#C4C9BF'}`,
+                                background: isSelected ? '#244B38' : '#fff',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                flexShrink: 0,
+                              }}>
+                                {isSelected && <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff' }} />}
+                              </div>
                             </div>
                           </div>
+
+                          {/* Description — Boost gets a special layout */}
+                          {tier.id === 'boost' ? (
+                            <div>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10 }}>{tier.descEn}</div>
+                              <div style={{ fontSize: 12, color: '#667067', lineHeight: 1.6, marginBottom: 12, whiteSpace: 'pre-line' }}>{tier.descNe}</div>
+                              {/* 2×2 stats grid */}
+                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                                {tier.stats.map((s, i) => (
+                                  <div key={i} style={{ background: '#F7F4EC', borderRadius: 10, padding: '8px 10px', border: '1px solid #E2E5DE' }}>
+                                    <div style={{ fontSize: 11, color: '#667067', fontWeight: 500, marginBottom: 2 }}>{s.platform}</div>
+                                    <div style={{ fontSize: 13, color: '#202923', fontWeight: 700 }}>{s.stat}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : tier.id === 'shield' ? (
+                            <div>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10, whiteSpace: 'pre-line' }}>{tier.descEn}</div>
+                              <div style={{ fontSize: 12, color: '#667067', lineHeight: 1.7, marginBottom: 12, whiteSpace: 'pre-line' }}>{tier.descNe}</div>
+                              {/* Benefits checklist */}
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                {tier.benefits.map((b, i) => (
+                                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+                                      <circle cx="8" cy="8" r="8" fill="#E4EBDD" />
+                                      <path d="M4.5 8l2.5 2.5 4.5-5" stroke="#244B38" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    <span style={{ fontSize: 12, color: '#374151', lineHeight: 1.5 }}>{b}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <div>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>{tier.descEn}</div>
+                              <div style={{ fontSize: 12, color: '#667067', marginTop: 6, lineHeight: 1.6 }}>{tier.descNe}</div>
+                            </div>
+                          )}
                         </div>
-<div style={{ fontSize: 12, color: '#374151', fontWeight: 600, lineHeight: 1.6, whiteSpace: 'pre-line' }}>{tier.descEn}</div>
-<div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, marginTop: 3, lineHeight: 1.6, whiteSpace: 'pre-line' }}>{tier.descNe}</div>                   </div>
-                    ))}
+                      )
+                    })}
                   </div>
+
+                  {/* Payment block */}
                   {(boostTier === 'boost' || boostTier === 'shield') && (
-                    <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '2px solid #FFD23F' }}>
-                      <div style={{ fontWeight: 800, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 {lang === 'ne' ? 'भुक्तानी' : 'Payment'}</div>
-                      <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
+                    <div style={{ background: '#FBF3E3', borderRadius: 12, padding: '16px 18px', border: '1px solid #E9B96E', marginBottom: 20 }}>
+                      <div style={{ fontWeight: 700, fontSize: 13, color: '#202923', marginBottom: 8 }}>💳 {lang === 'ne' ? 'भुक्तानी' : 'Payment'}</div>
+                      <div style={{ fontSize: 13, color: '#374151', lineHeight: 2 }}>
                         {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
                         eSewa / Khalti: <strong>9851405178</strong><br />
                         WhatsApp: <strong>9851405178</strong><br />
-                        <span style={{ fontSize: 11, color: '#6B7280' }}>{lang === 'ne' ? 'भुक्तानी पछि screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र activate गर्छौं।' : 'Send payment screenshot to WhatsApp. We activate within 2-4 hours.'}</span>
+                        <span style={{ fontSize: 12, color: '#667067' }}>{lang === 'ne' ? 'भुक्तानी पछि screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र activate गर्छौं।' : 'Send payment screenshot to WhatsApp. We activate within 2-4 hours.'}</span>
                       </div>
                     </div>
                   )}
-                  <div style={{ background: '#F9FAFB', borderRadius: 14, padding: '16px', border: '1.5px solid #E5E7EB' }}>
-                    <div style={{ fontWeight: 800, fontSize: 13, marginBottom: 10 }}>{t('terms_title')}</div>
-                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 10 }}>
-                      <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{t('terms_free')} — {t('terms_agree')}</span>
+
+                  {/* Terms & consent */}
+                  <div style={{ background: '#FFFFFF', borderRadius: 14, padding: '18px', border: '1px solid #E2E5DE', marginBottom: 16 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#202923', marginBottom: 12 }}>{t('terms_title')}</div>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 12 }}>
+                      <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{t('terms_free')} — {t('terms_agree')}</span>
                     </label>
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
-                      <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#58CC02', marginTop: 2, flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{t('terms_contact')} ✅</span>
+                      <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{t('terms_contact')} ✅</span>
                     </label>
                   </div>
-                            <div style={{ background: '#F0FDF4', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #58CC02', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 4 }}>
-                    <div style={{ fontSize: 13, color: '#166534', fontWeight: 600 }}>🤔 Not sure which tier is right?</div>
-                    <a href="/boost-tiers" target="_blank" style={{ fontSize: 12, fontWeight: 900, color: '#166534', textDecoration: 'underline', flexShrink: 0 }}>See full comparison with examples →</a>
+
+                  {/* Comparison link */}
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+                    <a href="https://hamropets.vercel.app/boost-tiers" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: '#244B38', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                      {lang === 'ne' ? 'पूर्ण तुलना हेर्नुहोस् →' : 'See full tier comparison →'}
+                    </a>
                   </div>
-                  <div style={{ fontSize: 12, color: '#9CA3AF', textAlign: 'center' }}>{t('step7_reassurance')}</div>
-                  <div style={{ display: 'flex', gap: 10 }}>
-                    <button onClick={() => setStep(6)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
-                    <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: boostTier === 'free' ? '#FF6B35' : '#FFD23F', color: boostTier === 'free' ? '#fff' : '#1A1A1A', padding: '14px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? t('submitting') : boostTier === 'free' ? (lang === 'ne' ? `${petName} को प्रोफाइल प्रकाशित गर्नुहोस् — निःशुल्क` : `Publish ${petName}'s Profile — Free`) : lang === 'ne'
-  ? `${boostTier === 'boost' ? 'Social Boost सक्रिय गर्नुहोस्' : 'Priority Shield सक्रिय गर्नुहोस्'} — ${boostTier === 'boost' ? 'NPR २९९' : 'NPR ५९९'}`
-  : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`}
+
+                  {/* Reassurance */}
+                  <div style={{ fontSize: 12, color: '#667067', textAlign: 'center', marginBottom: 20 }}>{t('step7_reassurance')}</div>
+
+                  {/* Action buttons */}
+                  <div style={{ display: 'flex', gap: 10, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+                    <button
+                      onClick={() => setStep(6)}
+                      style={{
+                        flex: isMobile ? '1 1 100%' : '0 0 auto',
+                        minWidth: 90,
+                        background: '#FFFFFF', color: '#202923',
+                        padding: '13px 20px', borderRadius: 12,
+                        border: '1.5px solid #C4C9BF',
+                        fontSize: 14, fontWeight: 600,
+                        cursor: 'pointer', fontFamily: 'inherit',
+                        transition: 'border-color 0.15s',
+                      }}
+                    >
+                      {t('back')}
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={submitting}
+                      style={{
+                        flex: 1,
+                        background: submitting ? '#667067' : '#244B38',
+                        color: '#FFFFFF',
+                        padding: '13px 20px', borderRadius: 12,
+                        border: 'none',
+                        fontSize: 15, fontWeight: 700,
+                        cursor: submitting ? 'not-allowed' : 'pointer',
+                        fontFamily: 'inherit',
+                        boxShadow: submitting ? 'none' : '0 4px 14px rgba(36,75,56,0.25)',
+                        opacity: submitting ? 0.7 : 1,
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      {submitting
+                        ? t('submitting')
+                        : boostTier === 'free'
+                          ? (lang === 'ne' ? `${petName} को प्रोफाइल प्रकाशित गर्नुहोस् — निःशुल्क` : `Publish ${petName}'s Profile — Free`)
+                          : lang === 'ne'
+                            ? `${boostTier === 'boost' ? 'Social Boost सक्रिय गर्नुहोस्' : 'Priority Shield सक्रिय गर्नुहोस्'} — ${boostTier === 'boost' ? 'NPR २९९' : 'NPR ५९९'}`
+                            : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`
+                      }
                     </button>
                   </div>
+
+                  {/* Downgrade link */}
                   {boostTier !== 'free' && (
-                    <button onClick={() => setBoostTier('free')} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'underline', textAlign: 'center', width: '100%' }}>
+                    <button
+                      onClick={() => setBoostTier('free')}
+                      style={{
+                        background: 'none', border: 'none',
+                        color: '#9CA3AF', fontSize: 13,
+                        cursor: 'pointer', fontFamily: 'inherit',
+                        textDecoration: 'underline', textAlign: 'center', width: '100%',
+                        marginTop: 10,
+                      }}
+                    >
                       {t('step7_continue_free')}
                     </button>
                   )}
