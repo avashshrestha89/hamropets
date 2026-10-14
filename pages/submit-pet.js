@@ -1052,6 +1052,15 @@ if (paidSubmitted) {
                       },
                     ].map(tier => {
                       const isSelected = boostTier === tier.id
+                      const isBoost = tier.id === 'boost'
+                      const isShield = tier.id === 'shield'
+                      // Boost gets a sage tint when selected OR when it's the recommended option
+                      const cardBg = isSelected
+                        ? (isBoost ? '#EDF4E8' : '#F2F7F0')
+                        : (isBoost ? '#F5FAF2' : '#FFFFFF')
+                      const cardBorder = isSelected
+                        ? (isBoost ? '#244B38' : '#244B38')
+                        : (isBoost ? '#B8D4B0' : '#E2E5DE')
                       return (
                         <div
                           key={tier.id}
@@ -1061,35 +1070,36 @@ if (paidSubmitted) {
                           tabIndex={0}
                           onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setBoostTier(tier.id)}
                           style={{
-                            background: isSelected ? '#F2F7F0' : '#FFFFFF',
+                            background: cardBg,
                             borderRadius: 16,
                             padding: isMobile ? '16px' : '20px 24px',
-                            border: `1.5px solid ${isSelected ? '#244B38' : '#E2E5DE'}`,
+                            border: `${isBoost ? '2px' : '1.5px'} solid ${cardBorder}`,
                             cursor: 'pointer',
-                            boxShadow: isSelected ? '0 4px 16px rgba(36,75,56,0.10)' : '0 1px 4px rgba(36,75,56,0.05)',
+                            boxShadow: isSelected ? '0 4px 16px rgba(36,75,56,0.12)' : isBoost ? '0 2px 8px rgba(36,75,56,0.07)' : '0 1px 4px rgba(36,75,56,0.04)',
                             position: 'relative',
                             transition: 'all 0.18s ease',
                             outline: 'none',
+                            marginTop: isBoost ? 8 : 0,
                           }}
                         >
                           {/* Best Value badge */}
                           {tier.badge && (
                             <div style={{
-                              position: 'absolute', top: -11, left: 20,
+                              position: 'absolute', top: -12, left: 18,
                               background: '#244B38', color: '#F7F4EC',
-                              fontSize: 11, fontWeight: 600,
-                              padding: '3px 12px', borderRadius: 999,
-                              letterSpacing: 0.2,
+                              fontSize: 11, fontWeight: 700,
+                              padding: '3px 14px', borderRadius: 999,
+                              letterSpacing: 0.3,
                             }}>
                               {tier.badge}
                             </div>
                           )}
 
                           {/* Card header */}
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                             <span style={{ fontWeight: 700, fontSize: 15, color: '#202923' }}>{tier.label}</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                              <span style={{ fontWeight: 700, fontSize: 15, color: tier.priceColor }}>{tier.price}</span>
+                              <span style={{ fontWeight: 700, fontSize: 15, color: '#244B38' }}>{tier.price}</span>
                               <div style={{
                                 width: 20, height: 20, borderRadius: '50%',
                                 border: `2px solid ${isSelected ? '#244B38' : '#C4C9BF'}`,
@@ -1102,42 +1112,45 @@ if (paidSubmitted) {
                             </div>
                           </div>
 
-                          {/* Description — Boost gets a special layout */}
-                          {tier.id === 'boost' ? (
+                          {/* Boost card */}
+                          {isBoost ? (
                             <div>
-                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10 }}>{tier.descEn}</div>
-                              <div style={{ fontSize: 12, color: '#667067', lineHeight: 1.6, marginBottom: 12, whiteSpace: 'pre-line' }}>{tier.descNe}</div>
-                              {/* 2×2 stats grid */}
-                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 6 }}>{tier.descEn}</div>
+                              <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.7, marginBottom: 10 }}>{tier.descNe}</div>
+                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 7 }}>
                                 {tier.stats.map((s, i) => (
-                                  <div key={i} style={{ background: '#F7F4EC', borderRadius: 10, padding: '8px 10px', border: '1px solid #E2E5DE' }}>
+                                  <div key={i} style={{ background: '#FFFFFF', borderRadius: 10, padding: '8px 10px', border: '1px solid #D4E8CC' }}>
                                     <div style={{ fontSize: 11, color: '#667067', fontWeight: 500, marginBottom: 2 }}>{s.platform}</div>
                                     <div style={{ fontSize: 13, color: '#202923', fontWeight: 700 }}>{s.stat}</div>
                                   </div>
                                 ))}
                               </div>
                             </div>
-                          ) : tier.id === 'shield' ? (
+                          ) : isShield ? (
+                            // Shield: compact — checklist only, Nepali label per item
                             <div>
-                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10, whiteSpace: 'pre-line' }}>{tier.descEn}</div>
-                              <div style={{ fontSize: 12, color: '#667067', lineHeight: 1.7, marginBottom: 12, whiteSpace: 'pre-line' }}>{tier.descNe}</div>
-                              {/* Benefits checklist */}
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10 }}>
+                                {lang === 'ne'
+                                  ? `Social Boost का सबै सुविधा, साथै ${petName} को लागि अझ बढी व्यक्तिगत सहयोग।`
+                                  : `Everything in Social Boost, plus hands-on support for ${petName}.`}
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
                                 {tier.benefits.map((b, i) => (
-                                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+                                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
                                       <circle cx="8" cy="8" r="8" fill="#E4EBDD" />
                                       <path d="M4.5 8l2.5 2.5 4.5-5" stroke="#244B38" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
-                                    <span style={{ fontSize: 12, color: '#374151', lineHeight: 1.5 }}>{b}</span>
+                                    <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{b}</span>
                                   </div>
                                 ))}
                               </div>
                             </div>
                           ) : (
+                            // Free tier
                             <div>
                               <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>{tier.descEn}</div>
-                              <div style={{ fontSize: 12, color: '#667067', marginTop: 6, lineHeight: 1.6 }}>{tier.descNe}</div>
+                              <div style={{ fontSize: 13, color: '#4A5A4D', marginTop: 5, lineHeight: 1.6 }}>{tier.descNe}</div>
                             </div>
                           )}
                         </div>
@@ -1159,27 +1172,25 @@ if (paidSubmitted) {
                   )}
 
                   {/* Terms & consent */}
-                  <div style={{ background: '#FFFFFF', borderRadius: 14, padding: '18px', border: '1px solid #E2E5DE', marginBottom: 16 }}>
-                    <div style={{ fontWeight: 700, fontSize: 13, color: '#202923', marginBottom: 12 }}>{t('terms_title')}</div>
-                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 12 }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 14, padding: '16px 18px', border: '1px solid #E2E5DE', marginBottom: 12 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#202923', marginBottom: 10 }}>{t('terms_title')}</div>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 10 }}>
                       <input type="checkbox" checked={form.agreeTerms} onChange={e => update('agreeTerms', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{t('terms_free')} — {t('terms_agree')}</span>
+                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>{t('terms_free')} — {t('terms_agree')}</span>
                     </label>
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
                       <input type="checkbox" checked={form.agreeContact} onChange={e => update('agreeContact', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{t('terms_contact')} ✅</span>
+                      <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>{t('terms_contact')} ✅</span>
                     </label>
                   </div>
 
-                  {/* Comparison link */}
-                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-                    <a href="https://hamropets.vercel.app/boost-tiers" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: '#244B38', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                      {lang === 'ne' ? 'पूर्ण तुलना हेर्नुहोस् →' : 'See full tier comparison →'}
+                  {/* Comparison link + reassurance in one row */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, flexWrap: 'wrap', gap: 6 }}>
+                    <div style={{ fontSize: 12, color: '#667067' }}>{t('step7_reassurance')}</div>
+                    <a href="https://hamropets.vercel.app/boost-tiers" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#244B38', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3, flexShrink: 0 }}>
+                      {lang === 'ne' ? 'पूर्ण तुलना →' : 'Compare tiers →'}
                     </a>
                   </div>
-
-                  {/* Reassurance */}
-                  <div style={{ fontSize: 12, color: '#667067', textAlign: 'center', marginBottom: 20 }}>{t('step7_reassurance')}</div>
 
                   {/* Action buttons */}
                   <div style={{ display: 'flex', gap: 10, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
@@ -1189,7 +1200,7 @@ if (paidSubmitted) {
                         flex: isMobile ? '1 1 100%' : '0 0 auto',
                         minWidth: 90,
                         background: '#FFFFFF', color: '#202923',
-                        padding: '13px 20px', borderRadius: 12,
+                        padding: '14px 20px', borderRadius: 12,
                         border: '1.5px solid #C4C9BF',
                         fontSize: 14, fontWeight: 600,
                         cursor: 'pointer', fontFamily: 'inherit',
@@ -1205,14 +1216,15 @@ if (paidSubmitted) {
                         flex: 1,
                         background: submitting ? '#667067' : '#244B38',
                         color: '#FFFFFF',
-                        padding: '13px 20px', borderRadius: 12,
+                        padding: '14px 20px', borderRadius: 12,
                         border: 'none',
                         fontSize: 15, fontWeight: 700,
                         cursor: submitting ? 'not-allowed' : 'pointer',
                         fontFamily: 'inherit',
-                        boxShadow: submitting ? 'none' : '0 4px 14px rgba(36,75,56,0.25)',
+                        boxShadow: submitting ? 'none' : '0 6px 18px rgba(36,75,56,0.28)',
                         opacity: submitting ? 0.7 : 1,
                         transition: 'all 0.15s',
+                        letterSpacing: 0.1,
                       }}
                     >
                       {submitting
