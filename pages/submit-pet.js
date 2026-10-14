@@ -311,7 +311,7 @@ const handleImageSelect = async (e) => {
       }
       const payload = {
         petName: form.petName, breed: form.breed, species: form.species,
-        gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAgeYears && form.petAgeMonths ? `${form.petAgeYears} years ${form.petAgeMonths} months` : form.petAgeYears ? `${form.petAgeYears} years` : form.petAgeMonths ? `${form.petAgeMonths} months` : '',
+        gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAgeYears && form.petAgeMonths ? `${form.petAgeYears} years form.petAgeMonthsmonths`:form.petAgeYears?`{form.petAgeYears} years` : form.petAgeMonths ? `${form.petAgeMonths} months` : '',
         location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
         neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
         friendlyDogs: form.friendlyDogs, description: form.description,
@@ -325,7 +325,7 @@ const handleImageSelect = async (e) => {
       if (boostTier !== 'free') {
         const amount = boostTier === 'boost' ? 'NPR 299' : 'NPR 599'
         const tierName = boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'
-        const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851405178 now.`)
+        const msg = encodeURIComponent(`Hi HamroPets! I want to activate tierName({amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851405178 now.`)
         const res = await fetch('/api/submit-pet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         if (res.ok) { setPaidSubmitted(true); window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank') }
         else alert('Something went wrong. Please try again.')
@@ -768,7 +768,7 @@ if (paidSubmitted) {
               {/* DESKTOP PREVIEW */}
               <div style={{ position: 'sticky', top: 100 }}>
                 <div style={{ fontSize: 12, fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
-                  {lang === 'ne' ? `${petName} को प्रोफाइल` : `${petName}'s Profile Preview`}
+                  {lang === 'ne' ? `petNameकोप्रोफाइल`:`{petName}'s Profile Preview`}
                 </div>
                 {previewCard}
                 <div style={{ marginTop: 12, fontSize: 12, color: '#9CA3AF', textAlign: 'center', fontStyle: 'italic' }}>
@@ -1096,82 +1096,8 @@ if (paidSubmitted) {
                           )}
 
                           {/* Card header */}
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                              {/* Tier illustration */}
-                              {tier.id === 'free' && (
-                                <div style={{ width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, flexShrink: 0 }} aria-hidden="true">
-                                  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-                                    {/* Soft sage background circle */}
-                                    <circle cx="26" cy="26" r="26" fill="#E4EBDD" />
-                                    {/* Paw pad - main central pad */}
-                                    <ellipse cx="26" cy="30" rx="8" ry="6.5" fill="#244B38" />
-                                    {/* Paw pad - toe pads */}
-                                    <ellipse cx="18.5" cy="22.5" rx="3.2" ry="2.6" fill="#244B38" />
-                                    <ellipse cx="24" cy="20" rx="3.2" ry="2.6" fill="#244B38" />
-                                    <ellipse cx="29.5" cy="20" rx="3.2" ry="2.6" fill="#244B38" />
-                                    <ellipse cx="35" cy="22.5" rx="3.2" ry="2.6" fill="#244B38" />
-                                    {/* Small heart on top right */}
-                                    <path d="M37 14c0-1.5-1.2-2.5-2.5-2.5S32 12.5 32 14c0 2.2 2.5 4 2.5 4s2.5-1.8 2.5-4z" fill="#E9B96E" />
-                                    {/* Highlight on main pad */}
-                                    <ellipse cx="23.5" cy="28.5" rx="2.5" ry="1.5" fill="#3D7A5A" opacity="0.4" />
-                                  </svg>
-                                </div>
-                              )}
-                              {tier.id === 'boost' && (
-                                <div style={{ width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, flexShrink: 0 }} aria-hidden="true">
-                                  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-                                    {/* Sage background circle */}
-                                    <circle cx="26" cy="26" r="26" fill="#D4E8CC" />
-                                    {/* Megaphone body */}
-                                    <path d="M13 21v10h5l10 7V14L18 21h-5z" fill="#193A2B" />
-                                    <path d="M13 21v10h5l10 7V14L18 21h-5z" fill="#244B38" />
-                                    {/* Megaphone bell mouth */}
-                                    <path d="M28 14l8-4v32l-8-4V14z" fill="#244B38" />
-                                    <path d="M28 14l8-4v32l-8-4V14z" fill="#2D5C44" />
-                                    {/* Highlight on megaphone */}
-                                    <path d="M29 17l5-2.5v5L29 22v-5z" fill="#3D7A5A" opacity="0.5" />
-                                    {/* Sound wave arcs */}
-                                    <path d="M40 20a8 8 0 0 1 0 12" stroke="#244B38" strokeWidth="2" strokeLinecap="round" />
-                                    <path d="M43 17a13 13 0 0 1 0 18" stroke="#244B38" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-                                    {/* Small heart accent */}
-                                    <path d="M10 18c0-.9-.7-1.5-1.5-1.5S7 17.1 7 18c0 1.3 1.5 2.4 1.5 2.4S10 19.3 10 18z" fill="#E9B96E" />
-                                    {/* Small heart accent 2 */}
-                                    <path d="M8 28c0-.7-.6-1.2-1.2-1.2S5.5 27.3 5.5 28c0 1 1.2 1.9 1.2 1.9S8 29 8 28z" fill="#E9B96E" opacity="0.7" />
-                                  </svg>
-                                </div>
-                              )}
-                              {tier.id === 'shield' && (
-                                <div style={{ width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, flexShrink: 0 }} aria-hidden="true">
-                                  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-                                    {/* Deep green background circle */}
-                                    <circle cx="26" cy="26" r="26" fill="#193A2B" />
-                                    {/* Battery body */}
-                                    <rect x="13" y="16" width="26" height="22" rx="4" fill="#244B38" />
-                                    {/* Battery terminal */}
-                                    <rect x="37" y="21" width="4" height="10" rx="2" fill="#244B38" />
-                                    {/* Battery fill — fully charged */}
-                                    <rect x="15" y="18" width="22" height="18" rx="3" fill="#193A2B" />
-                                    <rect x="16" y="19" width="20" height="16" rx="2.5" fill="#2D6B4A" />
-                                    {/* Luminous energy center */}
-                                    <rect x="16" y="19" width="20" height="16" rx="2.5" fill="url(#batteryGlow)" />
-                                    {/* Upward arrow symbol */}
-                                    <path d="M26 33v-8M22 29l4-4 4 4" stroke="#A8E6C0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                                    {/* Highlight streak */}
-                                    <rect x="17" y="20" width="4" height="14" rx="1.5" fill="#3D8C60" opacity="0.4" />
-                                    {/* Glow definition */}
-                                    <defs>
-                                      <linearGradient id="batteryGlow" x1="16" y1="19" x2="36" y2="35" gradientUnits="userSpaceOnUse">
-                                        <stop offset="0%" stopColor="#34A85A" stopOpacity="0.6" />
-                                        <stop offset="60%" stopColor="#1D5C38" stopOpacity="0.9" />
-                                        <stop offset="100%" stopColor="#0F3321" stopOpacity="1" />
-                                      </linearGradient>
-                                    </defs>
-                                  </svg>
-                                </div>
-                              )}
-                              <span style={{ fontWeight: 700, fontSize: 15, color: '#202923' }}>{tier.label}</span>
-                            </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                            <span style={{ fontWeight: 700, fontSize: 15, color: '#202923' }}>{tier.label}</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                               <span style={{ fontWeight: 700, fontSize: 15, color: '#244B38' }}>{tier.price}</span>
                               <div style={{
@@ -1336,3 +1262,4 @@ if (paidSubmitted) {
     </>
   )
 }
+
