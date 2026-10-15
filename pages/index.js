@@ -268,11 +268,10 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </Link>
             {!isMobile && (
               <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                {[['Adopt', '/adopt'], ['Vets', '/vets'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
+                {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
                   <Link key={label} href={href} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 14, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none' }}>{label}</Link>
                 ))}
-                <a href="https://meroadai.com" target="_blank" rel="noreferrer" style={{ background: '#FFF0EB', color: '#FF6B35', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #FF6B35', marginLeft: 6 }}>🎙️ Swor AI</a>
-              </div>
+<Link href="/lost-found" style={{ background: '#FFF0F6', color: '#FF6B9D', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #FF6B9D', marginLeft: 6, whiteSpace: 'nowrap' }}>🔴 Report Missing Pet</Link>              </div>
             )}
             <Link href="/submit-pet" style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '8px 14px' : '11px 22px', borderRadius: 12, fontSize: isMobile ? 12 : 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>+ Submit a Pet</Link>
           </div>
@@ -281,7 +280,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
        {/* MOBILE NAV */}
         {isMobile && (
           <div style={{ background: '#FFFFFF', borderBottom: '2px solid #1A1A1A', padding: '10px 16px', display: 'flex', gap: 8, overflowX: 'auto' }}>
-            {[['Adopt', '/adopt'], ['Vets', '/vets'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
+            {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
               <Link key={label} href={href} style={{ padding: '6px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none', background: '#fff', border: '1.5px solid #1A1A1A', whiteSpace: 'nowrap', flexShrink: 0 }}>{label}</Link>
             ))}
           </div>
