@@ -279,6 +279,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               <Link href="/submit-pet" style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '8px 12px' : '11px 22px', borderRadius: 12, fontSize: isMobile ? 12 : 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>+ Submit a Pet</Link>
             </div>
           </div>
+          </div>
         </nav>
        {/* MOBILE NAV */}
         {isMobile && (
