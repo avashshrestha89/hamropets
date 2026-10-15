@@ -320,6 +320,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 </div>            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <Link href="/adopt" style={{ background: '#21a1eb', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #166534', display: 'inline-block' }}> Adopt a Pet</Link>
                 <Link href="/submit-pet" style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 700, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #555', display: 'inline-block' }}>+ Submit a Pet</Link>
+    <Link href="/lost-found" style={{ background: '#FF6B9D', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #9D174D', display: 'inline-block' }}>🔴 Report Missing Pet</Link>
               </div>
               <div style={{ display: 'flex', gap: 12, marginTop: 28, flexWrap: 'wrap' }}>
                 {[['1000+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
