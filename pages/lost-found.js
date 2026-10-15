@@ -94,7 +94,7 @@ export default function LostFound() {
     if (form.boostTier === 'boost' || form.boostTier === 'shield') {
       const amount = form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'
       const tierName = form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'
-      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851221428 now. Please activate my boost after confirming payment.`)
+      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851405178 now. Please activate my boost after confirming payment.`)
       // Save the listing as pending_payment first
       setSubmitting(true)
       try {
@@ -247,8 +247,8 @@ export default function LostFound() {
                 <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '16px', border: '2px solid #FFD23F' }}>
                   <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 8 }}>💳 To activate Social Boost (NPR 199) or Emergency Shield (NPR 499):</div>
                   <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-                    Send payment to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
-                    Then WhatsApp your payment screenshot to <strong>9851221428</strong><br />
+                    Send payment to eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
+                    Then WhatsApp your payment screenshot to <strong>9851405178</strong><br />
                     <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate your boost within 2-4 hours. No payment needed for Free tier. / निःशुल्क tier को लागि भुक्तानी आवश्यक छैन।</span>
                   </div>
                 </div>
@@ -472,7 +472,7 @@ export default function LostFound() {
                         <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 Payment / भुक्तानी</div>
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
                           Amount: <strong>{form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}</strong><br />
-                          eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                          eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
                           After payment send screenshot to WhatsApp: <strong>9851405178</strong><br />
                           <span style={{ fontSize: 11, color: '#6B7280' }}>We activate your boost within 2-4 hours. / हामी २-४ घण्टाभित्र activate गर्छौं।</span>
                         </div>
