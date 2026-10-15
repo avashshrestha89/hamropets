@@ -94,7 +94,7 @@ export default function LostFound() {
     if (form.boostTier === 'boost' || form.boostTier === 'shield') {
       const amount = form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'
       const tierName = form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'
-      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851405178 now. Please activate my boost after confirming payment.`)
+      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851221428 now. Please activate my boost after confirming payment.`)
       // Save the listing as pending_payment first
       setSubmitting(true)
       try {
@@ -247,8 +247,8 @@ export default function LostFound() {
                 <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '16px', border: '2px solid #FFD23F' }}>
                   <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 8 }}>💳 To activate Social Boost (NPR 199) or Emergency Shield (NPR 499):</div>
                   <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-                    Send payment to eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
-                    Then WhatsApp your payment screenshot to <strong>9851405178</strong><br />
+                    Send payment to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                    Then WhatsApp your payment screenshot to <strong>9851221428</strong><br />
                     <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate your boost within 2-4 hours. No payment needed for Free tier. / निःशुल्क tier को लागि भुक्तानी आवश्यक छैन।</span>
                   </div>
                 </div>
@@ -450,9 +450,23 @@ export default function LostFound() {
                       ].map(tier => (
                         <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#fff', borderRadius: 12, padding: '12px 16px', border: `2px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                            <div>
-                              <span style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A' }}>{tier.label}</span>
-                              <span style={{ fontSize: 11, color: '#6B7280', marginLeft: 6 }}>{tier.labelNp}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <img
+                                src={
+                                  tier.id === 'free'
+                                    ? 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/community.png'
+                                    : tier.id === 'boost'
+                                    ? 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/social.png'
+                                    : 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/Priority.png'
+                                }
+                                alt=""
+                                aria-hidden="true"
+                                style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }}
+                              />
+                              <div>
+                                <span style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A' }}>{tier.label}</span>
+                                <span style={{ fontSize: 11, color: '#6B7280', marginLeft: 6 }}>{tier.labelNp}</span>
+                              </div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                               <span style={{ fontWeight: 900, fontSize: 14, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
@@ -461,7 +475,17 @@ export default function LostFound() {
                               </div>
                             </div>
                           </div>
-                          <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500 }}>{tier.desc}</div>
+                          {/* Desc with inline social icons for boost/shield */}
+                          <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4 }}>
+                            {(tier.id === 'boost' || tier.id === 'shield') ? (
+                              <>
+                                <img src="https://cdn.simpleicons.org/tiktok/000000" width="11" height="11" alt="TikTok" style={{ display: 'inline', verticalAlign: 'middle' }} />
+                                <img src="https://cdn.simpleicons.org/instagram/E4405F" width="11" height="11" alt="Instagram" style={{ display: 'inline', verticalAlign: 'middle' }} />
+                                <img src="https://cdn.simpleicons.org/facebook/1877F2" width="11" height="11" alt="Facebook" style={{ display: 'inline', verticalAlign: 'middle' }} />
+                                <span>{tier.desc}</span>
+                              </>
+                            ) : tier.desc}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -472,7 +496,7 @@ export default function LostFound() {
                         <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 Payment / भुक्तानी</div>
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
                           Amount: <strong>{form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}</strong><br />
-                          eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
+                          eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
                           After payment send screenshot to WhatsApp: <strong>9851405178</strong><br />
                           <span style={{ fontSize: 11, color: '#6B7280' }}>We activate your boost within 2-4 hours. / हामी २-४ घण्टाभित्र activate गर्छौं।</span>
                         </div>
