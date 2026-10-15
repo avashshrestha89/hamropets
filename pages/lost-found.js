@@ -92,7 +92,7 @@ export default function LostFound() {
     }
     // If paid tier selected — open WhatsApp with pre-filled message
     if (form.boostTier === 'boost' || form.boostTier === 'shield') {
-      const amount = form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'
+      const amount = form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'
       const tierName = form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'
       const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851221428 now. Please activate my boost after confirming payment.`)
       // Save the listing as pending_payment first
@@ -225,31 +225,38 @@ export default function LostFound() {
 
               {/* BOOST OFFER — shown after submission */}
               <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', padding: isMobile ? '20px 16px' : '28px 32px', boxShadow: '5px 5px 0px #1A1A1A' }}>
-                <div style={{ fontWeight: 900, fontSize: isMobile ? 16 : 20, color: '#1A1A1A', marginBottom: 6 }}>🚀 Want to find your pet faster?</div>
+                <div style={{ fontWeight: 900, fontSize: isMobile ? 16 : 20, color: '#1A1A1A', marginBottom: 6 }}>🔍 Want to reach more people faster?</div>
                 <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 20, fontWeight: 500 }}>
-                  Your report is live for free. If you want to reach our 91K+ followers urgently, choose a boost below. Every rupee supports street animal rescue. / तपाईंको रिपोर्ट निःशुल्क छ। थप मानिससम्म पुर्‍याउन Boost छान्नुहोस्।
+                  Your report is live for free. A paid option lets our team spread the word further across social media and rescue networks.
+                  <br /><span style={{ fontSize: 12 }}>तपाईंको रिपोर्ट निःशुल्क छ। थप मानिससम्म पुर्‍याउन तलका विकल्प छान्नुहोस्।</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
                   {[
-                    { id: 'free', label: '🐾 Free — Already Live', price: 'NPR 0', desc: 'Visible on HamroPets · Share yourself on WhatsApp/Facebook', color: '#58CC02' },
-                    { id: 'boost', label: '📢 Social Boost', price: 'NPR 199', desc: 'TikTok + Instagram + Facebook post to 91K followers · Swor AI Nepali voiceover video', color: '#38BDF8' },
-                    { id: 'shield', label: '🛡️ Emergency Shield', price: 'NPR 499', desc: 'Everything in Boost + PDF printable poster + WhatsApp broadcast + Homepage featured', color: '#FF6B9D' },
+                    { id: 'free', label: '🌐 Website Listing', labelNp: 'वेबसाइट लिस्टिङ', price: 'FREE', priceColor: '#58CC02', desc: 'Already live on HamroPets.com · Shareable link to distribute yourself', color: '#58CC02', chips: [] },
+                    { id: 'boost', label: '📢 Social Media Promotion', labelNp: 'सोसल मिडिया प्रचार', price: 'NPR 299', priceColor: '#1D4ED8', desc: 'Posted on TikTok, Instagram & Facebook · 7 extra Facebook groups · ~100,000 combined reach · Nepali + English voiceover video', color: '#3B82F6', chips: [] },
+                    { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499', priceColor: '#E91E8C', desc: 'Everything in Social Media Promotion · Homepage top placement · Missing-pet poster · Rescue group WhatsApp alerts · Team assistance', color: '#E91E8C', badge: 'Most Complete' },
                   ].map(tier => (
-                    <div key={tier.id} style={{ background: '#F9FAFB', borderRadius: 14, padding: '14px 16px', border: `2px solid ${tier.color}` }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                        <span style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A' }}>{tier.label}</span>
-                        <span style={{ fontWeight: 900, fontSize: 15, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
+                    <div key={tier.id} style={{ background: tier.id === 'shield' ? '#FFF5F9' : '#F9FAFB', borderRadius: 14, padding: '14px 16px', border: `2px solid ${tier.color}`, position: 'relative', overflow: 'hidden' }}>
+                      {tier.badge && (
+                        <div style={{ position: 'absolute', top: 0, right: 0, background: 'linear-gradient(90deg,#E91E8C,#FF6B9D)', padding: '3px 10px', borderBottomLeftRadius: 10, fontSize: 10, fontWeight: 900, color: '#fff' }}>⭐ {tier.badge}</div>
+                      )}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+                        <div>
+                          <span style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A' }}>{tier.label}</span>
+                          <span style={{ fontSize: 11, color: '#6B7280', marginLeft: 6 }}>{tier.labelNp}</span>
+                        </div>
+                        <span style={{ fontWeight: 900, fontSize: 15, color: tier.priceColor, flexShrink: 0, marginLeft: 8 }}>{tier.price}</span>
                       </div>
-                      <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>{tier.desc}</div>
+                      <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, lineHeight: 1.5 }}>{tier.desc}</div>
                     </div>
                   ))}
                 </div>
                 <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '16px', border: '2px solid #FFD23F' }}>
-                  <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 8 }}>💳 To activate Social Boost (NPR 199) or Emergency Shield (NPR 499):</div>
+                  <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 8 }}>💳 To activate Social Media Promotion (NPR 299) or Emergency Shield (NPR 499):</div>
                   <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
                     Send payment to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
-                    Then WhatsApp your payment screenshot to <strong>9851221428</strong><br />
-                    <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate your boost within 2-4 hours. No payment needed for Free tier. / निःशुल्क tier को लागि भुक्तानी आवश्यक छैन।</span>
+                    Then WhatsApp your payment screenshot to <strong>9851405178</strong><br />
+                    <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate within 2–4 hours of payment confirmation. No payment needed for the free option. / निःशुल्क विकल्पका लागि भुक्तानी आवश्यक छैन।</span>
                   </div>
                 </div>
               </div>
@@ -435,70 +442,215 @@ export default function LostFound() {
                     </>
                   )}
 
-                                {/* BOOST TIER SELECTION */}
-                  <div style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: '20px', marginTop: 8 }}>
-                    <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 4 }}>🚀 Want to find your pet faster?</div>
-                   <div style={{ fontSize: 12, color: '#6B7280', marginBottom: 14, fontWeight: 500 }}>
-                      Your report goes live 100% free. A boost broadcasts urgently to our 91K+ pet network across Kathmandu Valley. Every rupee directly supports street animal rescue.<br />
-                      <span style={{ fontSize: 11 }}>तपाईंको रिपोर्ट निःशुल्क प्रकाशित हुन्छ। बुस्ट गर्दा ९१,०००+ पशु प्रेमीहरूसम्म सन्देश तुरुन्त पुग्छ।</span>
+                                {/* BOOST TIER SELECTION — redesigned per UX brief */}
+                  <div style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px', marginTop: 8 }}>
+
+                    {/* Section header */}
+                    <div style={{ marginBottom: 14 }}>
+                      <div style={{ fontWeight: 900, fontSize: isMobile ? 15 : 16, color: '#1A1A1A', marginBottom: 4 }}>
+                        🔍 How far should we spread the word?
+                      </div>
+                      <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500, lineHeight: 1.5 }}>
+                        Your report goes live for <strong style={{ color: '#166534' }}>free</strong>. Choose a support level to reach more people faster.
+                        <br />
+                        <span style={{ fontSize: 11 }}>तपाईंको रिपोर्ट निःशुल्क प्रकाशित हुन्छ। थप सहयोगका लागि तल छान्नुहोस्।</span>
+                      </div>
                     </div>
+
+                    {/* Tier cards */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
-                      {[
-                        { id: 'free', label: '🐾 Free Web Listing', labelNp: 'निःशुल्क वेब लिस्टिङ', price: 'NPR 0', desc: 'Instant website listing with a shareable digital link for your personal networks · Best if you plan to share across local groups yourself.', color: '#58CC02' },
-                        { id: 'boost', label: '📢 Social Boost', labelNp: 'सोसल बुस्ट', price: 'NPR 199 (One-time)', desc: '✅ Broadcast to HamroPets TikTok (91K+), Instagram & Facebook · ✅ High-priority feed & story placement · ✅ Custom Nepali voiceover video alert · ✅ Reaches active pet lovers across Kathmandu Valley', color: '#38BDF8' },
-                        { id: 'shield', label: '🛡️ Emergency Shield', labelNp: 'इमर्जेन्सी शिल्ड', price: 'NPR 499 (One-time)', desc: '✅ Everything in Social Boost · ✅ Urgent homepage featured placement · ✅ Dedicated missing-pet flyer created by our design team · ✅ WhatsApp broadcast to verified local rescue & volunteer networks · ✅ Maximum visibility — our team manages the alerts for you', color: '#FF6B9D' },
-                      ].map(tier => (
-                        <div key={tier.id} onClick={() => update('boostTier', tier.id)} style={{ background: form.boostTier === tier.id ? `${tier.color}15` : '#fff', borderRadius: 12, padding: '12px 16px', border: `2px solid ${form.boostTier === tier.id ? tier.color : '#E5E7EB'}`, cursor: 'pointer', boxShadow: form.boostTier === tier.id ? `3px 3px 0px ${tier.color}` : 'none', transition: 'all 0.2s' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+
+                      {/* ── TIER 1: FREE ── */}
+                      <div
+                        onClick={() => update('boostTier', 'free')}
+                        style={{
+                          background: form.boostTier === 'free' ? '#F0FDF4' : '#fff',
+                          borderRadius: 14,
+                          border: `2px solid ${form.boostTier === 'free' ? '#58CC02' : '#E5E7EB'}`,
+                          cursor: 'pointer',
+                          boxShadow: form.boostTier === 'free' ? '3px 3px 0px #58CC02' : 'none',
+                          transition: 'all 0.18s',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <div style={{ padding: '12px 14px' }}>
+                          {/* Header row */}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                               <img
-                                src={
-                                  tier.id === 'free'
-                                    ? 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/community.png'
-                                    : tier.id === 'boost'
-                                    ? 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/social.png'
-                                    : 'https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/Priority.png'
-                                }
-                                alt=""
-                                aria-hidden="true"
+                                src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/community.png"
+                                alt="" aria-hidden="true"
                                 style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }}
                               />
                               <div>
-                                <span style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A' }}>{tier.label}</span>
-                                <span style={{ fontSize: 11, color: '#6B7280', marginLeft: 6 }}>{tier.labelNp}</span>
+                                <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', lineHeight: 1.2 }}>Website Listing</div>
+                                <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 600 }}>वेबसाइट लिस्टिङ</div>
                               </div>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <span style={{ fontWeight: 900, fontSize: 14, color: tier.id === 'free' ? '#58CC02' : '#1A1A1A' }}>{tier.price}</span>
-                              <div style={{ width: 18, height: 18, borderRadius: 999, border: `2px solid ${form.boostTier === tier.id ? tier.color : '#D1D5DB'}`, background: form.boostTier === tier.id ? tier.color : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                {form.boostTier === tier.id && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span style={{ fontWeight: 900, fontSize: 18, color: '#58CC02', letterSpacing: -0.5 }}>FREE</span>
+                              <div style={{ width: 20, height: 20, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'free' ? '#58CC02' : '#D1D5DB'}`, background: form.boostTier === 'free' ? '#58CC02' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                {form.boostTier === 'free' && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
                               </div>
                             </div>
                           </div>
-                          {/* Desc with inline social icons for boost/shield */}
-                          <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 500, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4 }}>
-                            {(tier.id === 'boost' || tier.id === 'shield') ? (
-                              <>
-                                <img src="https://cdn.simpleicons.org/tiktok/000000" width="11" height="11" alt="TikTok" style={{ display: 'inline', verticalAlign: 'middle' }} />
-                                <img src="https://cdn.simpleicons.org/instagram/E4405F" width="11" height="11" alt="Instagram" style={{ display: 'inline', verticalAlign: 'middle' }} />
-                                <img src="https://cdn.simpleicons.org/facebook/1877F2" width="11" height="11" alt="Facebook" style={{ display: 'inline', verticalAlign: 'middle' }} />
-                                <span>{tier.desc}</span>
-                              </>
-                            ) : tier.desc}
+                          {/* Value proposition */}
+                          <div style={{ fontSize: 12, color: '#374151', fontWeight: 500, lineHeight: 1.5, marginBottom: 8 }}>
+                            Your missing pet's notice will appear on HamroPets.com, with a <strong>shareable link</strong> you can send to friends and family.
+                          </div>
+                          <div style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.5 }}>
+                            तपाईंको हराएको जनावरको सूचना HamroPets.com मा राखिन्छ। साथीभाइ र परिवारलाई पठाउन मिल्ने <strong>लिंक पनि पाइन्छ।</strong>
+                          </div>
+                          {/* Benefits */}
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
+                            {['🌐 Website Listing', '🔗 Shareable Link'].map(b => (
+                              <span key={b} style={{ background: '#E8F9ED', color: '#166534', fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, border: '1px solid #86EFAC' }}>{b}</span>
+                            ))}
                           </div>
                         </div>
-                      ))}
+                      </div>
+
+                      {/* ── TIER 2: NPR 299 SOCIAL MEDIA PROMOTION ── */}
+                      <div
+                        onClick={() => update('boostTier', 'boost')}
+                        style={{
+                          background: form.boostTier === 'boost' ? '#EFF6FF' : '#fff',
+                          borderRadius: 14,
+                          border: `2px solid ${form.boostTier === 'boost' ? '#3B82F6' : '#E5E7EB'}`,
+                          cursor: 'pointer',
+                          boxShadow: form.boostTier === 'boost' ? '3px 3px 0px #3B82F6' : 'none',
+                          transition: 'all 0.18s',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <div style={{ padding: '12px 14px' }}>
+                          {/* Header row */}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <img
+                                src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/social.png"
+                                alt="" aria-hidden="true"
+                                style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }}
+                              />
+                              <div>
+                                <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', lineHeight: 1.2 }}>Social Media Promotion</div>
+                                <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 600 }}>सोसल मिडिया प्रचार</div>
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span style={{ fontWeight: 900, fontSize: 16, color: '#1A1A1A' }}>NPR 299</span>
+                              <div style={{ width: 20, height: 20, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'boost' ? '#3B82F6' : '#D1D5DB'}`, background: form.boostTier === 'boost' ? '#3B82F6' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                {form.boostTier === 'boost' && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+                              </div>
+                            </div>
+                          </div>
+                          {/* Value proposition */}
+                          <div style={{ fontSize: 12, color: '#374151', fontWeight: 500, lineHeight: 1.5, marginBottom: 6 }}>
+                            We share your notice on{' '}
+                            <img src="https://cdn.simpleicons.org/tiktok/000000" width="11" height="11" alt="TikTok" style={{ display: 'inline', verticalAlign: 'middle', margin: '0 2px' }} />
+                            <img src="https://cdn.simpleicons.org/instagram/E4405F" width="11" height="11" alt="Instagram" style={{ display: 'inline', verticalAlign: 'middle', margin: '0 2px' }} />
+                            <img src="https://cdn.simpleicons.org/facebook/1877F2" width="11" height="11" alt="Facebook" style={{ display: 'inline', verticalAlign: 'middle', margin: '0 2px' }} />
+                            {' '}plus <strong>7 extra Facebook groups</strong> with a combined audience of around <strong>1 lakh (100,000) followers.</strong> We also create a <strong>Nepali + English voiceover video.</strong>
+                          </div>
+                          <div style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.5, marginBottom: 10 }}>
+                            हामी TikTok, Instagram र Facebook का साथै <strong>अन्य ७ Facebook समूह</strong> — जहाँ मिलाएर करिब <strong>१ लाख फलोअर</strong> छन् — मा सूचना राख्छौँ। <strong>नेपाली र अंग्रेजी भाषामा भिडियो</strong> पनि बनाउँछौँ।
+                          </div>
+                          {/* Benefit chips */}
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                            {[
+                              { icon: null, label: 'TikTok + Instagram + Facebook' },
+                              { icon: null, label: '7 Extra Facebook Groups' },
+                              { icon: null, label: '~100,000 Combined Reach' },
+                              { icon: null, label: 'NP + EN Voiceover Video' },
+                            ].map(b => (
+                              <span key={b.label} style={{ background: '#DBEAFE', color: '#1D4ED8', fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, border: '1px solid #93C5FD' }}>{b.label}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* ── TIER 3: NPR 499 EMERGENCY SHIELD ── */}
+                      <div
+                        onClick={() => update('boostTier', 'shield')}
+                        style={{
+                          background: form.boostTier === 'shield' ? '#FFF5F9' : '#FFFCFE',
+                          borderRadius: 14,
+                          border: `2.5px solid ${form.boostTier === 'shield' ? '#E91E8C' : '#F9A8D4'}`,
+                          cursor: 'pointer',
+                          boxShadow: form.boostTier === 'shield' ? '3px 3px 0px #E91E8C' : '2px 2px 0px #F9A8D4',
+                          transition: 'all 0.18s',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {/* "Most Complete Support" badge */}
+                        <div style={{ background: 'linear-gradient(90deg, #E91E8C, #FF6B9D)', padding: '5px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <span style={{ fontSize: 11, fontWeight: 900, color: '#fff', letterSpacing: 0.3 }}>⭐ Most Complete Support</span>
+                          <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.85)' }}>सबैभन्दा धेरै सहयोग</span>
+                        </div>
+                        <div style={{ padding: '12px 14px' }}>
+                          {/* Header row */}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <img
+                                src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/Payment%20tier%20logo/Priority.png"
+                                alt="" aria-hidden="true"
+                                style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }}
+                              />
+                              <div>
+                                <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', lineHeight: 1.2 }}>Emergency Shield</div>
+                                <div style={{ fontSize: 10, color: '#9D174D', fontWeight: 700 }}>इमर्जेन्सी शिल्ड</div>
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span style={{ fontWeight: 900, fontSize: 16, color: '#E91E8C' }}>NPR 499</span>
+                              <div style={{ width: 20, height: 20, borderRadius: 999, border: `2.5px solid ${form.boostTier === 'shield' ? '#E91E8C' : '#F9A8D4'}`, background: form.boostTier === 'shield' ? '#E91E8C' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                {form.boostTier === 'shield' && <div style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Extra value callout */}
+                          <div style={{ background: '#FFF0F6', borderRadius: 8, padding: '7px 10px', marginBottom: 8, border: '1px solid #FBCFE8' }}>
+                            <div style={{ fontSize: 11, fontWeight: 800, color: '#9D174D' }}>
+                              More than promotion — extra visibility and direct support.
+                            </div>
+                            <div style={{ fontSize: 10, color: '#BE185D', fontWeight: 600, marginTop: 2 }}>
+                              प्रचार मात्र होइन — थप प्राथमिकता र प्रत्यक्ष सहयोग।
+                            </div>
+                          </div>
+
+                          {/* Value proposition */}
+                          <div style={{ fontSize: 12, color: '#374151', fontWeight: 500, lineHeight: 1.5, marginBottom: 6 }}>
+                            Everything in Social Media Promotion, plus a <strong>featured alert at the top of the HamroPets homepage</strong>, a <strong>ready-to-share missing-pet poster</strong>, <strong>direct WhatsApp alerts to verified rescue groups</strong>, and <strong>hands-on help from our team.</strong>
+                          </div>
+                          <div style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.5, marginBottom: 10 }}>
+                            Social Media Promotion का सबै सुविधासँगै — <strong>मुख्य पेजमा विशेष सूचना</strong>, <strong>खोजी पोस्टर</strong>, <strong>उद्धार समूहलाई WhatsApp सूचना</strong> र <strong>HamroPets टोलीको प्रत्यक्ष सहयोग।</strong>
+                          </div>
+
+                          {/* Benefit chips — split into inherited + extra */}
+                          <div style={{ fontSize: 10, fontWeight: 800, color: '#6B7280', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.4 }}>Includes Social Media Promotion, plus:</div>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                            {[
+                              '🏠 Homepage Top Placement',
+                              '📄 Missing-Pet Poster',
+                              '📲 Rescue Group WhatsApp Alerts',
+                              '🤝 Team Assistance',
+                            ].map(b => (
+                              <span key={b} style={{ background: '#FDF2F8', color: '#9D174D', fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, border: '1px solid #F9A8D4' }}>{b}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     {/* PAYMENT INSTRUCTIONS */}
                     {(form.boostTier === 'boost' || form.boostTier === 'shield') && (
                       <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '2px solid #FFD23F', marginBottom: 16 }}>
-                        <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 Payment / भुक्तानी</div>
+                        <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 How to pay / कसरी भुक्तानी गर्ने</div>
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
-                          Amount: <strong>{form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}</strong><br />
-                          eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
-                          After payment send screenshot to WhatsApp: <strong>9851405178</strong><br />
-                          <span style={{ fontSize: 11, color: '#6B7280' }}>We activate your boost within 2-4 hours. / हामी २-४ घण्टाभित्र activate गर्छौं।</span>
+                          Send <strong>{form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'}</strong> to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                          Then send your payment screenshot on WhatsApp: <strong>9851405178</strong><br />
+                          <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate within 2–4 hours of payment confirmation. / भुक्तानी पुष्टि भएको २–४ घण्टाभित्र activate हुन्छ।</span>
                         </div>
                       </div>
                     )}
@@ -507,7 +659,7 @@ export default function LostFound() {
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setFormStep(1)} style={{ flex: 1, background: '#fff', color: '#1A1A1A', padding: '13px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>← Back</button>
                     <button onClick={handleSubmit} disabled={submitting} style={{ flex: 2, background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A', opacity: submitting ? 0.7 : 1 }}>
-                      {submitting ? 'Processing...' : form.boostTier === 'free' ? 'Submit Report / रिपोर्ट पेश गर्नुहोस्' : `Send Payment via WhatsApp → ${form.boostTier === 'boost' ? 'NPR 199' : 'NPR 499'}`}
+                      {submitting ? 'Processing...' : form.boostTier === 'free' ? 'Submit Report / रिपोर्ट पेश गर्नुहोस्' : `Send Payment via WhatsApp → ${form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'}`}
                     </button>
                   </div>
                 </div>
