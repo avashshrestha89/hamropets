@@ -462,14 +462,14 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
       {urgentLostPets.map(lostPet => (
         <Link key={lostPet.id} href={`/lost-found/${lostPet.id}`} style={{ textDecoration: 'none', display: 'block' }}>
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
-            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 180 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
+            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 260 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, overflow: 'hidden', borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
 {(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
-                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: isMobile ? 'contain' : 'cover', objectPosition: isMobile ? 'center' : 'top' }} />
               ) : (
                 <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
               )}
             </div>
-            <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1 }}>
+            <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
                 <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔴 LOST</span>
                 <span style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>{lostPet.pet_name || 'Unknown'}</span>
