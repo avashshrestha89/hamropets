@@ -344,10 +344,12 @@ export default function DonatePage() {
               <a href="https://paypal.me/adoptadognp" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '14px 32px', background: '#003087', color: '#fff', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', borderRadius: '10px', fontWeight: 800, fontSize: '16px', textDecoration: 'none' }}>
                 💙 Donate via PayPal
               </a>
-              <Link href="/pets">
-                <a style={{ display: 'inline-block', padding: '14px 32px', background: '#1A1A1A', color: '#fff', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #FFD23F', borderRadius: '10px', fontWeight: 800, fontSize: '16px', textDecoration: 'none' }}>
+              <Link
+                href="/pets"
+                style={{ display: 'inline-block', padding: '14px 32px', background: '#1A1A1A', color: '#fff', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #FFD23F', borderRadius: '10px', fontWeight: 800, fontSize: '16px', textDecoration: 'none' }}>
+                
                   🐕 Adopt a Dog Instead
-                </a>
+                
               </Link>
             </div>
           </div>

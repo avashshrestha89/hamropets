@@ -101,157 +101,157 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
   return (
     <>
-<Head>
-  <title>HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet</title>
-  <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta httpEquiv="content-language" content="en-NP, ne-NP" />
-    <link rel="canonical" href="https://www.hamropets.com/" />
-  <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, cat adoption Kathmandu, pet sitting Kathmandu, dog walking Kathmandu, dog walker Lalitpur, pet boarding Kathmandu, vet clinic Kathmandu, lost found pets Nepal, adopt a dog Nepal, kukur adopt garne, HamroPets, Adopt a Dog Nepal, pet care platform Nepal, dog hostel Kathmandu" />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet" />
-  <meta property="og:description" content="Adopt pets, find verified dog walkers and pet sitters, locate vets, and report lost pets across Nepal. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
-  <meta property="og:url" content="https://www.hamropets.com" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HamroPets — Nepal's First Pet Platform" />
-  <meta name="twitter:description" content="Adopt pets, find dog walkers, pet sitters and vets across Nepal. Presented by Adopt a Dog Nepal since 2018." />
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify([
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "HamroPets",
-          "url": "https://www.hamropets.com",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.hamropets.com/adopt?search={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "HamroPets",
-          "url": "https://www.hamropets.com",
-          "logo": "https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png",
-          "description": "Nepal's first dedicated pet platform offering free pet adoption, verified vet directory, dog walking and cage-free pet sitting services across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018.",
-          "foundingDate": "2024",
-          "areaServed": "Nepal",
-          "parentOrganization": {
-            "@type": "Organization",
-            "name": "Adopt a Dog Nepal",
-            "foundingDate": "2018",
-            "url": "https://www.facebook.com/AdoptaDogNepal"
-          },
-          "sameAs": [
-            "https://www.facebook.com/AdoptaDogNepal",
-            "https://www.tiktok.com/@adoptadognepal"
-          ],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Pet Services",
-            "itemListElement": [
+      <Head>
+        <title>HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet</title>
+        <meta name="description" content="Nepal's first dedicated pet platform. Adopt dogs and cats, find verified dog walkers and pet sitters in Kathmandu, locate vets, and report lost pets. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta httpEquiv="content-language" content="en-NP, ne-NP" />
+          <link rel="canonical" href="https://www.hamropets.com/" />
+        <meta name="keywords" content="pet adoption Nepal, dog adoption Kathmandu, cat adoption Kathmandu, pet sitting Kathmandu, dog walking Kathmandu, dog walker Lalitpur, pet boarding Kathmandu, vet clinic Kathmandu, lost found pets Nepal, adopt a dog Nepal, kukur adopt garne, HamroPets, Adopt a Dog Nepal, pet care platform Nepal, dog hostel Kathmandu" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="HamroPets — Nepal's First Pet Platform | Adopt, Walk, Sit & Vet" />
+        <meta property="og:description" content="Adopt pets, find verified dog walkers and pet sitters, locate vets, and report lost pets across Nepal. Presented by Adopt a Dog Nepal since 2018. 1000+ pets rehomed." />
+        <meta property="og:url" content="https://www.hamropets.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="HamroPets — Nepal's First Pet Platform" />
+        <meta name="twitter:description" content="Adopt pets, find dog walkers, pet sitters and vets across Nepal. Presented by Adopt a Dog Nepal since 2018." />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
               {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Pet Adoption Nepal",
-                  "description": "Free pet adoption across Nepal — dogs, cats and more"
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "HamroPets",
+                "url": "https://www.hamropets.com",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://www.hamropets.com/adopt?search={search_term_string}",
+                  "query-input": "required name=search_term_string"
                 }
               },
               {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Dog Walking Kathmandu",
-                  "description": "Verified dog walking service in Kathmandu Valley from NPR 300 per walk"
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "HamroPets",
+                "url": "https://www.hamropets.com",
+                "logo": "https://res.cloudinary.com/dkxxscyei/image/upload/v1780649873/hamro_2_gsifdx.png",
+                "description": "Nepal's first dedicated pet platform offering free pet adoption, verified vet directory, dog walking and cage-free pet sitting services across Kathmandu Valley. Presented by Adopt a Dog Nepal since 2018.",
+                "foundingDate": "2024",
+                "areaServed": "Nepal",
+                "parentOrganization": {
+                  "@type": "Organization",
+                  "name": "Adopt a Dog Nepal",
+                  "foundingDate": "2018",
+                  "url": "https://www.facebook.com/AdoptaDogNepal"
+                },
+                "sameAs": [
+                  "https://www.facebook.com/AdoptaDogNepal",
+                  "https://www.tiktok.com/@adoptadognepal"
+                ],
+                "hasOfferCatalog": {
+                  "@type": "OfferCatalog",
+                  "name": "Pet Services",
+                  "itemListElement": [
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Pet Adoption Nepal",
+                        "description": "Free pet adoption across Nepal — dogs, cats and more"
+                      }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Dog Walking Kathmandu",
+                        "description": "Verified dog walking service in Kathmandu Valley from NPR 300 per walk"
+                      }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Pet Sitting Kathmandu",
+                        "description": "Cage-free verified pet sitting in Kathmandu Valley from NPR 700 per day"
+                      }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Vet Directory Nepal",
+                        "description": "Verified vet clinics and pet services directory across Nepal"
+                      }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Lost and Found Pets Nepal",
+                        "description": "Community lost and found pet reporting service across Nepal"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Pet Sitting Kathmandu",
-                  "description": "Cage-free verified pet sitting in Kathmandu Valley from NPR 700 per day"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Vet Directory Nepal",
-                  "description": "Verified vet clinics and pet services directory across Nepal"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Lost and Found Pets Nepal",
-                  "description": "Community lost and found pet reporting service across Nepal"
-                }
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "What is HamroPets?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and lost and found pet reporting across the Kathmandu Valley."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Is HamroPets operated by a nonprofit?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Yes. HamroPets is presented by Adopt a Dog Nepal, a registered nonprofit organization that has successfully rehomed over 1000 pets since 2018. Adopt a Dog Nepal manages the platform's social media presence while HamroPets.com serves as the full digital pet services platform."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What services are available for pet owners in Kathmandu?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "HamroPets offers five core services: free pet adoption (dogs and cats), verified dog walking from NPR 300 per walk, cage-free pet sitting from NPR 700 per day, a comprehensive vet clinic directory across Nepal, and a lost and found pet reporting board for the community."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Are the pet sitters and dog walkers on HamroPets verified?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Yes. All dog walkers and pet sitters listed on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed on the platform. Only approved, ID-verified sitters and walkers appear in search results."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Does HamroPets charge a fee for pet adoption?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "No. Pet adoption on HamroPets is completely free. The platform connects adopters with pet owners and rescue organizations at no charge. HamroPets advocates for ethical adoption as an alternative to buying from breeders."
+                    }
+                  }
+                ]
               }
-            ]
-          }
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is HamroPets?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "HamroPets is Nepal's first comprehensive pet care platform, presented by Adopt a Dog Nepal — a nonprofit that has rehomed 1000+ pets since 2018. The platform offers pet adoption, verified dog walking, cage-free pet sitting, a vet directory, and lost and found pet reporting across the Kathmandu Valley."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is HamroPets operated by a nonprofit?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. HamroPets is presented by Adopt a Dog Nepal, a registered nonprofit organization that has successfully rehomed over 1000 pets since 2018. Adopt a Dog Nepal manages the platform's social media presence while HamroPets.com serves as the full digital pet services platform."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What services are available for pet owners in Kathmandu?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "HamroPets offers five core services: free pet adoption (dogs and cats), verified dog walking from NPR 300 per walk, cage-free pet sitting from NPR 700 per day, a comprehensive vet clinic directory across Nepal, and a lost and found pet reporting board for the community."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Are the pet sitters and dog walkers on HamroPets verified?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. All dog walkers and pet sitters listed on HamroPets are verified using their Nepal Government issued Citizenship Card before being listed on the platform. Only approved, ID-verified sitters and walkers appear in search results."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does HamroPets charge a fee for pet adoption?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. Pet adoption on HamroPets is completely free. The platform connects adopters with pet owners and rescue organizations at no charge. HamroPets advocates for ethical adoption as an alternative to buying from breeders."
-              }
-            }
-          ]
-        }
-      ])
-    }}
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" />
-</Head>
+            ])
+          }}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
       <div style={{ minHeight: '100vh', background: '#F9FAFB', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", overflowX: 'hidden', width: '100%', maxWidth: '100%' }}>
 
@@ -367,7 +367,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     <div style={{ marginBottom: 16 }}>
       <span style={{ background: '#FF3B30', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A', animation: 'pulse 2s infinite' }}>🚨 URGENT</span>
     </div>
-    <Link href={`/pet/${superPet.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+    <div style={{ position: 'relative', display: 'block' }}>
+      <Link href={`/pet/${superPet.id}`} aria-label={`View ${superPet.pet_name}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1, borderRadius: 20 }} />
       <div style={{ background: '#fff', borderRadius: 20, border: '4px solid #FF3B30', overflow: 'hidden', boxShadow: '6px 6px 0px #FF3B30', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
         {/* PHOTO */}
         <div style={{ width: isMobile ? '100%' : 320, height: isMobile ? 240 : 300, background: '#FEF2F2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, flexShrink: 0, borderRight: isMobile ? 'none' : '4px solid #FF3B30', borderBottom: isMobile ? '4px solid #FF3B30' : 'none', position: 'relative' }}>
@@ -397,15 +398,15 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {superPet.boost_tier !== 'shield' ? (
               <>
-                <a href={`tel:${superPet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                <a href={`tel:${superPet.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
                   📞 Call Now
                 </a>
-                <a href={`https://wa.me/977${superPet.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                <a href={`https://wa.me/977${superPet.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
                   💬 WhatsApp
                 </a>
               </>
             ) : (
-              <a href={`/adopt/apply/${superPet.id}`} style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>
+              <a href={`/adopt/apply/${superPet.id}`} style={{ position: 'relative', zIndex: 10, background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>
                 🐾 Apply to Adopt {superPet.pet_name} →
               </a>
             )}
@@ -415,13 +416,14 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   </div>
 )}
 {/* SUPER URGENT PET 2 */}
 {superPet2 && (
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '16px 16px 0' : '16px 28px 0' }}>
-    <Link href={`/pet/${superPet2.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+    <div style={{ position: 'relative', display: 'block' }}>
+      <Link href={`/pet/${superPet2.id}`} aria-label={`View ${superPet2.pet_name}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1, borderRadius: 20 }} />
       <div style={{ background: '#fff', borderRadius: 20, border: '4px solid #FF3B30', overflow: 'hidden', boxShadow: '6px 6px 0px #FF3B30', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
         <div style={{ width: isMobile ? '100%' : 320, height: isMobile ? 200 : 260, background: '#FEF2F2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, flexShrink: 0, borderRight: isMobile ? 'none' : '4px solid #FF3B30', borderBottom: isMobile ? '4px solid #FF3B30' : 'none', position: 'relative' }}>
           {superPet2.images && superPet2.images.length > 0 ? (
@@ -438,17 +440,17 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             {superPet2.boost_tier !== 'shield' ? (
               <>
-                <a href={`tel:${superPet2.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>📞 Call Now</a>
-                <a href={`https://wa.me/977${superPet2.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>💬 WhatsApp</a>
+                <a href={`tel:${superPet2.submitter_phone}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#FF3B30', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>📞 Call Now</a>
+                <a href={`https://wa.me/977${superPet2.submitter_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#25D366', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>💬 WhatsApp</a>
               </>
             ) : (
-              <a href={`/adopt/apply/${superPet2.id}`} onClick={e => e.stopPropagation()} style={{ background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>🐾 Apply to Adopt {superPet2.pet_name} →</a>
+              <a href={`/adopt/apply/${superPet2.id}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#FFD23F', color: '#1A1A1A', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #B45309' }}>🐾 Apply to Adopt {superPet2.pet_name} →</a>
             )}
             <span style={{ background: '#1A1A1A', color: '#fff', padding: '12px 24px', borderRadius: 12, fontSize: 14, fontWeight: 900, border: '2px solid #1A1A1A' }}>View Full Profile →</span>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   </div>
 )}
 
@@ -460,7 +462,8 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {urgentLostPets.map(lostPet => (
-        <Link key={lostPet.id} href={`/lost-found/${lostPet.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+        <div key={lostPet.id} style={{ position: 'relative', display: 'block' }}>
+          <Link href={`/lost-found/${lostPet.id}`} aria-label={`View ${lostPet.pet_name || 'lost pet'}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1, borderRadius: 20 }} />
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
             <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 180 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
 {(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
@@ -477,12 +480,12 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
               <div style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, marginBottom: 8 }}>📍 {lostPet.area} · {lostPet.species}</div>
               <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 16, fontWeight: 500 }}>{lostPet.description?.substring(0, 150)}{lostPet.description?.length > 150 ? '...' : ''}</p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <a href={`tel:${lostPet.contact_phone}`} onClick={e => e.stopPropagation()} style={{ background: '#FF6B9D', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>📞 Call Now</a>
-                <a href={`https://wa.me/977${lostPet.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ background: '#25D366', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>💬 WhatsApp</a>
+                <a href={`tel:${lostPet.contact_phone}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#FF6B9D', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>📞 Call Now</a>
+                <a href={`https://wa.me/977${lostPet.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#25D366', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>💬 WhatsApp</a>
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   </div>
@@ -923,24 +926,24 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         <div style={{ fontSize: '13px', color: '#555', marginBottom: '16px' }}>
           After paying, WhatsApp your receipt to 9851405178
         </div>
-        <Link href="/donate">
-          <a
-            style={{
-              display: 'inline-block',
-              padding: '12px 28px',
-              background: '#58CC02',
-              color: '#fff',
-              border: '2px solid #1A1A1A',
-              boxShadow: '3px 3px 0px #1A1A1A',
-              borderRadius: '8px',
-              fontWeight: 800,
-              fontSize: '16px',
-              textDecoration: 'none',
-              letterSpacing: '0.3px',
-            }}
-          >
+        <Link
+          href="/donate"
+          style={{
+            display: 'inline-block',
+            padding: '12px 28px',
+            background: '#58CC02',
+            color: '#fff',
+            border: '2px solid #1A1A1A',
+            boxShadow: '3px 3px 0px #1A1A1A',
+            borderRadius: '8px',
+            fontWeight: 800,
+            fontSize: '16px',
+            textDecoration: 'none',
+            letterSpacing: '0.3px',
+          }}>
+          
             💚 Donate Now &rarr;
-          </a>
+          
         </Link>
       </div>
     </div>
@@ -1132,5 +1135,5 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 
       </div>
     </>
-  )
+  );
 }
