@@ -20,6 +20,7 @@ export default async function handler(req, res) {
   if (rest.contact_phone !== undefined) updateData.contact_phone = rest.contact_phone
   if (rest.video_url !== undefined) updateData.video_url = rest.video_url
   if (rest.boost_tier !== undefined) updateData.boost_tier = rest.boost_tier
+  if (rest.is_featured !== undefined) updateData.is_featured = !!rest.is_featured
 
   // Handle images — save full array to images column, first image to image_url for backward compat
   if (rest.images !== undefined && Array.isArray(rest.images)) {

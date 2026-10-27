@@ -9,7 +9,7 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
- const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }, { data: urgentLostPets }] = await Promise.all([
+ const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }, { data: urgentLostPets }, { data: featuredLostPets }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(8),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
@@ -18,8 +18,14 @@ export async function getServerSideProps() {
     supabase.from('walker_applications').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
   supabase.from('pet_listings').select('*').eq('is_super_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
     supabase.from('lost_found').select('*').eq('boost_tier', 'shield').eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
+    // Featured lost & found reports. If the is_featured column does not exist yet, this returns an error and data is null, which is handled below.
+    supabase.from('lost_found').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
   ])
-   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
+  // Featured reports first, then the most recent ones, no duplicates, 6 cards in total
+  const pinnedLost = featuredLostPets || []
+  const pinnedIds = new Set(pinnedLost.map(p => p.id))
+  const mergedLost = [...pinnedLost, ...(lostFoundPets || []).filter(p => !pinnedIds.has(p.id))].slice(0, 6)
+   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: mergedLost, starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
 }
 function AutoScroller() {
   const photos = [
@@ -648,6 +654,11 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                       <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
                         {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
                       </div>
+                      {item.is_featured && (
+                        <div style={{ position: 'absolute', top: 8, right: 8, background: '#FFD23F', color: '#1A1A1A', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                          ⭐ FEATURED
+                        </div>
+                      )}
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
                       <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', marginBottom: 2 }}>{item.pet_name || 'Unknown'}</div>

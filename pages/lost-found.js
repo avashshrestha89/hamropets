@@ -699,6 +699,13 @@ export default function LostFound() {
                           {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
                         </span>
                       </div>
+                      {item.is_featured && (
+                        <div style={{ position: 'absolute', top: 8, right: 8 }}>
+                          <span style={{ background: '#FFD23F', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '2px 8px', border: '1.5px solid #1A1A1A' }}>
+                            ⭐ FEATURED
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 18px' }}>
                       <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 15, color: '#1A1A1A' }}>{item.pet_name || 'Unknown'}</div>
