@@ -21,11 +21,11 @@ export async function getServerSideProps() {
     // Featured lost & found reports. If the is_featured column does not exist yet, this returns an error and data is null, which is handled below.
     supabase.from('lost_found').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
   ])
-  // Featured reports first, then the most recent ones, no duplicates, 6 cards in total
+  // Featured reports get their own section under Urgent. Keep them out of the Recently Lost & Found panel so nothing shows twice.
   const pinnedLost = featuredLostPets || []
   const pinnedIds = new Set(pinnedLost.map(p => p.id))
-  const mergedLost = [...pinnedLost, ...(lostFoundPets || []).filter(p => !pinnedIds.has(p.id))].slice(0, 6)
-   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: mergedLost, starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
+  const recentLost = (lostFoundPets || []).filter(p => !pinnedIds.has(p.id))
+   return { props: { featuredLostPets: pinnedLost, featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: recentLost, starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
 }
 function AutoScroller() {
   const photos = [
@@ -67,7 +67,7 @@ function AutoScroller() {
     </div>
   )
 }
-export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
+export default function Home({ featuredLostPets, featuredPets,featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
   const [isMobile, setIsMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -494,6 +494,47 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
   </div>
 )}
 
+{/* FEATURED LOST & FOUND — paid featured reports, directly under Urgent */}
+{featuredLostPets && featuredLostPets.length > 0 && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
+    <div style={{ marginBottom: 24 }}>
+      <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>⭐ Featured</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Featured Lost & Found</h2>
+      <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500 }}>Help these pets get back home</p>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 12 : 20 }}>
+      {featuredLostPets.map(item => (
+        <Link key={item.id} href={`/lost-found/${item.id}`} style={{ textDecoration: 'none' }}>
+          <div style={{ background: '#FFFFFF', borderRadius: 16, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '4px 4px 0px #B45309' }}>
+            <div style={{ height: isMobile ? 200 : 260, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '3px solid #FFD23F' }}>
+              {(item.image_url || (item.images && item.images.length > 0)) ? (
+                <img src={item.image_url || item.images[0]} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFFBEB' }} />
+              ) : (
+                item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
+              )}
+              <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
+              </div>
+              <div style={{ position: 'absolute', top: 8, right: 8, background: '#FFD23F', color: '#1A1A1A', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                ⭐ FEATURED
+              </div>
+            </div>
+            <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+              <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 17, color: '#1A1A1A', marginBottom: 2 }}>{item.pet_name || 'Unknown'}</div>
+              <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', marginTop: 2, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {item.area}</div>
+              <div style={{ fontSize: isMobile ? 11 : 13, color: '#555', marginTop: 6, lineHeight: 1.5, fontWeight: 500 }}>{item.description?.substring(0, 80)}{item.description?.length > 80 ? '...' : ''}</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
+                <span style={{ fontSize: isMobile ? 10 : 12, color: '#6B7280', fontWeight: 600 }}>🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short' })}</span>
+                <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 800, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View →</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
+
 {/* STAR FEATURED PETS */}
 {starPets && starPets.length > 0 && (
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
@@ -654,11 +695,6 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
                       <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
                         {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
                       </div>
-                      {item.is_featured && (
-                        <div style={{ position: 'absolute', top: 8, right: 8, background: '#FFD23F', color: '#1A1A1A', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
-                          ⭐ FEATURED
-                        </div>
-                      )}
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
                       <div style={{ fontWeight: 800, fontSize: isMobile ? 13 : 16, color: '#1A1A1A', marginBottom: 2 }}>{item.pet_name || 'Unknown'}</div>
