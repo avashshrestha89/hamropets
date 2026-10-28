@@ -9,7 +9,7 @@ const supabase = createClient(
 )
 
 export async function getServerSideProps() {
- const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }, { data: urgentLostPets }] = await Promise.all([
+ const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }, { data: urgentLostPets }, { data: featuredLostPets }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(8),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
     supabase.from('walker_applications').select('id, full_name, area, city, locality, services, experience, profile_photo').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
@@ -18,8 +18,14 @@ export async function getServerSideProps() {
     supabase.from('walker_applications').select('id, full_name, area, city, locality, services, experience, profile_photo').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
   supabase.from('pet_listings').select('*').eq('is_super_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
     supabase.from('lost_found').select('*').eq('boost_tier', 'shield').eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
+    // Featured lost & found reports. If the is_featured column does not exist yet, this returns an error and data is null, which is handled below.
+    supabase.from('lost_found').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
   ])
-   return { props: { featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: lostFoundPets || [], starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
+  // Featured reports get their own section under Urgent. Keep them out of the Recently Lost & Found panel so nothing shows twice.
+  const pinnedLost = featuredLostPets || []
+  const pinnedIds = new Set(pinnedLost.map(p => p.id))
+  const recentLost = (lostFoundPets || []).filter(p => !pinnedIds.has(p.id))
+   return { props: { featuredLostPets: pinnedLost, featuredPets: featuredPets || [], featuredVets: featuredVets || [], featuredWalkers: featuredWalkers || [], lostFoundPets: recentLost, starPets: starPets || [], starWalker: starWalker?.[0] || null, superPet: superPets?.[0] || null, superPet2: superPets?.[1] || null, urgentLostPets: urgentLostPets || [] } }
 }
 function AutoScroller() {
   const photos = [
@@ -61,7 +67,7 @@ function AutoScroller() {
     </div>
   )
 }
-export default function Home({ featuredPets, featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
+export default function Home({ featuredLostPets, featuredPets,featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
   const [isMobile, setIsMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -304,7 +310,7 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
 <h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 1000+ pets rehomed since 2018.</h2>
 <div style={{ background: '#FAFAFA', border: '2px solid #1A1A1A', borderRadius: 16, padding: '16px 20px', marginBottom: 28, boxShadow: '3px 3px 0px #1A1A1A' }}>
   <p style={{ color: '#374151', fontSize: isMobile ? 13 : 15, lineHeight: 1.7, fontWeight: 500, margin: '0 0 14px', fontFamily: "'DM Sans', sans-serif" }}>
-    <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>1000+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>. Payment via eSewa and Khalti.
+    <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>1000+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>.
   </p>
   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
     {[
@@ -465,14 +471,14 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
         <div key={lostPet.id} style={{ position: 'relative', display: 'block' }}>
           <Link href={`/lost-found/${lostPet.id}`} aria-label={`View ${lostPet.pet_name || 'lost pet'}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1, borderRadius: 20 }} />
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
-            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 180 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
+            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 260 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, overflow: 'hidden', borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
 {(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
-                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: isMobile ? 'contain' : 'cover', objectPosition: isMobile ? 'center' : 'top' }} />
               ) : (
                 <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
               )}
             </div>
-            <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1 }}>
+            <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
                 <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔴 LOST</span>
                 <span style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>{lostPet.pet_name || 'Unknown'}</span>
@@ -486,6 +492,47 @@ export default function Home({ featuredPets, featuredVets, featuredWalkers, lost
             </div>
           </div>
         </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* FEATURED LOST & FOUND — paid featured reports, directly under Urgent */}
+{featuredLostPets && featuredLostPets.length > 0 && (
+  <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '60px 28px 0' }}>
+    <div style={{ marginBottom: 24 }}>
+      <span style={{ background: '#FFD23F', color: '#1A1A1A', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 10, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #B45309' }}>⭐ Featured</span>
+      <h2 style={{ fontSize: isMobile ? 26 : 34, fontWeight: 900, color: '#1A1A1A', margin: 0, letterSpacing: -0.5 }}>Featured Lost & Found</h2>
+      <p style={{ color: '#6B7280', margin: '6px 0 0', fontSize: isMobile ? 13 : 14, fontWeight: 500 }}>Help these pets get back home</p>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 12 : 20 }}>
+      {featuredLostPets.map(item => (
+        <Link key={item.id} href={`/lost-found/${item.id}`} style={{ textDecoration: 'none' }}>
+          <div style={{ background: '#FFFFFF', borderRadius: 16, border: '3px solid #FFD23F', overflow: 'hidden', boxShadow: '4px 4px 0px #B45309' }}>
+            <div style={{ height: isMobile ? 200 : 260, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 52 : 72, position: 'relative', borderBottom: '3px solid #FFD23F' }}>
+              {(item.image_url || (item.images && item.images.length > 0)) ? (
+                <img src={item.image_url || item.images[0]} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFFBEB' }} />
+              ) : (
+                item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
+              )}
+              <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
+              </div>
+              <div style={{ position: 'absolute', top: 8, right: 8, background: '#FFD23F', color: '#1A1A1A', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                ⭐ FEATURED
+              </div>
+            </div>
+            <div style={{ padding: isMobile ? '10px 12px' : '14px 16px' }}>
+              <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 17, color: '#1A1A1A', marginBottom: 2 }}>{item.pet_name || 'Unknown'}</div>
+              <div style={{ fontSize: isMobile ? 11 : 13, color: '#6B7280', marginTop: 2, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {item.area}</div>
+              <div style={{ fontSize: isMobile ? 11 : 13, color: '#555', marginTop: 6, lineHeight: 1.5, fontWeight: 500 }}>{item.description?.substring(0, 80)}{item.description?.length > 80 ? '...' : ''}</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
+                <span style={{ fontSize: isMobile ? 10 : 12, color: '#6B7280', fontWeight: 600 }}>🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short' })}</span>
+                <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 800, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View →</span>
+              </div>
+            </div>
+          </div>
+        </Link>
       ))}
     </div>
   </div>

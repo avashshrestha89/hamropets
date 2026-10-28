@@ -22,7 +22,7 @@ export default function LostFoundPetsNepal() {
     },
     {
       q: 'Is reporting a lost pet on HamroPets free?',
-      a: 'Yes. Reporting a lost or found pet on HamroPets is completely free. Optional paid boosts (Social Boost NPR 199 and Emergency Shield NPR 499) are available to reach our 91K+ followers urgently — but your report goes live for free immediately. Payment accepted via eSewa and Khalti at 9851221428.'
+      a: 'Yes. Reporting a lost or found pet on HamroPets is completely free. Optional paid boosts (Social Boost NPR 199 and Emergency Shield NPR 499) are available to reach our 91K+ followers urgently — but your report goes live for free immediately. Payment accepted via eSewa and Khalti at 9851405178.'
     },
     {
       q: 'How do I find my lost dog in Kathmandu?',
@@ -160,7 +160,7 @@ export default function LostFoundPetsNepal() {
               ))}
             </div>
             <div style={{ marginTop: 20, fontSize: 13, color: '#6B7280', fontWeight: 500 }}>
-              Payment via eSewa / Khalti: <strong>9851221428</strong> · WhatsApp: <strong>9851405178</strong> · Activated within 2-4 hours
+              Payment via eSewa / Khalti: <strong>9851405178</strong> · WhatsApp: <strong>9851405178</strong> · Activated within 2-4 hours
             </div>
           </div>
 

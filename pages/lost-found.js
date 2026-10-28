@@ -94,7 +94,7 @@ export default function LostFound() {
     if (form.boostTier === 'boost' || form.boostTier === 'shield') {
       const amount = form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'
       const tierName = form.boostTier === 'boost' ? 'Social Boost' : 'Emergency Shield'
-      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851221428 now. Please activate my boost after confirming payment.`)
+      const msg = encodeURIComponent(`Hi HamroPets! I want to activate the ${tierName} (${amount}) for my lost pet report.\n\nPet: ${form.petName || 'Unknown'}\nSpecies: ${form.species}\nLocation: ${form.area}\nContact: ${form.contactName} — ${form.contactPhone}\n\nI am sending payment to 9851405178 now. Please activate my boost after confirming payment.`)
       // Save the listing as pending_payment first
       setSubmitting(true)
       try {
@@ -254,7 +254,7 @@ export default function LostFound() {
                 <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '16px', border: '2px solid #FFD23F' }}>
                   <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 8 }}>💳 To activate Social Media Promotion (NPR 299) or Emergency Shield (NPR 499):</div>
                   <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-                    Send payment to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                    Send payment to eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
                     Then WhatsApp your payment screenshot to <strong>9851405178</strong><br />
                     <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate within 2–4 hours of payment confirmation. No payment needed for the free option. / निःशुल्क विकल्पका लागि भुक्तानी आवश्यक छैन।</span>
                   </div>
@@ -648,7 +648,7 @@ export default function LostFound() {
                       <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '2px solid #FFD23F', marginBottom: 16 }}>
                         <div style={{ fontWeight: 900, fontSize: 13, color: '#1A1A1A', marginBottom: 6 }}>💳 How to pay / कसरी भुक्तानी गर्ने</div>
                         <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.8 }}>
-                          Send <strong>{form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'}</strong> to eSewa / Khalti: <strong>9851221428</strong> (HamroPets)<br />
+                          Send <strong>{form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'}</strong> to eSewa / Khalti: <strong>9851405178</strong> (HamroPets)<br />
                           Then send your payment screenshot on WhatsApp: <strong>9851405178</strong><br />
                           <span style={{ fontSize: 11, color: '#6B7280' }}>We will activate within 2–4 hours of payment confirmation. / भुक्तानी पुष्टि भएको २–४ घण्टाभित्र activate हुन्छ।</span>
                         </div>
@@ -699,6 +699,13 @@ export default function LostFound() {
                           {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
                         </span>
                       </div>
+                      {item.is_featured && (
+                        <div style={{ position: 'absolute', top: 8, right: 8 }}>
+                          <span style={{ background: '#FFD23F', color: '#1A1A1A', borderRadius: 999, fontSize: 10, fontWeight: 900, padding: '2px 8px', border: '1.5px solid #1A1A1A' }}>
+                            ⭐ FEATURED
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div style={{ padding: isMobile ? '10px 12px' : '14px 18px' }}>
                       <div style={{ fontWeight: 900, fontSize: isMobile ? 13 : 15, color: '#1A1A1A' }}>{item.pet_name || 'Unknown'}</div>

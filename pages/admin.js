@@ -845,6 +845,23 @@ PLEASE GENERATE:
                             }} disabled={actionLoading === item.id} style={{ background: item.boost_tier === 'shield' ? '#FF6B9D' : '#fff', color: item.boost_tier === 'shield' ? '#fff' : '#FF6B9D', padding: '10px 16px', borderRadius: 10, border: '2px solid #FF6B9D', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #FF6B9D' }}>
                               {item.boost_tier === 'shield' ? '🔴 Urgent ON' : '🔴 Mark Urgent'}
                             </button>
+                            <button onClick={async () => {
+                              setActionLoading(item.id)
+                              try {
+                                const res = await fetch('/api/admin/update-lost-found', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: item.id, is_featured: !item.is_featured }) })
+                                if (!res.ok) {
+                                  const err = await res.json().catch(() => ({}))
+                                  alert('Could not update Featured: ' + (err.error || 'unknown error') + '\n\nIf this says the column is_featured does not exist, run the SQL change in Supabase first.')
+                                } else {
+                                  fetchListings()
+                                }
+                              } catch (e) {
+                                alert('Could not update Featured: ' + e.message)
+                              }
+                              setActionLoading(null)
+                            }} disabled={actionLoading === item.id} style={{ background: item.is_featured ? '#FFD23F' : '#fff', color: '#1A1A1A', padding: '10px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+                              {item.is_featured ? '⭐ Unfeature' : '☆ Mark as Featured'}
+                            </button>
                             <button onClick={() => deleteLostFound(item.id)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '10px 16px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🗑️ Delete</button>
                           </div>
                         )}

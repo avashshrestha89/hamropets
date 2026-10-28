@@ -90,7 +90,12 @@ can_foster: req.body.canFoster || null,
     if (error) {
       return res.status(500).json({ error: error.message })
     }
-    return res.status(200).json({ listings: data })
+    // Featured reports first. Sorted here so this keeps working before the is_featured column exists.
+    const listings = (data || [])
+      .map((item, i) => ({ item, i }))
+      .sort((a, b) => (Number(!!b.item.is_featured) - Number(!!a.item.is_featured)) || (a.i - b.i))
+      .map(({ item }) => item)
+    return res.status(200).json({ listings })
   }
   return res.status(405).json({ error: 'Method not allowed' })
 }

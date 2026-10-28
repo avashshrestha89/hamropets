@@ -63,7 +63,7 @@ export default function Terms() {
             },
             {
               title: '5. Paid Services',
-              content: `HamroPets offers optional paid packages including Social Boost (NPR 299) and Priority Shield (NPR 599) for pet adoption listings, and similar packages for lost pet reports.\n\nPayments are accepted via eSewa (9851221428) and Khalti. Paid packages are activated manually after payment confirmation via WhatsApp (9851405178).\n\nRefunds are available if your package has not yet been activated. Once activated, refunds are not available. Contact us within 24 hours of payment if you have concerns.`
+              content: `HamroPets offers optional paid packages including Social Boost (NPR 299) and Priority Shield (NPR 599) for pet adoption listings, and similar packages for lost pet reports.\n\nPayments are accepted via eSewa (9851405178) and Khalti. Paid packages are activated manually after payment confirmation via WhatsApp (9851405178).\n\nRefunds are available if your package has not yet been activated. Once activated, refunds are not available. Contact us within 24 hours of payment if you have concerns.`
             },
             {
               title: '6. Lost and Found Pets',
