@@ -118,7 +118,7 @@ export async function getServerSideProps({ params }) {
   const { id } = params
   const { data, error } = await supabase
     .from('walker_applications')
-    .select('*')
+    .select('id, full_name, area, city, locality, services, experience, profile_photo')
     .eq('id', id)
     .eq('status', 'approved')
     .single()

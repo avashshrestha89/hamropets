@@ -8,10 +8,15 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
+// Citizenship card upload is disabled until a private storage bucket exists.
+// /api/upload currently stores files in the public hamropets-media bucket, so ID photos
+// must not be collected until they can go to a private bucket with signed URLs.
+const NAGARIK_UPLOAD_ENABLED = false
+
 export async function getServerSideProps() {
   const { data } = await supabase
     .from('walker_applications')
-    .select('*')
+    .select('id, full_name, area, city, locality, services, profile_photo')
     .eq('status', 'approved')
     .order('created_at', { ascending: false })
   return { props: { walkers: data || [] } }
@@ -101,7 +106,7 @@ const handleNagarikUpload = async (e) => {
       alert('Please fill in your name, phone and area.')
       return
     }
-    if (!nagarikUrl) {
+    if (NAGARIK_UPLOAD_ENABLED && !nagarikUrl) {
       alert('Please upload your Nagarik App screenshot. / कृपया आफ्नो नागरिक एप स्क्रिनसट अपलोड गर्नुहोला।')
       return
     }
@@ -139,7 +144,6 @@ const walkers = dbWalkers.length > 0 ? dbWalkers.map(w => ({
     rating: '5.0',
     jobs: 0,
     verified: true,
-    nagarik_screenshot: w.nagarik_screenshot,
     profile_photo: w.profile_photo,
   })) : fallbackWalkers
 const cities = ['All', 'Kathmandu', 'Lalitpur', 'Bhaktapur', 'Pokhara', 'Chitwan']
@@ -451,7 +455,8 @@ const filteredWalkers = walkers.filter(w => {
     )}
   </div>
 </div>
-                    {/* NAGARIK APP UPLOAD */}
+                    {/* NAGARIK APP UPLOAD (hidden while NAGARIK_UPLOAD_ENABLED is false) */}
+                    {NAGARIK_UPLOAD_ENABLED && (<>
                     <div>
                       <label style={labelStyle}>Citizenship Card Photo / नागरिकता कार्डको फोटो *</label>
 
@@ -497,6 +502,7 @@ const filteredWalkers = walkers.filter(w => {
                     <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#92400E', fontWeight: 600, border: '1.5px solid #FFD23F', lineHeight: 1.7 }}>
                       🔒 Your citizenship card photo is only used for identity verification and will not be shared publicly. / तपाईंको नागरिकता कार्डको फोटो केवल पहिचान प्रमाणीकरणका लागि प्रयोग गरिन्छ र सार्वजनिक गरिने छैन।
                     </div>
+                    </>)}
 
                     <div style={{ background: '#FAFAFA', borderRadius: 12, padding: '12px 16px', fontSize: 13, color: '#374151', fontWeight: 600, border: '1.5px solid #E5E7EB' }}>
                       📋 All applicants reviewed before listing. We will contact you within 3–5 business days. / सबै आवेदकहरू सूचीबद्ध गर्नु अघि समीक्षा गरिन्छ। हामी ३-५ कार्य दिनभित्र सम्पर्क गर्नेछौं।

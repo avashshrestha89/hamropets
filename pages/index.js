@@ -12,10 +12,10 @@ export async function getServerSideProps() {
  const [{ data: featuredPets }, { data: featuredVets }, { data: featuredWalkers }, { data: lostFoundPets }, { data: starPets }, { data: starWalker }, { data: superPets }, { data: urgentLostPets }] = await Promise.all([
     supabase.from('pet_listings').select('*').in('status', ['approved', 'adopted']).order('created_at', { ascending: false }).limit(8),
     supabase.from('vet_listings').select('*').eq('status', 'approved').in('tier', ['featured', 'verified']).order('created_at', { ascending: false }).limit(3),
-    supabase.from('walker_applications').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
+    supabase.from('walker_applications').select('id, full_name, area, city, locality, services, experience, profile_photo').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
     supabase.from('lost_found').select('*').eq('status', 'approved').order('created_at', { ascending: false }).limit(6),
    supabase.from('pet_listings').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(3),
-    supabase.from('walker_applications').select('*').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
+    supabase.from('walker_applications').select('id, full_name, area, city, locality, services, experience, profile_photo').eq('is_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(1),
   supabase.from('pet_listings').select('*').eq('is_super_featured', true).eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
     supabase.from('lost_found').select('*').eq('boost_tier', 'shield').eq('status', 'approved').order('created_at', { ascending: false }).limit(2),
   ])
