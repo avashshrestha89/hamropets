@@ -178,8 +178,10 @@ export default function WalkerProfile({ walker }) {
           <div style={{ background: '#fff', borderRadius: 24, border: '3px solid #1A1A1A', boxShadow: '6px 6px 0px #1A1A1A', overflow: 'hidden', marginBottom: 24 }}>
 
             {/* HEADER */}
-            <div style={{ height: isMobile ? 120 : 160, background: `linear-gradient(135deg, ${color}25, ${color}60)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 60 : 80, position: 'relative', borderBottom: '3px solid #1A1A1A' }}>
-              {emoji}
+            <div style={{ height: walker.profile_photo ? (isMobile ? 300 : 400) : (isMobile ? 120 : 160), background: walker.profile_photo ? '#F9FAFB' : `linear-gradient(135deg, ${color}25, ${color}60)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 60 : 80, position: 'relative', borderBottom: '3px solid #1A1A1A' }}>
+              {walker.profile_photo ? (
+                <img src={walker.profile_photo} alt={walker.full_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center' }} />
+              ) : emoji}
               <div style={{ position: 'absolute', top: 16, left: 16, background: '#58CC02', color: '#fff', fontSize: isMobile ? 11 : 13, fontWeight: 900, padding: '4px 12px', borderRadius: 999, border: '2px solid #1A1A1A' }}>
                 🇳🇵 ID Verified
               </div>
