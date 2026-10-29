@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
+import ShareBar from '../../components/ShareBar'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -118,6 +119,22 @@ export default function PetDetail({ pet }) {
                   ))}
                 </div>
               )}
+              {/* SHARE */}
+              <ShareBar
+                isMobile={isMobile}
+                path={`/pet/${pet.id}`}
+                title={`${pet.pet_name} needs a home`}
+                text={isAdopted ? `${pet.pet_name} found a home through HamroPets!` : `🐾 ${pet.pet_name}${pet.breed ? ` (${pet.breed})` : ''} in ${pet.location} needs a loving home. Free adoption:`}
+                heading={isAdopted ? '🎉 Share the good news' : `📣 Know someone who'd adopt ${pet.pet_name}? Share`}
+                card={{
+                  image: pet.images?.[activePhoto] || pet.images?.[0],
+                  emoji, color,
+                  badge: isAdopted ? '🎉 ADOPTED' : 'FREE ADOPTION',
+                  title: pet.pet_name,
+                  subtitle: [pet.breed || pet.species, age !== 'Unknown' ? age : '', pet.location].filter(Boolean).join(' · '),
+                  cta: isAdopted ? 'Found a home on HamroPets.com' : `Adopt ${pet.pet_name} on HamroPets.com`,
+                }}
+              />
               {/* Free adoption disclaimer */}
               <div style={{ marginTop: 16, background: '#FFF9E6', border: '2px solid #FFD23F', borderRadius: 12, padding: '12px 16px' }}>
                 <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#1A1A1A', lineHeight: 1.6 }}>

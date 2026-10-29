@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import { useState, useEffect } from 'react'
+import ShareBar from '../../components/ShareBar'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -152,6 +153,23 @@ export default function LostFoundDetail({ item }) {
                   📤 Share in WhatsApp & Facebook Groups
                 </button>
               </div>
+
+              <ShareBar
+                isMobile={isMobile}
+                path={`/lost-found/${item.id}`}
+                title={`${isLost ? 'Lost' : 'Found'} pet: ${item.pet_name || 'Unknown'}`}
+                text={`${isLost ? '🔴 LOST' : '🟢 FOUND'} ${item.species || 'pet'}${item.pet_name ? ` "${item.pet_name}"` : ''} in ${item.area}. Please share to help:`}
+                heading={isLost ? '📣 Share to help bring them home' : '📣 Share to find the owner'}
+                card={{
+                  image: (item.images && item.images[activePhoto]) || (item.images && item.images[0]) || item.image_url,
+                  emoji: item.species === 'Cat' ? '🐈' : item.species === 'Dog' ? '🐕' : '🐾',
+                  color,
+                  badge: isLost ? '🔴 LOST PET' : '🟢 FOUND PET',
+                  title: item.pet_name || (isLost ? 'Lost pet' : 'Found pet'),
+                  subtitle: [item.breed || item.species, item.area].filter(Boolean).join(' · '),
+                  cta: isLost ? 'Please share. Help find them.' : 'Know this pet? Contact HamroPets.com',
+                }}
+              />
 
               {/* SAFETY NOTE */}
               <div style={{ background: '#FFF9E6', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #FFD23F', marginTop: 20 }}>
