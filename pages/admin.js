@@ -176,7 +176,7 @@ const removeEditPhoto = (index) => {
     try {
       const res = await fetch('/api/admin/delete-listing', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
         body: JSON.stringify({ id: item.id }),
       })
       if (res.ok) fetchListings()
