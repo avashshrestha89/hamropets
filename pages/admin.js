@@ -13,11 +13,32 @@ const [editingId, setEditingId] = useState(null)
 const [editForm, setEditForm] = useState({})
 const [editUploading, setEditUploading] = useState(false)
 
-  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'hamropets2025'
+  // Login is checked on the server, which sets an httpOnly session cookie.
+  useEffect(() => {
+    fetch('/api/admin-session').then(r => r.json()).then(d => { if (d.authed) setAuthed(true) }).catch(() => {})
+  }, [])
 
-  const login = () => {
-    if (password === ADMIN_PASSWORD) setAuthed(true)
-    else alert('Wrong password')
+  const login = async () => {
+    try {
+      const res = await fetch('/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+      if (res.ok) { setPassword(''); setAuthed(true) }
+      else {
+        const d = await res.json().catch(() => ({}))
+        alert(d.error || 'Wrong password')
+      }
+    } catch (err) {
+      alert('Something went wrong')
+    }
+  }
+
+  const logout = async () => {
+    await fetch('/api/admin-logout', { method: 'POST' }).catch(() => {})
+    setAuthed(false)
+    setListings([])
   }
 
 const tabConfig = {
@@ -38,6 +59,7 @@ bookings: { label: '📅 Bookings', api: '/api/admin/booking-inquiries', type: '
     setLoading(true)
     try {
       const res = await fetch(tabConfig[tab].api)
+      if (res.status === 401) { setAuthed(false); setLoading(false); return }
       const data = await res.json()
       setListings(data.listings || [])
     } catch (err) {
@@ -176,7 +198,7 @@ const removeEditPhoto = (index) => {
     try {
       const res = await fetch('/api/admin/delete-listing', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: item.id }),
       })
       if (res.ok) fetchListings()
@@ -260,6 +282,7 @@ const removeEditPhoto = (index) => {
               ))}
             </div>
           ))}
+          <button onClick={logout} style={{ marginTop: 'auto', display: 'flex', width: '100%', padding: '9px 12px', borderRadius: 10, background: 'transparent', color: 'rgba(255,255,255,0.7)', border: '1.5px solid rgba(255,255,255,0.25)', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>🔒 Log out</button>
 
           <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 16 }}>
             <Link href="/" target="_blank" style={{ display: 'block', color: 'rgba(255,255,255,0.5)', fontSize: 12, textDecoration: 'none', fontWeight: 600, padding: '0 8px', marginBottom: 8 }}>View Live Site →</Link>

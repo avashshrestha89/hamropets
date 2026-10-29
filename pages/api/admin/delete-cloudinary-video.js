@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary'
 import { createClient } from '@supabase/supabase-js'
+import { withAdmin } from '../../../lib/adminAuth'
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -12,7 +13,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
   const { id, video_url } = req.body
   if (!id || !video_url) return res.status(400).json({ error: 'Missing id or video_url' })
@@ -41,3 +42,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Something went wrong' })
   }
 }
+
+export default withAdmin(handler)

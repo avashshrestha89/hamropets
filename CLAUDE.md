@@ -30,9 +30,9 @@ Next.js 13.5 **Pages Router**, plain JavaScript (no TypeScript), Tailwind CSS. T
 
 ## Environment variables
 
-`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `ADMIN_EMAIL`, `NEXT_PUBLIC_SITE_URL`, `INDEXNOW_SECRET`, `NEXT_PUBLIC_ADMIN_PASSWORD`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`.
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `ADMIN_EMAIL`, `NEXT_PUBLIC_SITE_URL`, `INDEXNOW_SECRET`, `ADMIN_PASSWORD`, `SESSION_SECRET`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`.
 
 ## Gotchas
 
-- **Admin auth is client-side only.** `pages/admin.js` compares the typed password to `NEXT_PUBLIC_ADMIN_PASSWORD` (with a hardcoded fallback) in the browser, and the `pages/api/admin/*` routes perform no auth check. Several of them use the anon key rather than the service-role key. Don't assume these routes are protected.
+- **Admin auth is server-side.** `pages/admin.js` posts the password to `pages/api/admin-login.js`, which checks it against `ADMIN_PASSWORD` (falls back to the legacy `NEXT_PUBLIC_ADMIN_PASSWORD`, no hardcoded default) and sets a signed httpOnly cookie (`lib/adminAuth.js`, signed with `SESSION_SECRET`, falls back to the service-role key). Every `pages/api/admin/*` route is wrapped in `withAdmin(handler)` and returns 401 without the cookie. New admin routes must use the same wrapper. Many of them still use the anon key rather than the service-role key.
 - `pages/api/upload.js` is unauthenticated and accepts arbitrary base64 payloads.
