@@ -23,6 +23,7 @@ const [editUploading, setEditUploading] = useState(false)
 const tabConfig = {
     pets_pending: { label: '⏳ Pets', api: '/api/admin/listings?status=pending', type: 'pet' },
     pets_approved: { label: '✅ Pets', api: '/api/admin/listings?status=approved,adopted', type: 'pet' },
+    pets_archived: { label: '📦 Pets', api: '/api/admin/listings?status=archived,rejected', type: 'pet' },
     vets_pending: { label: '⏳ Vets', api: '/api/admin/vet-listings?status=pending', type: 'vet' },
     vets_approved: { label: '✅ Vets', api: '/api/admin/vet-listings?status=approved', type: 'vet' },
     walkers_pending: { label: '⏳ Walkers', api: '/api/admin/walker-applications?status=pending', type: 'walker' },
@@ -149,6 +150,45 @@ const uploadEditPhoto = async (e) => {
 const removeEditPhoto = (index) => {
   setEditForm(f => ({ ...f, images: f.images.filter((_, i) => i !== index) }))
 }
+  const archivePet = async (item) => {
+    if (!confirm(`Archive ${item.pet_name}? It will be hidden from the site. You can restore it later from Archived Pets.`)) return
+    setActionLoading(item.id)
+    try {
+      const res = await fetch('/api/admin/update-listing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: item.id, status: 'archived' }),
+      })
+      if (res.ok) fetchListings()
+      else {
+        const d = await res.json().catch(() => ({}))
+        alert('Failed to archive. ' + (d.error || ''))
+      }
+    } catch (err) {
+      alert('Something went wrong.')
+    }
+    setActionLoading(null)
+  }
+
+  const deletePet = async (item) => {
+    if (!confirm(`Delete ${item.pet_name} permanently? This cannot be undone.`)) return
+    setActionLoading(item.id)
+    try {
+      const res = await fetch('/api/admin/delete-listing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: item.id }),
+      })
+      if (res.ok) fetchListings()
+      else {
+        const d = await res.json().catch(() => ({}))
+        alert('Failed to delete. ' + (d.error || ''))
+      }
+    } catch (err) {
+      alert('Something went wrong.')
+    }
+    setActionLoading(null)
+  }
   const deleteLostFound = async (id) => {
   if (!confirm('Delete this report permanently? This cannot be undone.')) return
   setActionLoading(id)
@@ -206,7 +246,7 @@ const removeEditPhoto = (index) => {
           </div>
 
           {[
-            { group: '🐾 Pet Listings', items: [['pets_pending', '⏳ Pending Pets'], ['pets_approved', '✅ Approved Pets']] },
+            { group: '🐾 Pet Listings', items: [['pets_pending', '⏳ Pending Pets'], ['pets_approved', '✅ Approved Pets'], ['pets_archived', '📦 Archived Pets']] },
             { group: '🏥 Vet Listings', items: [['vets_pending', '⏳ Pending Vets'], ['vets_approved', '✅ Approved Vets']] },
             { group: '🦮 Walkers', items: [['walkers_pending', '⏳ Pending Walkers'], ['walkers_approved', '✅ Approved Walkers']] },
           { group: '🔍 Lost & Found', items: [['lostfound_pending', '⏳ Pending Reports'], ['lostfound_approved', '✅ Approved Reports']] },
@@ -472,6 +512,16 @@ PLEASE GENERATE:
 {item.status !== 'pending' && (
   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
     <button onClick={() => updateStatus(item.id, 'pending', 'pet')} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>↩ Move to Pending</button>
+    {(item.status === 'approved' || item.status === 'adopted') && (
+      <button onClick={() => archivePet(item)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        📦 Archive
+      </button>
+    )}
+    {(item.status === 'archived' || item.status === 'rejected') && (
+      <button onClick={() => deletePet(item)} disabled={actionLoading === item.id} style={{ background: '#fff', color: '#FF3B30', padding: '9px 20px', borderRadius: 10, border: '2px solid #FF3B30', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+        🗑️ Delete forever
+      </button>
+    )}
     {item.status === 'approved' && (
       <button onClick={() => updateStatus(item.id, 'adopted', 'pet')} style={{ background: '#FF6B9D', color: '#fff', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>🎉 Mark as Adopted</button>
     )}
