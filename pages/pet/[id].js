@@ -166,6 +166,7 @@ export default function PetDetail({ pet }) {
                   ['✂️ Neutered', pet.neutered ? 'Yes ✓' : 'Not confirmed', pet.neutered ? '#E8F9ED' : '#fff'],
                   ['👶 Good with kids', pet.friendly_children === 'yes' ? 'Yes ✓' : pet.friendly_children === 'no' ? 'No' : 'Unknown', pet.friendly_children === 'yes' ? '#E8F9ED' : '#fff'],
                   ['🐕 Good with dogs', pet.friendly_dogs === 'yes' ? 'Yes ✓' : pet.friendly_dogs === 'no' ? 'No' : 'Unknown', pet.friendly_dogs === 'yes' ? '#E8F9ED' : '#fff'],
+                  ['🚽 Potty trained', pet.potty_trained === 'yes' ? 'Yes ✓' : pet.potty_trained === 'no' ? 'No' : 'Unknown', pet.potty_trained === 'yes' ? '#E8F9ED' : '#fff'],
                 ].map(([k, v, bg]) => (
                   <div key={k} style={{ background: bg, borderRadius: 12, padding: isMobile ? '10px 12px' : '12px 16px', border: '1.5px solid #E5E7EB' }}>
                     <div style={{ fontSize: isMobile ? 10 : 12, color: '#888', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{k}</div>

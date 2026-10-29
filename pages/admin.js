@@ -84,6 +84,7 @@ const startEdit = (item) => {
     neutered: item.neutered || false,
     friendly_children: item.friendly_children || '',
     friendly_dogs: item.friendly_dogs || '',
+    potty_trained: item.potty_trained || '',
     submitter_name: item.submitter_name || '',
     submitter_phone: item.submitter_phone || '',
     submitter_whatsapp: item.submitter_whatsapp || '',
@@ -342,6 +343,7 @@ const removeEditPhoto = (index) => {
                 ['Neutered', 'neutered', ['true', 'false', '']],
                 ['Good with Kids', 'friendly_children', ['yes', 'no', 'unknown', '']],
                 ['Good with Dogs', 'friendly_dogs', ['yes', 'no', 'unknown', '']],
+                ['Potty Trained', 'potty_trained', ['yes', 'no', 'unknown', '']],
               ].map(([label, key, options]) => (
                 <div key={key}>
                   <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
@@ -414,6 +416,7 @@ Vaccinated: ${item.vaccinated ? 'Yes ✅' : 'No ❌'}
 Neutered/Spayed: ${item.neutered ? 'Yes ✅' : 'No ❌'}
 Friendly with Children: ${item.friendly_children || 'Not specified'}
 Friendly with Other Dogs: ${item.friendly_dogs || 'Not specified'}
+Potty Trained: ${item.potty_trained || 'Not specified'}
 
 DESCRIPTION / TEMPERAMENT:
 ${item.description}

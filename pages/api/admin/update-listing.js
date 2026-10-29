@@ -25,6 +25,7 @@ export default async function handler(req, res) {
   if (rest.neutered !== undefined) updateData.neutered = rest.neutered
   if (rest.friendly_children !== undefined) updateData.friendly_children = rest.friendly_children
   if (rest.friendly_dogs !== undefined) updateData.friendly_dogs = rest.friendly_dogs
+  if (rest.potty_trained !== undefined) updateData.potty_trained = rest.potty_trained
   if (rest.submitter_name !== undefined) updateData.submitter_name = rest.submitter_name
   if (rest.submitter_phone !== undefined) updateData.submitter_phone = rest.submitter_phone
   if (rest.submitter_whatsapp !== undefined) updateData.submitter_whatsapp = rest.submitter_whatsapp
@@ -35,10 +36,16 @@ export default async function handler(req, res) {
   if (rest.is_super_featured !== undefined) updateData.is_super_featured = rest.is_super_featured
     if (rest.boost_tier !== undefined) updateData.boost_tier = rest.boost_tier
 
-  const { error } = await supabase
+  let { error } = await supabase
     .from('pet_listings')
     .update(updateData)
     .eq('id', id)
+
+  // If the potty_trained column is not in the database yet, save the other fields instead of failing the whole edit.
+  if (error && /potty_trained/i.test(error.message || '')) {
+    const { potty_trained, ...withoutPotty } = updateData
+    ;({ error } = await supabase.from('pet_listings').update(withoutPotty).eq('id', id))
+  }
 
   if (error) return res.status(500).json({ error: error.message })
   return res.status(200).json({ success: true })

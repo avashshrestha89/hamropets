@@ -49,6 +49,7 @@ const translations = {
     step5_progress: (name) => `What is ${name} like?`,
     step5_children_label: (name) => `Is ${name} friendly with children?`,
     step5_dogs_label: (name) => `Is ${name} friendly with other dogs?`,
+    step5_potty_label: (name) => `Is ${name} potty trained (toilet trained)?`,
     step5_description_label: (name) => `Describe ${name} in one honest sentence`,
     step5_description_placeholder: (name) => `e.g. ${name} is playful, loves fetch, good with kids...`,
     step5_description_hint: "One honest sentence beats a perfect paragraph.",
@@ -129,6 +130,7 @@ const translations = {
     step5_progress: (name) => `${name} कस्तो छ?`,
     step5_children_label: (name) => `${name} बच्चाहरूसँग मिल्छ?`,
     step5_dogs_label: (name) => `${name} अन्य कुकुरहरूसँग मिल्छ?`,
+    step5_potty_label: (name) => `${name} शौच तालिम प्राप्त (potty trained) छ?`,
     step5_description_label: (name) => `${name} लाई एक इमानदार वाक्यमा वर्णन गर्नुहोस्`,
     step5_description_placeholder: (name) => `जस्तै: ${name} खेल्न मन पराउँछ, बच्चाहरूसँग राम्रो छ...`,
     step5_description_hint: "एक इमानदार वाक्य उत्तम अनुच्छेदभन्दा राम्रो हुन्छ।",
@@ -214,7 +216,7 @@ export default function SubmitPet() {
   const [form, setForm] = useState({
 species: '', petName: '', petAge: '', petAgeYears: '', petAgeMonths: '', reason: '', reasonOther: '',
     breed: '', gender: '', vaccinated: '', neutered: '', friendlyChildren: '',
-    friendlyDogs: '', description: '', reasonForAdoption: '',
+    friendlyDogs: '', pottyTrained: '', description: '', reasonForAdoption: '',
     ownerName: '', ownerPhone: '', ownerWhatsapp: '', ownerEmail: '',
     ownerAddress: '', agreeTerms: false, agreeContact: false,
   })
@@ -314,7 +316,7 @@ const handleImageSelect = async (e) => {
         gender: form.gender, ageYears: '', ageMonths: '', petAge: form.petAgeYears && form.petAgeMonths ? `${form.petAgeYears} years ${form.petAgeMonths} months` : form.petAgeYears ? `${form.petAgeYears} years` : form.petAgeMonths ? `${form.petAgeMonths} months` : '',
         location: form.ownerAddress, vaccinated: form.vaccinated === 'yes',
         neutered: form.neutered === 'yes', friendlyChildren: form.friendlyChildren,
-        friendlyDogs: form.friendlyDogs, description: form.description,
+        friendlyDogs: form.friendlyDogs, pottyTrained: form.pottyTrained, description: form.description,
         reasonForAdoption: form.reasonForAdoption || form.reason,
         submitterName: form.ownerName, phone: form.ownerPhone,
         whatsapp: form.ownerWhatsapp, email: form.ownerEmail,
@@ -483,6 +485,7 @@ if (paidSubmitted) {
           {form.vaccinated === 'yes' && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #166534' }}>💉 Vaccinated</span>}
           {form.neutered === 'yes' && <span style={{ background: '#E8F9ED', color: '#166534', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #166534' }}>✂️ Neutered</span>}
           {form.friendlyChildren === 'yes' && <span style={{ background: '#EFF6FF', color: '#1D4ED8', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1D4ED8' }}>👶 Kid-friendly</span>}
+          {form.pottyTrained === 'yes' && <span style={{ background: '#EFF6FF', color: '#1D4ED8', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1D4ED8' }}>🚽 Potty trained</span>}
         </div>
         <div style={{ marginTop: 12, padding: '10px 14px', background: '#F9FAFB', borderRadius: 10, fontSize: 12, color: '#6B7280' }}>
           📍 {form.ownerAddress || (lang === 'ne' ? 'स्थान...' : 'Location...')}
@@ -694,6 +697,10 @@ if (paidSubmitted) {
                     <div>
                       <label style={labelStyle}>{t('step5_dogs_label', petName)}</label>
                       {yesNoButtons('friendlyDogs', form.friendlyDogs)}
+                    </div>
+                    <div>
+                      <label style={labelStyle}>{t('step5_potty_label', petName)}</label>
+                      {yesNoButtons('pottyTrained', form.pottyTrained)}
                     </div>
                     <div>
                       <label style={labelStyle}>{t('step5_description_label', petName)}</label>
@@ -922,6 +929,10 @@ if (paidSubmitted) {
                   <div>
                     <label style={labelStyle}>{t('step5_dogs_label', petName)}</label>
                     {yesNoButtons('friendlyDogs', form.friendlyDogs)}
+                  </div>
+                  <div>
+                    <label style={labelStyle}>{t('step5_potty_label', petName)}</label>
+                    {yesNoButtons('pottyTrained', form.pottyTrained)}
                   </div>
                   <div>
                     <label style={labelStyle}>{t('step5_description_label', petName)}</label>

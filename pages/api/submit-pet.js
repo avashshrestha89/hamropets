@@ -25,9 +25,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { data, error } = await supabase
-      .from('pet_listings')
-      .insert([{
+    const row = {
         pet_name: petName,
         breed: breed || null,
         species: species?.toLowerCase(),
@@ -52,8 +50,17 @@ export default async function handler(req, res) {
         images: req.body.images || [],
           video_url: req.body.videoUrl || null,
         boost_tier: req.body.boostTier || 'free',
-      }])
-      .select()
+        potty_trained: req.body.pottyTrained || null,
+    }
+
+    let { data, error } = await supabase.from('pet_listings').insert([row]).select()
+
+    // If the potty_trained column is not in the database yet, save the listing without it instead of failing the whole submission.
+    if (error && /potty_trained/i.test(error.message || '')) {
+      console.error('potty_trained column missing, retrying without it:', error.message)
+      const { potty_trained, ...rowWithoutPotty } = row
+      ;({ data, error } = await supabase.from('pet_listings').insert([rowWithoutPotty]).select())
+    }
 
     if (error) {
       console.error('Supabase error:', error)
@@ -82,6 +89,7 @@ export default async function handler(req, res) {
             <p><strong>Neutered:</strong> ${neutered ? '✅ Yes' : '❌ No'}</p>
             <p><strong>Friendly with children:</strong> ${req.body.friendlyChildren || 'Not specified'}</p>
             <p><strong>Friendly with dogs:</strong> ${req.body.friendlyDogs || 'Not specified'}</p>
+            <p><strong>Potty trained:</strong> ${req.body.pottyTrained || 'Not specified'}</p>
             <p><strong>Description:</strong> ${description}</p>
             <p><strong>Reason for adoption:</strong> ${req.body.reasonForAdoption || 'Not specified'}</p>
                         <p><strong>Package Selected:</strong> ${req.body.boostTier === 'shield' ? '⭐ Priority Shield — NPR 599' : req.body.boostTier === 'boost' ? '🚀 Social Boost — NPR 299' : '🐾 Free Listing'}</p>
