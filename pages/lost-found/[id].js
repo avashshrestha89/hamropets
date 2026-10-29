@@ -160,15 +160,6 @@ export default function LostFoundDetail({ item }) {
                 title={`${isLost ? 'Lost' : 'Found'} pet: ${item.pet_name || 'Unknown'}`}
                 text={`${isLost ? '🔴 LOST' : '🟢 FOUND'} ${item.species || 'pet'}${item.pet_name ? ` "${item.pet_name}"` : ''} in ${item.area}. Please share to help:`}
                 heading={isLost ? '📣 Share to help bring them home' : '📣 Share to find the owner'}
-                card={{
-                  image: (item.images && item.images[activePhoto]) || (item.images && item.images[0]) || item.image_url,
-                  emoji: item.species === 'Cat' ? '🐈' : item.species === 'Dog' ? '🐕' : '🐾',
-                  color,
-                  badge: isLost ? '🔴 LOST PET' : '🟢 FOUND PET',
-                  title: item.pet_name || (isLost ? 'Lost pet' : 'Found pet'),
-                  subtitle: [item.breed || item.species, item.area].filter(Boolean).join(' · '),
-                  cta: isLost ? 'Please share. Help find them.' : 'Know this pet? Contact HamroPets.com',
-                }}
               />
 
               {/* SAFETY NOTE */}
