@@ -24,6 +24,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' })
   }
 
+  if (!Array.isArray(req.body.images) || req.body.images.length === 0) {
+    return res.status(400).json({ error: 'At least one photo is required' })
+  }
+
   try {
     const row = {
         pet_name: petName,

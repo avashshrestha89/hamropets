@@ -90,6 +90,10 @@ export default function LostFound() {
       alert('Please fill in all required fields.')
       return
     }
+    if (imageUrls.length === 0) {
+      alert('Please upload at least one photo. / कृपया कम्तिमा एउटा फोटो अपलोड गर्नुहोस्।')
+      return
+    }
     // If paid tier selected — open WhatsApp with pre-filled message
     if (form.boostTier === 'boost' || form.boostTier === 'shield') {
       const amount = form.boostTier === 'boost' ? 'NPR 299' : 'NPR 499'
@@ -285,7 +289,7 @@ export default function LostFound() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 {/* PHOTO */}
                   <div>
-                    <label style={labelStyle}>Pet Photos / पाल्तु जनावरको फोटो (up to 5)</label>
+                    <label style={labelStyle}>Pet Photos * / पाल्तु जनावरको फोटो * (at least 1, up to 5)</label>
                     <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
                       {imageUrls.map((url, i) => (
                         <div key={i} style={{ position: 'relative' }}>
@@ -300,7 +304,7 @@ export default function LostFound() {
                         </div>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>Upload up to 5 photos · More photos = faster recovery</div>
+                    <div style={{ fontSize: 12, color: '#6B7280', fontWeight: 500 }}>At least 1 photo is required · Up to 5 photos · More photos = faster recovery</div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 14 }}>
@@ -342,7 +346,7 @@ export default function LostFound() {
                     <textarea rows={3} value={form.description} onChange={e => update('description', e.target.value)} placeholder={isLost ? 'Color, size, breed, any distinctive features...' : 'Describe the pet — color, size, condition...'} style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
                   </div>
 
-                  <button onClick={() => setFormStep(2)} style={{ background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                  <button onClick={() => { if (imageUrls.length === 0) { alert('Please upload at least one photo to continue. / कृपया कम्तिमा एउटा फोटो अपलोड गर्नुहोस्।'); return } setFormStep(2) }} style={{ background: color, color: '#fff', padding: '13px', borderRadius: 12, border: '2.5px solid #1A1A1A', fontSize: 15, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '3px 3px 0px #1A1A1A' }}>
                     Next: Add More Details → / थप विवरण →
                   </button>
               
