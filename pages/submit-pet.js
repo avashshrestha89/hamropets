@@ -15,7 +15,7 @@ const translations = {
     step1_next: "Next →",
     step2_progress: (name) => `Show us ${name}'s best side 📸`,
     step2_photo_label: (name) => `Upload a clear photo of ${name}`,
-    step2_photo_hint: "JPG or PNG · Front facing photo works best",
+    step2_photo_hint: "Photo required · JPG or PNG · Front facing photo works best",
     step2_upload_btn: "Click to upload photo",
     step2_replace: "Click to replace photo",
     step2_skip: "Skip for now →",
@@ -96,7 +96,7 @@ const translations = {
     step1_next: "अर्को →",
     step2_progress: (name) => `${name} को सुन्दर फोटो देखाउनुहोस् 📸`,
     step2_photo_label: (name) => `${name} को स्पष्ट फोटो अपलोड गर्नुहोस्`,
-    step2_photo_hint: "JPG वा PNG · अनुहार देखिने फोटो राम्रो हुन्छ",
+    step2_photo_hint: "फोटो अनिवार्य · JPG वा PNG · अनुहार देखिने फोटो राम्रो हुन्छ",
     step2_upload_btn: "फोटो अपलोड गर्न क्लिक गर्नुहोस्",
     step2_replace: "फोटो फेर्न क्लिक गर्नुहोस्",
     step2_skip: "अहिलेलाई छोड्नुहोस् →",
@@ -310,6 +310,11 @@ const handleImageSelect = async (e) => {
           }
         }
         setUploading(false)
+      }
+      if (uploadedUrls.length === 0) {
+        alert(lang === 'ne' ? 'फोटो अपलोड हुन सकेन। कृपया कम्तिमा एउटा फोटो राखेर फेरि प्रयास गर्नुहोस्।' : 'A photo is required and the upload did not work. Please add at least one photo and try again.')
+        setSubmitting(false)
+        return
       }
       const payload = {
         petName: form.petName, breed: form.breed, species: form.species,
@@ -625,7 +630,7 @@ if (paidSubmitted) {
                     </div>
                     <div style={{ display: 'flex', gap: 10 }}>
                       <button onClick={() => setStep(1)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
-                      <button onClick={() => setStep(3)} style={{ ...btnPrimary, flex: 2 }}>{imagePreview ? t('step2_next') : t('step2_skip')}</button>
+                      <button onClick={() => { if (!imageFile || imageFile.length === 0) { alert(lang === 'ne' ? 'कृपया कम्तिमा एउटा फोटो अपलोड गर्नुहोस्।' : 'Please upload at least one photo to continue.'); return } setStep(3) }} style={{ ...btnPrimary, flex: 2 }}>{t('step2_next')}</button>
                     </div>
                   </div>
                 )}
@@ -846,7 +851,7 @@ if (paidSubmitted) {
                   </div>
                   <div style={{ display: 'flex', gap: 10 }}>
                     <button onClick={() => setStep(1)} style={{ ...btnSecondary, flex: 1 }}>{t('back')}</button>
-                    <button onClick={() => setStep(3)} style={{ ...btnPrimary, flex: 2 }}>{imagePreview ? t('step2_next') : t('step2_skip')}</button>
+                    <button onClick={() => { if (!imageFile || imageFile.length === 0) { alert(lang === 'ne' ? 'कृपया कम्तिमा एउटा फोटो अपलोड गर्नुहोस्।' : 'Please upload at least one photo to continue.'); return } setStep(3) }} style={{ ...btnPrimary, flex: 2 }}>{t('step2_next')}</button>
                   </div>
                 </div>
               )}

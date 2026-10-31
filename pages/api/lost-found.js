@@ -13,6 +13,9 @@ export default async function handler(req, res) {
     if (!type || !description || !area || !contactName || !contactPhone) {
       return res.status(400).json({ error: 'Missing required fields' })
     }
+    if (!imageUrl) {
+      return res.status(400).json({ error: 'At least one photo is required' })
+    }
     try {
       const { error } = await supabase
         .from('lost_found')
