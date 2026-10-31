@@ -31,6 +31,7 @@ async function handler(req, res) {
   if (rest.submitter_phone !== undefined) updateData.submitter_phone = rest.submitter_phone
   if (rest.submitter_whatsapp !== undefined) updateData.submitter_whatsapp = rest.submitter_whatsapp
   if (rest.submitter_email !== undefined) updateData.submitter_email = rest.submitter_email
+  if (rest.submitter_address !== undefined) updateData.submitter_address = rest.submitter_address
   if (rest.images !== undefined) updateData.images = rest.images
   if (rest.video_url !== undefined) updateData.video_url = rest.video_url
   if (rest.is_featured !== undefined) updateData.is_featured = rest.is_featured
