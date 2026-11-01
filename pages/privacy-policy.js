@@ -41,7 +41,7 @@ export default function PrivacyPolicy() {
           <div style={{ marginBottom: 40 }}>
             <span style={{ background: '#E8F9ED', color: '#166534', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', marginBottom: 16, border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>📄 Legal</span>
             <h1 style={{ fontSize: isMobile ? 28 : 40, fontWeight: 900, color: '#1A1A1A', margin: '0 0 8px', letterSpacing: -0.5 }}>Privacy Policy</h1>
-            <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500 }}>Last updated: September 25, 2026 · Effective immediately</p>
+            <p style={{ color: '#6B7280', fontSize: 14, fontWeight: 500 }}>Last updated: November 1, 2026 · Effective immediately</p>
           </div>
 
           {[
@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
             },
             {
               title: '6. Cookies',
-              content: `HamroPets uses minimal cookies necessary for the website to function. We use Vercel Analytics to understand how users interact with the platform. We do not use advertising cookies or tracking pixels. You can disable cookies in your browser settings but some features may not work correctly.`
+              content: `HamroPets uses minimal cookies necessary for the website to function. We use Vercel Analytics and Google Analytics to understand how visitors use the platform, such as which pages are viewed and what type of device is used. Google Analytics uses cookies and may collect your IP address and browser information; see Google's privacy policy at policies.google.com/privacy. You can opt out with Google's Analytics opt-out browser add-on. We do not use advertising cookies or tracking pixels. You can disable cookies in your browser settings but some features may not work correctly.`
             },
             {
               title: '7. Children\'s Privacy',
