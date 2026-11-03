@@ -96,7 +96,7 @@ export default async function handler(req, res) {
             <p><strong>Potty trained:</strong> ${req.body.pottyTrained || 'Not specified'}</p>
             <p><strong>Description:</strong> ${description}</p>
             <p><strong>Reason for adoption:</strong> ${req.body.reasonForAdoption || 'Not specified'}</p>
-                        <p><strong>Package Selected:</strong> ${req.body.boostTier === 'shield' ? '⭐ Priority Shield — NPR 599' : req.body.boostTier === 'private' ? '🔒 Private Contact — NPR 199' : req.body.boostTier === 'boost' ? '🚀 Social Boost — NPR 299' : '🐾 Free Listing'}</p>
+                        <p><strong>Package Selected:</strong> ${req.body.boostTier === 'shield' ? '⭐ Priority Shield — NPR 599' : req.body.boostTier === 'private' ? '🔒 Private Contact — NPR 199' : req.body.boostTier === 'boost_private' ? '🚀🔒 Social Boost + Private Contact — NPR 349' : req.body.boostTier === 'boost' ? '🚀 Social Boost — NPR 299' : '🐾 Free Listing'}</p>
             <hr style="margin: 20px 0;" />
             <h2 style="font-size: 20px; margin: 0 0 20px; color: #000;">Owner Details</h2>
             <p><strong>Name:</strong> ${submitterName}</p>

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import ShareBar from '../../components/ShareBar'
+import { hidesContact as tierHidesContact } from '../../lib/privacy'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -37,7 +38,7 @@ export default function PetDetail({ pet }) {
   const emoji = speciesEmoji[pet.species?.toLowerCase()] || '🐾'
   const color = speciesColor[pet.species?.toLowerCase()] || '#58CC02'
   const isAdopted = pet.status === 'adopted'
-  const hidesContact = pet.boost_tier === 'shield' || pet.boost_tier === 'private'
+  const hidesContact = tierHidesContact(pet.boost_tier)
 
   const age = [
     pet.age_years > 0 ? `${pet.age_years} year${pet.age_years > 1 ? 's' : ''}` : '',
@@ -274,7 +275,7 @@ export default function PetDetail({ pet }) {
                         🔒 Owner's contact is private. Applications are reviewed by HamroPets before forwarding.
                       </div>
                     </>
-                  ) : pet.boost_tier === 'private' ? (
+                  ) : (pet.boost_tier === 'private' || pet.boost_tier === 'boost_private') ? (
                     <>
                       <div style={{ background: '#F2F7F0', borderRadius: 14, padding: isMobile ? '16px' : '20px', border: '2.5px solid #244B38', boxShadow: '3px 3px 0px #1A1A1A' }}>
                         <div style={{ fontSize: 13, fontWeight: 900, color: '#244B38', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>🔒 Private contact / गोप्य सम्पर्क</div>

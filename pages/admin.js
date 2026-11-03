@@ -580,11 +580,11 @@ PLEASE GENERATE:
         const res = await fetch('/api/admin/update-listing', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: item.id, boost_tier: item.boost_tier === 'private' ? null : 'private' }),
+          body: JSON.stringify({ id: item.id, boost_tier: { private: null, boost_private: 'boost', boost: 'boost_private' }[item.boost_tier] !== undefined ? { private: null, boost_private: 'boost', boost: 'boost_private' }[item.boost_tier] : 'private' }),
         })
         if (res.ok) fetchListings()
-      }} style={{ background: item.boost_tier === 'private' ? '#244B38' : '#fff', color: item.boost_tier === 'private' ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
-        {item.boost_tier === 'private' ? '🔒 Remove Private Contact' : '🔒 Private Contact'}
+      }} style={{ background: ['private', 'boost_private'].includes(item.boost_tier) ? '#244B38' : '#fff', color: ['private', 'boost_private'].includes(item.boost_tier) ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        {['private', 'boost_private'].includes(item.boost_tier) ? '🔒 Remove Private Contact' : '🔒 Private Contact'}
       </button>
     )}
 

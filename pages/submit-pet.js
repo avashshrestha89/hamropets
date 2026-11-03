@@ -208,6 +208,7 @@ const TIERS = {
   free: { name: 'Free', price: 'NPR 0', priceNe: 'NPR ०' },
   private: { name: 'Private Contact', price: 'NPR 199', priceNe: 'NPR १९९' },
   boost: { name: 'Social Boost', price: 'NPR 299', priceNe: 'NPR २९९' },
+  boost_private: { name: 'Social Boost + Private Contact', price: 'NPR 349', priceNe: 'NPR ३४९' },
   shield: { name: 'Priority Shield', price: 'NPR 599', priceNe: 'NPR ५९९' },
 }
 
@@ -1055,7 +1056,7 @@ if (paidSubmitted) {
                       },
                       ...(ENABLE_PRIVATE_CONTACT_TIER ? [{
                         id: 'private',
-                        label: lang === 'ne' ? '🔒 प्राइभेट सम्पर्क' : '🔒 Private Contact',
+                        label: lang === 'ne' ? 'प्राइभेट सम्पर्क' : 'Private Contact',
                         price: 'NPR 199',
                         priceColor: '#244B38',
                       }] : []),
@@ -1088,7 +1089,7 @@ if (paidSubmitted) {
                           : ['Posted within 2 hours', 'Homepage pinned for 14 days', 'Your phone stays private', 'Calls & inquiries handled for you', '2–3 suitable families shortlisted', 'Consultation before any decision'],
                       },
                     ].map(tier => {
-                      const isSelected = boostTier === tier.id
+                      const isSelected = boostTier === tier.id || (tier.id === 'boost' && boostTier === 'boost_private')
                       const isBoost = tier.id === 'boost'
                       const isShield = tier.id === 'shield'
                       const isPrivate = tier.id === 'private'
@@ -1102,11 +1103,11 @@ if (paidSubmitted) {
                       return (
                         <div
                           key={tier.id}
-                          onClick={() => setBoostTier(tier.id)}
+                          onClick={() => setBoostTier(tier.id === 'boost' && boostTier === 'boost_private' ? 'boost_private' : tier.id)}
                           role="radio"
                           aria-checked={isSelected}
                           tabIndex={0}
-                          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setBoostTier(tier.id)}
+                          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget && setBoostTier(tier.id === 'boost' && boostTier === 'boost_private' ? 'boost_private' : tier.id)}
                           style={{
                             background: cardBg,
                             borderRadius: 16,
@@ -1175,8 +1176,22 @@ if (paidSubmitted) {
                               <div style={{ fontSize: 14, color: '#202923', fontWeight: 700, lineHeight: 1.6, marginBottom: 2 }}>
                                 Your phone number stays hidden. Nobody can call you directly.
                               </div>
-                              <div style={{ fontSize: 14, color: '#202923', fontWeight: 700, lineHeight: 1.7, marginBottom: 12 }}>
+                              <div style={{ fontSize: 14, color: '#202923', fontWeight: 700, lineHeight: 1.7, marginBottom: 10 }}>
                                 तपाईंको फोन नम्बर गोप्य रहन्छ। कसैले सीधै फोन गर्न सक्दैन।
+                              </div>
+                              <div style={{ background: '#FFF4E5', border: '1px solid #E9B96E', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
+                                <div style={{ fontSize: 13, color: '#92400E', fontWeight: 700, lineHeight: 1.6 }}>
+                                  Protect yourself from unwanted calls: spam and people who are not serious.
+                                </div>
+                                <div style={{ fontSize: 13, color: '#92400E', fontWeight: 700, lineHeight: 1.7, marginBottom: 6 }}>
+                                  अनावश्यक फोनबाट आफूलाई जोगाउनुहोस्: स्प्याम र गम्भीर नभएका मानिसबाट।
+                                </div>
+                                <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+                                  When your number is public, anyone can call you. That includes spammers and people who are not serious, sometimes again and again.
+                                </div>
+                                <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.7 }}>
+                                  नम्बर सार्वजनिक भएपछि जो कोहीले फोन गर्न सक्छ। स्प्यामर र गम्भीर नभएका मानिसले पनि, कहिलेकाहीँ बारम्बार।
+                                </div>
                               </div>
                               <div style={{ fontSize: 12, fontWeight: 700, color: '#667067', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 8 }}>
                                 {lang === 'ne' ? 'यसरी काम गर्छ' : 'How it works'} / यसरी काम गर्छ
@@ -1241,14 +1256,43 @@ if (paidSubmitted) {
                                   )
                                 })}
                               </div>
+                              {/* Optional add-on */}
+                              <div
+                                onClick={e => e.stopPropagation()}
+                                style={{ marginTop: 14, background: boostTier === 'boost_private' ? '#EDF4E8' : '#FFFFFF', border: `1.5px solid ${boostTier === 'boost_private' ? '#244B38' : '#D4E8CC'}`, borderRadius: 12, padding: '12px 14px' }}
+                              >
+                                <div style={{ fontSize: 11, fontWeight: 700, color: '#667067', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 8 }}>
+                                  Add-on (optional) / थप सुविधा (ऐच्छिक)
+                                </div>
+                                <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                                  <input
+                                    type="checkbox"
+                                    checked={boostTier === 'boost_private'}
+                                    onChange={e => setBoostTier(e.target.checked ? 'boost_private' : 'boost')}
+                                    style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }}
+                                  />
+                                  <span style={{ flex: 1 }}>
+                                    <span style={{ display: 'flex', justifyContent: 'space-between', gap: 8, fontWeight: 700, fontSize: 14, color: '#202923' }}>
+                                      <span>🔒 Private Contact</span>
+                                      <span style={{ color: '#244B38' }}>{lang === 'ne' ? '+ NPR ५०' : '+ NPR 50'}</span>
+                                    </span>
+                                    <span style={{ display: 'block', fontSize: 13, color: '#374151', lineHeight: 1.6, marginTop: 4 }}>
+                                      Your phone number stays hidden. Nobody can call you directly. Protect yourself from unwanted calls (spam or people who are not serious).
+                                    </span>
+                                    <span style={{ display: 'block', fontSize: 13, color: '#4A5A4D', lineHeight: 1.7, marginTop: 2 }}>
+                                      तपाईंको फोन नम्बर गोप्य रहन्छ। कसैले सीधै फोन गर्न सक्दैन। अनावश्यक फोन (स्प्याम वा गम्भीर नभएका मानिस) बाट आफूलाई जोगाउनुहोस्।
+                                    </span>
+                                  </span>
+                                </label>
+                              </div>
                             </div>
                           ) : isShield ? (
                             // Shield: compact — checklist only, Nepali label per item
                             <div>
                               <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 10 }}>
                                 {lang === 'ne'
-                                  ? `Social Boost का सबै सुविधा, साथै ${petName} को लागि अझ बढी व्यक्तिगत सहयोग।`
-                                  : `Everything in Social Boost, plus hands-on support for ${petName}.`}
+                                  ? `Social Boost + प्राइभेट सम्पर्क, साथै ${petName} को लागि अझ बढी व्यक्तिगत सहयोग:`
+                                  : `Social Boost + Private Contact, plus hands-on support for ${petName}:`}
                               </div>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
                                 {tier.benefits.map((b, i) => (
