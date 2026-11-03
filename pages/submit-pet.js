@@ -57,7 +57,7 @@ const translations = {
     step6_progress: "Almost there — how can adopters reach you?",
     step6_name_label: "Your full name",
     step6_phone_label: "Your phone number",
-    step6_phone_hint: "Only shared with verified adopters — never publicly",
+    step6_phone_hint: "On the last screen you choose: show it on the pet page (free) or keep it private (paid)",
     step6_whatsapp_label: "WhatsApp number",
     step6_whatsapp_hint: "If different from phone",
     step6_email_label: "Email address",
@@ -138,7 +138,7 @@ const translations = {
     step6_progress: "लगभग भयो — दत्तककर्ताले तपाईंलाई कसरी सम्पर्क गर्न सक्छन्?",
     step6_name_label: "तपाईंको पूरा नाम",
     step6_phone_label: "तपाईंको फोन नम्बर",
-    step6_phone_hint: "केवल प्रमाणित दत्तककर्तासँग साझा — कहिल्यै सार्वजनिक होइन",
+    step6_phone_hint: "अन्तिम पेजमा तपाईं छान्नुहुन्छ: पेजमा देखाउने (निःशुल्क) वा गोप्य राख्ने (शुल्क)",
     step6_whatsapp_label: "WhatsApp नम्बर",
     step6_whatsapp_hint: "फोनभन्दा फरक भएमा",
     step6_email_label: "इमेल ठेगाना",
@@ -200,9 +200,9 @@ const getAdaptivePitch = (reason, name, lang) => {
 }
 const LOGO_URL = "https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png"
 
-// Set to true once the AI shortlist for Private Contact is live. Until then the card is hidden at checkout
-// (admins can still switch Private Contact on for a listing from the admin page).
-const ENABLE_PRIVATE_CONTACT_TIER = false
+// Shows the Private Contact card at checkout. Set to false to hide it (admins can still switch
+// Private Contact on for a listing from the admin page).
+const ENABLE_PRIVATE_CONTACT_TIER = true
 
 const TIERS = {
   free: { name: 'Free', price: 'NPR 0', priceNe: 'NPR ०' },
@@ -1185,7 +1185,7 @@ if (paidSubmitted) {
                                 {[
                                   ['Your phone and WhatsApp number are NOT shown on the page.', 'तपाईंको फोन र WhatsApp नम्बर पेजमा देखिँदैन।'],
                                   [`People who want ${petName} fill out a short form instead.`, `${petName} लिन चाहनेले सानो फारम भर्छन्।`],
-                                  ['Our system reads every form and picks the best 3 families. A person at HamroPets checks them.', 'हाम्रो प्रणालीले सबै फारम पढेर सबैभन्दा राम्रा ३ परिवार छान्छ। HamroPets को व्यक्तिले जाँच गर्छ।'],
+                                  ['We read every form and pick the best 3 families.', 'हामी सबै फारम पढेर सबैभन्दा राम्रा ३ परिवार छान्छौं।'],
                                   ['We send you those 3 families. You choose one.', 'ती ३ परिवारको विवरण हामी तपाईंलाई पठाउँछौं। तपाईं एक जना छान्नुहोस्।'],
                                   ['Only the family you choose gets your phone number.', 'तपाईंले छानेको परिवारलाई मात्र तपाईंको फोन नम्बर दिइन्छ।'],
                                 ].map(([en, ne], i) => (
