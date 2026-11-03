@@ -14,7 +14,7 @@ There is no test suite and no ESLint config checked in.
 
 ## Architecture
 
-Next.js 13.5 **Pages Router**, plain JavaScript (no TypeScript), Tailwind CSS. There is no `components/` directory, no shared lib, and no `src/`: everything lives in `pages/`, and each page is a large self-contained file with its own inline UI (e.g. `pages/index.js` ~1100 lines, `pages/admin.js` ~950). Expect duplication across pages rather than shared helpers.
+Next.js 13.5 **Pages Router**, plain JavaScript (no TypeScript), Tailwind CSS. Almost everything lives in `pages/`, and each page is a large self-contained file with its own inline UI (e.g. `pages/index.js` ~1100 lines, `pages/admin.js` ~950). Expect duplication across pages. The only shared code is `components/ShareBar.js` (share buttons on pet and lost-found pages), `lib/adminAuth.js` (admin sessions) and `lib/privacy.js` (which tiers hide the owner's contact). There is no `src/`.
 
 **Backend is Supabase, accessed directly from each file.** Every page and API route calls `createClient(...)` at module top. There's no central client.
 - Public pages read data in `getServerSideProps` (`index`, `adopt`, `vets`, `walk-sit`, `pet/[id]`, `walker/[id]`, `lost-found/[id]`, `adopt/apply/[petId]`).
@@ -22,7 +22,7 @@ Next.js 13.5 **Pages Router**, plain JavaScript (no TypeScript), Tailwind CSS. T
 - Moderation happens in `pages/admin.js`, which calls `pages/api/admin/*` routes (list / update / delete per entity: pet listings, lost-found, vet listings, walkers, booking inquiries, adoption applications). Listings only go live after an admin changes their `status`.
 - `pages/api/upload.js` takes base64 files in a JSON body (50mb limit) and stores them in the Supabase Storage bucket `hamropets-media`, returning the public URL. Cloudinary is also a dependency (`delete-cloudinary-video`, `next.config.js` image domain) and is a legacy media path.
 - `pages/api/admin/update-listing.js` is a field whitelist: adding a new editable column to `pet_listings` means adding an `if (rest.x !== undefined)` line there as well as in the admin UI.
-- Listings have a monetization concept (`boost_tier`: `free` / `boost` / `shield`, plus `is_featured` / `is_super_featured`), shown on `boost-tiers.js` and in the submit flow.
+- Listings have a monetization concept (`boost_tier`: `free` / `private` / `boost` / `boost_private` / `shield`, plus `is_featured` / `is_super_featured`), shown on `boost-tiers.js` and in the submit flow. Prices live in the `TIERS` table in `pages/submit-pet.js` (Private Contact NPR 199, Social Boost 299, Social Boost + Private Contact 349, Priority Shield 599). `private`, `boost_private` and `shield` hide the owner's phone, WhatsApp, name and address; use `hidesContact()` from `lib/privacy.js`, never compare to `'shield'` directly. Free and Social Boost owners must tick a notice that their phone number is public.
 
 **SEO landing pages** (`adopt-dog-kathmandu`, `dog-walker-kathmandu`, `lost-found-pets-nepal`, `hamrobazaar-alternative-nepal`) are static content pages. `public/sitemap.xml` is hand-maintained; update it when adding pages. `api/submit-indexnow.js` pings IndexNow.
 
