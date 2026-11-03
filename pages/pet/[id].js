@@ -37,6 +37,7 @@ export default function PetDetail({ pet }) {
   const emoji = speciesEmoji[pet.species?.toLowerCase()] || '🐾'
   const color = speciesColor[pet.species?.toLowerCase()] || '#58CC02'
   const isAdopted = pet.status === 'adopted'
+  const hidesContact = pet.boost_tier === 'shield' || pet.boost_tier === 'private'
 
   const age = [
     pet.age_years > 0 ? `${pet.age_years} year${pet.age_years > 1 ? 's' : ''}` : '',
@@ -207,7 +208,7 @@ export default function PetDetail({ pet }) {
               )}
 
             {/* Owner Info — hidden for Priority Shield */}
-              {!isAdopted && pet.boost_tier !== 'shield' && (
+              {!isAdopted && !hidesContact && (
                 <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 20 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>👤 Owner Details</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -271,6 +272,38 @@ export default function PetDetail({ pet }) {
                       </div>
                       <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600 }}>
                         🔒 Owner's contact is private. Applications are reviewed by HamroPets before forwarding.
+                      </div>
+                    </>
+                  ) : pet.boost_tier === 'private' ? (
+                    <>
+                      <div style={{ background: '#F2F7F0', borderRadius: 14, padding: isMobile ? '16px' : '20px', border: '2.5px solid #244B38', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                        <div style={{ fontSize: 13, fontWeight: 900, color: '#244B38', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 10 }}>🔒 Private contact / गोप्य सम्पर्क</div>
+                        <p style={{ margin: '0 0 4px', fontSize: 14, color: '#1A1A1A', fontWeight: 700, lineHeight: 1.6 }}>
+                          The owner's phone number is private. To adopt {pet.pet_name}:
+                        </p>
+                        <p style={{ margin: '0 0 14px', fontSize: 14, color: '#1A1A1A', fontWeight: 700, lineHeight: 1.7 }}>
+                          मालिकको फोन नम्बर गोप्य छ। {pet.pet_name} लाई अपनाउन:
+                        </p>
+                        {[
+                          ['Tap the yellow button below and fill out the form. It takes 2 minutes.', 'तलको पहेँलो बटन थिचेर फारम भर्नुहोस्। २ मिनेट लाग्छ।'],
+                          ['We read your form.', 'हामी तपाईंको फारम पढ्छौं।'],
+                          ['If you are a good match, the owner will contact you.', 'तपाईं मिल्नुभयो भने मालिकले तपाईंलाई सम्पर्क गर्नेछन्।'],
+                        ].map(([en, ne], i) => (
+                          <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 10 }}>
+                            <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#244B38', color: '#fff', fontSize: 13, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</div>
+                            <div>
+                              <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.5, fontWeight: 600 }}>{en}</div>
+                              <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.6 }}>{ne}</div>
+                            </div>
+                          </div>
+                        ))}
+                        <a href={`/adopt/apply/${pet.id}`} style={{ background: '#FFD23F', color: '#1A1A1A', padding: isMobile ? '13px' : '15px', borderRadius: 12, border: '2px solid #1A1A1A', fontSize: isMobile ? 14 : 15, fontWeight: 900, textDecoration: 'none', textAlign: 'center', boxShadow: '3px 3px 0px #1A1A1A', display: 'block', marginTop: 6 }}>
+                          🐾 Apply to Adopt {pet.pet_name} / फारम भर्नुहोस् →
+                        </a>
+                      </div>
+                      <div style={{ background: '#FFFBDE', borderRadius: 12, padding: '12px 16px', border: '1.5px solid #FFD23F', fontSize: isMobile ? 12 : 13, color: '#92400E', fontWeight: 600, lineHeight: 1.6 }}>
+                        The owner chooses one family. If you are not chosen, you may not hear back. Please do not try to find the owner's number.<br />
+                        मालिकले एउटा परिवार छान्छन्। तपाईं छानिनुभएन भने जवाफ नआउन सक्छ। कृपया मालिकको नम्बर खोज्ने प्रयास नगर्नुहोस्।
                       </div>
                     </>
                   ) : (

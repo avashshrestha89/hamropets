@@ -200,6 +200,17 @@ const getAdaptivePitch = (reason, name, lang) => {
 }
 const LOGO_URL = "https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png"
 
+// Set to true once the AI shortlist for Private Contact is live. Until then the card is hidden at checkout
+// (admins can still switch Private Contact on for a listing from the admin page).
+const ENABLE_PRIVATE_CONTACT_TIER = false
+
+const TIERS = {
+  free: { name: 'Free', price: 'NPR 0', priceNe: 'NPR ०' },
+  private: { name: 'Private Contact', price: 'NPR 199', priceNe: 'NPR १९९' },
+  boost: { name: 'Social Boost', price: 'NPR 299', priceNe: 'NPR २९९' },
+  shield: { name: 'Priority Shield', price: 'NPR 599', priceNe: 'NPR ५९९' },
+}
+
 export default function SubmitPet() {
   const [lang, setLang] = useState(null)
   const [step, setStep] = useState(0)
@@ -218,7 +229,7 @@ species: '', petName: '', petAge: '', petAgeYears: '', petAgeMonths: '', reason:
     breed: '', gender: '', vaccinated: '', neutered: '', friendlyChildren: '',
     friendlyDogs: '', pottyTrained: '', description: '', reasonForAdoption: '',
     ownerName: '', ownerPhone: '', ownerWhatsapp: '', ownerEmail: '',
-    ownerAddress: '', agreeTerms: false, agreeContact: false,
+    ownerAddress: '', agreeTerms: false, agreeContact: false, agreePublicPhone: false,
   })
 
   useEffect(() => {
@@ -296,6 +307,10 @@ const handleImageSelect = async (e) => {
       alert(lang === 'ne' ? 'कृपया दुवै सर्तहरूमा सहमत हुनुहोला।' : 'Please agree to both terms before submitting.')
       return
     }
+    if ((boostTier === 'free' || boostTier === 'boost') && !form.agreePublicPhone) {
+      alert(lang === 'ne' ? 'कृपया तपाईंको फोन नम्बर सार्वजनिक हुन्छ भन्ने कुरामा सहमत हुनुहोला।' : 'Please confirm that you understand your phone number will be public.')
+      return
+    }
     setSubmitting(true)
     try {
  let uploadedUrls = []
@@ -330,8 +345,8 @@ const handleImageSelect = async (e) => {
         status: boostTier !== 'free' ? 'pending_payment' : 'pending',
       }
       if (boostTier !== 'free') {
-        const amount = boostTier === 'boost' ? 'NPR 299' : 'NPR 599'
-        const tierName = boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'
+        const amount = TIERS[boostTier].price
+        const tierName = TIERS[boostTier].name
         const msg = encodeURIComponent(`Hi HamroPets! I want to activate ${tierName} (${amount}) for ${petName}.\n\nSpecies: ${form.species}\nLocation: ${form.ownerAddress}\nContact: ${form.ownerName} — ${form.ownerPhone}\n\nSending payment to 9851405178 now.`)
         const res = await fetch('/api/submit-pet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         if (res.ok) { setPaidSubmitted(true); window.open(`https://wa.me/9779851405178?text=${msg}`, '_blank') }
@@ -420,7 +435,7 @@ if (paidSubmitted) {
             <div style={{ background: '#FFF9E6', borderRadius: 16, padding: '20px', border: '2px solid #FFD23F', marginBottom: 24, textAlign: 'left' }}>
               <div style={{ fontWeight: 900, fontSize: 14, color: '#1A1A1A', marginBottom: 10 }}>💳 {lang === 'ne' ? 'भुक्तानी विवरण' : 'Payment Details'}</div>
               <div style={{ fontSize: 14, color: '#374151', lineHeight: 1.9 }}>
-                {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
+                {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{TIERS[boostTier]?.price}</strong><br />
                 eSewa / Khalti: <strong>9851405178</strong><br />
                 {lang === 'ne' ? 'भुक्तानी पछि WhatsApp मा screenshot पठाउनुहोस्' : 'After payment send screenshot to WhatsApp'}: <strong>9851405178</strong>
               </div>
@@ -1038,6 +1053,12 @@ if (paidSubmitted) {
                         price: 'NPR 0',
                         priceColor: '#244B38',
                       },
+                      ...(ENABLE_PRIVATE_CONTACT_TIER ? [{
+                        id: 'private',
+                        label: lang === 'ne' ? '🔒 प्राइभेट सम्पर्क' : '🔒 Private Contact',
+                        price: 'NPR 199',
+                        priceColor: '#244B38',
+                      }] : []),
                       {
                         id: 'boost',
                         label: t('step7_boost_label'),
@@ -1070,6 +1091,7 @@ if (paidSubmitted) {
                       const isSelected = boostTier === tier.id
                       const isBoost = tier.id === 'boost'
                       const isShield = tier.id === 'shield'
+                      const isPrivate = tier.id === 'private'
                       // Boost gets a sage tint when selected OR when it's the recommended option
                       const cardBg = isSelected
                         ? (isBoost ? '#EDF4E8' : '#F2F7F0')
@@ -1115,6 +1137,9 @@ if (paidSubmitted) {
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                               {/* Tier illustration */}
+                              {isPrivate ? (
+                                <div style={{ width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, flexShrink: 0, borderRadius: 12, background: '#E4EBDD', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>🔒</div>
+                              ) : (
                               <img
                                 src={
                                   tier.id === 'free'
@@ -1126,6 +1151,7 @@ if (paidSubmitted) {
                                 alt={tier.id === 'free' ? 'Community' : tier.id === 'boost' ? 'Social Boost' : 'Priority Shield'}
                                 style={{ width: isMobile ? 44 : 52, height: isMobile ? 44 : 52, flexShrink: 0, objectFit: 'contain' }}
                               />
+                              )}
                               <span style={{ fontWeight: 700, fontSize: 15, color: '#202923' }}>{tier.label}</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -1143,7 +1169,41 @@ if (paidSubmitted) {
                           </div>
 
                           {/* Boost card */}
-                          {isBoost ? (
+                          {isPrivate ? (
+                            // Private Contact: step-by-step, English and Nepali, written for first-time readers
+                            <div>
+                              <div style={{ fontSize: 14, color: '#202923', fontWeight: 700, lineHeight: 1.6, marginBottom: 2 }}>
+                                Your phone number stays hidden. Nobody can call you directly.
+                              </div>
+                              <div style={{ fontSize: 14, color: '#202923', fontWeight: 700, lineHeight: 1.7, marginBottom: 12 }}>
+                                तपाईंको फोन नम्बर गोप्य रहन्छ। कसैले सीधै फोन गर्न सक्दैन।
+                              </div>
+                              <div style={{ fontSize: 12, fontWeight: 700, color: '#667067', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 8 }}>
+                                {lang === 'ne' ? 'यसरी काम गर्छ' : 'How it works'} / यसरी काम गर्छ
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                {[
+                                  ['Your phone and WhatsApp number are NOT shown on the page.', 'तपाईंको फोन र WhatsApp नम्बर पेजमा देखिँदैन।'],
+                                  [`People who want ${petName} fill out a short form instead.`, `${petName} लिन चाहनेले सानो फारम भर्छन्।`],
+                                  ['Our system reads every form and picks the best 3 families. A person at HamroPets checks them.', 'हाम्रो प्रणालीले सबै फारम पढेर सबैभन्दा राम्रा ३ परिवार छान्छ। HamroPets को व्यक्तिले जाँच गर्छ।'],
+                                  ['We send you those 3 families. You choose one.', 'ती ३ परिवारको विवरण हामी तपाईंलाई पठाउँछौं। तपाईं एक जना छान्नुहोस्।'],
+                                  ['Only the family you choose gets your phone number.', 'तपाईंले छानेको परिवारलाई मात्र तपाईंको फोन नम्बर दिइन्छ।'],
+                                ].map(([en, ne], i) => (
+                                  <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                                    <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#244B38', color: '#fff', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</div>
+                                    <div>
+                                      <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.5 }}>{en}</div>
+                                      <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.6 }}>{ne}</div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <div style={{ marginTop: 12, background: '#FFFFFF', border: '1px solid #D4E8CC', borderRadius: 10, padding: '10px 12px', fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+                                Good for you if you do not want many phone calls.<br />
+                                धेरै फोन आउन नचाहनुहुन्छ भने यो तपाईंका लागि राम्रो हो।
+                              </div>
+                            </div>
+                          ) : isBoost ? (
                             <div>
                               <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 6 }}>{tier.descEn}</div>
                               <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.7, marginBottom: 10 }}>{tier.descNe}</div>
@@ -1215,15 +1275,38 @@ if (paidSubmitted) {
                   </div>
 
                   {/* Payment block */}
-                  {(boostTier === 'boost' || boostTier === 'shield') && (
+                  {boostTier !== 'free' && (
                     <div style={{ background: '#FBF3E3', borderRadius: 12, padding: '16px 18px', border: '1px solid #E9B96E', marginBottom: 20 }}>
                       <div style={{ fontWeight: 700, fontSize: 13, color: '#202923', marginBottom: 8 }}>💳 {lang === 'ne' ? 'भुक्तानी' : 'Payment'}</div>
                       <div style={{ fontSize: 13, color: '#374151', lineHeight: 2 }}>
-                        {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}</strong><br />
+                        {lang === 'ne' ? 'रकम' : 'Amount'}: <strong>{TIERS[boostTier]?.price}</strong><br />
                         eSewa / Khalti: <strong>9851405178</strong><br />
                         WhatsApp: <strong>9851405178</strong><br />
                         <span style={{ fontSize: 12, color: '#667067' }}>{lang === 'ne' ? 'भुक्तानी पछि screenshot पठाउनुहोस्। हामी २-४ घण्टाभित्र activate गर्छौं।' : 'Send payment screenshot to WhatsApp. We activate within 2-4 hours.'}</span>
                       </div>
+                    </div>
+                  )}
+
+                  {/* Public phone notice (free and Social Boost show the phone number on the page) */}
+                  {(boostTier === 'free' || boostTier === 'boost') && (
+                    <div style={{ background: '#FFF4E5', borderRadius: 14, padding: '16px 18px', border: '1.5px solid #E9B96E', marginBottom: 12 }}>
+                      <div style={{ fontWeight: 700, fontSize: 14, color: '#92400E', marginBottom: 8 }}>
+                        ⚠️ Your phone number will be public / तपाईंको फोन नम्बर सार्वजनिक हुन्छ
+                      </div>
+                      <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.7, marginBottom: 4 }}>
+                        Your phone number will be shown to everyone on {petName}'s page. Anyone can call or WhatsApp you. Some owners get many calls, even after saying no.
+                        {ENABLE_PRIVATE_CONTACT_TIER ? ' If you do not want this, choose Private Contact (NPR 199).' : ' If you do not want this, choose Priority Shield (NPR 599) to keep your number private.'}
+                      </div>
+                      <div style={{ fontSize: 13, color: '#4A5A4D', lineHeight: 1.8, marginBottom: 12 }}>
+                        {petName} को पेजमा तपाईंको फोन नम्बर सबैले देख्छन्। जो कोहीले फोन वा WhatsApp गर्न सक्छन्। केही मालिकलाई 'नाइँ' भनेपछि पनि धेरै फोन आउँछ।
+                        {ENABLE_PRIVATE_CONTACT_TIER ? ' यो चाहनुहुन्न भने प्राइभेट सम्पर्क (NPR १९९) छान्नुहोस्।' : ' यो चाहनुहुन्न भने नम्बर गोप्य राख्न प्रायोरिटी शिल्ड (NPR ५९९) छान्नुहोस्।'}
+                      </div>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                        <input type="checkbox" checked={form.agreePublicPhone} onChange={e => update('agreePublicPhone', e.target.checked)} style={{ width: 18, height: 18, accentColor: '#244B38', marginTop: 2, flexShrink: 0 }} />
+                        <span style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, fontWeight: 600 }}>
+                          I understand my phone number will be public. / मेरो फोन नम्बर सार्वजनिक हुन्छ भन्ने मैले बुझेँ।
+                        </span>
+                      </label>
                     </div>
                   )}
 
@@ -1288,8 +1371,8 @@ if (paidSubmitted) {
                         : boostTier === 'free'
                           ? (lang === 'ne' ? `${petName} को प्रोफाइल प्रकाशित गर्नुहोस् — निःशुल्क` : `Publish ${petName}'s Profile — Free`)
                           : lang === 'ne'
-                            ? `${boostTier === 'boost' ? 'Social Boost सक्रिय गर्नुहोस्' : 'Priority Shield सक्रिय गर्नुहोस्'} — ${boostTier === 'boost' ? 'NPR २९९' : 'NPR ५९९'}`
-                            : `Activate ${boostTier === 'boost' ? 'Social Boost' : 'Priority Shield'} — ${boostTier === 'boost' ? 'NPR 299' : 'NPR 599'}`
+                            ? `${TIERS[boostTier].name} सक्रिय गर्नुहोस् — ${TIERS[boostTier].priceNe}`
+                            : `Activate ${TIERS[boostTier].name} — ${TIERS[boostTier].price}`
                       }
                     </button>
                   </div>

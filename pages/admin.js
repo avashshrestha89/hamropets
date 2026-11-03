@@ -575,6 +575,19 @@ PLEASE GENERATE:
       </button>
     )}
 
+    {item.status === 'approved' && item.boost_tier !== 'shield' && (
+      <button onClick={async () => {
+        const res = await fetch('/api/admin/update-listing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: item.id, boost_tier: item.boost_tier === 'private' ? null : 'private' }),
+        })
+        if (res.ok) fetchListings()
+      }} style={{ background: item.boost_tier === 'private' ? '#244B38' : '#fff', color: item.boost_tier === 'private' ? '#fff' : '#1A1A1A', padding: '9px 20px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '2px 2px 0px #1A1A1A' }}>
+        {item.boost_tier === 'private' ? '🔒 Remove Private Contact' : '🔒 Private Contact'}
+      </button>
+    )}
+
      {item.status === 'approved' && (
       <button onClick={async () => {
         const res = await fetch('/api/admin/update-listing', {
