@@ -360,6 +360,29 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
         <AutoScroller />
       </div>
 
+      {/* HOW IT WORKS: plain list, no heading tag so the page outline is unchanged */}
+      <div style={{ background: '#FFFBEB', borderBottom: '2px solid #E5E7EB', padding: isMobile ? '20px 16px' : '28px 28px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <p style={{ margin: '0 0 12px', fontSize: 12, fontWeight: 900, letterSpacing: 1, textTransform: 'uppercase', color: '#1A1A1A' }}>How it works · कसरी काम गर्छ</p>
+          <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 10 : 16 }}>
+            {[
+              ['1', 'Browse', 'See reviewed pets, or report a lost or found pet.', 'पाल्तु जनावर हेर्नुहोस् वा हराएको रिपोर्ट गर्नुहोस्'],
+              ['2', 'Connect', 'Contact the owner or apply on the pet page.', 'मालिकसँग सम्पर्क गर्नुहोस् वा आवेदन दिनुहोस्'],
+              ['3', 'Bring them home', 'Meet the pet. Adoption is always free.', 'भेट्नुहोस्। पाल्न लिनु सधैं निःशुल्क'],
+            ].map(([n, t, d, ne]) => (
+              <li key={n} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', background: '#fff', border: '2px solid #1A1A1A', borderRadius: 14, padding: '12px 14px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+                <span aria-hidden="true" style={{ flexShrink: 0, width: 30, height: 30, borderRadius: 999, background: '#58CC02', color: '#1A1A1A', border: '2px solid #1A1A1A', fontWeight: 900, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{n}</span>
+                <span style={{ minWidth: 0 }}>
+                  <span style={{ display: 'block', fontWeight: 900, fontSize: 15, color: '#1A1A1A' }}>{t}</span>
+                  <span style={{ display: 'block', fontSize: 13, color: '#4B5563', lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
+                  <span style={{ display: 'block', fontSize: 12, color: '#6B7280', lineHeight: 1.5, marginTop: 2 }}>{ne}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
       {/* SPECIES + LOCATION FILTER */}
         <div style={{ background: '#FFFFFF', padding: isMobile ? '20px 16px' : '24px 28px', borderBottom: '2px solid #E5E7EB' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 12 : 14, flexWrap: 'wrap', alignItems: isMobile ? 'flex-start' : 'center' }}>
