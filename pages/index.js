@@ -272,7 +272,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
               <div style={{ width: isMobile ? 34 : 42, height: isMobile ? 34 : 42, borderRadius: 10, overflow: 'hidden', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', flexShrink: 0 }}>   <img src="https://elfqryasvlhawhrlwhvn.supabase.co/storage/v1/object/public/hamropets-media/ChatGPT%20Image%20Sep%209,%202026,%2012_25_32%20PM.png" alt="HamroPets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> </div>
               <div>
                 <div style={{ fontWeight: 900, fontSize: isMobile ? 16 : 22, color: '#1A1A1A', letterSpacing: -0.5, lineHeight: 1 }}>HamroPets</div>
-                <div style={{ fontSize: 9, color: '#58CC02', fontWeight: 800, letterSpacing: 0.5 }}>NEPAL'S PET HOME</div>
+                <div style={{ fontSize: 9, color: '#2F7A00', fontWeight: 800, letterSpacing: 0.5 }}>NEPAL'S PET HOME</div>
                 {!isMobile && <div style={{ fontSize: 9, color: '#888', fontWeight: 600 }}>Brought to you by Adopt a Dog Nepal · Since 2018</div>}
               </div>
             </Link>
@@ -285,8 +285,8 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
               </div>
             )}
             <div style={{ display: 'flex', gap: 8 }}>
-              {isMobile && <Link href="/lost-found" style={{ background: '#FF3B30', color: '#fff', padding: '8px 12px', borderRadius: 12, fontSize: 12, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #7F1D1D', whiteSpace: 'nowrap' }}>🔴 Report Missing</Link>}
-              <Link href="/submit-pet" style={{ background: '#58CC02', color: '#fff', padding: isMobile ? '8px 12px' : '11px 22px', borderRadius: 12, fontSize: isMobile ? 12 : 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>+ Submit a Pet</Link>
+              {isMobile && <Link href="/lost-found" style={{ background: '#D92D20', color: '#fff', padding: '8px 12px', borderRadius: 12, fontSize: 12, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #7F1D1D', whiteSpace: 'nowrap' }}>🔴 Report Missing</Link>}
+              <Link href="/submit-pet" style={{ background: '#58CC02', color: '#1A1A1A', padding: isMobile ? '8px 12px' : '11px 22px', borderRadius: 12, fontSize: isMobile ? 12 : 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #166534', whiteSpace: 'nowrap' }}>+ Submit a Pet</Link>
             </div>
           </div>
         </nav>
@@ -342,7 +342,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
   </div>
 </div>            
               <div style={{ display: 'flex', gap: 12, marginTop: 28, flexWrap: 'wrap' }}>
-                {[['1000+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
+                {[['1000+', 'Pets Rehomed', '#2F7A00'], ['100% Free', 'Adoption Forever', '#C2410C'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
                   <div key={l} style={{ background: '#fff', borderRadius: 14, padding: '10px 16px', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
                     <div style={{ color: c, fontWeight: 900, fontSize: isMobile ? 18 : 22, lineHeight: 1 }}>{v}</div>
                     <div style={{ color: '#6B7280', fontSize: 11, marginTop: 3, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{l}</div>
@@ -389,7 +389,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               <span style={{ fontWeight: 800, fontSize: 12, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5 }}>Species:</span>
               {[['Dogs', '#FF6B35'], ['Cats', '#7B5EA7'], ['Birds', '#38BDF8'], ['All Pets', '#58CC02']].map(([label, color]) => (
-                <Link key={label} href="/adopt" style={{ padding: isMobile ? '7px 14px' : '8px 18px', borderRadius: 10, border: '2px solid #1A1A1A', background: color, color: '#fff', fontSize: isMobile ? 12 : 13, fontWeight: 700, textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A', display: 'inline-block' }}>{label}</Link>
+                <Link key={label} href="/adopt" style={{ padding: isMobile ? '7px 14px' : '8px 18px', borderRadius: 10, border: '2px solid #1A1A1A', background: color, color: label === 'Cats' ? '#fff' : '#1A1A1A', fontSize: isMobile ? 12 : 13, fontWeight: 700, textDecoration: 'none', boxShadow: '2px 2px 0px #1A1A1A', display: 'inline-block' }}>{label}</Link>
               ))}
             </div>
             {!isMobile && <div style={{ width: 2, height: 28, background: '#1A1A1A', margin: '0 10px' }} />}
