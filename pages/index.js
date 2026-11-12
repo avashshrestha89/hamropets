@@ -1129,10 +1129,10 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
           a: 'No. Pet adoption on HamroPets is completely free. We connect adopters with pet owners and rescue organizations at no charge. We advocate for ethical adoption as an alternative to buying from breeders.'
         },
       ].map((item, i) => (
-        <div key={i} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '16px' : '20px 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
-          <div style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', marginBottom: 8 }}>❓ {item.q}</div>
-          <div style={{ fontSize: isMobile ? 13 : 14, color: '#6B7280', lineHeight: 1.7, fontWeight: 500 }}>{item.a}</div>
-        </div>
+        <details key={i} className="hp-faq" open={i === 0} style={{ background: '#F9FAFB', borderRadius: 16, border: '2px solid #1A1A1A', padding: isMobile ? '0 16px' : '0 24px', boxShadow: '3px 3px 0px #1A1A1A' }}>
+          <summary style={{ fontWeight: 800, fontSize: isMobile ? 14 : 16, color: '#1A1A1A', minHeight: 52, display: 'flex', alignItems: 'center', cursor: 'pointer' }}>❓ {item.q}</summary>
+          <div style={{ fontSize: isMobile ? 13 : 14, color: '#4B5563', lineHeight: 1.7, fontWeight: 500, paddingBottom: 16 }}>{item.a}</div>
+        </details>
       ))}
     </div>
   </div>
