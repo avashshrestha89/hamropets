@@ -278,10 +278,10 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
             </Link>
             {!isMobile && (
               <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
+                {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Vets', '/vets'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
                   <Link key={label} href={href} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 14, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none' }}>{label}</Link>
                 ))}
-                <Link href="/lost-found" style={{ background: '#FFF0F6', color: '#FF6B9D', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #FF6B9D', marginLeft: 6, whiteSpace: 'nowrap' }}>🔴 Report Missing Pet</Link>
+                <Link href="/lost-found" style={{ background: '#FEF2F2', color: '#B42318', padding: '7px 14px', borderRadius: 10, fontSize: 13, fontWeight: 800, textDecoration: 'none', border: '1.5px solid #D92D20', marginLeft: 6, whiteSpace: 'nowrap' }}>🔴 Report Missing Pet</Link>
               </div>
             )}
             <div style={{ display: 'flex', gap: 8 }}>
@@ -293,8 +293,8 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
        {/* MOBILE NAV */}
         {isMobile && (
           <div style={{ background: '#FFFFFF', borderBottom: '2px solid #1A1A1A', padding: '10px 16px', display: 'flex', gap: 8, overflowX: 'auto' }}>
-            {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
-              <Link key={label} href={href} style={{ padding: '6px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none', background: '#fff', border: '1.5px solid #1A1A1A', whiteSpace: 'nowrap', flexShrink: 0 }}>{label}</Link>
+            {[['Adopt', '/adopt'], ['Walk & Sit', '/walk-sit'], ['Vets', '/vets'], ['Lost & Found', '/lost-found'], ['💚 Donate', '/donate']].map(([label, href]) => (
+              <Link key={label} href={href} style={{ padding: '10px 14px', minHeight: 40, display: 'inline-flex', alignItems: 'center', borderRadius: 999, fontSize: 13, fontWeight: 700, color: '#1A1A1A', textDecoration: 'none', background: '#fff', border: '1.5px solid #1A1A1A', whiteSpace: 'nowrap', flexShrink: 0 }}>{label}</Link>
             ))}
           </div>
         )}
@@ -1186,9 +1186,9 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
                   {items.map(([label, href]) => {
                     const isExternal = href.startsWith('http')
                     return isExternal ? (
-                      <a key={label} href={href} target="_blank" rel="noreferrer" style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</a>
+                      <a key={label} href={href} target="_blank" rel="noreferrer" style={{ display: 'block', color: '#6B7280', fontSize: 13, padding: '5px 0', fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</a>
                     ) : (
-                      <Link key={label} href={href} style={{ display: 'block', color: '#6B7280', fontSize: isMobile ? 12 : 13, marginBottom: 8, fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</Link>
+                      <Link key={label} href={href} style={{ display: 'block', color: '#6B7280', fontSize: 13, padding: '5px 0', fontWeight: 500, textDecoration: 'none', fontFamily: "'DM Sans', sans-serif" }}>{label}</Link>
                     )
                   })}
                 </div>
@@ -1196,18 +1196,18 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
             </div>
             
             <div style={{ borderTop: '2px solid #E5E7EB', paddingTop: 20, marginBottom: 16 }}>
-              <p style={{ color: '#9CA3AF', fontSize: 11, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: 0, maxWidth: 900 }}>
+              <p style={{ color: '#6B7280', fontSize: 11, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: 0, maxWidth: 900 }}>
                 HamroPets is Nepal's first dedicated pet platform offering free dog and cat adoption, verified dog walking from NPR 300/walk, cage-free pet sitting from NPR 700/day, a vet clinic directory across Kathmandu Valley, lost and found pet reporting. Presented by Adopt a Dog Nepal — rehoming pets across Nepal since 2018. Serving Kathmandu, Lalitpur, Bhaktapur and surrounding areas. kukur adopt garne · pet sitting Kathmandu · dog walker Kathmandu.
               </p>
             </div>
             
             <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: 10 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <span style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2026 HamroPets · All rights reserved</span>
+                <span style={{ color: '#6B7280', fontSize: 12, fontWeight: 500, fontFamily: "'DM Sans', sans-serif" }}>© 2026 HamroPets · All rights reserved</span>
                 <div style={{ display: 'flex', gap: 16 }}>
-                  <Link href="/privacy-policy" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
-                  <Link href="/terms" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
-                  <Link href="/about" style={{ color: '#9CA3AF', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
+                  <Link href="/privacy-policy" style={{ color: '#6B7280', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</Link>
+                  <Link href="/terms" style={{ color: '#6B7280', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>Terms of Service</Link>
+                  <Link href="/about" style={{ color: '#6B7280', fontSize: 12, textDecoration: 'none', fontWeight: 600 }}>About</Link>
                   <Link href="/donate" style={{ color: '#58CC02', fontSize: 12, textDecoration: 'none', fontWeight: 700 }}>💚 Donate</Link>
                 </div>
               </div>
