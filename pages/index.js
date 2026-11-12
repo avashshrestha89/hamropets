@@ -68,6 +68,9 @@ function AutoScroller() {
     </div>
   )
 }
+// Instagram account is under appeal. Set to true when it is back.
+const SHOW_INSTAGRAM_CARD = false
+
 export default function Home({ featuredLostPets, featuredPets,featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
   const [isMobile, setIsMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -309,6 +312,17 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
                 a Loving Home 🐾
               </h1>
 <h2 style={{ color: '#374151', fontSize: isMobile ? 15 : 17, lineHeight: 1.7, fontWeight: 500, fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px' }}>Nepal's first pet platform for free dog adoption, verified dog walking, cage-free pet sitting and vet directory across Kathmandu Valley. 1000+ pets rehomed since 2018.</h2>
+<div className="hp-cta-row">
+  <Link href="/adopt" className="hp-cta hp-cta-primary">
+    <span className="hp-cta-title">🐾 Find a Pet</span>
+    <span className="hp-cta-sub">Adopt a companion</span>
+  </Link>
+  <Link href="/lost-found" className="hp-cta hp-cta-alert">
+    <span className="hp-cta-title">🔍 Lost &amp; Found</span>
+    <span className="hp-cta-sub">Find or report a missing pet</span>
+  </Link>
+</div>
+<p className="hp-cta-more">Need to rehome a pet? <Link href="/submit-pet">Submit a Pet</Link></p>
 <div style={{ background: '#FAFAFA', border: '2px solid #1A1A1A', borderRadius: 16, padding: '16px 20px', marginBottom: 28, boxShadow: '3px 3px 0px #1A1A1A' }}>
   <p style={{ color: '#374151', fontSize: isMobile ? 13 : 15, lineHeight: 1.7, fontWeight: 500, margin: '0 0 14px', fontFamily: "'DM Sans', sans-serif" }}>
     <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>1000+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>.
@@ -326,11 +340,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
       </span>
     ))}
   </div>
-</div>            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <Link href="/adopt" style={{ background: '#21a1eb', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #166534', display: 'inline-block' }}> Adopt a Pet</Link>
-                <Link href="/submit-pet" style={{ background: '#fff', color: '#1A1A1A', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 700, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #555', display: 'inline-block' }}>+ Submit a Pet</Link>
-    <Link href="/lost-found" style={{ background: '#FF6B9D', color: '#fff', padding: isMobile ? '13px 24px' : '15px 30px', borderRadius: 14, fontSize: isMobile ? 15 : 16, fontWeight: 800, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '4px 4px 0px #9D174D', display: 'inline-block' }}>🔴 Report Missing Pet</Link>
-              </div>
+</div>            
               <div style={{ display: 'flex', gap: 12, marginTop: 28, flexWrap: 'wrap' }}>
                 {[['1000+', 'Pets Rehomed', '#58CC02'], ['100% Free', 'Adoption Forever', '#FF6B35'], ['24hr', 'Review Time', '#7B5EA7']].map(([v, l, c]) => (
                   <div key={l} style={{ background: '#fff', borderRadius: 14, padding: '10px 16px', border: '2px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}>
@@ -1060,6 +1070,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
         </div>
       </div>
     </a>
+    {SHOW_INSTAGRAM_CARD && (
     <a href="https://www.instagram.com/adoptadognepal" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
       <div style={{ background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', borderRadius: 20, border: '3px solid #1A1A1A', boxShadow: '5px 5px 0px #1A1A1A', overflow: 'hidden' }}>
         <div style={{ height: isMobile ? 160 : 200, background: 'linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -1083,6 +1094,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
         </div>
       </div>
     </a>
+    )}
   </div>
 </div>
 

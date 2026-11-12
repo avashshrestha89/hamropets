@@ -42,3 +42,16 @@ a {
 button {
   transition: all 0.15s ease;
 }
+
+/* Homepage hero CTAs (mobile-first, CSS-only so there is no layout shift) */
+.hp-cta-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 4px 0 10px; }
+@media (min-width: 640px) { .hp-cta-row { grid-template-columns: 1fr 1fr; } }
+.hp-cta { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 68px; padding: 14px 20px; border: 2.5px solid #1A1A1A; border-radius: 14px; text-decoration: none; box-shadow: 4px 4px 0 #1A1A1A; transition: transform .12s ease, box-shadow .12s ease; }
+.hp-cta:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #1A1A1A; }
+.hp-cta:focus-visible { outline: 3px solid #1A1A1A; outline-offset: 3px; }
+.hp-cta-primary { background: #58CC02; color: #1A1A1A; }
+.hp-cta-alert { background: #D92D20; color: #fff; }
+.hp-cta-title { font-size: 19px; font-weight: 900; line-height: 1.2; }
+.hp-cta-sub { font-size: 13px; font-weight: 600; line-height: 1.3; }
+.hp-cta-more { margin: 0 0 24px; font-size: 13px; font-weight: 600; color: #374151; }
+.hp-cta-more a { color: #1A1A1A; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
