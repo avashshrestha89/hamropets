@@ -475,29 +475,29 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
 {urgentLostPets && urgentLostPets.length > 0 && (
   <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '24px 16px 0' : '24px 28px 0' }}>
     <div style={{ marginBottom: 16 }}>
-      <span style={{ background: '#FF6B9D', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🔴 URGENT — LOST PETS</span>
+      <span style={{ background: '#D92D20', color: '#fff', padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 900, display: 'inline-block', border: '2px solid #1A1A1A', boxShadow: '2px 2px 0px #1A1A1A' }}>🔴 URGENT — LOST PETS</span>
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {urgentLostPets.map(lostPet => (
         <div key={lostPet.id} style={{ position: 'relative', display: 'block' }}>
           <Link href={`/lost-found/${lostPet.id}`} aria-label={`View ${lostPet.pet_name || 'lost pet'}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 1, borderRadius: 20 }} />
-          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
-            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 260 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, overflow: 'hidden', borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #D92D20', overflow: 'hidden', boxShadow: '4px 4px 0px #D92D20', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+            <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 260 : 200, background: '#FEF2F2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, overflow: 'hidden', borderRight: isMobile ? 'none' : '3px solid #D92D20', borderBottom: isMobile ? '3px solid #D92D20' : 'none' }}>
 {(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
-                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFF0F6' }} />
+                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FEF2F2' }} />
               ) : (
                 <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
               )}
             </div>
             <div style={{ padding: isMobile ? '16px' : '24px 28px', flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
-                <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔴 LOST</span>
+                <span style={{ background: '#D92D20', color: '#fff', fontSize: 11, fontWeight: 900, padding: '3px 10px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>🔴 LOST</span>
                 <span style={{ fontWeight: 900, fontSize: isMobile ? 18 : 22, color: '#1A1A1A' }}>{lostPet.pet_name || 'Unknown'}</span>
               </div>
               <div style={{ fontSize: 13, color: '#6B7280', fontWeight: 600, marginBottom: 8 }}>📍 {lostPet.area} · {lostPet.species}</div>
               <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, marginBottom: 16, fontWeight: 500 }}>{lostPet.description?.substring(0, 150)}{lostPet.description?.length > 150 ? '...' : ''}</p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <a href={`tel:${lostPet.contact_phone}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#FF6B9D', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>📞 Call Now</a>
+                <a href={`tel:${lostPet.contact_phone}`} onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#D92D20', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>📞 Call Now</a>
                 <a href={`https://wa.me/977${lostPet.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} style={{ position: 'relative', zIndex: 10, background: '#25D366', color: '#fff', padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 900, textDecoration: 'none', border: '2px solid #1A1A1A' }}>💬 WhatsApp</a>
               </div>
             </div>
@@ -526,7 +526,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
               ) : (
                 item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
               )}
-              <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+              <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#D92D20' : '#0F766E', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
                 {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
               </div>
               <div style={{ position: 'absolute', top: 8, right: 8, background: '#FFD23F', color: '#1A1A1A', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
@@ -700,13 +700,13 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
               {lostFoundPets.map(item => (
                 <Link key={item.id} href="/lost-found" style={{ textDecoration: 'none' }}>
                   <div style={{ background: '#FFFFFF', borderRadius: 16, border: '2px solid #1A1A1A', overflow: 'hidden', boxShadow: '4px 4px 0px #1A1A1A' }}>
-                   <div style={{ height: isMobile ? 200 : 240, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDF4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
+                   <div style={{ height: isMobile ? 200 : 240, background: item.type === 'lost' ? '#FEF2F2' : '#F0FDFA', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isMobile ? 40 : 52, borderBottom: '2px solid #1A1A1A', position: 'relative' }}>
                       {item.image_url ? (
                         <img src={item.image_url} alt={item.pet_name || 'Pet'} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#F9FAFB' }} />
                       ) : (
                         item.species === 'Dog' ? '🐕' : item.species === 'Cat' ? '🐈' : item.species === 'Bird' ? '🐦' : '🐾'
                       )}
-                      <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#FF6B9D' : '#58CC02', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
+                      <div style={{ position: 'absolute', top: 8, left: 8, background: item.type === 'lost' ? '#D92D20' : '#0F766E', color: '#fff', fontSize: 9, fontWeight: 900, padding: '2px 7px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>
                         {item.type === 'lost' ? '🔴 LOST' : '🟢 FOUND'}
                       </div>
                     </div>
@@ -715,7 +715,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
                       <div style={{ fontSize: isMobile ? 10 : 12, color: '#9CA3AF', marginTop: 2, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>📍 {item.area}</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1.5px dashed #E5E7EB' }}>
                         <span style={{ fontSize: isMobile ? 10 : 12, color: '#6B7280', fontWeight: 600 }}>🕐 {new Date(item.created_at).toLocaleDateString('en-NP', { day: 'numeric', month: 'short' })}</span>
-                        <span style={{ background: '#FF6B9D', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View →</span>
+                        <span style={{ background: '#1A1A1A', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 999, border: '1.5px solid #1A1A1A' }}>View →</span>
                       </div>
                     </div>
                   </div>
