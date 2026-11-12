@@ -474,7 +474,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
           <div style={{ background: '#fff', borderRadius: 20, border: '3px solid #FF6B9D', overflow: 'hidden', boxShadow: '4px 4px 0px #FF6B9D', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
             <div style={{ width: isMobile ? '100%' : 200, height: isMobile ? 260 : 200, background: '#FFF0F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60, flexShrink: 0, overflow: 'hidden', borderRight: isMobile ? 'none' : '3px solid #FF6B9D', borderBottom: isMobile ? '3px solid #FF6B9D' : 'none' }}>
 {(lostPet.image_url || (lostPet.images && lostPet.images.length > 0)) ? (
-                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: isMobile ? 'contain' : 'cover', objectPosition: isMobile ? 'center' : 'top' }} />
+                <img src={lostPet.image_url || lostPet.images[0]} alt={lostPet.pet_name} style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', background: '#FFF0F6' }} />
               ) : (
                 <span>{lostPet.species === 'Dog' ? '🐕' : lostPet.species === 'Cat' ? '🐈' : '🐾'}</span>
               )}
