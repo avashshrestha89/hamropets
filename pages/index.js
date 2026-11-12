@@ -322,7 +322,7 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
     <span className="hp-cta-sub">Find or report a missing pet</span>
   </Link>
 </div>
-<p className="hp-cta-more">Need to rehome a pet? <Link href="/submit-pet">Submit a Pet</Link></p>
+<Link href="/submit-pet" className="hp-cta-more"><span>Need to rehome a pet?</span> <strong>Submit a Pet →</strong></Link>
 <div style={{ background: '#FAFAFA', border: '2px solid #1A1A1A', borderRadius: 16, padding: '16px 20px', marginBottom: 28, boxShadow: '3px 3px 0px #1A1A1A' }}>
   <p style={{ color: '#374151', fontSize: isMobile ? 13 : 15, lineHeight: 1.7, fontWeight: 500, margin: '0 0 14px', fontFamily: "'DM Sans', sans-serif" }}>
     <strong style={{ color: '#1A1A1A' }}>HamroPets</strong> is Nepal's first dedicated pet services platform presented by <strong style={{ color: '#1A1A1A' }}>Adopt a Dog Nepal</strong> — a nonprofit since April 2018 that has rehomed over <span style={{ background: '#FFD23F', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#1A1A1A' }}>1000+ pets</span> across Nepal. All adoptions are <span style={{ background: '#E8F9ED', padding: '1px 6px', borderRadius: 4, fontWeight: 800, color: '#166534' }}>100% free</span>.
