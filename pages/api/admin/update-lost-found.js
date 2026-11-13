@@ -19,6 +19,13 @@ async function handler(req, res) {
   if (rest.description !== undefined) updateData.description = rest.description
   if (rest.contact_name !== undefined) updateData.contact_name = rest.contact_name
   if (rest.contact_phone !== undefined) updateData.contact_phone = rest.contact_phone
+  // Details the customer entered in the report form
+  for (const key of ['type', 'breed', 'gender', 'color', 'collar_description', 'distinctive_marks', 'temperament',
+    'last_seen_date', 'last_seen_time', 'landmark', 'known_haunts', 'reward_offered', 'condition', 'can_foster', 'contact_whatsapp']) {
+    if (rest[key] === undefined) continue
+    if (key === 'type' && !['lost', 'found'].includes(rest[key])) continue
+    updateData[key] = rest[key] === '' ? null : rest[key]
+  }
   if (rest.video_url !== undefined) updateData.video_url = rest.video_url
   if (rest.boost_tier !== undefined) updateData.boost_tier = rest.boost_tier
   if (rest.is_featured !== undefined) updateData.is_featured = !!rest.is_featured

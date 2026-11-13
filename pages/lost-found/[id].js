@@ -32,6 +32,28 @@ export default function LostFoundDetail({ item }) {
   }, [])
 
   const isLost = item.type === 'lost'
+
+  // Show only what the reporter actually filled in.
+  const fmtDate = (d) => { const t = new Date(d); return isNaN(t) ? d : t.toLocaleDateString('en-NP', { day: 'numeric', month: 'short', year: 'numeric' }) }
+  const lastSeen = [item.last_seen_date ? fmtDate(item.last_seen_date) : '', item.last_seen_time || ''].filter(Boolean).join(' at ')
+  const detailRows = [
+    ['🐕 Breed', item.breed],
+    ['⚧ Gender', item.gender],
+    ['🎨 Color', item.color],
+    [isLost ? '🕐 Last seen' : '🕐 Found on', lastSeen],
+    ['📌 Landmark', item.landmark],
+    ['🦴 Collar', item.collar_description],
+    ['🔎 Distinctive marks', item.distinctive_marks],
+    ['😊 Temperament', item.temperament],
+    ['🗺️ Known places', item.known_haunts],
+    ['🏁 Reward', item.reward_offered],
+    ['🩺 Condition', item.condition],
+    ['🏠 Can foster', item.can_foster],
+  ].filter(([, v]) => v && String(v).trim())
+
+  // WhatsApp: use the WhatsApp number if the reporter gave one, otherwise the phone number.
+  const waDigits = String(item.contact_whatsapp || item.contact_phone || '').replace(/\D/g, '')
+  const waNumber = waDigits.startsWith('977') ? waDigits : `977${waDigits.replace(/^0/, '')}`
   const color = isLost ? '#FF6B9D' : '#58CC02'
   const label = isLost ? '🔴 LOST' : '🟢 FOUND'
 
@@ -127,6 +149,18 @@ export default function LostFoundDetail({ item }) {
                 ))}
               </div>
 
+              {/* REPORT DETAILS (only fields the reporter filled in) */}
+              {detailRows.length > 0 && (
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 12, marginBottom: 20 }}>
+                  {detailRows.map(([label, value]) => (
+                    <div key={label} style={{ background: '#F9FAFB', borderRadius: 12, padding: '12px 14px', border: '1.5px solid #E5E7EB' }}>
+                      <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+                      <div style={{ fontSize: isMobile ? 13 : 14, fontWeight: 700, color: '#1A1A1A', lineHeight: 1.5 }}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* DESCRIPTION */}
               <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 24 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>📝 Description</div>
@@ -138,7 +172,7 @@ export default function LostFoundDetail({ item }) {
                 <a href={`tel:${item.contact_phone}`} style={{ display: 'block', background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
                   📞 Call {item.contact_name} — {item.contact_phone}
                 </a>
-                <a href={`https://wa.me/977${item.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" style={{ display: 'block', background: '#25D366', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
+                <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noreferrer" style={{ display: 'block', background: '#25D366', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
                   💬 WhatsApp {item.contact_name}
                 </a>
                 <button onClick={() => {

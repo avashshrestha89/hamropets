@@ -798,7 +798,7 @@ PLEASE GENERATE:
                           <span style={{ background: item.status === 'pending' ? '#FFF9E6' : item.status === 'approved' ? '#E8F9ED' : '#F3F4F6', color: item.status === 'pending' ? '#92400E' : item.status === 'approved' ? '#166534' : '#666', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 800, border: '1.5px solid #1A1A1A' }}>{item.status}</span>
                         </div>
                         <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 10 }}>
-                          {[['Species', item.species || 'Unknown'], ['Area', item.area], ['Contact', item.contact_name], ['Phone', item.contact_phone]].map(([k, v]) => (
+                          {[['Species', item.species || 'Unknown'], ['Area', item.area], ['Contact', item.contact_name], ['Phone', item.contact_phone], ['WhatsApp', item.contact_whatsapp], ['Package', item.boost_tier && item.boost_tier !== 'free' ? item.boost_tier : 'free'], ['Photos', (item.images && item.images.length) || (item.image_url ? 1 : 0)], ['Breed', item.breed], ['Gender', item.gender], ['Color', item.color], ['Last seen', [item.last_seen_date, item.last_seen_time].filter(Boolean).join(' ')], ['Landmark', item.landmark], ['Collar', item.collar_description], ['Marks', item.distinctive_marks], ['Temperament', item.temperament], ['Known places', item.known_haunts], ['Reward', item.reward_offered], ['Condition', item.condition], ['Can foster', item.can_foster]].filter(([, v]) => v !== undefined && v !== null && String(v).trim() !== '').map(([k, v]) => (
                             <div key={k}>
                               <div style={{ fontSize: 11, color: '#888', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
                               <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{v}</div>
@@ -822,6 +822,21 @@ PLEASE GENERATE:
                                   description: item.description || '',
                                   contact_name: item.contact_name || '',
                                   contact_phone: item.contact_phone || '',
+                                  contact_whatsapp: item.contact_whatsapp || '',
+                                  type: item.type || '',
+                                  breed: item.breed || '',
+                                  gender: item.gender || '',
+                                  color: item.color || '',
+                                  collar_description: item.collar_description || '',
+                                  distinctive_marks: item.distinctive_marks || '',
+                                  temperament: item.temperament || '',
+                                  last_seen_date: item.last_seen_date || '',
+                                  last_seen_time: item.last_seen_time || '',
+                                  landmark: item.landmark || '',
+                                  known_haunts: item.known_haunts || '',
+                                  reward_offered: item.reward_offered || '',
+                                  condition: item.condition || '',
+                                  can_foster: item.can_foster || '',
                                   images: item.images && item.images.length > 0 ? item.images : (item.image_url ? [item.image_url] : []),
                                   video_url: item.video_url || '',
                                 })
@@ -836,7 +851,7 @@ PLEASE GENERATE:
                           <div style={{ background: '#F0F8FF', borderRadius: 16, border: '2px solid #38BDF8', padding: '20px', marginBottom: 16 }}>
                             <div style={{ fontWeight: 900, fontSize: 15, color: '#1A1A1A', marginBottom: 16 }}>✏️ Edit Report</div>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-                              {[['Pet Name', 'pet_name'], ['Species', 'species'], ['Area', 'area'], ['Contact Name', 'contact_name'], ['Contact Phone', 'contact_phone']].map(([label, key]) => (
+                              {[['Pet Name', 'pet_name'], ['Species', 'species'], ['Area', 'area'], ['Contact Name', 'contact_name'], ['Contact Phone', 'contact_phone'], ['Contact WhatsApp', 'contact_whatsapp'], ['Type (lost or found)', 'type'], ['Breed', 'breed'], ['Gender', 'gender'], ['Color', 'color'], ['Last seen date', 'last_seen_date'], ['Last seen time', 'last_seen_time'], ['Landmark', 'landmark'], ['Collar', 'collar_description'], ['Distinctive marks', 'distinctive_marks'], ['Temperament', 'temperament'], ['Known places', 'known_haunts'], ['Reward offered', 'reward_offered'], ['Condition', 'condition'], ['Can foster', 'can_foster']].map(([label, key]) => (
                                 <div key={key}>
                                   <div style={{ fontSize: 11, fontWeight: 800, color: '#666', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
                                   <input value={editForm[key] || ''} onChange={e => setEditForm(f => ({ ...f, [key]: e.target.value }))} style={{ width: '100%', padding: '9px 12px', borderRadius: 10, border: '2px solid #1A1A1A', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
