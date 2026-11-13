@@ -20,7 +20,7 @@ async function handler(req, res) {
   if (rest.contact_name !== undefined) updateData.contact_name = rest.contact_name
   if (rest.contact_phone !== undefined) updateData.contact_phone = rest.contact_phone
   // Details the customer entered in the report form
-  for (const key of ['type', 'breed', 'gender', 'color', 'collar_description', 'distinctive_marks', 'temperament',
+  for (const key of ['type', 'breed', 'age', 'gender', 'color', 'collar_description', 'distinctive_marks', 'temperament',
     'last_seen_date', 'last_seen_time', 'landmark', 'known_haunts', 'reward_offered', 'condition', 'can_foster', 'contact_whatsapp']) {
     if (rest[key] === undefined) continue
     if (key === 'type' && !['lost', 'found'].includes(rest[key])) continue

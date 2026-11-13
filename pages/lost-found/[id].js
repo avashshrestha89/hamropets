@@ -39,6 +39,7 @@ export default function LostFoundDetail({ item }) {
   const detailRows = [
     ['🐕 Breed', item.breed],
     ['⚧ Gender', item.gender],
+    ['🎂 Age', item.age],
     ['🎨 Color', item.color],
     [isLost ? '🕐 Last seen' : '🕐 Found on', lastSeen],
     ['📌 Landmark', item.landmark],

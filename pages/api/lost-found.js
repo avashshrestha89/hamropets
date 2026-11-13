@@ -44,6 +44,7 @@ export default async function handler(req, res) {
           contact_phone: contactPhone,
           contact_whatsapp: req.body.contactWhatsapp || null,
 breed: req.body.breed || null,
+age: req.body.age || null,
 gender: req.body.gender || null,
 color: req.body.color || null,
 collar_description: req.body.collarDescription || null,
@@ -83,6 +84,7 @@ can_foster: req.body.canFoster || null,
               <p><strong>Species:</strong> ${esc(species || 'Unknown')}</p>
               <p><strong>Breed:</strong> ${esc(req.body.breed || 'Not given')}</p>
               <p><strong>Gender:</strong> ${esc(req.body.gender || 'Not given')}</p>
+              <p><strong>Age:</strong> ${esc(req.body.age || 'Not given')}</p>
               <p><strong>Color:</strong> ${esc(req.body.color || 'Not given')}</p>
               <p><strong>Area:</strong> ${esc(area)}</p>
               <p><strong>Landmark:</strong> ${esc(req.body.landmark || 'Not given')}</p>
