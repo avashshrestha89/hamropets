@@ -805,7 +805,7 @@ PLEASE GENERATE:
                             </div>
                           ))}
                         </div>
-                        <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6 }}>{item.description}</div>
+                        <div style={{ background: '#FAFAFA', borderRadius: 10, padding: '10px 14px', marginBottom: 12, fontSize: 13, color: '#444', lineHeight: 1.6, whiteSpace: 'pre-line', overflowWrap: 'anywhere' }}>{item.description}</div>
 
                         {/* EDIT BUTTON */}
                         <div style={{ marginBottom: 12 }}>

@@ -20,6 +20,20 @@ export async function getServerSideProps({ params }) {
   return { props: { item } }
 }
 
+// Keep the reporter's paragraphs and line breaks, wrap long words, and make web links clickable.
+function renderDescription(text, fontSize) {
+  const paragraphs = String(text || '').trim().split(/\n\s*\n/).filter(Boolean)
+  return paragraphs.map((para, i) => (
+    <p key={i} style={{ margin: i === 0 ? 0 : '14px 0 0', fontSize, color: '#374151', lineHeight: 1.75, fontWeight: 500, whiteSpace: 'pre-line', overflowWrap: 'anywhere' }}>
+      {para.split(/(https?:\/\/[^\s]+)/g).map((part, j) => (
+        j % 2 === 1
+          ? <a key={j} href={part} target="_blank" rel="noopener noreferrer nofollow ugc" style={{ color: '#1D4ED8', fontWeight: 700, textDecoration: 'underline' }}>{part}</a>
+          : part
+      ))}
+    </p>
+  ))
+}
+
 export default function LostFoundDetail({ item }) {
   const [isMobile, setIsMobile] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0) // <--- ADD THIS LINE
@@ -152,7 +166,7 @@ export default function LostFoundDetail({ item }) {
 
               {/* REPORT DETAILS (only fields the reporter filled in) */}
               {detailRows.length > 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 12, marginBottom: 20 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
                   {detailRows.map(([label, value]) => (
                     <div key={label} style={{ background: '#F9FAFB', borderRadius: 12, padding: '12px 14px', border: '1.5px solid #E5E7EB' }}>
                       <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
@@ -165,7 +179,7 @@ export default function LostFoundDetail({ item }) {
               {/* DESCRIPTION */}
               <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 24 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>📝 Description</div>
-                <p style={{ margin: 0, fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>{item.description}</p>
+                {renderDescription(item.description, isMobile ? 14 : 15)}
               </div>
 
               {/* CONTACT BUTTONS */}
