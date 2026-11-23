@@ -322,19 +322,19 @@ export default function PetDetail({ pet }) {
                              )}
                 </div>
               )}
-                  {/* Swor AI Cross-Promotion Banner */}
-                  <a href="https://meroadai.com/voiceover" target="_blank" rel="nofollow noreferrer" style={{display:'block',textDecoration:'none'}}>
-                    <div style={{background:'linear-gradient(135deg,#1a0a0a 0%,#3d0f0f 100%)',borderRadius:12,padding:'12px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
-                      <div style={{display:'flex',alignItems:'center',gap:10}}>
-                        <div style={{width:34,height:34,borderRadius:8,background:'linear-gradient(135deg,#DC143C,#FF6B8A)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,color:'#fff',fontWeight:800,flexShrink:0}}>S</div>
-                        <div>
-                          <div style={{fontSize:13,fontWeight:700,color:'#fff'}}>Swor AI — Nepal's #1 Nepali AI Voiceover</div>
-                          <div style={{fontSize:11,color:'rgba(255,255,255,.6)',marginTop:2}}>Nepali text to speech · AI voice generator · TikTok & YouTube voiceover</div>
+                  {/* Swor AI promo: same look as the homepage band, tracked link */}
+                  <a href="https://sworai.com/?utm_source=hamropets&utm_medium=pet_profile&utm_campaign=cross_promo" target="_blank" rel="noopener" className="hp-promo-btn" style={{ display: 'block', textDecoration: 'none', marginTop: 16 }}>
+                    <div className="hp-swor" style={{ borderRadius: 14, border: '2.5px solid #1A1A1A', padding: isMobile ? '16px' : '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 14, position: 'relative', zIndex: 1, minWidth: 0 }}>
+                        <div aria-hidden="true" className="hp-wave hp-wave-lg" style={{ transform: 'scale(.7)', transformOrigin: 'left center', width: 60 }}><span /><span /><span /><span /><span /><span /><span /></div>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontSize: isMobile ? 15 : 17, fontWeight: 900, color: '#FFFFFF', lineHeight: 1.25 }}>Swor AI: the Nepali voice behind our pet videos</div>
+                          <div style={{ fontSize: 13, color: '#E5E7EB', marginTop: 3, fontWeight: 500 }}>Turn any text into a natural Nepali voiceover in seconds.</div>
                         </div>
                       </div>
-                     <div style={{background:'#DC143C',color:'#fff',padding:'6px 14px',borderRadius:8,fontSize:12,fontWeight:700,flexShrink:0,whiteSpace:'nowrap'}}>Try Free →</div>
-                        </div>
-                      </a>
+                      <div style={{ position: 'relative', zIndex: 1, background: '#FF6B35', color: '#1A1A1A', padding: '10px 20px', minHeight: 44, display: 'inline-flex', alignItems: 'center', borderRadius: 12, border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0 #FFD23F', fontSize: 14, fontWeight: 900, whiteSpace: 'nowrap' }}>Try Swor AI <span className="hp-arrow" aria-hidden="true" style={{ marginLeft: 6 }}>→</span></div>
+                    </div>
+                  </a>
                           
                     </div>
                   </div>
