@@ -712,14 +712,14 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
 <div style={{ maxWidth: 1200, margin: isMobile ? '8px auto' : '12px auto', padding: isMobile ? '0 16px' : '0 28px' }}>
   <div style={{ background: '#FFFBEB', border: '2.5px solid #1A1A1A', borderRadius: 18, boxShadow: '4px 4px 0px #1A1A1A', padding: isMobile ? '16px' : '18px 24px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : 'center', justifyContent: 'space-between', gap: isMobile ? 14 : 24 }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
-      <div aria-hidden="true" style={{ flexShrink: 0, width: 48, height: 48, borderRadius: 14, background: '#FFD23F', border: '2.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🎙️</div>
+      <div aria-hidden="true" className="hp-wave" style={{ flexShrink: 0, width: 56, height: 56, borderRadius: 16, background: '#FFD23F', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}><span /><span /><span /><span /><span /></div>
       <div style={{ minWidth: 0 }}>
         <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 2 }}>Also from us</div>
         <h3 style={{ margin: 0, fontSize: isMobile ? 15 : 17, fontWeight: 900, color: '#1A1A1A', lineHeight: 1.3 }}>Swor AI: the Nepali voice behind our pet videos</h3>
         <p style={{ margin: '2px 0 0', fontSize: isMobile ? 13 : 14, color: '#4B5563', fontWeight: 500, lineHeight: 1.5 }}>Turn any text into a natural Nepali voiceover in seconds.</p>
       </div>
     </div>
-    <a href="https://sworai.com/?utm_source=hamropets&utm_medium=homepage_banner&utm_campaign=cross_promo" target="_blank" rel="noopener" style={{ flexShrink: 0, textAlign: 'center', background: '#FF6B35', color: '#1A1A1A', padding: '12px 22px', minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', whiteSpace: 'nowrap' }}>Try Swor AI →</a>
+    <a href="https://sworai.com/?utm_source=hamropets&utm_medium=homepage_banner&utm_campaign=cross_promo" target="_blank" rel="noopener" style={{ flexShrink: 0, textAlign: 'center', background: '#FF6B35', color: '#1A1A1A', padding: '12px 22px', minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6, borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', whiteSpace: 'nowrap' }} className="hp-promo-btn">Try Swor AI <span className="hp-arrow" aria-hidden="true">→</span></a>
   </div>
 </div>
 
