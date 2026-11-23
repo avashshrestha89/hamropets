@@ -20,6 +20,20 @@ export async function getServerSideProps({ params }) {
   return { props: { item } }
 }
 
+// Keep the reporter's paragraphs and line breaks, wrap long words, and make web links clickable.
+function renderDescription(text, fontSize) {
+  const paragraphs = String(text || '').trim().split(/\n\s*\n/).filter(Boolean)
+  return paragraphs.map((para, i) => (
+    <p key={i} style={{ margin: i === 0 ? 0 : '14px 0 0', fontSize, color: '#374151', lineHeight: 1.75, fontWeight: 500, whiteSpace: 'pre-line', overflowWrap: 'anywhere' }}>
+      {para.split(/(https?:\/\/[^\s]+)/g).map((part, j) => (
+        j % 2 === 1
+          ? <a key={j} href={part} target="_blank" rel="noopener noreferrer nofollow ugc" style={{ color: '#1D4ED8', fontWeight: 700, textDecoration: 'underline' }}>{part}</a>
+          : part
+      ))}
+    </p>
+  ))
+}
+
 export default function LostFoundDetail({ item }) {
   const [isMobile, setIsMobile] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0) // <--- ADD THIS LINE
@@ -32,6 +46,29 @@ export default function LostFoundDetail({ item }) {
   }, [])
 
   const isLost = item.type === 'lost'
+
+  // Show only what the reporter actually filled in.
+  const fmtDate = (d) => { const t = new Date(d); return isNaN(t) ? d : t.toLocaleDateString('en-NP', { day: 'numeric', month: 'short', year: 'numeric' }) }
+  const lastSeen = [item.last_seen_date ? fmtDate(item.last_seen_date) : '', item.last_seen_time || ''].filter(Boolean).join(' at ')
+  const detailRows = [
+    ['🐕 Breed', item.breed],
+    ['⚧ Gender', item.gender],
+    ['🎂 Age', item.age],
+    ['🎨 Color', item.color],
+    [isLost ? '🕐 Last seen' : '🕐 Found on', lastSeen],
+    ['📌 Landmark', item.landmark],
+    ['🦴 Collar', item.collar_description],
+    ['🔎 Distinctive marks', item.distinctive_marks],
+    ['😊 Temperament', item.temperament],
+    ['🗺️ Known places', item.known_haunts],
+    ['🏁 Reward', item.reward_offered],
+    ['🩺 Condition', item.condition],
+    ['🏠 Can foster', item.can_foster],
+  ].filter(([, v]) => v && String(v).trim())
+
+  // WhatsApp: use the WhatsApp number if the reporter gave one, otherwise the phone number.
+  const waDigits = String(item.contact_whatsapp || item.contact_phone || '').replace(/\D/g, '')
+  const waNumber = waDigits.startsWith('977') ? waDigits : `977${waDigits.replace(/^0/, '')}`
   const color = isLost ? '#FF6B9D' : '#58CC02'
   const label = isLost ? '🔴 LOST' : '🟢 FOUND'
 
@@ -127,10 +164,22 @@ export default function LostFoundDetail({ item }) {
                 ))}
               </div>
 
+              {/* REPORT DETAILS (only fields the reporter filled in) */}
+              {detailRows.length > 0 && (
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
+                  {detailRows.map(([label, value]) => (
+                    <div key={label} style={{ background: '#F9FAFB', borderRadius: 12, padding: '12px 14px', border: '1.5px solid #E5E7EB' }}>
+                      <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', marginBottom: 4 }}>{label}</div>
+                      <div style={{ fontSize: isMobile ? 13 : 14, fontWeight: 700, color: '#1A1A1A', lineHeight: 1.5 }}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* DESCRIPTION */}
               <div style={{ background: '#F9FAFB', borderRadius: 14, padding: isMobile ? '14px' : '20px', border: '1.5px solid #E5E7EB', marginBottom: 24 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#1A1A1A', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>📝 Description</div>
-                <p style={{ margin: 0, fontSize: isMobile ? 14 : 15, color: '#374151', lineHeight: 1.75, fontWeight: 500 }}>{item.description}</p>
+                {renderDescription(item.description, isMobile ? 14 : 15)}
               </div>
 
               {/* CONTACT BUTTONS */}
@@ -138,7 +187,7 @@ export default function LostFoundDetail({ item }) {
                 <a href={`tel:${item.contact_phone}`} style={{ display: 'block', background: '#58CC02', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
                   📞 Call {item.contact_name} — {item.contact_phone}
                 </a>
-                <a href={`https://wa.me/977${item.contact_phone?.replace(/^0/, '')}`} target="_blank" rel="noreferrer" style={{ display: 'block', background: '#25D366', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
+                <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noreferrer" style={{ display: 'block', background: '#25D366', color: '#fff', padding: '15px', borderRadius: 14, border: '2.5px solid #1A1A1A', fontSize: isMobile ? 15 : 16, fontWeight: 900, textAlign: 'center', textDecoration: 'none', boxShadow: '4px 4px 0px #166534' }}>
                   💬 WhatsApp {item.contact_name}
                 </a>
                 <button onClick={() => {
