@@ -71,6 +71,9 @@ function AutoScroller() {
 // Instagram account is under appeal. Set to true when it is back.
 const SHOW_INSTAGRAM_CARD = false
 
+const SWOR_BANNER_VIDEO = ''; // e.g. '/swor-banner.mp4' (muted loop, under 1 MB)
+const SWOR_BANNER_POSTER = ''; // e.g. '/swor-banner.jpg'
+
 export default function Home({ featuredLostPets, featuredPets,featuredVets, featuredWalkers, lostFoundPets, starPets, starWalker, superPet, superPet2, urgentLostPets }) {
   const [isMobile, setIsMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -358,6 +361,26 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
       {/* FULL WIDTH AUTO SCROLLER BANNER */}
       <div style={{ width: '100%', borderBottom: '3px solid #1A1A1A' }}>
         <AutoScroller />
+      </div>
+
+      {/* SWOR AI PROMO: bold dark band, right under the photo scroller. Set SWOR_BANNER_VIDEO to an mp4 path in /public to add a looping clip behind the text. */}
+      <div className="hp-swor" style={{ borderBottom: '3px solid #1A1A1A' }}>
+        {SWOR_BANNER_VIDEO && (
+          <video className="hp-swor-video" autoPlay muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} poster={SWOR_BANNER_POSTER || undefined}>
+            <source src={SWOR_BANNER_VIDEO} type="video/mp4" />
+          </video>
+        )}
+        <div className="hp-swor-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '26px 16px' : '34px 28px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : 'center', justifyContent: 'space-between', gap: isMobile ? 18 : 32, position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 16 : 22, minWidth: 0 }}>
+            <div aria-hidden="true" className="hp-wave hp-wave-lg"><span /><span /><span /><span /><span /><span /><span /></div>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#FFD23F', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Also from us</div>
+              <h3 style={{ margin: 0, fontSize: isMobile ? 21 : 28, fontWeight: 900, color: '#FFFFFF', lineHeight: 1.2 }}>Swor AI: the Nepali voice behind our pet videos</h3>
+              <p style={{ margin: '6px 0 0', fontSize: isMobile ? 14 : 16, color: '#E5E7EB', fontWeight: 500, lineHeight: 1.5 }}>Turn any text into a natural Nepali voiceover in seconds.</p>
+            </div>
+          </div>
+          <a href="https://sworai.com/?utm_source=hamropets&utm_medium=homepage_banner&utm_campaign=cross_promo" target="_blank" rel="noopener" className="hp-promo-btn hp-swor-btn" style={{ flexShrink: 0, textAlign: 'center', background: '#FF6B35', color: '#1A1A1A', padding: '14px 28px', minHeight: 52, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, borderRadius: 14, fontSize: isMobile ? 16 : 17, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', whiteSpace: 'nowrap' }}>Try Swor AI <span className="hp-arrow" aria-hidden="true">→</span></a>
+        </div>
       </div>
 
       {/* HOW IT WORKS: plain list, no heading tag so the page outline is unchanged */}
@@ -708,21 +731,6 @@ export default function Home({ featuredLostPets, featuredPets,featuredVets, feat
             </div>
           </div>
         )}
-{/* SWOR AI PROMO: slim cross-promo strip, mid-page (moved from near the footer) */}
-<div style={{ maxWidth: 1200, margin: isMobile ? '8px auto' : '12px auto', padding: isMobile ? '0 16px' : '0 28px' }}>
-  <div style={{ background: '#FFFBEB', border: '2.5px solid #1A1A1A', borderRadius: 18, boxShadow: '4px 4px 0px #1A1A1A', padding: isMobile ? '16px' : '18px 24px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : 'center', justifyContent: 'space-between', gap: isMobile ? 14 : 24 }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
-      <div aria-hidden="true" className="hp-wave" style={{ flexShrink: 0, width: 56, height: 56, borderRadius: 16, background: '#FFD23F', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A' }}><span /><span /><span /><span /><span /></div>
-      <div style={{ minWidth: 0 }}>
-        <div style={{ fontSize: 11, fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 2 }}>Also from us</div>
-        <h3 style={{ margin: 0, fontSize: isMobile ? 15 : 17, fontWeight: 900, color: '#1A1A1A', lineHeight: 1.3 }}>Swor AI: the Nepali voice behind our pet videos</h3>
-        <p style={{ margin: '2px 0 0', fontSize: isMobile ? 13 : 14, color: '#4B5563', fontWeight: 500, lineHeight: 1.5 }}>Turn any text into a natural Nepali voiceover in seconds.</p>
-      </div>
-    </div>
-    <a href="https://sworai.com/?utm_source=hamropets&utm_medium=homepage_banner&utm_campaign=cross_promo" target="_blank" rel="noopener" style={{ flexShrink: 0, textAlign: 'center', background: '#FF6B35', color: '#1A1A1A', padding: '12px 22px', minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6, borderRadius: 12, fontSize: 14, fontWeight: 900, textDecoration: 'none', border: '2.5px solid #1A1A1A', boxShadow: '3px 3px 0px #1A1A1A', whiteSpace: 'nowrap' }} className="hp-promo-btn">Try Swor AI <span className="hp-arrow" aria-hidden="true">→</span></a>
-  </div>
-</div>
-
 {/* LOST & FOUND PANEL */}
         {lostFoundPets.length > 0 && (
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '40px 16px 0' : '56px 28px 0' }}>

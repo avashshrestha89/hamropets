@@ -68,13 +68,24 @@ button {
 .hp-wave span:nth-child(4) { animation-delay: .1s; }
 .hp-wave span:nth-child(5) { animation-delay: .3s; }
 @keyframes hp-wave { 0%, 100% { transform: scaleY(.2); } 50% { transform: scaleY(1); } }
+.hp-swor { position: relative; overflow: hidden; background: linear-gradient(120deg, #14123A 0%, #2A1B5E 55%, #14123A 100%); }
+.hp-swor::before { content: ""; position: absolute; left: -10%; top: -60%; width: 60%; height: 220%; background: radial-gradient(closest-side, rgba(255,210,63,.28), rgba(255,210,63,0)); animation: hp-glow 6s ease-in-out infinite; pointer-events: none; }
+@keyframes hp-glow { 0%, 100% { transform: translateX(0); opacity: .6; } 50% { transform: translateX(40%); opacity: 1; } }
+.hp-swor-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+.hp-wave-lg { gap: 5px; flex-shrink: 0; }
+.hp-wave-lg span { width: 6px; height: 54px; background: #FFD23F; }
+.hp-wave-lg span:nth-child(6) { animation-delay: .5s; }
+.hp-wave-lg span:nth-child(7) { animation-delay: .15s; }
+.hp-swor-btn { box-shadow: 4px 4px 0 #FFD23F; }
+.hp-swor-btn:hover { box-shadow: 6px 6px 0 #FFD23F !important; }
+.hp-swor-btn:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
 .hp-arrow { display: inline-block; animation: hp-nudge 3s ease-in-out infinite; }
 @keyframes hp-nudge { 0%, 70%, 100% { transform: translateX(0); } 80% { transform: translateX(5px); } 90% { transform: translateX(0); } }
 .hp-promo-btn { transition: transform .15s ease, box-shadow .15s ease; }
 .hp-promo-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #1A1A1A !important; }
 .hp-promo-btn:focus-visible { outline: 3px solid #1A1A1A; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
-  .hp-wave span, .hp-arrow { animation: none; }
+  .hp-wave span, .hp-arrow, .hp-swor::before { animation: none; }
   .hp-wave span { transform: scaleY(.6); }
   .hp-wave span:nth-child(2n) { transform: scaleY(.9); }
   .hp-promo-btn { transition: none; }
